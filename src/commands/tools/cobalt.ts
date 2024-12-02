@@ -67,7 +67,6 @@ export default class Cobalt extends Command {
     const startTime = Date.now();
 
     const response = await client.cobalt.fetch(url!);
-    logger.debug(response);
 
     let files: { attachment: Buffer; name: string }[] = [];
     switch (response.status) {

@@ -18,7 +18,7 @@ export class I18n {
           const localeTranslations = await this.loadLocaleFiles(path.join(localesPath, locale));
           this.translationsByLocale[locale] = this.flattenTranslations(localeTranslations);
         } catch (error) {
-          logger.error(`Failed to load locale '${locale}':`, error);
+          logger.error(`Failed to load locale '${locale}'`, { error });
         }
       })
     );
@@ -49,7 +49,7 @@ export class I18n {
         }
       }
     } catch (error) {
-      logger.error(`Failed to load files from '${localePath}':`, error);
+      logger.error(`Failed to load files from '${localePath}'`, { error });
     }
 
     return mergedTranslations;
@@ -74,7 +74,7 @@ export class I18n {
         })
       );
     } catch (error) {
-      logger.error(`Failed to read directory '${dir}':`, error);
+      logger.error(`Failed to read directory '${dir}'`, { error });
     }
 
     return files;

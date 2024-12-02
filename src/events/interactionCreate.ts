@@ -3,6 +3,7 @@ import { client } from '~/app';
 import { type Locale } from '~/lib/i18n';
 import { Event } from '~/structures/event';
 import { Embed } from '~/structures/embed';
+import { logger } from '~/lib/logger';
 
 export default class InteractionCreate extends Event {
   public constructor() {
@@ -30,32 +31,41 @@ export default class InteractionCreate extends Event {
     const translate = (key: string, vars?: Record<string, string>) =>
       client.i18n.translate(locale as Locale, key, vars);
 
-    await command.run(interaction, translate).catch(async (error: unknown) => {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      const timestamp = Math.floor(Date.now() / 1000);
+    await command
+      .run(interaction, translate)
+      .then(() => {
+        logger.debug(`Executed command '${command.data.name}'`, {
+          guild: interaction.guildId,
+          channel: interaction.channelId,
+          user: interaction.user.id,
+        });
+      })
+      .catch(async (error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        const timestamp = Math.floor(Date.now() / 1000);
 
-      const errorEmbed = new Embed()
-        .setDefaults(interaction.user)
-        .setDescription(
-          translate('common.executionError', {
-            command: command.data.name,
-            issueUrl: 'https://github.com/meteor-discord/application/issues/new',
-          })
-        )
-        .addFields([
-          {
-            name: translate('common.timestamp'),
-            value: `<t:${timestamp}:R> (${timestamp})`,
-          },
-          {
-            name: translate('common.error'),
-            value: codeBlock('bf', errorMessage),
-          },
-        ]);
+        const errorEmbed = new Embed()
+          .setDefaults(interaction.user)
+          .setDescription(
+            translate('common.executionError', {
+              command: command.data.name,
+              issueUrl: 'https://github.com/meteor-discord/application/issues/new',
+            })
+          )
+          .addFields([
+            {
+              name: translate('common.timestamp'),
+              value: `<t:${timestamp}:R> (${timestamp})`,
+            },
+            {
+              name: translate('common.error'),
+              value: codeBlock('bf', errorMessage),
+            },
+          ]);
 
-      await interaction.reply({ embeds: [errorEmbed] }).catch(() => null);
+        await interaction.reply({ embeds: [errorEmbed] }).catch(() => null);
 
-      throw error;
-    });
+        throw error;
+      });
   }
 }

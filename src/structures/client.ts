@@ -7,6 +7,7 @@ import type { Command } from '~/structures/command';
 import type { Event } from './event';
 import { CobaltService } from '~/services/cobalt';
 import { I18n } from '~/lib/i18n';
+import { logger } from '~/lib/logger';
 
 export class Client<Ready extends boolean = true> extends DiscordClient<Ready> {
   public readonly prisma = new PrismaClient();
@@ -37,12 +38,14 @@ export class Client<Ready extends boolean = true> extends DiscordClient<Ready> {
       const handler = (...args: Parameters<Event['run']>) => event.run(...args);
       event.once ? this.once(event.name, handler) : this.on(event.name, handler);
     });
+    logger.info(`Registered ${this.eventNames().length} events`);
   }
 
   private async registerCommands(): Promise<void> {
     await this.registerItems<Command>(join(import.meta.dir, '..', 'commands'), '.ts', command => {
       this.commands.set(command.data.name, command);
     });
+    logger.info(`Registered ${this.commands.size} commands`);
   }
 
   public async init(): Promise<void> {
