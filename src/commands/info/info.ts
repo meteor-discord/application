@@ -259,6 +259,7 @@ export default class Info extends Command {
         const embed = new Embed()
           .setDefaults(interaction.user)
           .setTitle($("modules.info.role.title"))
+          .setImage(role.iconURL({ size: 1024 }) || null)
           .setFields([
             {
               name: "ID",
