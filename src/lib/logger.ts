@@ -1,7 +1,7 @@
 import chalk, { type ChalkInstance } from 'chalk';
 
 type BaseLogLevel = 'DEBUG' | 'INFO' | 'NOTICE' | 'WARN' | 'ERROR' | 'FATAL';
-type ExtendedLogLevel = 'PERFORMANCE' | 'SECURITY';
+type ExtendedLogLevel = 'WEBSOCKET' | 'PERFORMANCE' | 'SECURITY';
 export type LogLevel = BaseLogLevel | ExtendedLogLevel;
 
 type LogContext = Record<string, unknown>;
@@ -13,6 +13,7 @@ interface LogColors {
   WARN: ChalkInstance;
   ERROR: ChalkInstance;
   FATAL: ChalkInstance;
+  WEBSOCKET: ChalkInstance;
   PERFORMANCE: ChalkInstance;
   SECURITY: ChalkInstance;
 }
@@ -25,6 +26,7 @@ export class Logger {
     WARN: chalk.hex('#fcd04c'),
     ERROR: chalk.hex('#fc5656'),
     FATAL: chalk.bgHex('#9c2424').white,
+    WEBSOCKET: chalk.hex('#e866a3'),
     PERFORMANCE: chalk.bgWhite.black,
     SECURITY: chalk.bgBlack.white,
   } as const;
@@ -76,6 +78,10 @@ export class Logger {
 
   public fatal(message: string, context?: LogContext): void {
     console.error(this.formatMessage('FATAL', message, context));
+  }
+
+  public websocket(message: string, context?: LogContext): void {
+    console.info(this.formatMessage('WEBSOCKET', message, context));
   }
 
   public performance(message: string, context?: LogContext): void {
