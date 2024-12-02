@@ -10,7 +10,6 @@ import { Command } from '~/structures/command';
 import { Embed } from '~/structures/embed';
 import type { I18nFunction } from '~/lib/i18n';
 import { client } from '~/app';
-import { logger } from '~/lib/logger';
 
 export default class Cobalt extends Command {
   public constructor() {
