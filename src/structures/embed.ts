@@ -8,6 +8,10 @@ export class Embed extends EmbedBuilder {
     this.setColor(Embed.DEFAULT_COLOR);
   }
 
+  /**
+   * Sets default embed properties including author information if provided
+   * @param author The Discord user to set as the embed author
+   */
   setDefaults(author?: User) {
     if (!author) return this;
 
