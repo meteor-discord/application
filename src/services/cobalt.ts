@@ -32,10 +32,13 @@ export class CobaltService {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'User-Agent': 'meteor-application/1.0.0',
+        // https://github.com/imputnet/cobalt/blob/main/docs/api.md#authentication
         Authorization: `Api-Key ${process.env.COBALT_API_KEY}`,
       },
+      // https://github.com/imputnet/cobalt/blob/main/docs/api.md#request-body
       body: JSON.stringify({
         url,
+        disableMetadata: true,
       }),
     });
 
