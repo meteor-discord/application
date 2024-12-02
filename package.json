@@ -1,15 +1,17 @@
 {
   "name": "application",
+  "author": "Meteor Labs",
+  "license": "MIT",
   "module": "src/app.ts",
   "type": "module",
   "engines": {
-    "bun": ">=1.1.0"
+    "bun": ">=1.1.38"
   },
   "scripts": {
     "dev": "bun run --watch .",
     "start": "bun run .",
     "format": "prettier --write .",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint .",
     "preinstall": "bunx only-allow bun"
   },
   "dependencies": {
@@ -29,5 +31,5 @@
   "peerDependencies": {
     "typescript": "^5.7.2"
   },
-  "license": "MIT"
+  "packageManager": "bun@1.1.38"
 }
