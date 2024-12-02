@@ -1,6 +1,5 @@
 {
   "error": "Error",
   "timestamp": "Timestamp",
-  "executionError": "Error while running command {command}.\nPlease [create a new issue]({issueUrl}) on our GitHub repository.",
-  "databaseConnectionError": "The database is not configured. This command is disabled!"
+  "executionError": "Error while running command {command}.\nPlease [create a new issue]({issueUrl}) on our GitHub repository."
 }
