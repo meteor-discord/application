@@ -1,4 +1,4 @@
-import { GatewayIntentBits, Partials } from 'discord.js';
+import { ActivityType, GatewayIntentBits, Partials } from 'discord.js';
 
 import { Client } from '~/structures/client';
 
@@ -10,6 +10,14 @@ export const client = new Client({
   partials: Object.values(Partials) as Partials[],
   allowedMentions: {
     repliedUser: false,
+  },
+  presence: {
+    activities: [
+      {
+        name: `Running on ${Bun.spawnSync(['git', 'rev-parse', '--short', 'HEAD']).stdout.toString().trim()}`,
+        type: ActivityType.Custom,
+      },
+    ],
   },
 });
 
