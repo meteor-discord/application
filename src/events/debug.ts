@@ -1,16 +1,16 @@
-import { Event } from '~/structures/event';
-import { logger } from '~/lib/logger';
+import { logger } from "~/lib/logger";
+import { Event } from "~/structures/event";
 
 export default class WebSocketDebugEvent extends Event {
   private static readonly MONITORED_MESSAGES = [
-    'Preparing first heartbeat of the connection with a jitter of',
-    'Shard received all its guilds. Marking as fully ready.',
-    'First heartbeat sent, starting to beat every',
+    "Preparing first heartbeat of the connection with a jitter of",
+    "Shard received all its guilds. Marking as fully ready.",
+    "First heartbeat sent, starting to beat every",
   ] as const;
 
   public constructor() {
     super({
-      name: 'debug',
+      name: "debug",
     });
   }
 
@@ -29,7 +29,7 @@ export default class WebSocketDebugEvent extends Event {
     });
   }
 
-  private parseShardInfo(debugInfo: string): { shardId: string; message: string } | null {
+  private parseShardInfo(debugInfo: string): { shardId: string; message: string; } | null {
     const match = debugInfo.match(/\[WS => Shard (\d+)\] (.+)/);
     if (!match) return null;
 

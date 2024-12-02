@@ -1,26 +1,27 @@
-import fs from 'fs/promises';
-import { logger } from './logger';
-import path from 'path';
+import fs from "fs/promises";
+import path from "path";
+import { logger } from "./logger";
 
-export type Locale = 'en' | 'pl';
+export type Locale = "en" | "pl";
 export type I18nFunction = (key: string, variables?: Record<string, string>) => string;
 export type FlatTranslations = Record<string, string>;
 
 export class I18n {
   private readonly translationsByLocale: Record<Locale, FlatTranslations> = { en: {}, pl: {} };
 
-  constructor(private readonly availableLocales: Locale[] = ['en', 'pl']) {}
+  constructor(private readonly availableLocales: Locale[] = ["en", "pl"]) {}
 
-  public async init(localesPath = path.join(__dirname, '../../locales')): Promise<void> {
+  public async init(localesPath = path.join(__dirname, "../../locales")): Promise<void> {
     await Promise.all(
       this.availableLocales.map(async locale => {
         try {
           const localeTranslations = await this.loadLocaleFiles(path.join(localesPath, locale));
           this.translationsByLocale[locale] = this.flattenTranslations(localeTranslations);
-        } catch (error) {
+        }
+        catch (error) {
           logger.error(`Failed to load locale '${locale}'`, { error });
         }
-      })
+      }),
     );
   }
 
@@ -31,10 +32,10 @@ export class I18n {
       const files = await this.getJsonFiles(localePath);
 
       for (const file of files) {
-        const content = JSON.parse(await fs.readFile(file, 'utf8'));
+        const content = JSON.parse(await fs.readFile(file, "utf8"));
         const namespace = path
           .relative(localePath, file)
-          .replace(/\.[^/.]+$/, '')
+          .replace(/\.[^/.]+$/, "")
           .split(path.sep);
 
         let current = mergedTranslations;
@@ -42,13 +43,15 @@ export class I18n {
           const segment = namespace[i];
           if (i === namespace.length - 1) {
             current[segment] = { ...((current[segment] as object) || {}), ...content };
-          } else {
+          }
+          else {
             current[segment] = current[segment] || {};
             current = current[segment] as Record<string, unknown>;
           }
         }
       }
-    } catch (error) {
+    }
+    catch (error) {
       logger.error(`Failed to load files from '${localePath}'`, { error });
     }
 
@@ -68,12 +71,14 @@ export class I18n {
           if (entry.isDirectory()) {
             const subFiles = await this.getJsonFiles(fullPath);
             files.push(...subFiles);
-          } else if (entry.isFile() && /\.(?:json|jsonc)$/.test(entry.name)) {
+          }
+          else if (entry.isFile() && /\.(?:json|jsonc)$/.test(entry.name)) {
             files.push(fullPath);
           }
-        })
+        }),
       );
-    } catch (error) {
+    }
+    catch (error) {
       logger.error(`Failed to read directory '${dir}'`, { error });
     }
 
@@ -88,15 +93,16 @@ export class I18n {
       : translation;
   }
 
-  private flattenTranslations(obj: Record<string, unknown>, prefix = ''): FlatTranslations {
+  private flattenTranslations(obj: Record<string, unknown>, prefix = ""): FlatTranslations {
     const flattened: FlatTranslations = {};
 
     for (const [key, value] of Object.entries(obj)) {
       const fullKey = prefix ? `${prefix}.${key}` : key;
 
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         flattened[fullKey] = value;
-      } else if (typeof value === 'object' && value !== null) {
+      }
+      else if (typeof value === "object" && value !== null) {
         Object.assign(flattened, this.flattenTranslations(value as Record<string, unknown>, fullKey));
       }
     }

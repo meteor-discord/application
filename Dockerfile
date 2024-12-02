@@ -38,4 +38,4 @@ RUN bunx prisma generate
 
 # run the app
 USER bun
-ENTRYPOINT [ "bun", "start" ]
+ENTRYPOINT ["bun", "start"]

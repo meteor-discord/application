@@ -1,14 +1,17 @@
-import { codeBlock, type Interaction } from 'discord.js';
-import { client } from '~/app';
-import { type Locale } from '~/lib/i18n';
-import { Event } from '~/structures/event';
-import { Embed } from '~/structures/embed';
-import { logger } from '~/lib/logger';
+import {
+  codeBlock,
+  type Interaction,
+} from "discord.js";
+import { client } from "~/app";
+import { type Locale } from "~/lib/i18n";
+import { logger } from "~/lib/logger";
+import { Embed } from "~/structures/embed";
+import { Event } from "~/structures/event";
 
 export default class InteractionCreate extends Event {
   public constructor() {
     super({
-      name: 'interactionCreate',
+      name: "interactionCreate",
     });
   }
 
@@ -20,16 +23,15 @@ export default class InteractionCreate extends Event {
 
     const locale = interaction.guild
       ? await client.prisma.guild
-          .findUnique({
-            where: { id: interaction.guildId! },
-            select: { locale: true },
-          })
-          .then(guild => guild?.locale.toLowerCase() ?? 'en')
-          .catch(() => 'en')
-      : 'en';
+        .findUnique({
+          where: { id: interaction.guildId! },
+          select: { locale: true },
+        })
+        .then(guild => guild?.locale.toLowerCase() ?? "en")
+        .catch(() => "en")
+      : "en";
 
-    const translate = (key: string, vars?: Record<string, string>) =>
-      client.i18n.translate(locale as Locale, key, vars);
+    const translate = (key: string, vars?: Record<string, string>) => client.i18n.translate(locale as Locale, key, vars);
 
     await command
       .run(interaction, translate)
@@ -47,19 +49,19 @@ export default class InteractionCreate extends Event {
         const errorEmbed = new Embed()
           .setDefaults(interaction.user)
           .setDescription(
-            translate('common.executionError', {
+            translate("common.executionError", {
               command: command.data.name,
-              issueUrl: 'https://github.com/meteor-discord/application/issues/new',
-            })
+              issueUrl: "https://github.com/meteor-discord/application/issues/new",
+            }),
           )
           .addFields([
             {
-              name: translate('common.timestamp'),
+              name: translate("common.timestamp"),
               value: `<t:${timestamp}:R> (${timestamp})`,
             },
             {
-              name: translate('common.error'),
-              value: codeBlock('bf', errorMessage),
+              name: translate("common.error"),
+              value: codeBlock("bf", errorMessage),
             },
           ]);
 

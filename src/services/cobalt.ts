@@ -1,11 +1,11 @@
 export interface CobaltPicker {
-  type: 'photo' | 'video' | 'gif';
+  type: "photo" | "video" | "gif";
   url: string;
   thumb?: string;
 }
 
 export interface CobaltResponse {
-  status: 'error' | 'tunnel' | 'redirect' | 'picker';
+  status: "error" | "tunnel" | "redirect" | "picker";
   picker?: CobaltPicker[];
   url?: string;
   filename?: string;
@@ -17,7 +17,7 @@ export interface CobaltResponse {
 export class CobaltService {
   private instance: string;
 
-  constructor(instanceUrl = process.env.COBALT_API_URL || 'https://cobalt.meteors.cc/') {
+  constructor(instanceUrl = process.env.COBALT_API_URL || "https://cobalt.meteors.cc/") {
     this.instance = instanceUrl;
   }
 
@@ -27,13 +27,13 @@ export class CobaltService {
    */
   public async fetch(url: string): Promise<CobaltResponse> {
     const res = await fetch(this.instance, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'User-Agent': 'meteor-application/1.0.0',
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "User-Agent": "meteor-application/1.0.0",
         // https://github.com/imputnet/cobalt/blob/main/docs/api.md#authentication
-        Authorization: `Api-Key ${process.env.COBALT_API_KEY}`,
+        "Authorization": `Api-Key ${process.env.COBALT_API_KEY}`,
       },
       // https://github.com/imputnet/cobalt/blob/main/docs/api.md#request-body
       body: JSON.stringify({

@@ -1,4 +1,7 @@
-import { EmbedBuilder, User } from 'discord.js';
+import {
+  EmbedBuilder,
+  User,
+} from "discord.js";
 
 export class Embed extends EmbedBuilder {
   private static readonly DEFAULT_COLOR = 0xe3223b;
@@ -15,8 +18,8 @@ export class Embed extends EmbedBuilder {
   setDefaults(author?: User) {
     if (!author) return this;
 
-    const name =
-      author.displayName === author.username ? author.username : `${author.username} (${author.displayName})`;
+    const name = author.displayName === author.username ? author.username
+      : `${author.username} (${author.displayName})`;
 
     this.setAuthor({
       name,

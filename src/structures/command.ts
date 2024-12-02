@@ -3,9 +3,9 @@ import type {
   SlashCommandBuilder,
   SlashCommandOptionsOnlyBuilder,
   SlashCommandSubcommandsOnlyBuilder,
-} from 'discord.js';
+} from "discord.js";
 
-import type { I18nFunction } from '~/lib/i18n';
+import type { I18nFunction } from "~/lib/i18n";
 
 type CommandData = SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder;
 
