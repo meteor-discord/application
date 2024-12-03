@@ -15,7 +15,7 @@ export class Embed extends EmbedBuilder {
    * Sets default embed properties including author information if provided
    * @param author The Discord user to set as the embed author
    */
-  setDefaults(author?: User) {
+  setDefaults(author?: User): Embed {
     if (!author) return this;
 
     const name = author.displayName === author.username ? author.username
