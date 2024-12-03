@@ -15,7 +15,8 @@ Join the [Discord](https://discord.meteors.cc) server for more information or to
 - [Bun](https://github.com/oven-sh/bun)
 - [Discord.js](https://github.com/discordjs/discord.js)
 - [Prisma](https://github.com/prisma/prisma) with PostgreSQL
-- [Pino](https://github.com/pinojs/pino)
+- [Chalk](https://github.com/chalk/chalk)
+- [Dprint](https://github.com/dprint/dprint)
 
 ## Installation
 
