@@ -1,6 +1,5 @@
 {
   "error": "Błąd",
   "timestamp": "Znacznik czasu",
-  "executionError": "Błąd podczas wykonywania polecenia {command}.\nProszę [utworzyć nowe zgłoszenie]({issueUrl}) w naszym repozytorium GitHub.",
-  "databaseConnectionError": "Baza danych nie jest skonfigurowana. Ta komenda jest wyłączona!"
+  "executionError": "Błąd podczas wykonywania polecenia {command}.\nProszę [utworzyć nowe zgłoszenie]({issueUrl}) w naszym repozytorium GitHub."
 }
