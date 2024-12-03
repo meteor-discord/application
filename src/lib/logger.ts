@@ -6,20 +6,8 @@ export type LogLevel = BaseLogLevel | ExtendedLogLevel;
 
 type LogContext = Record<string, unknown>;
 
-interface LogColors {
-  DEBUG: ChalkInstance;
-  INFO: ChalkInstance;
-  NOTICE: ChalkInstance;
-  WARN: ChalkInstance;
-  ERROR: ChalkInstance;
-  FATAL: ChalkInstance;
-  WEBSOCKET: ChalkInstance;
-  PERFORMANCE: ChalkInstance;
-  SECURITY: ChalkInstance;
-}
-
 export class Logger {
-  private static readonly LOG_COLORS: LogColors = {
+  private static readonly LOG_COLORS: Record<LogLevel, ChalkInstance> = {
     DEBUG: chalk.hex("#78c9ff"),
     INFO: chalk.hex("#4b74fa"),
     NOTICE: chalk.hex("#844af0"),
