@@ -1,10 +1,10 @@
-import type { ClientEvents } from 'discord.js';
+import type { ClientEvents } from "discord.js";
 
 export abstract class Event<K extends keyof ClientEvents = keyof ClientEvents> {
   public readonly name: K;
   public readonly once: boolean;
 
-  public constructor({ name, once }: { name: K; once?: boolean }) {
+  public constructor({ name, once }: { name: K; once?: boolean; }) {
     this.name = name;
     this.once = once ?? false;
   }

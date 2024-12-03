@@ -1,8 +1,7 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "amatiasq.sort-imports",
+    "gplane.dprint2",
     "Prisma.prisma",
     "ms-azuretools.vscode-docker",
     "github.vscode-github-actions"
