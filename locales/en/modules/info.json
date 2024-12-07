@@ -45,6 +45,11 @@
       "invite": "Invite",
       "tags": "Tags",
       "links": "Links"
+    },
+    "buttons": {
+      "icon": "Icon URL",
+      "invite": "Invite URL",
+      "admin_invite": "Invite URL (admin)"
     }
   },
   "role": {
