@@ -16,9 +16,20 @@ export interface CobaltResponse {
 
 export class CobaltService {
   private instance: string;
+  public latency = -1;
 
-  constructor(instanceUrl = process.env.COBALT_API_URL || "https://cobalt.meteors.cc/") {
+  constructor(instanceUrl = Bun.env.COBALT_API_URL || "https://cobalt.meteors.cc/") {
     this.instance = instanceUrl;
+
+    const checkLatency = async () => {
+      const start = Date.now();
+      await fetch(this.instance)
+        .then(res => this.latency = res.ok ? Date.now() - start : -1)
+        .catch(() => this.latency = -1);
+    };
+
+    void checkLatency();
+    setInterval(checkLatency, 15 * 60 * 1000);
   }
 
   /**
@@ -33,7 +44,7 @@ export class CobaltService {
         "Content-Type": "application/json",
         "User-Agent": "meteor-application/1.0.0",
         // https://github.com/imputnet/cobalt/blob/main/docs/api.md#authentication
-        "Authorization": `Api-Key ${process.env.COBALT_API_KEY}`,
+        "Authorization": `Api-Key ${Bun.env.COBALT_API_KEY}`,
       },
       // https://github.com/imputnet/cobalt/blob/main/docs/api.md#request-body
       body: JSON.stringify({

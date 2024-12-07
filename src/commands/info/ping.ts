@@ -7,6 +7,7 @@ import {
   InteractionContextType,
   SlashCommandBuilder,
 } from "discord.js";
+import { client } from "~/app";
 
 import type { I18nFunction } from "~/lib/i18n";
 import { Command } from "~/structures/command";
@@ -39,12 +40,17 @@ export default class Ping extends Command {
         },
         {
           name: $("modules.ping.fields.database"),
-          value: `0ms`,
+          value: `${client.prisma.latency}ms`,
           inline: true,
         },
         {
           name: $("modules.ping.fields.api"),
           value: `0ms`,
+          inline: true,
+        },
+        {
+          name: "Cobalt",
+          value: `${client.cobalt.latency}ms`,
           inline: true,
         },
       ]);

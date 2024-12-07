@@ -55,7 +55,7 @@ export function formatRelativeTimestamp(timestamp: number | null): string {
  */
 export function formatArrayWithEllipsis<T>(
   arr: T[],
-  formatter: (item: T) => string,
+  formatter: (item: T) => string = item => `${item}`,
   limit = 3,
 ): string | null {
   if (arr.length === 0) return null;

@@ -11,6 +11,8 @@ if (!process.versions.bun) {
   throw new Error("Bun runtime is required to run this application. Please install Bun from https://bun.sh/.");
 }
 
+Bun.env.TZ = "Europe/Warsaw";
+
 export const client = new Client({
   intents: Object.values(GatewayIntentBits) as GatewayIntentBits[],
   partials: Object.values(Partials) as Partials[],
