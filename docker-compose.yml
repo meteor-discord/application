@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:16
     container_name: postgres
     restart: unless-stopped
     environment:
@@ -11,10 +11,31 @@ services:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres -d ${POSTGRES_DB:-postgres}']
-      interval: 10s
+      interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 5s
+      start_interval: 2s
+    command: >
+      postgres
+      -c shared_buffers=1GB
+      -c effective_cache_size=2GB
+      -c maintenance_work_mem=256MB
+      -c work_mem=16MB
+      -c max_connections=200
+      -c max_worker_processes=3
+      -c max_parallel_workers=3
+      -c max_parallel_workers_per_gather=2
+      -c random_page_cost=1.1
+      -c effective_io_concurrency=200
+      -c wal_buffers=32MB
+      -c min_wal_size=512MB
+      -c max_wal_size=2GB
+      -c checkpoint_completion_target=0.9
+      -c default_statistics_target=100
+      -c autovacuum_max_workers=3
+      -c autovacuum_vacuum_scale_factor=0.1
+      -c autovacuum_analyze_scale_factor=0.05
 
   cobalt-api:
     image: ghcr.io/imputnet/cobalt:10
@@ -27,17 +48,32 @@ services:
     labels:
       - com.centurylinklabs.watchtower.scope=cobalt
     healthcheck:
-      test: ['CMD', 'wget', '--spider', 'http://cobalt-api:9000']
-      interval: 5s
-      timeout: 10s
-      retries: 10
+      test: >-
+        CMD wget --spider --timeout=2 --tries=1 -q --header='Accept: application/json'
+        --server-response http://cobalt-api:9000 2>&1 | grep -q '200 OK'
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 3s
+      start_interval: 1.5s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 256M
+
   cobalt-watchtower:
-    image: ghcr.io/containrrr/watchtower
+    image: ghcr.io/containrrr/watchtower:latest
     container_name: cobalt-watchtower
     restart: unless-stopped
-    command: --cleanup --scope cobalt --interval 900 --include-restarting
+    command: --cleanup --scope cobalt --schedule "0 0 1 * * *" --include-restarting
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      resources:
+        limits:
+          memory: 256M
 
   app:
     build:
@@ -55,6 +91,13 @@ services:
         condition: service_healthy
       cobalt-api:
         condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 512M
 
 volumes:
   postgres_data:
+    driver: local
