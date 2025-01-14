@@ -5,13 +5,9 @@ import {
 
 import { Client } from "~/structures/client";
 
-console.clear();
-
 if (!process.versions.bun) {
   throw new Error("Bun runtime is required to run this application. Please install Bun from https://bun.sh/.");
 }
-
-Bun.env.TZ = "Europe/Warsaw";
 
 export const client = new Client({
   intents: Object.values(GatewayIntentBits) as GatewayIntentBits[],
@@ -21,4 +17,4 @@ export const client = new Client({
   },
 });
 
-(async () => await client.init())();
+void client.init();

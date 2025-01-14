@@ -15,7 +15,6 @@ RUN --mount=type=cache,target=/root/.bun \
     bunx prisma generate
 
 FROM base AS release
-
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/prisma ./prisma
