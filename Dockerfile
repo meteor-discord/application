@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.bun \
 FROM base AS release
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY /app/prisma ./prisma
+COPY --from=builder /app/prisma ./prisma
 COPY src ./src
 COPY locales ./locales
 COPY package.json tsconfig.json ./
