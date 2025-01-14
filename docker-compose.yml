@@ -5,8 +5,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: meteor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-meteoriscool}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -61,7 +61,7 @@ services:
     container_name: app
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/meteor?schema=public&connect_timeout=300
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-meteoriscool}@postgres:5432/${POSTGRES_DB:-postgres}?schema=public&connect_timeout=300
       COBALT_API_URL: http://cobalt-api:9000
       NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
