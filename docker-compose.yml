@@ -62,7 +62,7 @@ services:
     container_name: app
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-meteoriscool}@postgres:5432/${POSTGRES_DB:-postgres}?schema=public&connect_timeout=300
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-meteoriscool}@postgres:5432/${POSTGRES_DB:-postgres}?schema=public
       COBALT_API_URL: http://cobalt-api:9000
       NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
@@ -78,16 +78,5 @@ services:
         reservations:
           memory: 512M
 
-networks:
-  default:
-    driver: bridge
-    driver_opts:
-      com.docker.network.driver.mtu: 1500
-
 volumes:
   postgres_data:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '${PWD}/data/postgres'
