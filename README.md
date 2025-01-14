@@ -15,7 +15,8 @@ Join the [Discord](https://discord.meteors.cc) server for more information or to
 - [Bun](https://github.com/oven-sh/bun)
 - [Discord.js](https://github.com/discordjs/discord.js)
 - [Prisma](https://github.com/prisma/prisma) with PostgreSQL
-- [Pino](https://github.com/pinojs/pino)
+- [Chalk](https://github.com/chalk/chalk)
+- [Dprint](https://github.com/dprint/dprint)
 
 ## Installation
 
@@ -34,7 +35,13 @@ Join the [Discord](https://discord.meteors.cc) server for more information or to
 1. Clone the repository
 2. Install dependencies with `bun install`
 3. Fill in the `.env` with data from `.env.example`
-4. Run the application
+   - `DISCORD_TOKEN` is your bot token
+   - `DATABASE_URL` is your PostgreSQL database URL
+   - `COBALT_API_KEY` is your Cobalt API key (optional)
+   - `COBALT_API_URL` is your Cobalt API URL (optional) (defaults to `https://cobalt.meteors.cc/`)
+   - `NODE_ENV` is your environment (if you are developing locally, `development` is your way to go)
+4. Push the database schema to your database with `bun prisma db push`
+5. Run the application
 
 ```bash
 bun start  # without hot reloading

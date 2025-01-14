@@ -45,6 +45,11 @@
       "invite": "Zaproszenie",
       "tags": "Tagi",
       "links": "Linki"
+    },
+    "buttons": {
+      "icon": "URL ikony",
+      "invite": "Zaproszenie",
+      "admin_invite": "Zaproszenie (administrator)"
     }
   },
   "role": {

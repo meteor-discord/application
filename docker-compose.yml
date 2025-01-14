@@ -1,0 +1,64 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-meteoriscool}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d ${POSTGRES_DB:-postgres}']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    ports:
+      - '127.0.0.1:5432:5432'
+
+  cobalt-api:
+    image: ghcr.io/imputnet/cobalt:10
+    container_name: cobalt-api
+    init: true
+    read_only: true
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:9000:9000'
+    environment:
+      API_URL: 'http://cobalt-api:9000'
+    labels:
+      - com.centurylinklabs.watchtower.scope=cobalt
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', 'http://127.0.0.1:9000']
+      interval: 5s
+      timeout: 10s
+      retries: 10
+  cobalt-watchtower:
+    image: ghcr.io/containrrr/watchtower
+    container_name: cobalt-watchtower
+    restart: unless-stopped
+    command: --cleanup --scope cobalt --interval 900 --include-restarting
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  app:
+    build:
+      context: .
+      target: release
+    container_name: app
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-meteoriscool}@postgres:5432/${POSTGRES_DB:-postgres}?schema=public
+      COBALT_API_URL: http://cobalt-api:9000
+      NODE_ENV: production
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      cobalt-api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

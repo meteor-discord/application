@@ -1,41 +1,27 @@
-# use the official Bun image
-# see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+FROM oven/bun:1-alpine AS base
+WORKDIR /app
 
-# install dependencies into temp directory
-# this will cache them and speed up future builds
-FROM base AS install
-RUN mkdir -p /temp/dev
-COPY package.json bun.lockb /temp/dev/
-RUN cd /temp/dev && bun install --frozen-lockfile
+FROM base AS dependencies
+COPY package.json bun.lockb ./
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    --mount=type=cache,target=/root/.bun/install/index \
+    bun install --frozen-lockfile --production
 
-# install with --production (exclude devDependencies)
-RUN mkdir -p /temp/prod
-COPY package.json bun.lockb /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile --production
+FROM base AS builder
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY prisma ./prisma
+COPY package.json tsconfig.json ./
+RUN --mount=type=cache,target=/root/.bun \
+    bunx prisma generate
 
-# copy node_modules from temp directory
-# then copy all (non-ignored) project files into the image
-FROM base AS prerelease
-COPY --from=install /temp/dev/node_modules node_modules
-COPY . .
-
-# force the app to run in production
-ENV NODE_ENV=production
-
-# copy production dependencies and source code into final image
 FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/src/ ./src/
-COPY --from=prerelease /usr/src/app/locales/ ./locales/
-COPY --from=prerelease /usr/src/app/prisma/ ./prisma/
-COPY --from=prerelease /usr/src/app/package.json .
-COPY --from=prerelease /usr/src/app/tsconfig.json .
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/prisma ./prisma
+COPY src ./src
+COPY locales ./locales
+COPY package.json tsconfig.json ./
 
-# generate Prisma client
-RUN bunx prisma generate
-
-# run the app
 USER bun
-ENTRYPOINT ["bun", "start"]
+
+CMD ["sh", "-c", "bunx prisma db push --skip-generate && bun start"]
