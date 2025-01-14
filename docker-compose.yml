@@ -15,8 +15,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-    ports:
-      - '127.0.0.1:5432:5432'
 
   cobalt-api:
     image: ghcr.io/imputnet/cobalt:10
@@ -24,14 +22,12 @@ services:
     init: true
     read_only: true
     restart: unless-stopped
-    ports:
-      - '127.0.0.1:9000:9000'
     environment:
       API_URL: 'http://cobalt-api:9000'
     labels:
       - com.centurylinklabs.watchtower.scope=cobalt
     healthcheck:
-      test: ['CMD', 'wget', '--spider', 'http://127.0.0.1:9000']
+      test: ['CMD', 'wget', '--spider', 'http://cobalt-api:9000']
       interval: 5s
       timeout: 10s
       retries: 10
