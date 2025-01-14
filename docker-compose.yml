@@ -7,8 +7,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: meteor
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U postgres -d meteor']
       interval: 1m
@@ -17,6 +20,8 @@ services:
       start_period: 10s
       start_interval: 2s
     command: postgres -c shared_buffers=2048MB -c effective_cache_size=4096MB -c maintenance_work_mem=256MB -c work_mem=32MB
+    networks:
+      - app-network
 
   cobalt-api:
     image: ghcr.io/imputnet/cobalt:10
@@ -61,7 +66,7 @@ services:
     container_name: app
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/meteor?schema=public
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/meteor?schema=public&connect_timeout=300
       COBALT_API_URL: http://cobalt-api:9000
       NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
@@ -76,6 +81,12 @@ services:
           memory: 2G
         reservations:
           memory: 512M
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:
