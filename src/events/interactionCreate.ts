@@ -68,8 +68,8 @@ export default class InteractionCreate extends Event {
         await interaction.reply({ embeds: [errorEmbed] }).catch(() => null);
 
         if (error instanceof Error) {
-          const [message, ...trace] = error.stack?.split("\n") ?? [];
-          logger.error(message, {
+          const [, ...trace] = error.stack?.split("\n") ?? [];
+          logger.error(error.message, {
             guild: interaction.guildId,
             channel: interaction.channelId,
             user: interaction.user.id,
