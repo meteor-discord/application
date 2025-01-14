@@ -21,30 +21,32 @@ export class CobaltService {
 
   constructor(instanceUrl = Bun.env.COBALT_API_URL || "https://cobalt.meteors.cc/") {
     this.instance = instanceUrl;
-    
+
     const checkLatency = async () => {
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout
-        
+
         const start = Date.now();
         const response = await fetch(this.instance, {
-          signal: controller.signal
+          signal: controller.signal,
         });
-        
+
         clearTimeout(timeout);
-        
+
         if (response.ok) {
           this.latency = Date.now() - start;
           this.isConnected = true;
-        } else {
+        }
+        else {
           this.latency = -1;
           this.isConnected = false;
         }
-      } catch (error: unknown) {
+      }
+      catch (error: unknown) {
         this.latency = -1;
         this.isConnected = false;
-        console.error(`Failed to connect to Cobalt API at ${this.instance}:`, error instanceof Error ? error.message : 'Unknown error');
+        console.error(`Failed to connect to Cobalt API at ${this.instance}:`, error instanceof Error ? error.message : "Unknown error");
       }
     };
 
@@ -61,8 +63,8 @@ export class CobaltService {
       return {
         status: "error",
         error: {
-          code: "connection_failed"
-        }
+          code: "connection_failed",
+        },
       };
     }
 
@@ -81,7 +83,7 @@ export class CobaltService {
           url,
           disableMetadata: true,
         }),
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timeout);
@@ -91,13 +93,14 @@ export class CobaltService {
       }
 
       return await res.json();
-    } catch (error: unknown) {
-      console.error(`Failed to fetch from Cobalt API:`, error instanceof Error ? error.message : 'Unknown error');
+    }
+    catch (error: unknown) {
+      console.error(`Failed to fetch from Cobalt API:`, error instanceof Error ? error.message : "Unknown error");
       return {
         status: "error",
         error: {
-          code: "request_failed"
-        }
+          code: "request_failed",
+        },
       };
     }
   }
@@ -112,7 +115,7 @@ export class CobaltService {
       const timeout = setTimeout(() => controller.abort(), 30000); // 30s timeout
 
       const res = await fetch(url, {
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timeout);
@@ -123,8 +126,9 @@ export class CobaltService {
 
       const arrayBuffer = await res.arrayBuffer();
       return Buffer.from(arrayBuffer);
-    } catch (error: unknown) {
-      console.error(`Download failed:`, error instanceof Error ? error.message : 'Unknown error');
+    }
+    catch (error: unknown) {
+      console.error(`Download failed:`, error instanceof Error ? error.message : "Unknown error");
       throw error;
     }
   }
