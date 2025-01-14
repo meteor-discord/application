@@ -1,3 +1,5 @@
+import { logger } from '../lib/logger'
+
 export interface CobaltPicker {
   type: 'photo' | 'video' | 'gif'
   url: string
@@ -47,10 +49,9 @@ export class CobaltService {
     catch (error) {
       this.latency = -1
       this.isConnected = false
-      console.error(
-        `Failed to connect to Cobalt API at ${this.instance}:`,
-        error instanceof Error ? error.message : 'Unknown error',
-      )
+      logger.error(`Failed to connect to Cobalt API at ${this.instance}`, {
+        error: error instanceof Error ? error.message : 'Unknown error',
+      })
     }
   }
 
@@ -65,7 +66,7 @@ export class CobaltService {
     try {
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => {
-          console.error('Cobalt API request timed out after 5 seconds')
+          logger.error('Cobalt API request timed out after 5 seconds')
           reject(new Error('Timeout'))
         }, CobaltService.TIMEOUT)
       })
@@ -89,7 +90,9 @@ export class CobaltService {
       return await response.json()
     }
     catch (error) {
-      console.error('Failed to fetch from Cobalt API:', error instanceof Error ? error.message : 'Unknown error')
+      logger.error('Failed to fetch from Cobalt API', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+      })
       return {
         status: 'error',
         error: { code: 'request_failed' },
@@ -113,7 +116,9 @@ export class CobaltService {
       return await Promise.race([fetchPromise, timeoutPromise])
     }
     catch (error) {
-      console.error('Download failed:', error instanceof Error ? error.message : 'Unknown error')
+      logger.error('Download failed', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+      })
       throw error
     }
   }
