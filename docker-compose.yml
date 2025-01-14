@@ -1,17 +1,18 @@
 services:
   postgres:
-    image: postgres:16
+    image: postgres:16-alpine
     container_name: postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-meteoriscool}
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d meteor']
-      interval: 1m
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d ${POSTGRES_DB:-postgres}']
+      interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
@@ -78,9 +79,15 @@ services:
           memory: 512M
 
 networks:
-  app-network:
+  default:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1500
 
 volumes:
   postgres_data:
     driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${PWD}/data/postgres'

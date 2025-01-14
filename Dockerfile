@@ -4,7 +4,6 @@ WORKDIR /app
 FROM base AS dependencies
 COPY package.json bun.lockb ./
 RUN --mount=type=cache,target=/root/.bun/install/cache \
-    --mount=type=cache,target=/root/.bun/install/index \
     bun install --frozen-lockfile --production
 
 FROM base AS builder
@@ -17,11 +16,10 @@ RUN --mount=type=cache,target=/root/.bun \
 FROM base AS release
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/prisma ./prisma
+COPY /app/prisma ./prisma
 COPY src ./src
 COPY locales ./locales
 COPY package.json tsconfig.json ./
 
 USER bun
-
-CMD ["sh", "-c", "bunx prisma db push --skip-generate && bun start"]
+CMD ["sh", "-c", "bunx prisma db push --skip-generate && exec bun start"]
