@@ -3,6 +3,7 @@ import {
   ChatInputCommandInteraction,
   Collection,
   InteractionContextType,
+  MessageFlags,
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from "discord.js";
@@ -62,7 +63,7 @@ export default class Locale extends Command {
 
         return await interaction.reply({
           embeds: [embed],
-          ephemeral: true,
+          flags: MessageFlags.Ephemeral,
         });
       }
 
@@ -90,7 +91,7 @@ export default class Locale extends Command {
 
       return await interaction.reply({
         embeds: [embed],
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 
