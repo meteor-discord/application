@@ -1,14 +1,10 @@
-import {
-  ApplicationIntegrationType,
-  InteractionContextType,
-  SlashCommandBuilder,
-} from "discord.js";
+import { ApplicationIntegrationType, InteractionContextType, SlashCommandBuilder } from 'discord.js'
 
 export class SlashCommand extends SlashCommandBuilder {
   public constructor() {
-    super();
+    super()
 
-    this.setDescription("...");
+    this.setDescription('...')
 
     this.setContexts(
       InteractionContextType.Guild,
@@ -17,6 +13,6 @@ export class SlashCommand extends SlashCommandBuilder {
     ).setIntegrationTypes(
       ApplicationIntegrationType.GuildInstall,
       ApplicationIntegrationType.UserInstall,
-    );
+    )
   }
 }

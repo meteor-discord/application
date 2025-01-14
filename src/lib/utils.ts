@@ -1,8 +1,4 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-} from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 /**
  * Create link buttons for an entity
@@ -11,29 +7,29 @@ import {
  */
 export function createLinkButtons(
   buttons: {
-    label: string;
-    url: string | null;
+    label: string
+    url: string | null
   }[],
 ): ActionRowBuilder<ButtonBuilder> {
-  const row = new ActionRowBuilder<ButtonBuilder>();
+  const row = new ActionRowBuilder<ButtonBuilder>()
 
   buttons.forEach(({ label, url }) => {
     const button = new ButtonBuilder()
       .setStyle(ButtonStyle.Link)
-      .setLabel(label);
+      .setLabel(label)
 
     if (url) {
-      button.setURL(url);
+      button.setURL(url)
     }
 
     if (!url) {
-      button.setDisabled(true);
+      button.setDisabled(true)
     }
 
-    row.addComponents(button);
-  });
+    row.addComponents(button)
+  })
 
-  return row;
+  return row
 }
 
 /**
@@ -44,7 +40,7 @@ export function createLinkButtons(
 export function formatRelativeTimestamp(timestamp: number | null): string {
   return timestamp
     ? `<t:${Math.floor(timestamp / 1000)}:R>`
-    : "N/a";
+    : 'N/a'
 }
 
 /**
@@ -58,12 +54,12 @@ export function formatArrayWithEllipsis<T>(
   formatter: (item: T) => string = item => `${item}`,
   limit = 3,
 ): string | null {
-  if (arr.length === 0) return null;
+  if (arr.length === 0) return null
 
-  const formattedItems = arr.map(formatter);
+  const formattedItems = arr.map(formatter)
   return formattedItems.length > limit
-    ? formattedItems.slice(0, limit).join(", ") + ` (+${formattedItems.length - limit})`
-    : formattedItems.join(", ");
+    ? formattedItems.slice(0, limit).join(', ') + ` (+${formattedItems.length - limit})`
+    : formattedItems.join(', ')
 }
 
 /**
@@ -73,6 +69,6 @@ export function formatArrayWithEllipsis<T>(
  */
 export function getStatusIcon(status: boolean): string {
   return status
-    ? "<:check:1313589498839306421>"
-    : "<:x_:1313589497178488842>";
+    ? '<:check:1313589498839306421>'
+    : '<:x_:1313589497178488842>'
 }
