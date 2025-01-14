@@ -5,37 +5,18 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-meteoriscool}
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: meteor
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d ${POSTGRES_DB:-postgres}']
-      interval: 30s
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d meteor']
+      interval: 1m
       timeout: 10s
       retries: 3
-      start_period: 5s
+      start_period: 10s
       start_interval: 2s
-    command: >
-      postgres
-      -c shared_buffers=1GB
-      -c effective_cache_size=2GB
-      -c maintenance_work_mem=256MB
-      -c work_mem=16MB
-      -c max_connections=200
-      -c max_worker_processes=3
-      -c max_parallel_workers=3
-      -c max_parallel_workers_per_gather=2
-      -c random_page_cost=1.1
-      -c effective_io_concurrency=200
-      -c wal_buffers=32MB
-      -c min_wal_size=512MB
-      -c max_wal_size=2GB
-      -c checkpoint_completion_target=0.9
-      -c default_statistics_target=100
-      -c autovacuum_max_workers=3
-      -c autovacuum_vacuum_scale_factor=0.1
-      -c autovacuum_analyze_scale_factor=0.05
+    command: postgres -c shared_buffers=2048MB -c effective_cache_size=4096MB -c maintenance_work_mem=256MB -c work_mem=32MB
 
   cobalt-api:
     image: ghcr.io/imputnet/cobalt:10
@@ -48,11 +29,11 @@ services:
     labels:
       - com.centurylinklabs.watchtower.scope=cobalt
     healthcheck:
-      test: ['CMD', 'wget', '--spider', '--quiet', 'http://localhost:9000']
-      interval: 30s
+      test: ['CMD-SHELL', 'wget --spider --quiet --tries=1 http://localhost:9000']
+      interval: 1m
       timeout: 10s
       retries: 3
-      start_period: 5s
+      start_period: 10s
       start_interval: 2s
     deploy:
       resources:
@@ -71,7 +52,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 256M
+          memory: 64M
 
   app:
     build:
@@ -80,7 +61,7 @@ services:
     container_name: app
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-meteoriscool}@postgres:5432/${POSTGRES_DB:-postgres}?schema=public
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/meteor?schema=public
       COBALT_API_URL: http://cobalt-api:9000
       NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
