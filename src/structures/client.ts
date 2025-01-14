@@ -10,7 +10,7 @@ import type { Command } from '~/structures/command'
 import type { Event } from './event'
 
 export class Client<Ready extends boolean = true> extends DiscordClient<Ready> {
-  public readonly prisma = new PrismaClient() as unknown as typeof PrismaClient & { latency: number }
+  public readonly prisma = new PrismaClient()
   public readonly i18n = new I18n()
   public readonly cobalt = new CobaltService()
   public readonly commands = new Collection<string, Command>()
