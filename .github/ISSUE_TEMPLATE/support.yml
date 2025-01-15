@@ -1,0 +1,66 @@
+name: Support Request
+description: Get help with using the application
+title: '[Support]: '
+labels: ['support']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reaching out for help! Please fill out the information below to help us assist you better.
+
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: What do you need help with?
+      description: A clear and concise description of what you're trying to do and where you're stuck.
+      placeholder: I'm trying to... but I'm having trouble with...
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Current Situation
+      description: What's currently happening when you try to perform this action?
+      placeholder: When I try to do this, the following happens...
+    validations:
+      required: true
+
+  - type: textarea
+    id: attempted-solutions
+    attributes:
+      label: What have you tried so far?
+      description: Describe any solutions or workarounds you've already attempted.
+      placeholder: I've tried the following steps...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: Which version of the application are you using?
+      options:
+        - Stable (main)
+        - Development (next)
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your situation.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about your support request here.
+    validations:
+      required: false
