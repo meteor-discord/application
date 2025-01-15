@@ -1,0 +1,32 @@
+{
+  "analysisResults": "Log Analysis Results",
+  "noIssues": "No issues were found in the provided log file.",
+  "fields": {
+    "description": "Description",
+    "solution": "Solution",
+    "lines": "Log Lines",
+    "technicalInfo": "Technical Information"
+  },
+  "errors": {
+    "invalidFileType": "Please provide a valid log file (must end with .log or .txt)",
+    "analysisError": "An error occurred while analyzing the log file. Please try again."
+  },
+  "patterns": {
+    "outOfMemory": {
+      "type": "Memory Allocation Error",
+      "solution": "Increase the allocated RAM in your startup script (e.g., -Xmx4G for 4GB). Monitor memory usage and consider removing memory-intensive plugins"
+    },
+    "pluginLoading": {
+      "type": "Plugin Loading Error",
+      "solution": "Plugin(s) {plugins} could not be loaded. Verify all required dependencies are installed and check plugin compatibility with your server version"
+    },
+    "networkTimeout": {
+      "type": "Network Timeout",
+      "solution": "Check your network connection, firewall settings, and server bandwidth. Consider increasing timeout values"
+    },
+    "pluginEvent": {
+      "type": "Plugin Event Error",
+      "solution": "Plugin(s) {plugins} are causing event processing errors. Check for plugin conflicts, ensure all plugins are up to date, and review plugin configurations"
+    }
+  }
+}

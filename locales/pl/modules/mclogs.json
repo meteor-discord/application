@@ -1,0 +1,32 @@
+{
+  "analysisResults": "Wyniki analizy logów",
+  "noIssues": "Nie znaleziono problemów w dostarczonym pliku logów.",
+  "fields": {
+    "description": "Opis",
+    "solution": "Rozwiązanie",
+    "lines": "Linie logów",
+    "technicalInfo": "Informacje techniczne"
+  },
+  "errors": {
+    "invalidFileType": "Proszę dostarczyć prawidłowy plik logów (musi kończyć się na .log lub .txt)",
+    "analysisError": "Wystąpił błąd podczas analizy pliku logów. Spróbuj ponownie."
+  },
+  "patterns": {
+    "outOfMemory": {
+      "type": "Błąd alokacji pamięci",
+      "solution": "Zwiększ ilość przydzielonej pamięci RAM w skrypcie startowym (np. -Xmx4G dla 4GB). Monitoruj użycie pamięci i rozważ usunięcie wtyczek intensywnie wykorzystujących pamięć"
+    },
+    "pluginLoading": {
+      "type": "Błąd ładowania wtyczki",
+      "solution": "Wtyczka(i) {plugins} nie mogła zostać załadowana. Sprawdź, czy wszystkie wymagane zależności są zainstalowane i sprawdź kompatybilność wtyczki z wersją serwera"
+    },
+    "networkTimeout": {
+      "type": "Przekroczenie czasu sieci",
+      "solution": "Sprawdź połączenie sieciowe, ustawienia zapory sieciowej i przepustowość serwera. Rozważ zwiększenie limitów czasu"
+    },
+    "pluginEvent": {
+      "type": "Błąd zdarzenia wtyczki",
+      "solution": "Wtyczka(i) {plugins} powoduje błędy przetwarzania zdarzeń. Sprawdź konflikty między wtyczkami, upewnij się, że wszystkie wtyczki są aktualne i przejrzyj ich konfiguracje"
+    }
+  }
+}
