@@ -3,7 +3,7 @@
     "downloading": "Pobieranie mediów z URL",
     "downloadComplete": "Pobrano media w czasie {time}",
     "noFiles": "Brak plików do wyeksportowania",
-    "fileTooLarge": "Plik przekracza limit 10 MB ({size})"
+    "fileTooLarge": "Plik przekracza limit 10 MiB ({size})"
   },
   "fields": {
     "files": "Pliki",
