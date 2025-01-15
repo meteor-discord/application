@@ -39,16 +39,6 @@ export default class Ping extends Command {
           inline: true,
         },
         {
-          name: $('modules.ping.fields.database'),
-          value: `${client.prisma.latency}ms`,
-          inline: true,
-        },
-        {
-          name: $('modules.ping.fields.api'),
-          value: `0ms`,
-          inline: true,
-        },
-        {
           name: 'Cobalt',
           value: `${client.cobalt.latency}ms`,
           inline: true,
