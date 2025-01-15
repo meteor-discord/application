@@ -3,7 +3,7 @@
     "downloading": "Downloading media from URL",
     "downloadComplete": "Downloaded media in {time}",
     "noFiles": "No files to export",
-    "fileTooLarge": "The file is over the limit of 10 MB ({size})"
+    "fileTooLarge": "The file is over the limit of 10 MiB ({size})"
   },
   "fields": {
     "files": "Files",
