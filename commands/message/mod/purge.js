@@ -33,7 +33,6 @@ module.exports = {
     limit: 1,
     duration: 5000,
   },
-  permissionsClient: [Permissions.MANAGE_MESSAGES],
   run: async (context, args) => {
     await acknowledge(context);
 

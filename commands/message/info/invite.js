@@ -54,7 +54,7 @@ module.exports = {
       });
     try {
       const inviteCode = args.invite.match(
-        /(?:(?:https|http):\/\/)?(?:(?:discord.gg|(?:discord|discordapp)\.com\/invite)\/)?([0-z-]{2,64})/
+        /(?:(?:https|http):\/\/)?(?:(?:discord.gg|(?:discord|discordapp)\.com\/invite)\/)?([0-9A-Za-z-]{2,64})/
       );
       const invite = await context.client.rest.fetchInvite(inviteCode[1], { withCounts: true });
 
@@ -97,7 +97,7 @@ module.exports = {
           const sub = featureCards.splice(0, 2);
           sub[0].name = `${icon('list')} Server Features (${i}/${ic})`;
 
-          pages.push(page(JSON.parse(JSON.stringify({...inviteCard, fields: sub}))));
+          pages.push(page(JSON.parse(JSON.stringify({ ...inviteCard, fields: sub }))));
         }
 
         await paginator.createPaginator({

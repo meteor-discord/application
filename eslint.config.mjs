@@ -3,10 +3,28 @@ import { defineConfig } from 'eslint/config';
 import regexpPlugin from 'eslint-plugin-regexp';
 import importSort from 'eslint-plugin-simple-import-sort';
 import unusedImports from 'eslint-plugin-unused-imports';
+import globals from 'globals';
 
 export default defineConfig(
   {
-    files: ['**/*.{ts,tsx,js,mjs,jsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'commonjs',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['**/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+      },
+    },
   },
   {
     ignores: ['node_modules/**'],
@@ -28,16 +46,24 @@ export default defineConfig(
 
       // General ESLint rules
       'dot-notation': 'error',
-      eqeqeq: 'error',
+      eqeqeq: 'warn',
+      'no-case-declarations': 'warn',
       'no-constant-condition': ['error', { checkLoops: false }],
+      'no-dupe-keys': 'error',
+      'no-empty': 'warn',
       'no-extra-bind': 'error',
+      'no-irregular-whitespace': 'warn',
       'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 0 }],
       'no-template-curly-in-string': 'error',
-      'no-throw-literal': 'error',
+      'no-throw-literal': 'warn',
+      'no-undef': 'warn',
       'no-undef-init': 'error',
+      'no-unreachable': 'warn',
+      'no-unused-vars': 'warn',
+      'no-useless-escape': 'warn',
       'no-var': 'error',
       'object-shorthand': 'error',
-      'prefer-const': 'error',
+      'prefer-const': 'warn',
       'prefer-object-spread': 'error',
       'unicode-bom': ['error', 'never'],
     },

@@ -1,4 +1,4 @@
-export const formatNumber = (num, digits = 1) => {
+const formatNumber = (num, digits = 1) => {
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },
@@ -19,3 +19,5 @@ export const formatNumber = (num, digits = 1) => {
   const truncatedNum = Math.floor(dividedNum * factor) / factor;
   return truncatedNum.toFixed(digits).replace(regexp, '').concat(item.symbol);
 };
+
+module.exports.formatNumber = formatNumber;
