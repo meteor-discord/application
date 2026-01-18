@@ -27,7 +27,7 @@ module.exports = {
     return await editOrReply(
       context,
       createEmbed('default', context, {
-        description: `${icon('brand')} **${context.client.user.username} Privacy Policy**\n*Last Updated: ${timestamp(PRIVACY_POLICY_LAST_UPDATE, 'f')}*\n${PRIVACY_POLICY_SECTIONS.join('\n')}\n\nIf you have any further questions, please contact us via our ${iconLinkPill('discord', DISCORD_INVITES.privacy, 'Support Server', 'Click to join')}\nPrevious privacy policy revision: ${link(`https://bignutty.gitlab.io/webstorage4/v2/documents/${PRIVACY_POLICY_PREVIOUS_REVISION}.txt`, 'June 2022')}`,
+        description: `${icon('brand')} **${context.client.user.username} Privacy Policy**\n*Last Updated: ${timestamp(PRIVACY_POLICY_LAST_UPDATE, 'f')}*\n${PRIVACY_POLICY_SECTIONS.join('\n')}\n\nIf you have any further questions, please contact us via our ${iconLinkPill('discord', DISCORD_INVITES.support, 'Support Server', 'Click to join')}\nPrevious privacy policy revision: ${link(`https://bignutty.gitlab.io/webstorage4/v2/documents/${PRIVACY_POLICY_PREVIOUS_REVISION}.txt`, 'June 2022')}`,
         color: COLORS.brand,
       })
     );

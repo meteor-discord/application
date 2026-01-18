@@ -194,7 +194,6 @@ class DynamicCardStack {
 
       /*
       if (!card.content) card.content = "";
-      //card.content += `\n-# ${icon("flask_mini")} You are using the new page system • Leave feedback or report bugs in our ${link(DISCORD_INVITES.feedback_cardstack, "Discord Server", "Meteor Support", false)}!`
       card.content += `\n-# ${icon("flask_mini")} You are using the new page system • Leave feedback or report bugs in our Support Server!`
       */
 

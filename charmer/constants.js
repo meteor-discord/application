@@ -9,11 +9,7 @@ module.exports.EOS_NOTICE_URL = 'https://bignutty.gitlab.io/blog/labscore-eos-no
 module.exports.EOS_NOTICE_TIMESTAMP = 1767222000000;
 
 module.exports.DISCORD_INVITES = Object.freeze({
-  support: 'https://discord.gg/8c4p6xcjru',
-  privacy: 'https://discord.gg/sQs8FhcTGh',
-  invite: 'https://discord.gg/cHd28DrM7f',
-  help: 'https://discord.gg/xQNBB3WFne',
-  feedback_cardstack: 'https://discord.gg/qwrBNeK7dt',
+  support: 'https://discord.gg/6C9pcD4EUq',
 });
 
 module.exports.DEFAULT_BOT_NAME = 'Meteor';
