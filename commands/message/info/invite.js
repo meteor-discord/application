@@ -108,7 +108,7 @@ module.exports = {
       }
 
       return editOrReply(context, inviteCard);
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Unable to fetch invite link.'));
     }

@@ -146,7 +146,7 @@ module.exports = {
                 const c = components.components[0].components[0];
 
                 components.components[0].components[0].options[i].default =
-                  components.components[0].components[0].options[i].value == value;
+                  components.components[0].components[0].options[i].value === value;
                 components.components[0].components[0].options[i].emoji = iconAsEmojiObject(
                   `maps_${search.places[i].place.icon}_pin`
                 );
@@ -195,7 +195,7 @@ module.exports = {
                 embeds: [mapCard, ...renderPlaceCard(context, searchSupplemental.place)],
                 components,
               });
-            } catch (e) {
+            } catch {
               console.log(e);
               components.components[0].components[0].disabled = false;
               await ctx.editOrRespond({
@@ -224,8 +224,8 @@ module.exports = {
         embeds,
         components,
       });
-    } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+    } catch {
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

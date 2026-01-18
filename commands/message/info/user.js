@@ -26,16 +26,15 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let u;
       if (!args.user) {
         args.user = context.user.id;
       }
 
-      if (args.user == '456226577798135808')
+      if (args.user === '456226577798135808')
         return editOrReply(context, createEmbed('error', context, 'This user has been deleted.'));
 
-      user = await getUser(context, args.user);
-      u = user.user;
+      const user = await getUser(context, args.user);
+      const u = user.user;
       if (!u) return editOrReply(context, createEmbed('warning', context, 'No users found.'));
       const m = user.member;
 
@@ -97,7 +96,7 @@ module.exports = {
       if (!m?.banner && m) u.member = await context.guild.fetchMember(u.id);
 
       // No special handling
-      if (m == undefined || (m.avatar === null && m.banner === null)) return editOrReply(context, userCard);
+      if (m === undefined || (m.avatar === null && m.banner === null)) return editOrReply(context, userCard);
 
       const pages = [];
 
@@ -126,7 +125,7 @@ module.exports = {
           },
         ],
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Unable to display user info.'));
     }

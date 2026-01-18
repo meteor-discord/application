@@ -31,7 +31,7 @@ module.exports = {
       else {
         try {
           msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('error', context, 'Unable to fetch message.'));
         }
       }
@@ -72,7 +72,7 @@ module.exports = {
       } else {
         return editOrReply(context, createEmbed('warning', context, 'No urls found.'));
       }
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('warning', context, `No results found.`));
     }

@@ -60,7 +60,7 @@ module.exports = {
             })
           )
         );
-      } catch (e) {
+      } catch {
         pages.push(
           page(
             createEmbed('default', context, {

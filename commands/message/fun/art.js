@@ -130,7 +130,7 @@ module.exports = {
           }),
         ],
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return await editOrReply(context, createEmbed('error', context, `Unable to generate image.`));
     }

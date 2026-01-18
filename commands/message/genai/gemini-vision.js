@@ -21,7 +21,6 @@ module.exports = {
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    return;
     await acknowledge(context);
 
     // for the sake of privacy, make the context window one message
@@ -45,7 +44,7 @@ module.exports = {
       const files = [];
 
       if (res.response.body.message)
-        return editOrReply(context, createEmbed('error', context, e.response.body.message));
+        return editOrReply(context, createEmbed('error', context, res.response.body.message));
 
       const output = res.response.body.gemini?.candidates[0]?.content?.parts[0]?.text;
       if (!output)
@@ -77,7 +76,7 @@ module.exports = {
         ],
         files,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response?.body?.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));

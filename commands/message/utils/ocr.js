@@ -27,11 +27,11 @@ module.exports = {
     let ocr;
     try {
       ocr = await googleVisionOcr(context, image);
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, 'Unable to retrieve Google Vision API response.'));
     }
 
-    if (ocr.response.body.status == 1)
+    if (ocr.response.body.status === 1)
       return editOrReply(context, createEmbed('warning', context, ocr.response.body.text));
 
     return editOrReply(

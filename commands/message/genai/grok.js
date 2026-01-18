@@ -136,7 +136,7 @@ Your X handle is @grok and your task is to respond to user's posts that tag you 
         embeds: [response],
         files,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response.body?.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));

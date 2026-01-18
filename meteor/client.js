@@ -28,8 +28,8 @@ const client = new ShardClient(token, {
     ],
     presence: {
       activity: {
-        state: `${DEFAULT_PREFIXES[0]}help ​ • ​ ${DEFAULT_BOT_NAME}`,
-        name: `${DEFAULT_PREFIXES[0]}help ​ ​• ​ ${DEFAULT_BOT_NAME}`,
+        state: `${DEFAULT_PREFIXES[0]}help • ${DEFAULT_BOT_NAME}`,
+        name: `${DEFAULT_PREFIXES[0]}help • ${DEFAULT_BOT_NAME}`,
         emoji: {
           name: '🧪',
         },
@@ -49,7 +49,7 @@ module.exports.paginator = new Paginator(client, {
 
 // Clients
 
-commandPrefixes = DEFAULT_PREFIXES;
+let commandPrefixes = DEFAULT_PREFIXES;
 if (process.env.PREFIX_OVERRIDE) commandPrefixes = process.env.PREFIX_OVERRIDE.split('|');
 
 const commandClient = new CommandClient(client, {
@@ -61,7 +61,7 @@ const commandClient = new CommandClient(client, {
     { duration: 60000, limit: 50, type: 'guild' },
     { duration: 5000, limit: 5, type: 'channel' },
   ],
-  onCommandCheck: async (context, command) => {
+  onCommandCheck: async context => {
     /*
       I don't know why, I don't know since when - but timeouts apply to bots now.
       This code checks if the bot is currently timed out, preventing any and all
@@ -246,7 +246,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
 });
 
 (async () => {
-  client.on(ClientEvents.REST_RESPONSE, async ({ response, restRequest }) => {
+  client.on(ClientEvents.REST_RESPONSE, async ({ response }) => {
     const route = response.request.route;
     if (route) {
       if (!response.ok) {

@@ -48,7 +48,7 @@ module.exports = {
     messages.forEach(message => {
       if (args.filter.length >= 1) {
         if (message.canDelete && Date.now() - new Date(message.timestamp) <= 1209000000) {
-          if (args.case == false) {
+          if (args.case === false) {
             if (message.content.toLowerCase().includes(args.filter.toLowerCase())) {
               deleteIds.push(message.id);
             }
@@ -65,14 +65,14 @@ module.exports = {
       }
     });
 
-    if (deleteIds.length == 0) {
+    if (deleteIds.length === 0) {
       return editOrReply(context, { content: `${icon('failiure_simple')} No messages found.` });
     }
-    if (deleteIds.length == 1) {
+    if (deleteIds.length === 1) {
       try {
         await context.client.rest.deleteMessage(context.channel.id, deleteIds[0]);
         return editOrReply(context, { content: `${icon('success_simple')} Removed \`1\` message.` });
-      } catch (e) {
+      } catch {
         await editOrReply(context, {
           content: `${icon('failiure_simple')} Something went wrong while attempting to remove \`1\` message.`,
         });
@@ -81,7 +81,7 @@ module.exports = {
       try {
         await context.client.rest.bulkDeleteMessages(context.channel.id, deleteIds);
         return editOrReply(context, { content: `${icon('success_simple')} Removed \`${deleteIds.length}\` messages.` });
-      } catch (e) {
+      } catch {
         await editOrReply(context, {
           content: `${icon('failiure_simple')} Something went wrong while attempting to remove \`${deleteIds.length}\` messages.`,
         });

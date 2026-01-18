@@ -24,7 +24,6 @@ module.exports = {
   ],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
@@ -95,7 +94,7 @@ module.exports = {
         ],
         files,
       });
-    } catch (e) {
+    } catch {
       if (e.response.body?.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       return editOrReply(context, createEmbed('error', context, `Unable to generate text.`));

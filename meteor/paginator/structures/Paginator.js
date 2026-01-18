@@ -1,5 +1,4 @@
 const { COMPONENT_BUTTON_ICONS } = require('#constants');
-const { icon } = require('#utils/markdown');
 const { MessageFlags } = require('detritus-client/lib/constants');
 const InteractionPaginator = require('./InteractionPaginator');
 const assert = require('assert');
@@ -120,14 +119,16 @@ module.exports = class Paginator {
         try {
           await listener.waitingForPage.delete();
           await this.client.rest.deleteMessage(data.channel_id, data.id);
-        } catch {}
+        } catch {
+          // Ignore deletion errors
+        }
 
         listener.waitingForPage = null;
       })
       .catch(() => {});
   }
 
-  async components(listener) {
+  async components() {
     const components = new Components({
       timeout: this.expires,
       run: this.handleButtonEvent.bind(this),
@@ -159,7 +160,7 @@ module.exports = class Paginator {
   async createPaginator(data) {
     if (this.pageNumber && Array.isArray(data.pages)) {
       for (let i = 0; i < data.pages.length; ++i) {
-        const element = data.pages[i];
+        // Page numbering logic would go here
       }
     }
 
@@ -186,7 +187,7 @@ module.exports = class Paginator {
     this.buttons = typeof data.buttons !== 'object' ? ['previous', 'next'] : data.buttons;
 
     // No need for a paginator if we only have one page.
-    if (data.pages.length == 1) {
+    if (data.pages.length === 1) {
       if (this.buttons) this.buttons = this.buttons.filter(i => !['next', 'previous'].includes(i));
     }
 

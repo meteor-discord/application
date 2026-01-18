@@ -29,6 +29,14 @@
     "superagent": "^10.1.1",
     "utils": "gitlab:bignutty/utils"
   },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-regexp": "^2.10.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.3.0",
+    "globals": "^17.0.0"
+  },
   "imports": {
     "#api": "./meteor/api/index.js",
     "#cardstack/*": "./meteor/cardstack/*.js",
@@ -39,13 +47,5 @@
     "#parameters": "./meteor/parameters/index.js",
     "#permissions": "./meteor/permissions.js",
     "#utils/*": "./meteor/utils/*.js"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "eslint": "^9.39.2",
-    "eslint-plugin-regexp": "^2.10.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unused-imports": "^4.3.0",
-    "globals": "^17.0.0"
   }
 }

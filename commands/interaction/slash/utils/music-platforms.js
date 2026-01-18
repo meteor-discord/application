@@ -66,7 +66,7 @@ module.exports = {
       } else {
         return editOrReply(context, createEmbed('warning', context, 'No urls found.'));
       }
-    } catch {
+    } catch (e) {
       console.log(e);
       await editOrReply(context, createEmbed('error', context, 'Unable to look up song url.'));
     }

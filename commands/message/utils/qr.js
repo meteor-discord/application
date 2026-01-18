@@ -43,7 +43,7 @@ module.exports = {
           ],
           files: [{ filename: 'qrcode.png', value: res.body }],
         });
-      } catch (e) {
+      } catch {
         return await editOrReply(context, createEmbed('error', context, `Unable to generate qr code.`));
       }
     }
@@ -83,7 +83,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, `Unable to scan qr codes.`));
     }
   },

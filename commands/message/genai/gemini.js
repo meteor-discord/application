@@ -95,7 +95,7 @@ module.exports = {
                 components.components[0].components[0].options[i].value === ctx.data.values[0];
             }
 
-            draft = res.body.candidates[parseInt(ctx.data.values[0].replace('draft-', ''))];
+            const draft = res.body.candidates[parseInt(ctx.data.values[0].replace('draft-', ''))];
 
             description = [];
             files = [];
@@ -130,7 +130,7 @@ module.exports = {
         const draftOptions = [];
         for (let i = 0; i < res.body.candidates.length; i++) {
           draftOptions.push({
-            label: `Draft ${i + 1}: ​ ${stringwrap(res.body.candidates[i], 50, false)}`,
+            label: `Draft ${i + 1}: ${stringwrap(res.body.candidates[i], 50, false)}`,
             value: 'draft-' + i,
             default: false,
           });
@@ -167,7 +167,7 @@ module.exports = {
           components,
         });
       }
-    } catch (e) {
+    } catch {
       if (e.response?.body?.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
 

@@ -7,7 +7,7 @@ const { ResolveCallbackTypes, InteractiveComponentTypes } = require('#cardstack/
 const { hexToDecimalColor } = require('#utils/color');
 const { createEmbed, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { smallPill, link, pill, stringwrapPreserveWords, timestamp, TIMESTAMP_FLAGS } = require('#utils/markdown');
+const { smallPill, link, pill, stringwrapPreserveWords } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ASSETS } = require('#utils/statics');
 
@@ -198,7 +198,7 @@ module.exports = {
           },
         },
       });
-    } catch (e) {
+    } catch {
       if (e.response?.body?.status === 1)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
       if (e.response?.body?.status === 2)

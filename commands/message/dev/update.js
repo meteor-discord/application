@@ -39,7 +39,7 @@ module.exports = {
 
       // pm2 will restart us
       process.exit(0);
-    } catch (e) {
+    } catch {
       console.log(e);
       return await editOrReply(context, createEmbed('error', context, 'Manager reported error during update query.'));
     }

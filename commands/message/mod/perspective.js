@@ -22,7 +22,7 @@ function formatPerspectiveScores(data) {
 
   for (const scr of Object.keys(data.scores)) {
     const score = data.scores[scr];
-    perc = `${score.toString().substr(2, 2)}.${score.toString().substr(3, 1)}`;
+    let perc = `${score.toString().substr(2, 2)}.${score.toString().substr(3, 1)}`;
     if (perc.startsWith('0')) perc = ` ${perc.substr(1, perc.length)}`;
     srt.push(
       `${data.scores[scr]}|${format(perc + '%', getPerspectiveColor(score))}   ${scr.substr(0, 1).toUpperCase()}${scr.substr(1, scr.length).toLowerCase().replace(/_/g, ' ')}`
@@ -73,7 +73,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       await editOrReply(context, createEmbed('error', context, `Something went wrong.`));
       console.log(e);
     }

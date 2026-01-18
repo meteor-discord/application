@@ -293,7 +293,7 @@ module.exports = {
       return await createDynamicCardStack(context, {
         cards: pages,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform google search.`));
     }

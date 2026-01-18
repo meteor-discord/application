@@ -45,7 +45,7 @@ module.exports = {
 
       const diff = Date.now() - time;
       return editOrReply(context, `Reloaded commands in **\`${diff}ms\`**.`);
-    } catch (e) {
+    } catch {
       const diff = Date.now() - time;
       return editOrReply(
         context,

@@ -58,7 +58,7 @@ module.exports = {
       let search = await urbandictionary(context, args.query);
       search = search.response;
 
-      if (search.body.status == 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.body.status === 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {
@@ -69,7 +69,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform urban dictionary search.`));
     }

@@ -54,7 +54,7 @@ module.exports = {
       let search = await reverseImageSearch(context, image);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {
@@ -65,7 +65,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform reverse image search.`));
     }

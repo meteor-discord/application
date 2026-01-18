@@ -59,7 +59,7 @@ module.exports = {
     try {
       res = await inhouseEmojiSearch(context, emoji);
       res = res.response.body;
-    } catch (e) {
+    } catch {
       console.log(e);
       return await editOrReply(context, createEmbed('error', context, e?.response?.body?.message || 'No emoji found.'));
     }

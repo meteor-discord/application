@@ -5,7 +5,7 @@ const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { stringwrap, smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
-const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('#utils/statics');
+const { STATIC_ICONS, STATIC_ASSETS } = require('#utils/statics');
 
 module.exports = {
   name: 'gemini-pro',
@@ -86,7 +86,7 @@ module.exports = {
         ],
         files,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response?.body?.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));

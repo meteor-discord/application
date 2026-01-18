@@ -48,7 +48,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response?.body?.error)
         return editOrReply(context, createEmbed('warning', context, e.response.body.error.message));

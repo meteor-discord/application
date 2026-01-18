@@ -93,7 +93,7 @@ module.exports = {
       let search = await lyrics(context, args.query);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
       const fields = [];
 
       for (const f of search.body.lyrics.split('\n\n')) {
@@ -127,8 +127,8 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+    } catch {
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

@@ -26,7 +26,7 @@ module.exports = {
 
     if (context.message.messageReference) {
       const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
-      if (msg.content && msg.content.length && args.url.length == 0) args.url = msg.content;
+      if (msg.content && msg.content.length && args.url.length === 0) args.url = msg.content;
     }
 
     if (!args.url) return editOrReply(context, createEmbed('warning', context, 'No link provided.'));
@@ -61,7 +61,7 @@ module.exports = {
         ],
         files: [{ filename: 'screenshot.png', value: ss.response.body }],
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response?.body?.status === 2)
         return await editOrReply(context, createEmbed('error', context, e.response.body.message));

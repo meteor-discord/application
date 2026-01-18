@@ -50,7 +50,7 @@ module.exports = {
       let search = await googleImages(context, args.query, context.channel.nsfw);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {
@@ -62,7 +62,7 @@ module.exports = {
       return await createDynamicCardStack(context, {
         cards: pages,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform google search.`));
     }

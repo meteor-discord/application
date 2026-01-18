@@ -2,7 +2,7 @@ const { COLORS, SUPPORT_ARTICLES } = require('../constants');
 const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('./statics');
 
 const embedTypes = Object.freeze({
-  default: () => {
+  default: context => {
     const footer = {
       text: context.application.name,
     };
@@ -12,7 +12,7 @@ const embedTypes = Object.freeze({
       footer,
     };
   },
-  image: () => {
+  image: context => {
     const footer = {
       text: context.application.name,
     };
@@ -98,7 +98,7 @@ const embedTypes = Object.freeze({
   },
   ai_custom: () => {
     const author = {
-      name: `​`,
+      name: '​',
     };
     if (STATIC_ICONS.ai) author.iconUrl = STATIC_ICONS.ai;
     const embed = {
@@ -168,7 +168,7 @@ module.exports.createEmbed = function (type, context, content) {
  */
 module.exports.formatPaginationEmbeds = function (embeds) {
   // No formatting if we only have one page
-  if (embeds.length == 1) return embeds;
+  if (embeds.length === 1) return embeds;
 
   let i = 0;
   const l = embeds.length;

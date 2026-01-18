@@ -31,7 +31,7 @@ function createSearchResultPage(context, entry) {
       if (entry.result.deepLinks) {
         const fl = entry.result.deepLinks;
         while (fl.length >= 1) {
-          fields = fl.splice(0, 4);
+          let fields = fl.splice(0, 4);
           fields = fields.map(f => link(f.url, f.title));
           res.embeds[0].fields.push({
             name: '​',
@@ -148,7 +148,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform bing search.`));
     }

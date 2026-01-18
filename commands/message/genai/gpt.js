@@ -96,7 +96,7 @@ module.exports = {
         ],
         files,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       if (e.response.body?.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));

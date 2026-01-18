@@ -673,7 +673,7 @@ module.exports.inhouseEmojiSearch = async function (context, emoji, codepoint = 
   );
 };
 
-module.exports.garfield = async function (context) {
+module.exports.garfield = async function () {
   return await request(Api.UTILS_GARFIELD, 'GET', {}, {});
 };
 
@@ -715,7 +715,7 @@ module.exports.inferkit = async function (context, input) {
   );
 };
 
-module.exports.otter = async function (context) {
+module.exports.otter = async function () {
   return await request(Api.UTILS_OTTER, 'GET', {}, {});
 };
 

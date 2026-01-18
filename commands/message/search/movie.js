@@ -55,7 +55,7 @@ module.exports = {
       let search = await movie(context, args.query, context.channel.nsfw);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {
@@ -68,10 +68,10 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
-      if (e.response?.body?.status == 1)
+    } catch {
+      if (e.response?.body?.status === 1)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
-      if (e.response?.body?.status == 2)
+      if (e.response?.body?.status === 2)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
 
       console.log(e);

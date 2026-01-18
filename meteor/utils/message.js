@@ -2,7 +2,6 @@ const { Permissions, MessageFlags } = require('detritus-client/lib/constants');
 const { basecamp, formatErrorMessage } = require('../logging');
 const { COLORS, MESSAGE_BLOCK_REASONS } = require('#constants');
 const { icon, link } = require('./markdown');
-const { timestamp } = require('#utils/markdown');
 
 module.exports.editOrReply = function (context, message, disableReference = false) {
   // Apply message_reference

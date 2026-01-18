@@ -12,6 +12,7 @@ const {
   ApplicationCommandOptionTypes,
   InteractionContextTypes,
   ApplicationIntegrationTypes,
+  InteractionCallbackTypes,
 } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 

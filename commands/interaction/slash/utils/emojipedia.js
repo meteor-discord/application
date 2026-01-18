@@ -73,7 +73,7 @@ module.exports = {
         if (!newIcon && Object.values(newView.data.platforms).length >= 1)
           newIcon = Object.values(newView.data.platforms)[0].images[0].src;
 
-        currentView = createEmbed('default', context, {
+        const currentView = createEmbed('default', context, {
           author: {
             iconUrl: newIcon,
             name: `${newView.data.name} • Emoji ${newView.data.metadata.version.emoji}`,

@@ -118,7 +118,7 @@ async function translateMessage(context, message, to, from) {
       message: result,
       metadata: translation.response.body,
     };
-  } catch (e) {
+  } catch {
     console.log(e);
     console.log(mappings);
     throw 'Translation Failed.';
@@ -199,7 +199,7 @@ module.exports = {
             embeds: newMessage.embeds,
           })
         );
-      } catch (e) {
+      } catch {
         console.log(e);
         return editOrReply(context, createEmbed('error', context, 'Unable to translate message.'));
       }
@@ -234,7 +234,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       if (e.response?.body?.status && e.response.body.status === 2)
         return editOrReply(context, createEmbed('error', context, `Unable to translate text.`));
       console.log(e);

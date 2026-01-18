@@ -34,9 +34,9 @@ function getUvIndex(i) {
 }
 
 function renderWeatherCard(context, data, units) {
-  let description = `### ${weatherIcon(data.result.current.icon.id)} ​ ​  ​ ​ ${temperature(data.result.current.temperature.current, units)}   •   ${data.result.current.condition.label}\n-# Feels like ${temperature(data.result.current.temperature.feels_like, units)}  •   High ${temperature(data.result.current.temperature.max, units)} • Low ${temperature(data.result.current.temperature.min, units)}\n\n${pill('Wind')} `;
+  let description = `### ${weatherIcon(data.result.current.icon.id)} ${temperature(data.result.current.temperature.current, units)}   •   ${data.result.current.condition.label}\n-# Feels like ${temperature(data.result.current.temperature.feels_like, units)}  •   High ${temperature(data.result.current.temperature.max, units)} • Low ${temperature(data.result.current.temperature.min, units)}\n\n${pill('Wind')} `;
 
-  if (units == '°F') description += smallPill((data.result.current.wind.speed / 1.609).toFixed(2) + ' mph');
+  if (units === '°F') description += smallPill((data.result.current.wind.speed / 1.609).toFixed(2) + ' mph');
   else description += smallPill(data.result.current.wind.speed.toFixed(2) + ' km/h');
 
   const secondaryPills = [];
@@ -52,7 +52,7 @@ function renderWeatherCard(context, data, units) {
     description += `\n${iconPill('air_quality_' + data.result.air_quality.type, 'Air Quality')} ${smallPill(`${data.result.air_quality.label} (${data.result.air_quality.value})`)}`;
   }
 
-  description += `\n\n${iconPill('sun', 'Sunrise')} ${timestamp(data.result.current.sun.sunrise, 't')} ​ ​ ${iconPill('moon', 'Sunset')} ${timestamp(data.result.current.sun.sunset, 't')}`;
+  description += `\n\n${iconPill('sun', 'Sunrise')} ${timestamp(data.result.current.sun.sunrise, 't')} ${iconPill('moon', 'Sunset')} ${timestamp(data.result.current.sun.sunset, 't')}`;
 
   // Render weather alerts
   if (data.result.warnings.length >= 1) {
@@ -68,11 +68,11 @@ function renderWeatherCard(context, data, units) {
   let space = 3;
   if (units === '°F') space = 4;
   for (const i of data.result.forecast) {
-    description += `\n${pill(i.day)} ​ ​ ${weatherIcon(i.icon)}`;
+    description += `\n${pill(i.day)} ${weatherIcon(i.icon)}`;
     if (temperature(i.temperature.max, units).toString().length === space)
       description += `${pill(temperature(i.temperature.max, units) + ' ')}`;
     else description += `${pill(temperature(i.temperature.max, units))}`;
-    description += `​**/**​`;
+    description += `**/**`;
     if (temperature(i.temperature.min, units).toString().length === space)
       description += `${smallPill(temperature(i.temperature.min, units) + ' ')}`;
     else description += `${smallPill(temperature(i.temperature.min, units))}`;
@@ -138,7 +138,7 @@ module.exports = {
       const pages = [];
       for (const u of units) pages.push(page(renderWeatherCard(context, data, u)));
 
-      if (pages.length == 1) return editOrReply(context, pages[0]);
+      if (pages.length === 1) return editOrReply(context, pages[0]);
       await paginator.createPaginator({
         context,
         pages,
@@ -151,7 +151,7 @@ module.exports = {
           },
         ],
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('warning', context, `No weather data available for given location.`));
     }

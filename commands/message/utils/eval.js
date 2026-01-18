@@ -40,7 +40,7 @@ module.exports = {
 
     let data;
     let code = args.code;
-    if (args.lang == 'node') {
+    if (args.lang === 'node') {
       const e = JSON.parse(
         JSON.stringify({
           client: {
@@ -105,7 +105,7 @@ module.exports = {
         .field('LanguageChoiceWrapper', REXTESTER_LANGUAGES[args.lang]);
 
       data = JSON.parse(data.text);
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Code execution failed.'));
     }
@@ -125,7 +125,7 @@ module.exports = {
     } else {
       embed.description = codeblock('js', ['​' + data.Result.split('\n').splice(0, 10).join('\n').substr(0, 1000)]);
       embed.color = COLORS.success;
-      if (data.Result.length == 0) embed.description = codeblock('js', ['No Output']);
+      if (data.Result.length === 0) embed.description = codeblock('js', ['No Output']);
     }
 
     return editOrReply(context, createEmbed('default', context, embed));

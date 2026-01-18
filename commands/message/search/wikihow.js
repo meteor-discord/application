@@ -47,7 +47,7 @@ module.exports = {
 
       const pages = [];
 
-      if (search.body.data.length == 0) return editOrReply(context, createEmbed('error', context, `No results found.`));
+      if (search.body.data.length === 0) return editOrReply(context, createEmbed('error', context, `No results found.`));
 
       for (const res of search.body.data) {
         pages.push(createWikiHowPage(context, res));
@@ -57,7 +57,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform wikihow search.`));
     }

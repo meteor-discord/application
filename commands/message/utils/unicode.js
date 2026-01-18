@@ -1,9 +1,6 @@
-const { emojipedia, emojiKitchen, unicodeMetadata } = require('#api');
+const { unicodeMetadata } = require('#api');
 const {
-  EMOJIPEDIA_PLATFORM_TYPES,
-  EMOJIPEDIA_PLATFORM_TYPE_ALIASES,
   PERMISSION_GROUPS,
-  EMOJIPEDIA_PLATFORM_PRIORITY,
 } = require('#constants');
 
 const { createEmbed, page } = require('#utils/embed');
@@ -60,7 +57,7 @@ module.exports = {
       return createDynamicCardStack(context, {
         cards: pages,
       });
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, e?.response?.body?.message || 'Something went wrong.'));
     }
   },

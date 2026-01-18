@@ -236,7 +236,7 @@ class DynamicCardStack {
       if (this.loopPages) this.index = 0;
     }
 
-    if (this.currentSelectedSubcategory == null) this.rootIndex = this.index;
+    if (this.currentSelectedSubcategory === null) this.rootIndex = this.index;
     return Object.assign(this.getCardByIndex(this.index), { components: this._renderComponents() });
   }
 
@@ -251,7 +251,7 @@ class DynamicCardStack {
       else this.index = 0;
     }
 
-    if (this.currentSelectedSubcategory == null) this.rootIndex = this.index;
+    if (this.currentSelectedSubcategory === null) this.rootIndex = this.index;
     return Object.assign(this.getCardByIndex(this.index), { components: this._renderComponents() });
   }
 
@@ -411,13 +411,14 @@ class DynamicCardStack {
         case InteractiveComponentTypes.BUTTON:
           renderedButtons.push(this._renderButton(b, button, disabled));
           break;
-        case InteractiveComponentTypes.BUTTON_GENERATOR:
+        case InteractiveComponentTypes.BUTTON_GENERATOR: {
           // Resolve buttons to be rendered
           const _buttons = button.resolveComponents(this);
           for (const btn of _buttons) {
             renderedButtons.push(this._renderButton(b, btn, disabled));
           }
           break;
+        }
         default:
           console.error('Unknown Component Type: ' + button.type + '.');
       }
@@ -693,7 +694,7 @@ class DynamicCardStack {
         // Display an error if we're NOT
         // in the root stack (that would break
         // things badly).
-        if (this.currentSelectedSubcategory != null)
+        if (this.currentSelectedSubcategory !== null)
           this.activeCardStack = [
             page(
               createEmbed('errordetail', ctx, {

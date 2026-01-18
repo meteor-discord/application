@@ -77,8 +77,8 @@ module.exports = {
       let search = await rule34(context, args.query, args.site.toLowerCase());
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
-      if (search.body.data.length == 0)
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.data.length === 0)
         return editOrReply(
           context,
           createEmbed('warning', context, `No results found on ${SITES[args.site.toLowerCase()]}.`)
@@ -93,7 +93,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform rule34 search.`));
     }

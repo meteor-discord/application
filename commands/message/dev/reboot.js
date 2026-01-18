@@ -21,7 +21,7 @@ module.exports = {
       execSync('git pull');
       await editOrReply(context, createEmbed('success', context, 'Rebooting bot...'));
       execSync('pm2 restart pb-prd');
-    } catch (e) {
+    } catch {
       console.log(e);
       await editOrReply(context, createEmbed('error', context, 'Unable to reboot.'));
     }

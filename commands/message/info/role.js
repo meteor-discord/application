@@ -99,7 +99,7 @@ module.exports = {
     await acknowledge(context);
 
     const r = context.guild.roles.filter(
-      r => r.name.toLowerCase().includes(args.query.toLowerCase()) || r.id == args.query
+      r => r.name.toLowerCase().includes(args.query.toLowerCase()) || r.id === args.query
     )[0];
 
     if (!r) return await editOrReply(context, createEmbed('warning', context, 'No roles matched your query.'));

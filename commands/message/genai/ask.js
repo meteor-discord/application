@@ -22,7 +22,6 @@ module.exports = {
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
   run: async (context, args) => {
-    return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, 'You need to ask a question.'));
@@ -31,6 +30,7 @@ module.exports = {
 
     const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
+    let content = '';
     if (msg.content && msg.content.length) content = msg.content;
     else if (msg.embeds?.length)
       for (const e of msg.embeds) {
@@ -74,7 +74,7 @@ module.exports = {
         ],
         files,
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, e.response.body.message));
     }

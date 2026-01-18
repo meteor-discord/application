@@ -52,7 +52,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
   });
 
   paging.on('interaction', async ({ context: ctx, listener }) => {
-    if (ctx.customId == 'search') {
+    if (ctx.customId === 'search') {
       // Kill the original paginator and replace it with a select
       listener.stopWithoutUpdate();
 
@@ -75,13 +75,13 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
             components: [],
           });
           // Get the page reference and fetch the results
-          let ref = refMappings.filter(r => r.ref == sctx.data.values[0]);
+          let ref = refMappings.filter(r => r.ref === sctx.data.values[0]);
           ref = ref[0];
           try {
             let search = await quoraResult(context, ref.link);
             search = search.response.body;
 
-            if (search.status == 2) return editOrReply(context, createEmbed('error', context, search.message));
+            if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
 
             let nextPages = [];
             // Create the initial page
@@ -93,7 +93,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
             nextPages = formatPaginationEmbeds(nextPages);
 
             await quoraPaginator(context, nextPages, refMappings, sctx.data.values[0]);
-          } catch (e) {
+          } catch {
             console.log(e);
             return editOrReply(context, createEmbed('error', context, `Unable to perform quora search.`));
           }
@@ -104,7 +104,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
         return {
           label: r.title,
           value: r.ref,
-          default: r.ref == currentRef,
+          default: r.ref === currentRef,
         };
       });
 
@@ -140,7 +140,7 @@ module.exports = {
       let search = await quora(context, args.query);
       search = search.response.body;
 
-      if (search.status == 2) return editOrReply(context, createEmbed('error', context, search.message));
+      if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
 
       let pages = [];
 
@@ -154,7 +154,7 @@ module.exports = {
       const refMappings = search.results;
 
       await quoraPaginator(context, pages, refMappings, refMappings[0].ref);
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform quora search.`));
     }

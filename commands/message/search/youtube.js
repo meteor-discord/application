@@ -150,7 +150,7 @@ module.exports = {
 
     if (!args.query) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (query).`));
     try {
-      if (args.type == 'all') args.type = undefined;
+      if (args.type === 'all') args.type = undefined;
       else {
         if (!YOUTUBE_CATEGORIES[args.type.toLowerCase()])
           return editOrReply(context, createEmbed('warning', context, `Invalid Parameter (type).`));
@@ -168,7 +168,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform youtube search.`));
     }

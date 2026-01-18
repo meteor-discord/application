@@ -49,7 +49,7 @@ module.exports = {
     let ocr;
     try {
       ocr = await googleVisionOcr(context, image);
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, 'Unable to retrieve Google Vision API response.'));
     }
 
@@ -75,7 +75,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       if (e.response?.body?.status && e.response.body.status === 2)
         return editOrReply(context, createEmbed('error', context, `Unable to translate text.`));
       console.log(e);

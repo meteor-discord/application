@@ -156,10 +156,10 @@ module.exports = {
           resultMappings[c.name] = c;
         }
         // Boost exact matches to rank higher in the result list
-        if (c.name == args.command.toLowerCase()) resultScores[c.name] += 1;
+        if (c.name === args.command.toLowerCase()) resultScores[c.name] += 1;
         if (
           c.aliases.filter(f => {
-            return f == args.command.toLowerCase();
+            return f === args.command.toLowerCase();
           }).length >= 1
         )
           resultScores[c.name] += 1;
@@ -172,7 +172,7 @@ module.exports = {
       const pages = [];
       const prefix = DEFAULT_PREFIXES[0];
       try {
-        if (results.length == 0)
+        if (results.length === 0)
           return editOrReply(context, createEmbed('warning', context, 'No commands found for the provided query.'));
 
         if (results.length > 1) {
@@ -211,7 +211,7 @@ module.exports = {
             createCommandPage(context, prefix, results[0], context.interactionCommandClient.commands)
           );
         }
-      } catch (e) {
+      } catch {
         console.log(e);
       }
     } else {

@@ -65,7 +65,7 @@ module.exports = {
         responseEmbed.thumbnail = { url: res.response.body.page_metadata.thumbnail };
 
       return editOrReply(context, responseEmbed);
-    } catch (e) {
+    } catch {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, e.response.body.error.message));
     }
