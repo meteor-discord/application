@@ -90,6 +90,8 @@ const commandClient = new CommandClient(client, {
 
 const interactionClient = new InteractionCommandClient(client);
 
+const { logError, logMessage, formatErrorMessage } = require('#logging');
+
 const { createEmbed } = require('#utils/embed');
 const { icon, highlight } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
@@ -152,6 +154,39 @@ commandClient.on('commandRunError', async ({ context, error }) => {
   try {
     console.error(error ? error.stack || error.message : error);
 
+    // Prepare error packages for logging
+    const packages = {
+      data: {},
+      origin: {},
+      meta: {},
+    };
+
+    if (context.user) {
+      packages.origin.user = {
+        name: `${context.user.username}#${context.user.discriminator}`,
+        id: context.user.id,
+      };
+    }
+    if (context.guild) {
+      packages.origin.guild = {
+        name: context.guild.name,
+        id: context.guild.id,
+      };
+    }
+    if (context.channel) {
+      packages.origin.channel = {
+        name: context.channel.name,
+        id: context.channel.id,
+      };
+    }
+
+    packages.data.command = context.message.content;
+    packages.data.error = error ? error.stack || error.message : error;
+    if (error.raw) packages.data.raw = JSON.stringify(error.raw, null, 2);
+
+    // Log to Discord webhook (non-blocking)
+    logError(packages, '01').catch(err => console.error('Failed to log error:', err));
+
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
@@ -165,6 +200,39 @@ commandClient.on('commandRunError', async ({ context, error }) => {
 interactionClient.on('commandRunError', async ({ context, error }) => {
   try {
     console.error(error ? error.stack || error.message : error);
+
+    // Prepare error packages for logging
+    const packages = {
+      data: {},
+      origin: {},
+      meta: {},
+    };
+
+    if (context.user) {
+      packages.origin.user = {
+        name: `${context.user.username}#${context.user.discriminator}`,
+        id: context.user.id,
+      };
+    }
+    if (context.guild) {
+      packages.origin.guild = {
+        name: context.guild.name,
+        id: context.guild.id,
+      };
+    }
+    if (context.channel) {
+      packages.origin.channel = {
+        name: context.channel.name,
+        id: context.channel.id,
+      };
+    }
+
+    packages.data.command = context.command.name;
+    packages.data.error = error ? error.stack || error.message : error;
+    if (error.raw) packages.data.raw = JSON.stringify(error.raw, null, 2);
+
+    // Log to Discord webhook (non-blocking)
+    logError(packages, '01').catch(err => console.error('Failed to log error:', err));
 
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
@@ -184,13 +252,28 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
       if (!response.ok) {
         const message = `(NOT OK) ${response.statusCode} ${response.request.method}-${response.request.url} (${route.path})`;
         console.log(message);
-        console.log(await response.text());
+        const responseText = await response.text();
+        console.log(responseText);
+
+        // Log to Discord webhook (non-blocking)
+        logMessage(
+          formatErrorMessage(
+            3,
+            'REST_ERROR',
+            `REST request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${responseText.substring(0, 500)}\`\`\``
+          )
+        ).catch(err => console.error('Failed to log REST error:', err));
       }
     }
   });
 
   client.on(ClientEvents.WARN, async ({ error }) => {
     console.warn(error);
+
+    // Log to Discord webhook (non-blocking)
+    logMessage(formatErrorMessage(2, 'CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``)).catch(err =>
+      console.error('Failed to log warning:', err)
+    );
   });
 
   try {
