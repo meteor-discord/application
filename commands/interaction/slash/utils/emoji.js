@@ -6,8 +6,6 @@ const { pill, timestamp, icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 
-const { ingest } = require('#logging');
-
 const { Utils } = require('detritus-client');
 const {
   InteractionCallbackTypes,
@@ -44,9 +42,6 @@ function toCodePoint(unicodeSurrogates, sep) {
 module.exports = {
   name: 'emoji',
   description: 'Turn emoji into images. Supports both built-in and custom emoji.',
-  metadata: {
-    use_custom_ingest: true,
-  },
   contexts: [InteractionContextTypes.GUILD, InteractionContextTypes.PRIVATE_CHANNEL, InteractionContextTypes.BOT_DM],
   integrationTypes: [ApplicationIntegrationTypes.USER_INSTALL],
   options: [
