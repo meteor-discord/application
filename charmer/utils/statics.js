@@ -1,7 +1,8 @@
-const { Hosts } = require('../api/endpoints');
+const path = require('path');
+
+const ASSETS_DIR = path.join(__dirname, '../../assets');
 
 // Add static brand icons here
-// Update the revision id to break discord cache
 const Statics = Object.freeze({
   actions: {
     translate: {
@@ -253,79 +254,78 @@ const Statics = Object.freeze({
   },
 });
 
-function staticAsset(static) {
-  return Hosts.statics + `assets/` + static.file + '?r=' + static.revision;
+function staticAsset(filePath) {
+  return `file://${path.join(ASSETS_DIR, filePath)}`;
 }
 
 module.exports.STATICS = Object.freeze({
-  anthropic: staticAsset(Statics.brands.anthropic),
-  applemaps: staticAsset(Statics.brands.applemaps),
-  bard: staticAsset(Statics.brands.bard),
-  bing: staticAsset(Statics.brands.bing),
-  chatgpt: staticAsset(Statics.brands.chatgpt),
-  duckduckgo: staticAsset(Statics.brands.duckduckgo),
-  genius: staticAsset(Statics.brands.genius),
-  google: staticAsset(Statics.brands.google),
-  googlelens: staticAsset(Statics.brands.googlelens),
-  googlecalculator: staticAsset(Statics.brands.googlecalculator),
-  googledictionary: staticAsset(Statics.brands.googledictionary),
-  googlefinance: staticAsset(Statics.brands.googlefinance),
-  googlemaps: staticAsset(Statics.brands.googlemaps),
-  googlenews: staticAsset(Statics.brands.googlenews),
-  googletranslate: staticAsset(Statics.brands.googletranslate),
-  emojipedia: staticAsset(Statics.brands.emojipedia),
-  inferkit: staticAsset(Statics.brands.inferkit),
-  inspirobot: staticAsset(Statics.brands.inspirobot),
-  labscore: staticAsset(Statics.brands.labscore),
-  makesweet: staticAsset(Statics.brands.makesweet),
-  musixmatch: staticAsset(Statics.brands.musixmatch),
-  openai: staticAsset(Statics.brands.openai),
-  openweathermap: staticAsset(Statics.brands.openweathermap),
-  perspectiveapi: staticAsset(Statics.brands.perspectiveapi),
-  photofunia: staticAsset(Statics.brands.photofunia),
-  quora: staticAsset(Statics.brands.quora),
-  reddit: staticAsset(Statics.brands.reddit),
-  tineye: staticAsset(Statics.brands.tineye),
-  urbandictionary: staticAsset(Statics.brands.urbandictionary),
-  weather: staticAsset(Statics.brands.weather),
-  wikihow: staticAsset(Statics.brands.wikihow),
-  wikipedia: staticAsset(Statics.brands.wikipedia),
-  wolframalpha: staticAsset(Statics.brands.wolframalpha),
-  youtube: staticAsset(Statics.brands.youtube),
+  anthropic: staticAsset(Statics.brands.anthropic.file),
+  applemaps: staticAsset(Statics.brands.applemaps.file),
+  bard: staticAsset(Statics.brands.bard.file),
+  bing: staticAsset(Statics.brands.bing.file),
+  chatgpt: staticAsset(Statics.brands.chatgpt.file),
+  duckduckgo: staticAsset(Statics.brands.duckduckgo.file),
+  genius: staticAsset(Statics.brands.genius.file),
+  google: staticAsset(Statics.brands.google.file),
+  googlelens: staticAsset(Statics.brands.googlelens.file),
+  googlecalculator: staticAsset(Statics.brands.googlecalculator.file),
+  googledictionary: staticAsset(Statics.brands.googledictionary.file),
+  googlefinance: staticAsset(Statics.brands.googlefinance.file),
+  googlemaps: staticAsset(Statics.brands.googlemaps.file),
+  googlenews: staticAsset(Statics.brands.googlenews.file),
+  googletranslate: staticAsset(Statics.brands.googletranslate.file),
+  emojipedia: staticAsset(Statics.brands.emojipedia.file),
+  inferkit: staticAsset(Statics.brands.inferkit.file),
+  inspirobot: staticAsset(Statics.brands.inspirobot.file),
+  labscore: staticAsset(Statics.brands.labscore.file),
+  makesweet: staticAsset(Statics.brands.makesweet.file),
+  musixmatch: staticAsset(Statics.brands.musixmatch.file),
+  openai: staticAsset(Statics.brands.openai.file),
+  openweathermap: staticAsset(Statics.brands.openweathermap.file),
+  perspectiveapi: staticAsset(Statics.brands.perspectiveapi.file),
+  photofunia: staticAsset(Statics.brands.photofunia.file),
+  quora: staticAsset(Statics.brands.quora.file),
+  reddit: staticAsset(Statics.brands.reddit.file),
+  tineye: staticAsset(Statics.brands.tineye.file),
+  urbandictionary: staticAsset(Statics.brands.urbandictionary.file),
+  weather: staticAsset(Statics.brands.weather.file),
+  wikihow: staticAsset(Statics.brands.wikihow.file),
+  wikipedia: staticAsset(Statics.brands.wikipedia.file),
+  wolframalpha: staticAsset(Statics.brands.wolframalpha.file),
+  youtube: staticAsset(Statics.brands.youtube.file),
 });
 
 module.exports.STATIC_ICONS = Object.freeze({
-  adult: staticAsset(Statics.icons.adult),
-  error: staticAsset(Statics.icons.error),
-  loading: staticAsset(Statics.icons.loading),
-  ai: staticAsset(Statics.icons.ai),
-  ai_bard: staticAsset(Statics.icons.ai_bard),
-  ai_bard_idle: staticAsset(Statics.icons.ai_bard_idle),
-  ai_clyde: staticAsset(Statics.icons.ai_clyde),
-  ai_clyde_idle: staticAsset(Statics.icons.ai_clyde_idle),
-  ai_gemini: staticAsset(Statics.icons.ai_gemini),
-  ai_palm_idle: staticAsset(Statics.icons.ai_palm_idle),
-  ai_summary: staticAsset(Statics.icons.ai_summary),
-  ai_image: staticAsset(Statics.icons.ai_image),
-  ai_image_processing: staticAsset(Statics.icons.ai_image_processing),
-  warning: staticAsset(Statics.icons.warning),
-  search_calculator: staticAsset(Statics.icons.search_calculator),
-  full_coverage: staticAsset(Statics.icons.full_coverage),
+  adult: staticAsset(Statics.icons.adult.file),
+  error: staticAsset(Statics.icons.error.file),
+  loading: staticAsset(Statics.icons.loading.file),
+  ai: staticAsset(Statics.icons.ai.file),
+  ai_bard: staticAsset(Statics.icons.ai_bard.file),
+  ai_bard_idle: staticAsset(Statics.icons.ai_bard_idle.file),
+  ai_clyde: staticAsset(Statics.icons.ai_clyde.file),
+  ai_clyde_idle: staticAsset(Statics.icons.ai_clyde_idle.file),
+  ai_gemini: staticAsset(Statics.icons.ai_gemini.file),
+  ai_palm_idle: staticAsset(Statics.icons.ai_palm_idle.file),
+  ai_summary: staticAsset(Statics.icons.ai_summary.file),
+  ai_image: staticAsset(Statics.icons.ai_image.file),
+  ai_image_processing: staticAsset(Statics.icons.ai_image_processing.file),
+  warning: staticAsset(Statics.icons.warning.file),
+  search_calculator: staticAsset(Statics.icons.search_calculator.file),
+  full_coverage: staticAsset(Statics.icons.full_coverage.file),
 });
 
 module.exports.STATIC_ASSETS = Object.freeze({
-  card_skeleton: staticAsset(Statics.assets.card_skeleton),
-  chat_loading: staticAsset(Statics.assets.chat_loading),
-  chat_loading_small: staticAsset(Statics.assets.chat_loading_small),
-  image_placeholder: staticAsset(Statics.assets.image_placeholder),
-  image_loading: staticAsset(Statics.assets.image_loading),
-  image_loading_splash: index =>
-    `${Hosts.statics}assets/${Statics.assets.image_loading_splash.file}${index}.png?r=${Statics.assets.image_loading_splash.revision}`,
-  embed_invite_spacer: staticAsset(Statics.assets.embed_invite_spacer),
-  emoji_placeholder: staticAsset(Statics.assets.emoji_placeholder),
-  emoji_placeholder_large: staticAsset(Statics.assets.emoji_placeholder_large),
+  card_skeleton: staticAsset(Statics.assets.card_skeleton.file),
+  chat_loading: staticAsset(Statics.assets.chat_loading.file),
+  chat_loading_small: staticAsset(Statics.assets.chat_loading_small.file),
+  image_placeholder: staticAsset(Statics.assets.image_placeholder.file),
+  image_loading: staticAsset(Statics.assets.image_loading.file),
+  image_loading_splash: index => staticAsset(`${Statics.assets.image_loading_splash.file}${index}.png`),
+  embed_invite_spacer: staticAsset(Statics.assets.embed_invite_spacer.file),
+  emoji_placeholder: staticAsset(Statics.assets.emoji_placeholder.file),
+  emoji_placeholder_large: staticAsset(Statics.assets.emoji_placeholder_large.file),
 });
 
 module.exports.STATIC_ACTIONS = Object.freeze({
-  translate: staticAsset(Statics.actions.translate),
+  translate: staticAsset(Statics.actions.translate.file),
 });
