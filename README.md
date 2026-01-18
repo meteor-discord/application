@@ -1,10 +1,9 @@
 ![Banner](.github/images/banner.png)
 
-> [!NOTE]
-> This project will be open-source once its completed.
-
 <p align="center">
     <a href="https://discord.com/oauth2/authorize?client_id=1421798606234583073&permissions=8&integration_type=0&scope=bot">Add to server</a>
+    ·
+    <a href="https://discord.com/oauth2/authorize?client_id=1421798606234583073&permissions=8&integration_type=1&scope=bot">Add to user</a>
     ·
     <a href="https://example.com/?utm_source=github&utm_medium=readme&utm_campaign=">Visit website</a>
 </p>
