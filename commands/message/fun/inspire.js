@@ -3,6 +3,7 @@ const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
+const { USER_AGENT } = require('#utils/user-agent');
 
 const superagent = require('superagent');
 
@@ -20,7 +21,7 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', 'labscore/2.0');
+      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', USER_AGENT);
 
       return await editOrReply(
         context,

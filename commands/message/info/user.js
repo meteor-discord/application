@@ -16,7 +16,7 @@ module.exports = {
   metadata: {
     description: 'Displays information about a discord user. Accepts IDs, Mentions and Usernames.',
     description_short: 'Information about discord users',
-    examples: ['user labsCore'],
+    examples: ['user meteor'],
     category: 'info',
     usage: 'user [<user>]',
     slashCommand: 'user',

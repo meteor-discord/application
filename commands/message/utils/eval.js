@@ -3,6 +3,7 @@ const { REXTESTER_LANGUAGES, COLORS, REXTESTER_COMPILER_ARGS, PERMISSION_GROUPS 
 const { createEmbed } = require('#utils/embed');
 const { codeblock, highlight } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
+const { BROWSER_USER_AGENT } = require('#utils/user-agent');
 
 const { DiscordRegexNames } = require('detritus-client/lib/constants');
 const { Utils } = require('detritus-client');
@@ -88,7 +89,7 @@ module.exports = {
       data = await superagent
         .post(`https://rextester.com/rundotnet/Run`)
         .set({
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0',
+          'User-Agent': BROWSER_USER_AGENT,
           Accept: 'text/plain, */*; q=0.01',
           'Accept-Language': 'en-US',
           Prefer: 'safe',

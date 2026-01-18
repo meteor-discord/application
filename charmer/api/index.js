@@ -1,5 +1,6 @@
 const superagent = require('superagent');
 const { Api, Hosts } = require('./endpoints');
+const { USER_AGENT } = require('#utils/user-agent');
 
 async function request(path, type, headers, args, host) {
   let timing = Date.now();
@@ -9,8 +10,8 @@ async function request(path, type, headers, args, host) {
 
   // apply default headers
   if (!headers['Authorization']) headers['Authorization'] = process.env.API_KEY;
-  if (!headers['user-agent']) headers['user-agent'] = 'labscore/2.0';
-  if (!headers['x-labscore-client']) headers['x-labscore-client'] = 'labscore/2.0';
+  if (!headers['user-agent']) headers['user-agent'] = USER_AGENT;
+  if (!headers['x-meteor-client']) headers['x-meteor-client'] = USER_AGENT;
 
   if (type === 'GET') {
     if (!args) {

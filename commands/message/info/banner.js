@@ -14,7 +14,7 @@ module.exports = {
   metadata: {
     description: 'Displays someones profile banner. Accepts IDs, Mentions, or Usernames.',
     description_short: 'Get discord user avatars',
-    examples: ['avatar labsCore'],
+    examples: ['avatar meteor'],
     category: 'info',
     usage: 'avatar [<user>]',
     slashCommmand: 'banner',

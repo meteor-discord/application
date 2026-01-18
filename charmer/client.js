@@ -7,7 +7,7 @@ const {
   ClientEvents,
 } = require('detritus-client/lib/constants');
 
-const { DEFAULT_BOT_NAME, DEFAULT_PREFIXES, EOS_NOTICE_TIMESTAMP, EOS_ENABLED } = require('#constants');
+const { DEFAULT_BOT_NAME, DEFAULT_PREFIXES } = require('#constants');
 const { PERMISSIONS_TEXT } = require('#permissions');
 
 const Paginator = require('./paginator').PaginatorCluster;
@@ -70,8 +70,6 @@ const commandClient = new CommandClient(cluster, {
     // Only apply filters below to a GUILD context.
     if (!context.guild) return true;
 
-    if (EOS_ENABLED && Date.now() >= EOS_NOTICE_TIMESTAMP) return false;
-
     let b = context.guild.members.get(context.client.user.id);
     // Bot member is not cached for whatever reason, fetch it.
     if (b === undefined) b = await context.guild.fetchMember(context.client.user.id);
@@ -91,9 +89,6 @@ const commandClient = new CommandClient(cluster, {
 
 const interactionClient = new InteractionCommandClient(cluster, {
   useClusterClient: true,
-  onCommandCheck: async context => {
-    return !(EOS_ENABLED && Date.now() < EOS_NOTICE_TIMESTAMP);
-  },
 });
 
 const { maintower, basecamp, formatErrorMessage } = require('#logging');
@@ -290,16 +285,16 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     await cluster.run().then();
 
     console.log(
-      `[${process.env.HOSTNAME || 'labscore'}]{${cluster.clusterId}} cluster ran (${Date.now() - clusterTimings}ms)`
+      `[${process.env.HOSTNAME || 'meteor'}]{${cluster.clusterId}} cluster ran (${Date.now() - clusterTimings}ms)`
     );
     let shards = `{${cluster.clusterId}} (${cluster.shards.map(shard => shard.shardId).join(', ')})`;
-    console.log(`[${process.env.HOSTNAME || 'labscore'}]${shards} shards loaded`);
+    console.log(`[${process.env.HOSTNAME || 'meteor'}]${shards} shards loaded`);
 
     {
       await commandClient.addMultipleIn('../commands/message/');
       await commandClient.run();
       console.log(
-        `[${process.env.HOSTNAME || 'labscore'}]${shards} command client ready (${Date.now() - clusterTimings}ms)`
+        `[${process.env.HOSTNAME || 'meteor'}]${shards} command client ready (${Date.now() - clusterTimings}ms)`
       );
     }
     {
@@ -308,7 +303,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
       await interactionClient.addMultipleIn('../commands/interaction/slash');
       await interactionClient.run();
       console.log(
-        `[${process.env.HOSTNAME || 'labscore'}]${shards} interaction command client ready (${Date.now() - clusterTimings}ms)`
+        `[${process.env.HOSTNAME || 'meteor'}]${shards} interaction command client ready (${Date.now() - clusterTimings}ms)`
       );
     }
   } catch (e) {

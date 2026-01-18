@@ -14,7 +14,7 @@ function createHelpPage(context, title, contents, descriptions) {
         `### ${title}\n\n` +
         renderCommandList(contents, descriptions) +
         `\n\n${icon('question')} Use ${smallPill(`${DEFAULT_PREFIXES[0]}help <command>`)} to view more information about a command.` +
-        `\n${icon('discord')} Need help with anything else? ${DISCORD_INVITES.help}`,
+        `\n${icon('discord')} Need help with anything else? ${DISCORD_INVITES.support}`,
     })
   );
 }

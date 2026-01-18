@@ -1,27 +1,16 @@
 const { Permissions } = require('detritus-client/lib/constants');
 const { decimalToHexColor } = require('#utils/color');
 
-// This controls the end of service notice and command rejection system.
-// I've decided to add this flag so you don't have to figure out where all
-// the relevant references to it in the code live.
-module.exports.EOS_ENABLED = false;
-module.exports.EOS_NOTICE_URL = 'https://bignutty.gitlab.io/blog/labscore-eos-notice';
-module.exports.EOS_NOTICE_TIMESTAMP = 1767222000000;
-
 module.exports.DISCORD_INVITES = Object.freeze({
-  support: 'https://discord.gg/8c4p6xcjru',
-  privacy: 'https://discord.gg/sQs8FhcTGh',
-  invite: 'https://discord.gg/cHd28DrM7f',
-  help: 'https://discord.gg/xQNBB3WFne',
-  feedback_cardstack: 'https://discord.gg/qwrBNeK7dt',
+  support: 'https://discord.gg/6C9pcD4EUq',
 });
 
-module.exports.DEFAULT_BOT_NAME = 'labsCore';
+module.exports.DEFAULT_BOT_NAME = 'Meteor';
 
 // The first prefix in this list is considered the
 // default prefix and will be displayed in various
 // places throughout the app
-module.exports.DEFAULT_PREFIXES = ['lc.', 'ic.', 'pb.'];
+module.exports.DEFAULT_PREFIXES = ['m.', ';'];
 
 module.exports.PRIVACY_POLICY_SECTIONS = [
   '### Summary\n- We do not store or collect information about our users or their servers.\n- We share certain data with third parties that is strictly necessary to operate certain functionality.',
@@ -31,13 +20,12 @@ module.exports.PRIVACY_POLICY_SECTIONS = [
 ];
 
 module.exports.PRIVACY_POLICY_LAST_UPDATE = 1699120509970;
-module.exports.PRIVACY_POLICY_PREVIOUS_REVISION = 'privacy_june22.1dborzeh8yhs';
 
 module.exports.SUPPORT_ARTICLES = {
   AGE_RESTRICTED_CHANNELS: 115000084051,
 };
 
-module.exports.OPEN_SOURCE_REPOSITORY_URL = 'https://gitlab.com/bignutty/labscore';
+module.exports.OPEN_SOURCE_REPOSITORY_URL = 'https://github.com/meteor-discord/application';
 
 module.exports.COLORS = Object.freeze({
   error: 16404060,
