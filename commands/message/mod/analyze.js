@@ -24,16 +24,16 @@ TODO: this entire code is terrible, rework it some day
 function renderPerspectiveAnalysis(payload, input, type) {
   if (!payload.annotations[type]) throw 'unknown type';
 
-  let analysis = payload.annotations[type];
+  const analysis = payload.annotations[type];
 
-  var offset = 0;
-  var final = input;
+  let offset = 0;
+  let final = input;
 
   for (const a of analysis) {
-    var length = final.length;
-    var before = final.substring(0, a.region[0] + offset - 1);
-    var replace = final.substring(a.region[0] - 1 + offset, a.region[1] + offset);
-    var after = final.substring(a.region[1] + offset, length);
+    const length = final.length;
+    const before = final.substring(0, a.region[0] + offset - 1);
+    const replace = final.substring(a.region[0] - 1 + offset, a.region[1] + offset);
+    const after = final.substring(a.region[1] + offset, length);
     final = before + format(replace, getPerspectiveColor(a.score)) + after;
     offset += 10;
   }
@@ -42,7 +42,7 @@ function renderPerspectiveAnalysis(payload, input, type) {
 }
 
 function perspectiveAnalysisEmbed(context, payload, input, type) {
-  let score = payload.scores[type];
+  const score = payload.scores[type];
   return createEmbed('default', context, {
     // the 1000 chars length limit is stupid, blame discord
     description: `${iconPill('agreements', `${type.substr(0, 1).toUpperCase()}${type.substr(1, type.length).toLowerCase().replace(/_/g, ' ')}`)} ${smallPill(`${(score * 100).toFixed(2)}%`)} ${codeblock('ansi', [stringwrap(renderPerspectiveAnalysis(payload, input, type), 1000)])}`,
@@ -69,11 +69,11 @@ module.exports = {
 
     try {
       if (context.message.messageReference) {
-        let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+        const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
         args.input = msg.content;
       }
 
-      let perspectiveApi = await perspective(context, [args.input]);
+      const perspectiveApi = await perspective(context, [args.input]);
 
       let currentView;
 
@@ -93,7 +93,7 @@ module.exports = {
         },
       });
 
-      let options = Object.keys(perspectiveApi.response.body.annotations)
+      const options = Object.keys(perspectiveApi.response.body.annotations)
         .map(r => {
           return {
             k: r,
@@ -102,7 +102,7 @@ module.exports = {
         })
         .sort((a, b) => b.v - a.v);
 
-      let selectOptions = options.map(({ k, v }) => {
+      const selectOptions = options.map(({ k, v }) => {
         return {
           label: `${(v * 100).toFixed(2)}% • ${k.substr(0, 1).toUpperCase()}${k.substr(1, k.length).toLowerCase().replace(/_/g, ' ')}`,
           value: k,

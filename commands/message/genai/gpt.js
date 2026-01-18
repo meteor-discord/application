@@ -39,7 +39,7 @@ module.exports = {
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = `> ${msg.content.split('\n').join('\n> ')}\n${input}`;
       if (msg.embeds?.length)
@@ -67,8 +67,8 @@ module.exports = {
       let res = await gpt(context, prompt, input, model);
       res = res.response;
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (!res.body.response)
         return editOrReply(context, createEmbed('error', context, `OpenAI returned an error. Try again later.`));

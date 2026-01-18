@@ -1,9 +1,9 @@
 const { MUSIC_PLATFORM_ICONS } = require('#constants');
 
 module.exports.renderMusicButtons = function (platforms) {
-  let btns = [];
+  const btns = [];
   for (const k of Object.keys(platforms)) {
-    let s = platforms[k];
+    const s = platforms[k];
     if (MUSIC_PLATFORM_ICONS[k]) {
       btns.push({
         custom_id: k.toLowerCase(),
@@ -14,11 +14,11 @@ module.exports.renderMusicButtons = function (platforms) {
       });
     }
   }
-  let rows = [];
+  const rows = [];
   while (btns.length) {
     rows.push(btns.splice(0, 5));
   }
-  let components = [];
+  const components = [];
   for (const r of rows) {
     components.push({
       components: r,

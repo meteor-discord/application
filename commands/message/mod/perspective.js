@@ -17,11 +17,11 @@ function getPerspectiveColor(score) {
 }
 
 function formatPerspectiveScores(data) {
-  let entries = [];
-  let srt = [];
+  const entries = [];
+  const srt = [];
 
   for (const scr of Object.keys(data.scores)) {
-    let score = data.scores[scr];
+    const score = data.scores[scr];
     perc = `${score.toString().substr(2, 2)}.${score.toString().substr(3, 1)}`;
     if (perc.startsWith('0')) perc = ` ${perc.substr(1, perc.length)}`;
     srt.push(
@@ -60,7 +60,7 @@ module.exports = {
         msg = `${codeblock('ansi', [stringwrap(msg.content, 200)])}\n`;
       }
 
-      let perspectiveApi = await perspective(context, [args.input]);
+      const perspectiveApi = await perspective(context, [args.input]);
 
       return await editOrReply(
         context,

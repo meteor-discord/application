@@ -15,7 +15,7 @@ module.exports = {
     try {
       await acknowledge(context, false, [...PERMISSION_GROUPS.baseline_slash]);
 
-      let u = await context.client.rest.fetchUser(args.user.id);
+      const u = await context.client.rest.fetchUser(args.user.id);
 
       if (!u.banner && !u.accentColor)
         return editOrReply(context, createEmbed('warning', context, "User doesn't have a banner set."));

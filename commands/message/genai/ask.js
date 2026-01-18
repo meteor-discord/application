@@ -8,7 +8,7 @@ const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
 
 // TODO: general purpose constant?
-const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
+const URL_REGEX = /https?:\/\/(www\.)?[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
 
 module.exports = {
   name: 'ask',
@@ -29,7 +29,7 @@ module.exports = {
     if (!context.message.messageReference)
       return editOrReply(context, createEmbed('warning', context, 'You need to reply to a message containing a link.'));
 
-    let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+    const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
     if (msg.content && msg.content.length) content = msg.content;
     else if (msg.embeds?.length)
@@ -39,17 +39,17 @@ module.exports = {
         if (e[1].url) content = e[1].url;
       }
 
-    let webUrl = content.match(URL_REGEX);
+    const webUrl = content.match(URL_REGEX);
     if (!webUrl) return editOrReply(context, createEmbed('warning', context, `No URLs found.`));
     try {
       await editOrReply(context, createEmbed('ai_custom', 'Generating response...', STATIC_ICONS.ai_summary));
 
-      let res = await webAsk(context, webUrl[0], args.text);
+      const res = await webAsk(context, webUrl[0], args.text);
       if (!res.response.body.response)
         return editOrReply(context, createEmbed('error', context, 'Unable to generate answer. Try again later.'));
 
       let description = '';
-      let files = [];
+      const files = [];
       if (res.response.body.response.length <= 4000) description = res.response.body.response;
       else {
         files.push({

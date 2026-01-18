@@ -43,14 +43,14 @@ module.exports = {
     if (!args.input.length) return editOrReply(context, createEmbed('warning', context, 'No input provided.'));
 
     try {
-      let meta = await unicodeMetadata(context, args.input);
+      const meta = await unicodeMetadata(context, args.input);
 
-      let chars = meta.response.body;
-      let pages = [];
+      const chars = meta.response.body;
+      const pages = [];
 
       console.log(meta.response.body);
       while (chars.length) {
-        let cset = chars.splice(0, 20);
+        const cset = chars.splice(0, 20);
 
         let padLen = 0;
         cset.map(c => {

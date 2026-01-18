@@ -6,7 +6,7 @@ const superagent = require('superagent');
 const ERROR_WEBHOOK = process.env.ERROR_WEBHOOK;
 
 const formatErrorMessage = (sev = 0, code, content) => {
-  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[${process.env.HOSTNAME || 'meteor'}]\` **\` ${code}  \`** | ${content}`;
+  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[meteor]\` **\` ${code}  \`** | ${content}`;
 };
 
 /**
@@ -98,7 +98,7 @@ module.exports.logError = async function (packages, type = '01') {
 
     embed.title = `${icon('warning')} Error Report`;
     embed.footer = {
-      text: `${process.env.HOSTNAME || 'meteor'} • type ${type}`,
+      text: `meteor • type ${type}`,
     };
 
     await superagent.post(ERROR_WEBHOOK).send({

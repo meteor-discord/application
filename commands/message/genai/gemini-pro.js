@@ -32,7 +32,7 @@ module.exports = {
     let model = 'gemini-2.5-pro-preview-05-06';
     if (args.model) model = args.model;
 
-    let input = args.text;
+    const input = args.text;
 
     let prompt = `You are a friendly assistant designed to help people.\n- Today\'s date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.\n- Respond in a natural way, using Markdown formatting.`;
     if (args.prompt !== '') prompt = args.prompt;
@@ -51,15 +51,15 @@ module.exports = {
         })
       );
 
-      let res = await googleGenaiGeminiApi(context, model, input, prompt);
+      const res = await googleGenaiGeminiApi(context, model, input, prompt);
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (res.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
 
-      let output = res.response.body.output;
+      const output = res.response.body.output;
       if (!output)
         return editOrReply(context, createEmbed('error', context, `Gemini returned an error. Try again later.`));
 

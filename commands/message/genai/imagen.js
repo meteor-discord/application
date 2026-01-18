@@ -31,7 +31,7 @@ module.exports = {
     const IMAGE_COUNT = 4;
 
     try {
-      let loadingEmbeds = [];
+      const loadingEmbeds = [];
       for (let i = 0; i < IMAGE_COUNT; i++) {
         loadingEmbeds.push(
           createEmbed('defaultNoFooter', context, {
@@ -49,12 +49,12 @@ module.exports = {
 
       await editOrReply(context, { embeds: loadingEmbeds });
 
-      let res = await googleGenaiImagen(context, args.text, IMAGE_COUNT, model);
+      const res = await googleGenaiImagen(context, args.text, IMAGE_COUNT, model);
 
       // Construct Embeds
-      let files = [];
-      let embeds = res.response.body.predictions.map(i => {
-        let imgName = `lcigen.${(Date.now() + Math.random()).toString(36)}.${i.mimeType.split('/')[1]}`;
+      const files = [];
+      const embeds = res.response.body.predictions.map(i => {
+        const imgName = `lcigen.${(Date.now() + Math.random()).toString(36)}.${i.mimeType.split('/')[1]}`;
 
         files.push({
           filename: imgName,

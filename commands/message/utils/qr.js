@@ -25,11 +25,11 @@ module.exports = {
 
     // If we have an argument, generate code
     if (args.text.length) {
-      let response = await editOrReply(context, createEmbed('loading', context, `Generating qr code...`));
+      const response = await editOrReply(context, createEmbed('loading', context, `Generating qr code...`));
       try {
         const t = Date.now();
 
-        let res = await superagent.get(`https://api.qrserver.com/v1/create-qr-code/`).query({
+        const res = await superagent.get(`https://api.qrserver.com/v1/create-qr-code/`).query({
           size: '1024x1024',
           data: args.text,
         });
@@ -48,21 +48,21 @@ module.exports = {
       }
     }
 
-    let image = await getRecentImage(context, 50);
+    const image = await getRecentImage(context, 50);
     if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
     try {
       const t = Date.now();
 
-      let res = await superagent.get(`https://api.qrserver.com/v1/read-qr-code/`).query({
+      const res = await superagent.get(`https://api.qrserver.com/v1/read-qr-code/`).query({
         fileurl: image,
       });
 
       if (!res.body[0].symbol[0].data)
         return editOrReply(context, createEmbed('warning', context, 'No QR codes found.'));
 
-      let resultData = res.body[0].symbol[0].data.split('\nQR-Code:');
-      let results = [];
+      const resultData = res.body[0].symbol[0].data.split('\nQR-Code:');
+      const results = [];
       for (const r of resultData) {
         results.push(codeblock('ansi', [r]));
       }

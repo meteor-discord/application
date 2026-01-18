@@ -28,7 +28,7 @@ module.exports = {
 
     let content = args.content;
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
       if (msg.content && msg.content.length) content = msg.content;
       if (msg.embeds?.length)
         for (const e of msg.embeds)
@@ -40,11 +40,11 @@ module.exports = {
       if (content.length && !content.includes('$')) content = `$${content}$`;
     }
 
-    let texBlocks = content.match(TEX_REGEX);
+    const texBlocks = content.match(TEX_REGEX);
 
     if (!texBlocks) return editOrReply(context, createEmbed('warning', context, 'No expressions found.'));
 
-    let pages = [];
+    const pages = [];
     for (const t of texBlocks) {
       let description;
       if (args.content.includes('-i')) description = codeblock('tex', [t]);

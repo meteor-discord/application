@@ -160,8 +160,8 @@ class DynamicCardStack {
     let i = 0;
     this.pageState = [];
     for (const ac of this.cards) {
-      if (ac['_meta']) {
-        this.pageState[i] = Object.assign({}, ac['_meta']);
+      if (ac._meta) {
+        this.pageState[i] = { ...ac._meta};
       }
       i++;
     }
@@ -265,7 +265,7 @@ class DynamicCardStack {
    * @param killComponents Remove components
    */
   async _edit(cardContent, components = false, killComponents = false) {
-    let message = Object.assign({}, cardContent);
+    const message = { ...cardContent};
 
     message.components = this._renderComponents(killComponents);
 
@@ -273,7 +273,7 @@ class DynamicCardStack {
       message.components = components;
     }
 
-    if (message['_meta']) delete message['_meta'];
+    if (message._meta) delete message._meta;
 
     try {
       return editOrReply(this.context, {
@@ -303,8 +303,8 @@ class DynamicCardStack {
    * @param {String} key
    */
   getState(key) {
-    if (typeof this.pageState[this.rootIndex] == 'undefined') return null;
-    if (typeof this.pageState[this.rootIndex][key] == 'undefined') return null;
+    if (typeof this.pageState[this.rootIndex] === 'undefined') return null;
+    if (typeof this.pageState[this.rootIndex][key] === 'undefined') return null;
     return this.pageState[this.rootIndex][key];
   }
 
@@ -348,16 +348,16 @@ class DynamicCardStack {
     if (typeof button.visible === 'boolean' && button.visible === false) return null;
     else if (typeof button.visible === 'function' && !button.visible(this)) return null;
 
-    let component = {
+    const component = {
       type: MessageComponentTypes.BUTTON,
       // id/XID is used for dynamically generated components via BUTTON_GENERATOR
       customId: button.customId ? id + '/' + xid(button.customId) : id,
       style: button.style || 2,
-      disabled: disabled,
+      disabled,
     };
 
     // Dynamic disabling
-    if (!disabled && button.condition && typeof button.condition == 'function')
+    if (!disabled && button.condition && typeof button.condition === 'function')
       component.disabled = !button.condition(this);
 
     // Dynamic label
@@ -389,11 +389,11 @@ class DynamicCardStack {
     // We currently support up to 5 "slots" (action rows),
     // although the amount you can actually use depends
     // on how many components are added to each slot.
-    let componentSlots = [[], [], [], [], []];
+    const componentSlots = [[], [], [], [], []];
 
     // First Row always starts with built-in components
     for (const b of this.buttons) {
-      let btn = {
+      const btn = {
         type: MessageComponentTypes.BUTTON,
         customId: b,
         style: 2,
@@ -407,15 +407,15 @@ class DynamicCardStack {
     }
 
     for (const b of Object.keys(this.interactive_components)) {
-      let button = this.interactive_components[b];
-      let renderedButtons = [];
+      const button = this.interactive_components[b];
+      const renderedButtons = [];
       switch (button.type) {
         case InteractiveComponentTypes.BUTTON:
           renderedButtons.push(this._renderButton(b, button, disabled));
           break;
         case InteractiveComponentTypes.BUTTON_GENERATOR:
           // Resolve buttons to be rendered
-          let _buttons = button.resolveComponents(this);
+          const _buttons = button.resolveComponents(this);
           for (const btn of _buttons) {
             renderedButtons.push(this._renderButton(b, btn, disabled));
           }
@@ -429,7 +429,7 @@ class DynamicCardStack {
       }
     }
 
-    let renderedSlots = [];
+    const renderedSlots = [];
 
     // Render slots
     for (const components of componentSlots) {
@@ -439,7 +439,7 @@ class DynamicCardStack {
 
       // Slot all components into their respective rows.
       while (components.length > 0) {
-        let c = components.shift();
+        const c = components.shift();
 
         // Avoid adding listeners to disabled components
         // for optimization's sake
@@ -544,7 +544,7 @@ class DynamicCardStack {
         flags: MessageFlags.EPHEMERAL,
       });
 
-      let newStack = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+      const newStack = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
 
       // Reassign the context
       newStack.context = ctx;
@@ -580,8 +580,8 @@ class DynamicCardStack {
     }
 
     // Interactive Components
-    let cid = ctx.data.customId;
-    let component = this._getComponent(cid);
+    const cid = ctx.data.customId;
+    const component = this._getComponent(cid);
 
     if (component) {
       // If the selected button is already active, disable it
@@ -594,7 +594,7 @@ class DynamicCardStack {
         return await ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
       } else this.currentSelectedSubcategory = cid;
 
-      let resolveTime = Date.now();
+      const resolveTime = Date.now();
 
       try {
         // If we have a cached result, retrieve it
@@ -627,7 +627,7 @@ class DynamicCardStack {
           }
 
           // Compute the active cardstack.
-          let resolvedNewStack = await component.resolvePage(this, component);
+          const resolvedNewStack = await component.resolvePage(this, component);
 
           if (!Object.values(ResolveCallbackTypes).includes(resolvedNewStack.type))
             throw new Error(`Invalid Stack Resolve Type (${resolvedNewStack.type})`);

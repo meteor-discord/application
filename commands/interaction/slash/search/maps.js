@@ -16,7 +16,7 @@ const {
 const { Components } = require('detritus-client/lib/utils');
 
 function renderPlaceCard(context, place) {
-  let cards = [
+  const cards = [
     createEmbed('defaultNoFooter', context, {
       author: {
         iconUrl: place.style.icon.url,
@@ -54,7 +54,7 @@ function renderPlaceCard(context, place) {
   if (place.facts?.length) {
     let fc = 1;
     cards[0].fields = place.facts.map(f => {
-      let factField = {
+      const factField = {
         name: f.label,
         value: f.value,
         inline: true,
@@ -136,7 +136,7 @@ module.exports = {
       if (search.place) {
         embeds = [...embeds, ...renderPlaceCard(context, search.place)];
       } else {
-        let supplementalCache = {};
+        const supplementalCache = {};
 
         components = new Components({
           timeout: 100000,
@@ -147,12 +147,12 @@ module.exports = {
             try {
               // Disable component and update the default
 
-              let value = ctx.data.values[0];
+              const value = ctx.data.values[0];
 
               let searchSupplemental;
 
               for (let i = 0; i < components.components[0].components[0].options.length; i++) {
-                let c = components.components[0].components[0];
+                const c = components.components[0].components[0];
 
                 components.components[0].components[0].options[i].default =
                   components.components[0].components[0].options[i].value == value;

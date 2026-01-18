@@ -25,7 +25,7 @@ module.exports = {
     await acknowledge(context);
 
     // for the sake of privacy, make the context window one message
-    let image = await getRecentImage(context, 1);
+    const image = await getRecentImage(context, 1);
     if (!image)
       return editOrReply(
         context,
@@ -34,20 +34,20 @@ module.exports = {
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
 
-    let input = args.text;
+    const input = args.text;
 
     try {
       await editOrReply(context, createEmbed('ai_custom', context, STATIC_ICONS.ai_gemini));
 
-      let res = await geminiVision(context, input, image);
+      const res = await geminiVision(context, input, image);
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (res.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
 
-      let output = res.response.body.gemini?.candidates[0]?.content?.parts[0]?.text;
+      const output = res.response.body.gemini?.candidates[0]?.content?.parts[0]?.text;
       if (!output)
         return editOrReply(context, createEmbed('error', context, `Gemini returned an error. Try again later.`));
 

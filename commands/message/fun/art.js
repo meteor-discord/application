@@ -70,17 +70,17 @@ module.exports = {
           context,
           createEmbed('warning', context, `Invalid Type (must be one of '${Object.keys(SIZES).join(`', '`)}')`)
         );
-      let sizeX = SIZES[args.type.toLowerCase()].x,
+      const sizeX = SIZES[args.type.toLowerCase()].x,
         sizeY = SIZES[args.type.toLowerCase()].y;
 
-      let timings = Date.now();
+      const timings = Date.now();
       let res = await superagent.get(`https://limb.us-east1-gke.intellij.net/generate_art_json`).query({
-        seed: seed,
+        seed,
         x_resolution: sizeX,
         y_resolution: sizeY,
         direction: 'X',
         index: '4',
-        variance: variance,
+        variance,
         architecture: 'densenet',
         activation: 'softsign',
         width: '3',
@@ -104,7 +104,7 @@ module.exports = {
       const image = await superagent.get(res.image_link);
 
       // Upload the image to the labscore art feed channel
-      let artHook = await superagent
+      const artHook = await superagent
         .post(process.env.ART_WEBHOOK)
         .field(
           'payload_json',

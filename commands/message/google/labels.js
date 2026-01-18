@@ -21,12 +21,12 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let image = await getRecentImage(context, 50);
+      const image = await getRecentImage(context, 50);
       if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
-      let label = await googleVisionLabels(context, image);
+      const label = await googleVisionLabels(context, image);
 
-      let labels = [];
+      const labels = [];
       for (const l of label.response.body.labels) {
         labels.push(
           smallPill(`${l.score.toString().substr(2, 2)}.${l.score.toString().substr(3, 1)}%`) + ' ​ ​' + pill(l.name)

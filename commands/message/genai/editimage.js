@@ -23,7 +23,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context);
 
-    let image = await getRecentImage(context, 50);
+    const image = await getRecentImage(context, 50);
     if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (prompt).`));
@@ -47,9 +47,9 @@ module.exports = {
         })
       );
 
-      let res = await googleGenaiEditImage(context, args.text, image);
+      const res = await googleGenaiEditImage(context, args.text, image);
 
-      let imgName = `lciedt.${(Date.now() + Math.random()).toString(36)}.${res.response.headers['content-type'].split('/')[1]}`;
+      const imgName = `lciedt.${(Date.now() + Math.random()).toString(36)}.${res.response.headers['content-type'].split('/')[1]}`;
       return await editOrReply(context, {
         embed: createEmbed('default', context, {
           url: 'https://lajczi.dev',

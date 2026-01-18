@@ -8,7 +8,7 @@ export const formatNumber = (num, digits = 1) => {
     { value: 1e15, symbol: 'q' },
     { value: 1e18, symbol: 'Q' },
   ];
-  const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+  const regexp = /\.0+$|(?<=\.\d*[1-9])0+$/;
   const item = lookup.findLast(item => num >= item.value);
 
   if (!item) return '0';

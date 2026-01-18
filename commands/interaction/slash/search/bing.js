@@ -34,7 +34,7 @@ function createSearchResultPage(context, entry) {
       );
       if (entry.result.image) res.embeds[0].thumbnail = { url: entry.result.image };
       if (entry.result.deepLinks) {
-        let fl = entry.result.deepLinks;
+        const fl = entry.result.deepLinks;
         while (fl.length >= 1) {
           fields = fl.splice(0, 4);
           fields = fields.map(f => link(f.url, f.title));
@@ -148,9 +148,9 @@ module.exports = {
           )
         );
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
-        let sp = createSearchResultPage(context, res);
+        const sp = createSearchResultPage(context, res);
         if (sp) pages.push(sp);
       }
 

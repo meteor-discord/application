@@ -115,7 +115,7 @@ module.exports = {
     if (data.Errors !== null) {
       embed.description = codeblock('js', [
         '​' +
-          data.Errors.replace(/[0-9]*\/source/g, 'source')
+          data.Errors.replace(/\d*\/source/g, 'source')
             .split('\n')
             .splice(0, 10)
             .join('\n')

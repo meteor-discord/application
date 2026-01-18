@@ -21,7 +21,7 @@ const { paginator } = require('#client');
 const onlyEmoji = require('emoji-aware').onlyEmoji;
 
 function toCodePoint(unicodeSurrogates, sep) {
-  var r = [],
+  let r = [],
     c = 0,
     p = 0,
     i = 0;
@@ -65,18 +65,18 @@ module.exports = {
     const { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
     embeds = [];
     if (matches.length) {
-      let pages = [];
-      let entries = [];
+      const pages = [];
+      const entries = [];
       for (const m of matches) {
         if (entries.map(e => e.id).includes(m.id)) continue;
         entries.push(m);
       }
 
       while (entries.length) {
-        let sprites = entries.splice(0, 4);
-        let embeds = [];
+        const sprites = entries.splice(0, 4);
+        const embeds = [];
         for (const s of sprites) {
-          let fields = sprites.map(s => {
+          const fields = sprites.map(s => {
             return {
               inline: true,
               name: `${icon('emoji')} \\:${s.name}\\:`,
@@ -119,7 +119,7 @@ module.exports = {
           return editOrReply(context, createEmbed('warning', context, 'You cannot mix more than two emoji.'));
 
         try {
-          let em = await emojiKitchen(emoji);
+          const em = await emojiKitchen(emoji);
           if (!em.body.results[0]) {
             for (const em of emoji) {
               try {
@@ -162,7 +162,7 @@ module.exports = {
 
       console.log(currentPlatform);
       // This handles selecting the correct "default" platform for enlarge.
-      if (res.data.platforms['discord']) currentPlatform = 'discord';
+      if (res.data.platforms.discord) currentPlatform = 'discord';
 
       // Use the high-res emojipedia icon, if available
       let ico;
@@ -233,7 +233,7 @@ module.exports = {
         },
       });
 
-      let selectOptions = res.data.platforms[currentPlatform].images.map(r => {
+      const selectOptions = res.data.platforms[currentPlatform].images.map(r => {
         return {
           label: r.version,
           value: r.id,
@@ -244,15 +244,15 @@ module.exports = {
       currentRevision = res.data.platforms[DEFAULT_PLATFORM].images[0].id;
 
       // This ensures our priority platforms are always included in the response.
-      let platforms = Object.keys(res.data.platforms).sort((a, b) => {
+      const platforms = Object.keys(res.data.platforms).sort((a, b) => {
         return Number(EMOJIPEDIA_PLATFORM_PRIORITY.includes(b)) - Number(EMOJIPEDIA_PLATFORM_PRIORITY.includes(a));
       });
 
-      let selectTypeOptions = platforms
+      const selectTypeOptions = platforms
         .splice(0, 25)
         .sort()
         .map(r => {
-          let pl = res.data.platforms[r];
+          const pl = res.data.platforms[r];
           return {
             label: pl.name,
             value: r,

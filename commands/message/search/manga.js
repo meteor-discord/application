@@ -12,7 +12,7 @@ const { editOrReply } = require('#utils/message');
 const { STATIC_ASSETS } = require('#utils/statics');
 
 function renderMangaResultsPage(context, res, includeSupplementalData = true) {
-  let result = createEmbed('default', context, {
+  const result = createEmbed('default', context, {
     author: {
       name: res.title,
       url: res.url,
@@ -118,7 +118,7 @@ module.exports = {
 
       if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(renderMangaResultsPage(context, res));
       }
@@ -145,10 +145,10 @@ module.exports = {
               });
             },
             resolvePage: async pg => {
-              let characters = await animeSupplemental(context, pg.getState('characters_key'));
+              const characters = await animeSupplemental(context, pg.getState('characters_key'));
 
-              let cards = characters.response.body.characters.map(c => {
-                let card = createEmbed('default', context, {
+              const cards = characters.response.body.characters.map(c => {
+                const card = createEmbed('default', context, {
                   color: pg.getState('color'),
                   description: `-# ${pg.getState('name')} › **Characters**\n## ${link(c.url, c.name.full)}`,
                   fields: [],
@@ -165,7 +165,7 @@ module.exports = {
 
               return {
                 type: ResolveCallbackTypes.SUBSTACK,
-                cards: cards,
+                cards,
               };
             },
           },
@@ -186,13 +186,13 @@ module.exports = {
               });
             },
             resolvePage: async pg => {
-              let episodes = await animeSupplemental(context, pg.getState('related_key'));
+              const episodes = await animeSupplemental(context, pg.getState('related_key'));
 
-              let cards = episodes.response.body.relations.map(e => renderMangaResultsPage(context, e, false));
+              const cards = episodes.response.body.relations.map(e => renderMangaResultsPage(context, e, false));
 
               return {
                 type: ResolveCallbackTypes.SUBSTACK,
-                cards: cards,
+                cards,
               };
             },
           },

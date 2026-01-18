@@ -69,7 +69,7 @@ Your X handle is @grok and your task is to respond to user's posts that tag you 
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = msg.content;
       else if (msg.embeds?.length)
@@ -104,8 +104,8 @@ Your X handle is @grok and your task is to respond to user's posts that tag you 
       res = res.response;
 
       console.log(res);
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (!res.body.response)
         return editOrReply(context, createEmbed('error', context, `OpenAI returned an error. Try again later.`));
@@ -118,7 +118,7 @@ Your X handle is @grok and your task is to respond to user's posts that tag you 
         });
       }
 
-      let response = createEmbed('defaultNoFooter', context, {
+      const response = createEmbed('defaultNoFooter', context, {
         author: {
           name: stringwrap(args.text, 50, false),
           iconUrl:

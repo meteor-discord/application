@@ -21,7 +21,7 @@ module.exports = {
   run: async context => {
     await acknowledge(context);
 
-    let image = await getRecentImage(context, 50);
+    const image = await getRecentImage(context, 50);
     if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
     let ocr;

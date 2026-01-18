@@ -26,7 +26,7 @@ module.exports = {
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (prompt).`));
 
     try {
-      let loadingEmbeds = [];
+      const loadingEmbeds = [];
       for (let i = 0; i < 4; i++) {
         loadingEmbeds.push(
           createEmbed('defaultNoFooter', context, {
@@ -44,12 +44,12 @@ module.exports = {
 
       await editOrReply(context, { embeds: loadingEmbeds });
 
-      let res = await GenerativeImagesModelsWallpaper(context, args.text, args.format.toUpperCase());
+      const res = await GenerativeImagesModelsWallpaper(context, args.text, args.format.toUpperCase());
 
       // Construct Embeds
-      let files = [];
-      let embeds = res.response.body.images.map(i => {
-        let imgName = `lcigen.${(Date.now() + Math.random()).toString(36)}.jpeg`;
+      const files = [];
+      const embeds = res.response.body.images.map(i => {
+        const imgName = `lcigen.${(Date.now() + Math.random()).toString(36)}.jpeg`;
 
         files.push({
           filename: imgName,

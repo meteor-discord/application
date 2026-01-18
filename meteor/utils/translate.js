@@ -15,7 +15,7 @@ function getCode(desiredLang) {
     return desiredLang;
   }
 
-  var keys = Object.keys(TRANSLATE_LANGUAGES).filter(function (key) {
+  const keys = Object.keys(TRANSLATE_LANGUAGES).filter(function (key) {
     if (typeof TRANSLATE_LANGUAGES[key] !== 'string') {
       return false;
     }
@@ -43,7 +43,7 @@ function getCode(desiredLang) {
 module.exports.getCodeFromAny = function (prompt) {
   if (TRANSLATE_LANGUAGE_ALIASES[prompt.toLowerCase()]) prompt = TRANSLATE_LANGUAGE_ALIASES[prompt.toLowerCase()];
   if (TRANSLATE_LANGUAGES[prompt.toLowerCase()]) return prompt.toLowerCase();
-  let languages = [];
+  const languages = [];
   for (const i of Object.keys(TRANSLATE_LANGUAGES))
     if (
       !languages.includes(i) &&
@@ -59,14 +59,14 @@ module.exports.getCodeFromAny = function (prompt) {
 
 module.exports.dictionaryGetCodeFromAny = function (prompt) {
   if (DICTIONARY_LANGUAGES[prompt.toLowerCase()]) return prompt.toLowerCase();
-  let languages = [];
+  const languages = [];
   for (const i of Object.keys(DICTIONARY_LANGUAGES))
     if (!languages.includes(i) && DICTIONARY_LANGUAGES[i].toLowerCase() == prompt.toLowerCase()) languages.push(i);
   return languages[0];
 };
 
 module.exports.getDictionaryFromAny = function (prompt) {
-  let languages = [];
+  const languages = [];
   if (DICTIONARY_LANGUAGES[prompt.toLowerCase()]) languages.push(prompt.toLowerCase());
   for (const i of Object.keys(DICTIONARY_LANGUAGES))
     if (
@@ -79,7 +79,7 @@ module.exports.getDictionaryFromAny = function (prompt) {
 };
 
 module.exports.getLanguagesFromAny = function (prompt) {
-  let languages = [];
+  const languages = [];
   if (TRANSLATE_LANGUAGE_ALIASES[prompt.toLowerCase()]) prompt = TRANSLATE_LANGUAGE_ALIASES[prompt.toLowerCase()];
   if (TRANSLATE_LANGUAGES[prompt.toLowerCase()]) languages.push(prompt.toLowerCase());
   for (const i of Object.keys(TRANSLATE_LANGUAGES))

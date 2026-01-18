@@ -39,7 +39,7 @@ function renderWeatherCard(context, data, units) {
   if (units == '°F') description += smallPill((data.result.current.wind.speed / 1.609).toFixed(2) + ' mph');
   else description += smallPill(data.result.current.wind.speed.toFixed(2) + ' km/h');
 
-  let secondaryPills = [];
+  const secondaryPills = [];
   if (data.result.current.humidity > 0)
     secondaryPills.push(`${pill('Humidity')} ${smallPill(Math.floor(data.result.current.humidity * 100) + '%')}`);
   if (data.result.current.uvindex > 0)
@@ -78,7 +78,7 @@ function renderWeatherCard(context, data, units) {
     else description += `${smallPill(temperature(i.temperature.min, units))}`;
   }
 
-  let e = createEmbed('default', context, {
+  const e = createEmbed('default', context, {
     description,
     timestamp: new Date(data.result.current.date),
   });
@@ -92,7 +92,7 @@ function renderWeatherCard(context, data, units) {
   return e;
 }
 
-let quickUnits = [
+const quickUnits = [
   { value: '-f', units: '°F' },
   { value: '-c', units: '°C' },
   { value: '-k', units: 'K' },
@@ -135,7 +135,7 @@ module.exports = {
 
       data = data.response.body;
 
-      let pages = [];
+      const pages = [];
       for (const u of units) pages.push(page(renderWeatherCard(context, data, u)));
 
       if (pages.length == 1) return editOrReply(context, pages[0]);

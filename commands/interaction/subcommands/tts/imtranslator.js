@@ -36,9 +36,9 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
     try {
-      let s = Date.now();
-      let audio = await imtranslator(context, args.text, args.voice);
-      let diff = Date.now() - s;
+      const s = Date.now();
+      const audio = await imtranslator(context, args.text, args.voice);
+      const diff = Date.now() - s;
       await context.editOrRespond({
         embeds: [
           createEmbed('defaultNoFooter', context, {

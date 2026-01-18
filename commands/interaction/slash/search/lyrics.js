@@ -20,7 +20,7 @@ const META_FIELDS = {
 };
 
 function renderMetadata(track) {
-  let metadata = track.metadata;
+  const metadata = track.metadata;
   const pills = [];
   for (const m of metadata) {
     if (!META_FIELDS[m.id]) continue;
@@ -65,13 +65,13 @@ function renderLyricsFooter(context, provider) {
 }
 
 function createLyricsPage(context, search, fields) {
-  let em = createEmbed('default', context, {
+  const em = createEmbed('default', context, {
     author: {
       // iconUrl: search.body.track.artist_cover,
       name: `${search.body.track.title}`,
     },
     description: `-# Song by ${search.body.track.artist}`,
-    fields: fields,
+    fields,
     footer: renderLyricsFooter(context, search.body.lyrics_provider),
   });
   if (search.body.track.cover) em.thumbnail = { url: search.body.track.cover };
@@ -107,7 +107,7 @@ module.exports = {
       search = search.response;
 
       if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
-      let fields = [];
+      const fields = [];
 
       for (const f of search.body.lyrics.split('\n\n')) {
         fields.push({
@@ -117,7 +117,7 @@ module.exports = {
         });
       }
 
-      let pages = [];
+      const pages = [];
       while (fields.length) {
         let pageFields = fields.splice(0, 3);
 

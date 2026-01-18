@@ -6,7 +6,7 @@ const { acknowledge } = require('#utils/interactions');
 const { editOrReply } = require('#utils/message');
 
 // TODO: make this a constant, or add a URL util
-const urlr = /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})*(?::\d{1,5})?(?:\/[^\s]*)?$/g;
+const urlr = /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})*(?::\d{1,5})?(?:\/\S*)?$/g;
 
 module.exports = {
   label: 'url',
@@ -25,13 +25,13 @@ module.exports = {
     await acknowledge(context);
 
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
       if (msg.content && msg.content.length && args.url.length == 0) args.url = msg.content;
     }
 
     if (!args.url) return editOrReply(context, createEmbed('warning', context, 'No link provided.'));
 
-    let urls = args.url.match(urlr);
+    const urls = args.url.match(urlr);
     if (!urls) return editOrReply(context, createEmbed('warning', context, 'No link found.'));
 
     args.url = urls[0];
@@ -41,7 +41,7 @@ module.exports = {
     try {
       const t = Date.now();
 
-      let ss = await webshot(context, args.url, false);
+      const ss = await webshot(context, args.url, false);
 
       if (ss.response.body.error)
         return await editOrReply(

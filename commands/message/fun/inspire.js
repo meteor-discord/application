@@ -21,7 +21,7 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', USER_AGENT);
+      const res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', USER_AGENT);
 
       return await editOrReply(
         context,

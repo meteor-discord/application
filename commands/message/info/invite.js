@@ -54,7 +54,7 @@ module.exports = {
       });
     try {
       const inviteCode = args.invite.match(
-        /(?:(?:https|http):\/\/)?(?:(?:discord.gg|(?:discord|discordapp)\.com\/invite)\/)?([A-z0-z-]{2,64})/
+        /(?:(?:https|http):\/\/)?(?:(?:discord.gg|(?:discord|discordapp)\.com\/invite)\/)?([0-z-]{2,64})/
       );
       const invite = await context.client.rest.fetchInvite(inviteCode[1], { withCounts: true });
 
@@ -63,7 +63,7 @@ module.exports = {
 
       let gDesc = '';
       if (g.description) gDesc = g.description + '\n\n';
-      let inviteCard = createEmbed('default', context, {
+      const inviteCard = createEmbed('default', context, {
         author: {
           name: g.name,
           iconUrl: getGuildIcon(g),
@@ -85,11 +85,11 @@ module.exports = {
 
       // Guild Features
       if (g.features.length >= 1) {
-        let featureCards = guildFeaturesField(g);
+        const featureCards = guildFeaturesField(g);
 
-        let pages = [];
+        const pages = [];
         let i = 0;
-        let ic = Math.ceil(featureCards.length / 2);
+        const ic = Math.ceil(featureCards.length / 2);
 
         if (ic === 1) featureCards[0].name = `${icon('list')} Server Features`;
         while (featureCards.length >= 1) {
@@ -97,7 +97,7 @@ module.exports = {
           const sub = featureCards.splice(0, 2);
           sub[0].name = `${icon('list')} Server Features (${i}/${ic})`;
 
-          pages.push(page(JSON.parse(JSON.stringify(Object.assign({ ...inviteCard }, { fields: sub })))));
+          pages.push(page(JSON.parse(JSON.stringify({...inviteCard, fields: sub}))));
         }
 
         await paginator.createPaginator({

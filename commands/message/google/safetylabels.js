@@ -20,14 +20,14 @@ module.exports = {
   run: async context => {
     await acknowledge(context);
 
-    let image = await getRecentImage(context, 50);
+    const image = await getRecentImage(context, 50);
     if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
-    let label = await googleVisionSafetyLabels(context, image);
+    const label = await googleVisionSafetyLabels(context, image);
 
-    let labels = [];
+    const labels = [];
     for (const l of Object.keys(label.response.body.labels)) {
-      let rating = GOOGLE_CLOUD_SAFETY_LABELS[label.response.body.labels[l]];
+      const rating = GOOGLE_CLOUD_SAFETY_LABELS[label.response.body.labels[l]];
       labels.push([smallPill(GOOGLE_CLOUD_SAFETY_LABELS_NAMES[l]), iconPill(rating.icon, rating.name)].join(' ​ ​'));
     }
     return editOrReply(

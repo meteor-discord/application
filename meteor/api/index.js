@@ -3,13 +3,13 @@ const { Api, Hosts } = require('./endpoints');
 const { USER_AGENT } = require('#utils/user-agent');
 
 async function request(path, type, headers, args, host) {
-  let timing = Date.now();
+  const timing = Date.now();
   url = Api.HOST + path;
   if (process.env.USE_LOCAL_API) url = Hosts.local + ':' + process.env.USE_LOCAL_API + path;
   if (host) url = host + path;
 
   // apply default headers
-  if (!headers['Authorization']) headers['Authorization'] = process.env.API_KEY;
+  if (!headers.Authorization) headers.Authorization = process.env.API_KEY;
   if (!headers['user-agent']) headers['user-agent'] = USER_AGENT;
   if (!headers['x-meteor-client']) headers['x-meteor-client'] = USER_AGENT;
 
@@ -18,20 +18,20 @@ async function request(path, type, headers, args, host) {
       const response = await superagent.get(url);
       return {
         timings: ((Date.now() - timing) / 1000).toFixed(2),
-        response: response,
+        response,
       };
     }
     const response = await superagent.get(url).query(args).set(headers);
     return {
       timings: ((Date.now() - timing) / 1000).toFixed(2),
-      response: response,
+      response,
     };
   }
   if (type === 'POST') {
     const response = await superagent.post(url).set(headers).send(args);
     return {
       timings: ((Date.now() - timing) / 1000).toFixed(2),
-      response: response,
+      response,
     };
   }
   throw new Error('unsupported, must either use GET or POST');
@@ -43,8 +43,8 @@ module.exports.googleGenaiEditImage = async function (context, prompt, url) {
     'GET',
     {},
     {
-      prompt: prompt,
-      url: url,
+      prompt,
+      url,
     }
   );
 };
@@ -68,9 +68,9 @@ module.exports.googleGenaiImagen = async function (context, prompt, imageCount =
     'GET',
     {},
     {
-      prompt: prompt,
+      prompt,
       image_count: imageCount,
-      model: model,
+      model,
     }
   );
 };
@@ -81,7 +81,7 @@ module.exports.googlePerspective = async function (context, text) {
     'GET',
     {},
     {
-      text: text,
+      text,
     }
   );
 };
@@ -114,9 +114,9 @@ module.exports.googleTranslate = async function (context, text, to, from) {
     'GET',
     {},
     {
-      text: text,
-      to: to,
-      from: from,
+      text,
+      to,
+      from,
     }
   );
 };
@@ -127,9 +127,9 @@ module.exports.googleTranslateMulti = async function (context, messages, to, fro
     'POST',
     {},
     {
-      messages: messages,
-      to: to,
-      from: from,
+      messages,
+      to,
+      from,
     }
   );
 };
@@ -140,7 +140,7 @@ module.exports.googleVisionColors = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -151,7 +151,7 @@ module.exports.googleVisionFaces = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -162,7 +162,7 @@ module.exports.googleVisionLabels = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -173,7 +173,7 @@ module.exports.googleVisionOcr = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -184,7 +184,7 @@ module.exports.googleVisionSafetyLabels = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -195,7 +195,7 @@ module.exports.googleVisionWebDetection = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -207,7 +207,7 @@ module.exports.google = async function (context, query, nsfw) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -219,7 +219,7 @@ module.exports.googleImages = async function (context, query, nsfw) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -308,7 +308,7 @@ module.exports.reddit = async function (context, query, nsfw = false) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -320,7 +320,7 @@ module.exports.rule34 = async function (context, query, service) {
     {},
     {
       q: query,
-      service: service,
+      service,
     }
   );
 };
@@ -332,7 +332,7 @@ module.exports.bing = async function (context, query, nsfw) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -344,7 +344,7 @@ module.exports.bingImages = async function (context, query, nsfw) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -356,7 +356,7 @@ module.exports.duckduckgo = async function (context, query, nsfw) {
     {},
     {
       q: query,
-      nsfw: nsfw,
+      nsfw,
     }
   );
 };
@@ -367,7 +367,7 @@ module.exports.reverseImageSearch = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -389,7 +389,7 @@ module.exports.weather = async function (context, location) {
     'GET',
     {},
     {
-      location: location,
+      location,
     }
   );
 };
@@ -400,7 +400,7 @@ module.exports.darksky = async function (context, location) {
     'GET',
     {},
     {
-      location: location,
+      location,
     }
   );
 };
@@ -456,7 +456,7 @@ module.exports.yacht = async function (context, text) {
     'GET',
     {},
     {
-      text: text,
+      text,
     }
   );
 };
@@ -474,10 +474,10 @@ module.exports.retroWave = async function (
     'GET',
     {},
     {
-      text1: text1,
-      text2: text2,
-      text3: text3,
-      background: background,
+      text1,
+      text2,
+      text3,
+      background,
       text_style: textStyle,
     }
   );
@@ -489,7 +489,7 @@ module.exports.prideborder = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -500,7 +500,7 @@ module.exports.deepdream = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -511,8 +511,8 @@ module.exports.imageedit = async function (context, url, prompt) {
     'GET',
     {},
     {
-      url: url,
-      prompt: prompt,
+      url,
+      prompt,
     }
   );
 };
@@ -523,7 +523,7 @@ module.exports.waifu2x = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -534,7 +534,7 @@ module.exports.superresolution = async function (context, url) {
     'GET',
     {},
     {
-      url: url,
+      url,
     }
   );
 };
@@ -545,7 +545,7 @@ module.exports.text2image = async function (context, text) {
     'GET',
     {},
     {
-      text: text,
+      text,
     }
   );
 };
@@ -568,8 +568,8 @@ module.exports.imtranslator = async function (context, text, voice) {
     'GET',
     {},
     {
-      text: text,
-      voice: voice,
+      text,
+      voice,
     }
   );
 };
@@ -591,8 +591,8 @@ module.exports.playht = async function (context, text, voice) {
     'GET',
     {},
     {
-      text: text,
-      voice: voice,
+      text,
+      voice,
     }
   );
 };
@@ -603,8 +603,8 @@ module.exports.polly = async function (context, text, voice) {
     'GET',
     {},
     {
-      text: text,
-      voice: voice,
+      text,
+      voice,
     }
   );
 };
@@ -629,8 +629,8 @@ module.exports.tiktok = async function (context, text, voice) {
     'GET',
     {},
     {
-      text: text,
-      voice: voice,
+      text,
+      voice,
     }
   );
 };
@@ -653,7 +653,7 @@ module.exports.emojipedia = async function (context, emoji, codepoint = undefine
     'GET',
     {},
     {
-      emoji: emoji,
+      emoji,
       with_metadata: '',
       codepoint,
     }
@@ -710,7 +710,7 @@ module.exports.inferkit = async function (context, input) {
     'GET',
     {},
     {
-      input: input,
+      input,
     }
   );
 };
@@ -736,8 +736,8 @@ module.exports.screenshot = async function (context, url, nsfw) {
     'GET',
     {},
     {
-      url: url,
-      nsfw: nsfw,
+      url,
+      nsfw,
     }
   );
 };
@@ -759,8 +759,8 @@ module.exports.webshot = async function (context, url, nsfw) {
     'GET',
     {},
     {
-      url: url,
-      nsfw: nsfw,
+      url,
+      nsfw,
     }
   );
 };
@@ -771,7 +771,7 @@ module.exports.textGenerator = async function (context, input) {
     'GET',
     {},
     {
-      input: input,
+      input,
     }
   );
 };

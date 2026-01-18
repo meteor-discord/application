@@ -38,7 +38,7 @@ module.exports = {
       // Guild Card
 
       // Header Pills
-      let pills = [];
+      const pills = [];
       pills.push(smallIconPill('user_multiple', context.guild.memberCount + ' Members'));
       if (g.premiumSubscriptionCount >= 1) pills.push(smallIconPill('boost', g.premiumSubscriptionCount + ' Boosts'));
       if (g.roles.length >= 2) pills.push(smallIconPill('user_shield', `${g.roles.length} Roles`));
@@ -53,7 +53,7 @@ module.exports = {
         if (!((i + 1) % 2)) pillDisplay += '\n';
       }
 
-      let guildCard = createEmbed('default', context, {
+      const guildCard = createEmbed('default', context, {
         author: {
           name: g.name,
           iconUrl: getGuildIcon(g),
@@ -63,7 +63,7 @@ module.exports = {
       });
 
       // Channel Container
-      let lines = [];
+      const lines = [];
       if (textChannels >= 1) lines.push(`Text Channels          ${textChannels}`);
       if (forumChannels >= 1) lines.push(`Forum Channels         ${forumChannels}`);
       if (newsChannels >= 1) lines.push(`Announcement Channels  ${newsChannels}`);
@@ -91,11 +91,11 @@ module.exports = {
 
       // Guild Features
       if (g.features.length >= 1) {
-        let featureCards = guildFeaturesField(g);
+        const featureCards = guildFeaturesField(g);
 
-        let pages = [];
+        const pages = [];
         let i = 0;
-        let ic = Math.ceil(featureCards.length / 2);
+        const ic = Math.ceil(featureCards.length / 2);
 
         if (ic === 1) featureCards[0].name = `${icon('list')} Server Features`;
         while (featureCards.length >= 1) {
@@ -104,7 +104,7 @@ module.exports = {
           sub[0].name = `${icon('list')} Server Features (${i}/${ic})`;
 
           pages.push(
-            page(JSON.parse(JSON.stringify(Object.assign({ ...guildCard }, { fields: [...guildCard.fields, ...sub] }))))
+            page(JSON.parse(JSON.stringify({...guildCard, fields: [...guildCard.fields, ...sub]})))
           );
         }
 

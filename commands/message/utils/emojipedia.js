@@ -13,7 +13,7 @@ const { Components } = require('detritus-client/lib/utils');
 const onlyEmoji = require('emoji-aware').onlyEmoji;
 
 function toCodePoint(unicodeSurrogates, sep) {
-  var r = [],
+  let r = [],
     c = 0,
     p = 0,
     i = 0;

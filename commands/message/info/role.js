@@ -11,7 +11,7 @@ const { PermissionTools } = require('detritus-client/lib/utils');
 
 // TODO: Move this to a utility module
 function toCodePoint(unicodeSurrogates, sep) {
-  var r = [],
+  let r = [],
     c = 0,
     p = 0,
     i = 0;
@@ -98,15 +98,15 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context);
 
-    let r = context.guild.roles.filter(
+    const r = context.guild.roles.filter(
       r => r.name.toLowerCase().includes(args.query.toLowerCase()) || r.id == args.query
     )[0];
 
     if (!r) return await editOrReply(context, createEmbed('warning', context, 'No roles matched your query.'));
 
-    let pages = [];
+    const pages = [];
 
-    let rolePage = createEmbed('default', context, {
+    const rolePage = createEmbed('default', context, {
       author: {
         name: r.name,
       },
@@ -136,8 +136,8 @@ module.exports = {
     for (const c of PERMISSION_CATEGORY) {
       permSection = [];
       for (const section of c) {
-        let sectionRender = `${iconPill(section.icon, section.label)}\n`;
-        let permissionsRender = [];
+        const sectionRender = `${iconPill(section.icon, section.label)}\n`;
+        const permissionsRender = [];
         for (const p of section.permissions) {
           permissionsRender.push(
             `${PermissionTools.checkPermissions(r.permissions, p) ? icon('success_simple') : icon('failiure_simple')} ${PERMISSIONS_TEXT[p]}`
@@ -146,7 +146,7 @@ module.exports = {
         permSection.push(sectionRender + permissionsRender.join('\n'));
       }
 
-      let newPage = structuredClone(rolePage);
+      const newPage = structuredClone(rolePage);
       newPage.description += '\n\n' + permSection.join('\n\n');
 
       pages.push(page(newPage));

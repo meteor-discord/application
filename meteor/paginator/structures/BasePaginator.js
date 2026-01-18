@@ -68,7 +68,7 @@ module.exports = class BasePaginator extends EventEmitter {
 
   async init() {
     // Create Components
-    let msg = this.pages[this.index];
+    const msg = this.pages[this.index];
     msg.components = await this.client.components(this);
 
     // Ensure there are no mentions

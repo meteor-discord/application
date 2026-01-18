@@ -45,7 +45,7 @@ module.exports = {
       });
     }
     const messages = await context.message.channel.fetchMessages({ limit: args.amount });
-    let deleteIds = [];
+    const deleteIds = [];
     messages.forEach(message => {
       if (args.filter.length >= 1) {
         if (message.canDelete && Date.now() - new Date(message.timestamp) <= 1209000000) {

@@ -8,7 +8,7 @@ const { pill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 function createRule34Page(context, result) {
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       description: '',
       image: {
@@ -22,7 +22,7 @@ function createRule34Page(context, result) {
 
   // Render a few tags
   if (result.tags) {
-    let tags = result.tags.splice(0, 5);
+    const tags = result.tags.splice(0, 5);
     let tagDisplay = '';
     for (const t of tags) tagDisplay += pill(t);
     res.embeds[0].description += `\n${tagDisplay}`;
@@ -84,7 +84,7 @@ module.exports = {
           createEmbed('warning', context, `No results found on ${SITES[args.site.toLowerCase()]}.`)
         );
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.data) {
         pages.push(createRule34Page(context, res));
       }

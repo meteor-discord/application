@@ -36,7 +36,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
     try {
-      let audio = await sapi4(
+      const audio = await sapi4(
         context,
         args.text,
         args.voice,

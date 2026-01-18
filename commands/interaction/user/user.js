@@ -21,8 +21,8 @@ module.exports = {
 
       const { user, member } = args;
 
-      let u = await context.client.rest.fetchUser(user.id);
-      let m = member;
+      const u = await context.client.rest.fetchUser(user.id);
+      const m = member;
 
       let usernameDisplay = u.name;
       if (u.discriminator && u.discriminator !== '0') usernameDisplay += `#${u.discriminator}`;
@@ -31,7 +31,7 @@ module.exports = {
       let cardContent = '';
 
       // Badge Container
-      let b = renderBadges(u);
+      const b = renderBadges(u);
       if (b.length >= 1) cardContent += `\n-# ${b.join('')}\n`;
 
       console.log(u);
@@ -46,7 +46,7 @@ module.exports = {
 
       if (u.hasFlag(1 << 23)) cardContent += `\n-# Provisional Account`;
 
-      let userCard = createEmbed('default', context, {
+      const userCard = createEmbed('default', context, {
         author: {
           name: usernameDisplay,
           iconUrl: getUserAvatar(u),
@@ -67,7 +67,7 @@ module.exports = {
       // Guild Container
       if (m) {
         userCard.fields[0].value = userCard.fields[0].value + `\n**Joined Server: **${timestamp(m.joinedAt, 'f')}`;
-        let guildFields = [];
+        const guildFields = [];
 
         if (m.isOwner) guildFields.push(`${icon('user_king')} **Server Owner**`);
         if (context.guild)

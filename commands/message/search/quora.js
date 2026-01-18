@@ -12,10 +12,10 @@ const { InteractionCallbackTypes } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
 function createQuoraAnswerPage(context, question, answer) {
-  let tags = question.tags.map(t => {
+  const tags = question.tags.map(t => {
     return pill(t);
   });
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       title: question.title,
       url: answer.url,
@@ -100,7 +100,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
         },
       });
 
-      let selectOptions = refMappings.map(r => {
+      const selectOptions = refMappings.map(r => {
         return {
           label: r.title,
           value: r.ref,

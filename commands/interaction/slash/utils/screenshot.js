@@ -39,7 +39,7 @@ module.exports = {
     try {
       const t = Date.now();
 
-      let ss = await webshot(context, args.url, false); // nsfw sites are always blocked
+      const ss = await webshot(context, args.url, false); // nsfw sites are always blocked
 
       if (ss.response.body.error)
         return await editOrReply(

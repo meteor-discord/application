@@ -9,7 +9,7 @@ const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
 function createUrbanPage(context, result) {
-  let e = createEmbed('default', context, {
+  const e = createEmbed('default', context, {
     description: `**${link(result.link, result.title)}**`,
     fields: [],
     footer: {
@@ -60,7 +60,7 @@ module.exports = {
 
       if (search.body.status == 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(createUrbanPage(context, res));
       }

@@ -12,12 +12,12 @@ const { MessageEmbedTypes } = require('detritus-client/lib/constants');
 
 // TODO(unity): interaction/context/translate.js
 async function translateMessage(context, message, to, from) {
-  let mappings = {};
+  const mappings = {};
 
   if (message.content) {
     // Special Case - this is (very very very likely) a 1p translated message
     if (message.content.startsWith(`-# ${icon('subtext_translate')}`)) {
-      let cnt = message.content.split('\n');
+      const cnt = message.content.split('\n');
       cnt.shift();
       if (cnt.length >= 1) {
         mappings.content = cnt.join('\n');
@@ -28,7 +28,7 @@ async function translateMessage(context, message, to, from) {
     let i = 0;
     // Message Translation supports Descriptions and Fields
     for (const e of message.embeds) {
-      let emb = e[1];
+      const emb = e[1];
 
       if (![MessageEmbedTypes.ARTICLE, MessageEmbedTypes.RICH, MessageEmbedTypes.LINK].includes(emb.type)) continue;
       if (emb.description) mappings['embeds/' + i + '/description'] = emb.description;
@@ -53,25 +53,25 @@ async function translateMessage(context, message, to, from) {
 
   // Translate message via multitranslate endpoint on 1p
   try {
-    let translation = await googleTranslateMulti(context, mappings, to, from);
+    const translation = await googleTranslateMulti(context, mappings, to, from);
 
-    let tr = translation.response.body.translations;
+    const tr = translation.response.body.translations;
 
     // Deserialize message
-    let result = {};
+    const result = {};
 
     // This relies on mappings.content to handle the special case
-    if (mappings.content) result.content = tr['content'];
+    if (mappings.content) result.content = tr.content;
 
     if (message.embeds) {
       let i = 0;
       result.embeds = [];
       // Message Translation supports Descriptions and Fields
       for (const e of message.embeds) {
-        let emb = e[1];
+        const emb = e[1];
 
         if (![MessageEmbedTypes.ARTICLE, MessageEmbedTypes.RICH, MessageEmbedTypes.LINK].includes(emb.type)) continue;
-        let newEmbed = {
+        const newEmbed = {
           fields: [],
         };
 
@@ -91,10 +91,10 @@ async function translateMessage(context, message, to, from) {
 
         if (emb.description) newEmbed.description = stringwrap(tr['embeds/' + i + '/description'], 4096);
 
-        if (emb.author) newEmbed.author = Object.assign({}, emb.author);
+        if (emb.author) newEmbed.author = { ...emb.author};
         if (emb.author?.name) newEmbed.author.name = stringwrap(tr['embeds/' + i + '/author/name'], 256);
 
-        if (emb.footer) newEmbed.footer = Object.assign({}, emb.footer);
+        if (emb.footer) newEmbed.footer = { ...emb.footer};
         if (emb.footer?.text) newEmbed.footer.text = stringwrap(tr['embeds/' + i + '/footer/text'], 2048);
 
         if (emb.fields) {
@@ -109,7 +109,7 @@ async function translateMessage(context, message, to, from) {
             fi++;
           }
         }
-        result.embeds[i] = Object.assign({}, newEmbed);
+        result.embeds[i] = { ...newEmbed};
         i++;
       }
     }
@@ -145,7 +145,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context);
 
-    let content = args.text;
+    const content = args.text;
 
     if (!isSupported(args.to))
       return editOrReply(
@@ -158,8 +158,8 @@ module.exports = {
         createEmbed('warning', context, `Invalid source language (${stringwrap(args.from, 10, false)}).`)
       );
 
-    let targetLanguage = getCodeFromAny(args.to);
-    let sourceLanguage = getCodeFromAny(args.from);
+    const targetLanguage = getCodeFromAny(args.to);
+    const sourceLanguage = getCodeFromAny(args.from);
 
     // Invoke Message Translation
     if (context.message.messageReference) {
@@ -173,19 +173,19 @@ module.exports = {
             createEmbed('warning', context, `Invalid target language (${stringwrap(args.to, 10, false)}).`)
           );
 
-        let targetLanguage = getCodeFromAny(args.to);
+        const targetLanguage = getCodeFromAny(args.to);
 
-        let message = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+        const message = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
-        let translate = await translateMessage(context, message, targetLanguage, sourceLanguage);
+        const translate = await translateMessage(context, message, targetLanguage, sourceLanguage);
 
         if (!translate.message)
           return editOrReply(context, createEmbed('warning', context, 'No translatable content found.'));
 
-        let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
-        let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
+        const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
+        const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
 
-        let newMessage = translate.message;
+        const newMessage = translate.message;
         let newMessageContent = '';
         if (newMessage.content) newMessageContent += '\n' + newMessage.content;
 
@@ -219,10 +219,10 @@ module.exports = {
       );
 
     try {
-      let translate = await googleTranslate(context, content, targetLanguage, sourceLanguage);
+      const translate = await googleTranslate(context, content, targetLanguage, sourceLanguage);
 
-      let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
-      let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
+      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
+      const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
 
       return editOrReply(
         context,

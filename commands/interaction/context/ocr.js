@@ -43,7 +43,7 @@ module.exports = {
       }
       if (!attachment) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
-      let ocr = await googleVisionOcr(context, attachment);
+      const ocr = await googleVisionOcr(context, attachment);
 
       if (ocr.response.body.status === 1)
         return editOrReply(context, createEmbed('warning', context, ocr.response.body.text));
@@ -53,10 +53,10 @@ module.exports = {
         run: async ctx => {
           if (ctx.userId !== context.userId) return await ctx.respond(InteractionCallbackTypes.DEFERRED_UPDATE_MESSAGE);
 
-          let translate = await googleTranslate(context, ocr.response.body.text, 'en', 'auto');
+          const translate = await googleTranslate(context, ocr.response.body.text, 'en', 'auto');
 
-          let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from] || '';
-          let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
+          const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from] || '';
+          const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
 
           return editOrReply(
             context,

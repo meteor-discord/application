@@ -9,7 +9,7 @@ const { smallPill, pill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 function renderMovieResultsPage(context, res) {
-  let result = createEmbed('default', context, {
+  const result = createEmbed('default', context, {
     author: {
       name: res.title,
       url: res.url,
@@ -57,7 +57,7 @@ module.exports = {
 
       if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(renderMovieResultsPage(context, res));
       }

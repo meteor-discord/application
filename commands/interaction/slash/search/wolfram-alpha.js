@@ -15,7 +15,7 @@ const {
 } = require('detritus-client/lib/constants');
 
 function createWolframPage(context, pod, query, sources) {
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       author: {
         name: pod.title,
@@ -32,7 +32,7 @@ function createWolframPage(context, pod, query, sources) {
   if (pod.value) res.embeds[0].description = pod.value.substr(0, 1000);
   if (pod.value && pod.refs) {
     for (const r of pod.refs) {
-      let src = Object.values(sources).filter(s => s.ref == r)[0];
+      const src = Object.values(sources).filter(s => s.ref == r)[0];
       if (!src) continue;
 
       // Only add a direct source if one is available
@@ -80,7 +80,7 @@ module.exports = {
 
       if (search.body.status == 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.data) {
         pages.push(createWolframPage(context, res, args.query, search.body.sources));
       }

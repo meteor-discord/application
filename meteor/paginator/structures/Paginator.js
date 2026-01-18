@@ -73,7 +73,7 @@ module.exports = class Paginator {
 
       // i have plans to fix this with pagination v2 whenever i get around to working on it
 
-      let newPaginator = Object.assign(Object.create(Object.getPrototypeOf(listener)), listener);
+      const newPaginator = Object.assign(Object.create(Object.getPrototypeOf(listener)), listener);
 
       newPaginator.context = context;
       newPaginator.targetUser = context.user.id;
@@ -135,17 +135,15 @@ module.exports = class Paginator {
 
     for (const b of this.buttons) {
       // If an object is provided, build button from that
-      if (typeof b == 'object') {
+      if (typeof b === 'object') {
         components.createButton(
-          Object.assign(
-            {
-              customId: 'custom',
+          {
+            customId: 'custom',
               disabled: 0,
               style: 2,
               emoji: COMPONENT_BUTTON_ICONS.UNKNOWN,
-            },
-            b
-          )
+            ...b
+          }
         );
       } else {
         components.createButton({

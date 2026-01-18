@@ -25,9 +25,9 @@ module.exports = {
     try {
       await editOrReply(context, createEmbed('loading', context, 'Generating emoji...'));
 
-      let res = await emogen(context, args.text, args.style);
+      const res = await emogen(context, args.text, args.style);
 
-      let file = `emogen.${Date.now()}.png`;
+      const file = `emogen.${Date.now()}.png`;
 
       return editOrReply(context, {
         embeds: [

@@ -19,11 +19,11 @@ function createHelpPage(context, title, contents, descriptions) {
 }
 
 function renderCommandList(commands, descriptions, limit) {
-  let len = Math.max(...commands.map(el => el.length)) + 3;
-  let render = [];
+  const len = Math.max(...commands.map(el => el.length)) + 3;
+  const render = [];
   let i = 0;
   for (const c of commands) {
-    let pad = len - c.length;
+    const pad = len - c.length;
 
     let desc = descriptions[i];
     if (desc.includes('\n')) desc = desc.split('\n')[0];
@@ -50,7 +50,7 @@ function createCommandPage(context, prefix, command, slashCommands) {
     explicit = `\n${icon('channel_nsfw')} This command contains explicit content and can only be used in Age-Restricted channels. ${link('https://support.discord.com/hc/en-us/articles/115000084051-Age-Restricted-Channels-and-Content', 'Learn More')}\n`;
 
   // Render argument pills if present
-  let args = [];
+  const args = [];
   if (command.argParser.args) {
     for (const a of command.argParser.args) {
       let argument = `-${a._name} <${a._type.replace('bool', 'true/false')}>`;
@@ -64,7 +64,7 @@ function createCommandPage(context, prefix, command, slashCommands) {
     }
   }
 
-  let cPage = createEmbed('default', context, {
+  const cPage = createEmbed('default', context, {
     description: `### ${command.name}\n${alias}${explicit}\n${command.metadata.description}`,
     fields: [],
   });
@@ -73,7 +73,7 @@ function createCommandPage(context, prefix, command, slashCommands) {
 
   // Adds the slash command hint, if available
   if (command.metadata.slashCommand) {
-    let cmd = slashCommands.filter(c => c.name === command.metadata.slashCommand);
+    const cmd = slashCommands.filter(c => c.name === command.metadata.slashCommand);
     if (cmd.length >= 1) {
       switch (cmd[0].type) {
         case 1:
@@ -100,7 +100,7 @@ function createCommandPage(context, prefix, command, slashCommands) {
     });
 
   if (command.metadata.examples) {
-    let ex = [];
+    const ex = [];
     for (const e of command.metadata.examples) ex.push(prefix + e);
     cPage.fields.push({
       name: `${icon('example')} Examples`,
@@ -141,7 +141,7 @@ module.exports = {
       // Detailed command view
 
       let resultScores = {};
-      let resultMappings = {};
+      const resultMappings = {};
 
       for (const c of context.commandClient.commands) {
         if (
@@ -165,12 +165,12 @@ module.exports = {
           resultScores[c.name] += 1;
       }
 
-      let results = [];
+      const results = [];
       resultScores = Object.fromEntries(Object.entries(resultScores).sort(([, a], [, b]) => b - a));
       for (const k of Object.keys(resultScores)) results.push(resultMappings[k]);
 
-      let pages = [];
-      let prefix = DEFAULT_PREFIXES[0];
+      const pages = [];
+      const prefix = DEFAULT_PREFIXES[0];
       try {
         if (results.length == 0)
           return editOrReply(context, createEmbed('warning', context, 'No commands found for the provided query.'));
@@ -178,10 +178,10 @@ module.exports = {
         if (results.length > 1) {
           // Command overview
 
-          let cmds = results.map(m => {
+          const cmds = results.map(m => {
             return m.name;
           });
-          let dscs = results.map(m => {
+          const dscs = results.map(m => {
             return m.metadata.description_short;
           });
           pages.push(
@@ -216,8 +216,8 @@ module.exports = {
       }
     } else {
       // Full command list
-      let commands = {};
-      let descriptions = {};
+      const commands = {};
+      const descriptions = {};
 
       for (const c of context.commandClient.commands) {
         if (!categories[c.metadata.category]) continue;
@@ -228,7 +228,7 @@ module.exports = {
         descriptions[c.metadata.category].push(`${c.metadata.description_short}`);
       }
 
-      let pages = [];
+      const pages = [];
       for (const cat of Object.keys(categories)) {
         pages.push(createHelpPage(context, categories[cat], commands[cat], descriptions[cat]));
       }

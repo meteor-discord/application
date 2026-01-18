@@ -116,7 +116,7 @@ const embedTypes = Object.freeze({
 module.exports.createEmbed = function (type, context, content) {
   if (!embedTypes[type]) throw 'Invalid Embed Type';
   if (!content) embedTypes[type](context);
-  let emb = embedTypes[type](context);
+  const emb = embedTypes[type](context);
 
   if (['success', 'warning', 'error', 'loading', 'ai', 'nsfw'].includes(type)) {
     if (content) emb.author.name = content;
@@ -171,11 +171,11 @@ module.exports.formatPaginationEmbeds = function (embeds) {
   if (embeds.length == 1) return embeds;
 
   let i = 0;
-  let l = embeds.length;
-  let formatted = [];
+  const l = embeds.length;
+  const formatted = [];
   for (const e of embeds) {
     i += 1;
-    let ne = e;
+    const ne = e;
     if (!e) continue;
     if (e.embed) {
       ne.embed.footer.text = e.embed.footer.text + ` • Page ${i}/${l}`;

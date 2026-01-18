@@ -36,7 +36,7 @@ module.exports = {
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = msg.content;
       else if (msg.embeds?.length)
@@ -66,8 +66,8 @@ module.exports = {
       let res = await palm2(context, prompt, input);
       res = res.response;
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (!res.body.output)
         return editOrReply(context, createEmbed('error', context, `PaLM 2 returned an error. Try again later.`));

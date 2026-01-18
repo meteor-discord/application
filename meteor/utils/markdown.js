@@ -47,10 +47,10 @@ function _escapeCodeblock(content) {
 module.exports.icon = _icon;
 
 module.exports.iconAsEmojiObject = function (icon) {
-  let i = _icon(icon);
+  const i = _icon(icon);
 
   return {
-    id: i.replace(/<a?:[a-z0-9_]*:([0-9]*)>/g, '$1'),
+    id: i.replace(/<a?:[a-z0-9_]*:(\d*)>/g, '$1'),
     name: 'i',
     animated: i.startsWith('<a:'),
   };

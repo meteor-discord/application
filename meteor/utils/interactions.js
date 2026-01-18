@@ -23,7 +23,7 @@ module.exports.acknowledge = async function (
 
     // Handle permissions for user commands in a guild context
     if (context.member && permissions.length >= 1) {
-      let perr = [];
+      const perr = [];
       for (const p of permissions) {
         if (!checkPermissions(context.member.permissions, p)) {
           incognito = true;
