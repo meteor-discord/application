@@ -71,7 +71,6 @@ module.exports.PERMISSION_GROUPS = Object.freeze({
 });
 
 module.exports.BADGE_ICONS = Object.freeze({
-  active_developer: '<:b:1263607989873414196>',
   bot_developer: '<:b:1263605652337463489>',
   bug_hunter: '<:b:1263605576773013616>',
   bug_hunter_lvl2: '<:b:1263607090501517372>',

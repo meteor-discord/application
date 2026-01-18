@@ -79,7 +79,7 @@ module.exports = {
           },
           footer: {
             iconUrl: STATICS.labscore,
-            text: `labsCore • Took ${((Date.now() - t) / 1000).toFixed(2)}s`,
+            text: `Meteor • Took ${((Date.now() - t) / 1000).toFixed(2)}s`,
           },
         })
       );
