@@ -1,4 +1,4 @@
-const { ShardClient, CommandClient, InteractionCommandClient } = require('detritus-client');
+const { Client, CommandClient, InteractionCommandClient } = require('detritus-client');
 const {
   ActivityTypes,
   PresenceStatuses,
@@ -14,7 +14,7 @@ const Paginator = require('./paginator').Paginator;
 
 const token = process.env.token;
 
-const client = new ShardClient(token, {
+const client = new Client(token, {
   cache: { messages: { expire: 30 * 60 * 1000 } },
   gateway: {
     identifyProperties: {
