@@ -26,7 +26,7 @@ module.exports.maintower = async function (packages, type) {
       .post(MAINTOWER_BASE_URL + 'invoke')
       .set({
         Authorization: process.env.API_KEY,
-        'x-labscore-client': 'labscore/2.0',
+        'x-meteor-client': 'meteor/2.0',
       })
       .query({
         client: maintowerClient,
@@ -55,7 +55,7 @@ module.exports.basecamp = async function (log, content = '') {
       .post(MAINTOWER_BASE_URL + 'basecamp')
       .set({
         Authorization: process.env.API_KEY,
-        'x-labscore-client': 'labscore/2.0',
+        'x-meteor-client': 'meteor/2.0',
       })
       .send({ log, content });
     return;

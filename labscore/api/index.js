@@ -9,8 +9,8 @@ async function request(path, type, headers, args, host) {
 
   // apply default headers
   if (!headers['Authorization']) headers['Authorization'] = process.env.API_KEY;
-  if (!headers['user-agent']) headers['user-agent'] = 'labscore/2.0';
-  if (!headers['x-labscore-client']) headers['x-labscore-client'] = 'labscore/2.0';
+  if (!headers['user-agent']) headers['user-agent'] = 'meteor/2.0';
+  if (!headers['x-meteor-client']) headers['x-meteor-client'] = 'meteor/2.0';
 
   if (type === 'GET') {
     if (!args) {

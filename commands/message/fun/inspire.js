@@ -20,7 +20,7 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', 'labscore/2.0');
+      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', 'meteor/2.0');
 
       return await editOrReply(
         context,

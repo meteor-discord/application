@@ -32,7 +32,7 @@ module.exports = {
           limit: 100,
           language: 'en',
         })
-        .set('User-Agent', 'labscore/1.0');
+        .set('User-Agent', 'meteor/2.0');
 
       let pages = [];
 

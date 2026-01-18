@@ -39,7 +39,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
 
   let flags = 0;
 
-  // Special labsCore context clues for the command.
+  // Special Meteor context clues for the command.
   // Currently only used to identify incognito requests
   // on user slash commands.
   if (context._meta) {
