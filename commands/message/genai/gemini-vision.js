@@ -4,7 +4,7 @@ const { geminiVision } = require('#obelisk');
 const { getRecentImage } = require('#utils/attachment');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { stringwrap, iconPill, smallIconPill } = require('#utils/markdown');
+const { stringwrap, smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
 
