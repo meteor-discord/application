@@ -14,7 +14,7 @@ const SIZES = Object.freeze({
 });
 
 function validateNumber(input, low, high) {
-  if (input == '') return true;
+  if (input === '') return true;
   if (isNaN(input)) return true;
   return parseInt(input) <= high && parseInt(input) >= low;
 }

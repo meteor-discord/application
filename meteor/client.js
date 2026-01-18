@@ -127,7 +127,7 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
   if (context.message?.deleted) return reply.delete();
 
   let hasPrefix = false;
-  for (const p of [...commandPrefixes, context.client.user.mention])
+  for (const p of [...(commandPrefixes || []), context.client.user.mention])
     if (context.message.content.toLowerCase().startsWith(p)) hasPrefix = true;
 
   // TODO: there has to be a better way to do this, see if the command
@@ -135,7 +135,7 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
   if (hasPrefix) {
     // Extract command
     let command = context.message.content.toLowerCase();
-    for (const p of [...commandPrefixes, context.client.user.mention])
+    for (const p of [...(commandPrefixes || []), context.client.user.mention])
       if (command.startsWith(p)) command = command.replace(p, '');
     while (command.startsWith(' ') && command.length) command = command.substring(1, command.length);
     if (
@@ -190,7 +190,7 @@ commandClient.on('commandRunError', async ({ context, error }) => {
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
-  } catch (e) {
+  } catch {
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });

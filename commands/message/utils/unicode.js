@@ -6,17 +6,9 @@ const {
   EMOJIPEDIA_PLATFORM_PRIORITY,
 } = require('#constants');
 
-const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
-const { pill, iconPill, highlight, timestamp, smallIconPill, icon, smallPill } = require('#utils/markdown');
+const { createEmbed, page } = require('#utils/embed');
+const { pill, smallIconPill, smallPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
-const { STATICS, STATIC_ASSETS } = require('#utils/statics');
-
-const { Utils } = require('detritus-client');
-const { Components, Snowflake } = require('detritus-client/lib/utils');
-const { InteractionCallbackTypes, DiscordRegexNames } = require('detritus-client/lib/constants');
-const { acknowledge } = require('#utils/interactions');
-const { paginator } = require('#client');
-const { createDynamicCardStack } = require('#cardstack/index');
 
 module.exports = {
   label: 'input',

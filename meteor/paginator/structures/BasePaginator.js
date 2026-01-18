@@ -62,7 +62,7 @@ module.exports = class BasePaginator extends EventEmitter {
         if (!m.deleted) await m.edit(data);
       }
     } else if (this.commandMessage) {
-      if (!this.commandMessage.deleted) this.commandMessage.edit(data).catch(e => {});
+      if (!this.commandMessage.deleted) this.commandMessage.edit(data).catch(() => {});
     }
   }
 

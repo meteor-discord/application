@@ -17,7 +17,7 @@ const instances = new WeakSet();
 module.exports = class Paginator {
   constructor(client, data = {}) {
     if (instances.has(client)) {
-      throw 'Only attach one pagination client';
+      throw new Error('Only attach one pagination client');
     }
 
     assert.ok(hasOwnProperty.call(client, 'gateway'), 'Provided `client` has no `gateway` property.');
@@ -79,8 +79,8 @@ module.exports = class Paginator {
       newPaginator.targetUser = context.user.id;
       newPaginator.ephemeral = true;
 
-      if (context.customId == 'next') await newPaginator.getNext();
-      else if (context.customId == 'previous') await newPaginator.getPrevious();
+      if (context.customId === 'next') await newPaginator.getNext();
+      else if (context.customId === 'previous') await newPaginator.getPrevious();
 
       this.activeListeners.push(newPaginator);
       await newPaginator.init();
@@ -120,7 +120,7 @@ module.exports = class Paginator {
         try {
           await listener.waitingForPage.delete();
           await this.client.rest.deleteMessage(data.channel_id, data.id);
-        } catch (e) {}
+        } catch {}
 
         listener.waitingForPage = null;
       })
@@ -136,15 +136,13 @@ module.exports = class Paginator {
     for (const b of this.buttons) {
       // If an object is provided, build button from that
       if (typeof b === 'object') {
-        components.createButton(
-          {
-            customId: 'custom',
-              disabled: 0,
-              style: 2,
-              emoji: COMPONENT_BUTTON_ICONS.UNKNOWN,
-            ...b
-          }
-        );
+        components.createButton({
+          customId: 'custom',
+          disabled: 0,
+          style: 2,
+          emoji: COMPONENT_BUTTON_ICONS.UNKNOWN,
+          ...b,
+        });
       } else {
         components.createButton({
           customId: b,

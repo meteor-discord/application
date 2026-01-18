@@ -3,7 +3,7 @@ const { ObeliskApi, ObeliskHosts } = require('./endpoints');
 
 async function request(path, type, headers, args, host) {
   const timing = Date.now();
-  url = ObeliskApi.HOST + path;
+  let url = ObeliskApi.HOST + path;
   if (process.env.USE_LOCAL_API) url = ObeliskHosts.local + ':' + process.env.USE_LOCAL_API + path;
   if (host) url = host + path;
 

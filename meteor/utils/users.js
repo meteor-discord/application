@@ -1,14 +1,14 @@
 async function getUser(context, query) {
   let user;
   let member;
-  if (query == '@me') query = context.user.id;
+  if (query === '@me') query = context.user.id;
   if (/\d{17,19}/.test(query)) {
     const uid = query.match(/\d{17,19}/);
     try {
       user = await context.client.rest.fetchUser(uid);
       if (context.guild) member = await getMember(context, user.username);
       if (member && member.id !== user.id) member = undefined;
-    } catch (e) {
+    } catch {
       user = undefined;
     }
   } else {
@@ -20,13 +20,13 @@ async function getUser(context, query) {
 
 async function getMember(context, query) {
   if (!context.guild) return;
-  if (query == '@me') query = context.author.id;
+  if (query === '@me') query = context.author.id;
   if (/\d{17,19}/.test(query)) {
     const uid = query.match(/\d{17,19}/);
     try {
-      member = await context.guild.fetchMember(uid);
+      const member = await context.guild.fetchMember(uid);
       return member;
-    } catch (e) {
+    } catch {
       return;
     }
   } else {
@@ -138,11 +138,7 @@ function renderBadges(user) {
       );
   if (!user.bot && (getUserAvatar(user).endsWith('.gif') || user.banner)) {
     badges.push(
-      link(
-        BADGE_TYPES.nitro.link,
-        BADGE_TYPES.nitro.icon + HIDDEN_MASKED_LINK_CHARACTER,
-        BADGE_TYPES.nitro.description
-      )
+      link(BADGE_TYPES.nitro.link, BADGE_TYPES.nitro.icon + HIDDEN_MASKED_LINK_CHARACTER, BADGE_TYPES.nitro.description)
     );
   }
 

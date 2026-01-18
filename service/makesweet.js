@@ -8,17 +8,17 @@ async function fetchImage(url) {
       u: url,
     });
     return res.body;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
 async function processMakesweet(effect, args, image) {
-  if (!effects.includes(effect.toLowerCase())) throw 'Invalid Effect';
+  if (!effects.includes(effect.toLowerCase())) throw new Error('Invalid Effect');
   try {
     if (image) {
       image = await fetchImage(image);
-      if (!image) throw 'Unable to fetch image';
+      if (!image) throw new Error('Unable to fetch image');
 
       const res = await superagent
         .post(`http://api.makesweet.com/make/${effect.toLowerCase()}`)
@@ -36,7 +36,7 @@ async function processMakesweet(effect, args, image) {
     return res;
   } catch (e) {
     console.log(e);
-    throw 'Unable to generate image.';
+    throw new Error('Unable to generate image.');
   }
 }
 

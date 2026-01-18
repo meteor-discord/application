@@ -66,6 +66,7 @@ module.exports.getRecentVideo = async function (context, limit) {
   }
 
   // Handle Replies
+  let messages;
   if (context.message.messageReference) {
     messages = [
       [

@@ -10,7 +10,7 @@ module.exports = async context => {
       });
 
       choices = suggestions.body.results;
-    } catch (e) {
+    } catch {
       // idk sucks ig?
     }
   }

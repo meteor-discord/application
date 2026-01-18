@@ -3,10 +3,8 @@ const { iconAsEmojiObject, codeblock } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ASSETS } = require('#utils/statics');
 
-const { Context } = require('detritus-client/lib/command');
 const { MessageComponentTypes, InteractionCallbackTypes, MessageFlags } = require('detritus-client/lib/constants');
-const { Message } = require('detritus-client/lib/structures');
-const { ComponentContext, ComponentActionRow, ComponentButton } = require('detritus-client/lib/utils');
+const { ComponentActionRow, ComponentButton } = require('detritus-client/lib/utils');
 
 const { STACK_CACHE_KEYS, BuiltInButtonTypes, ResolveCallbackTypes } = require('./constants');
 const { InteractiveComponentTypes, DEFAULT_BUTTON_STYLES } = require('#cardstack/constants');
@@ -161,7 +159,7 @@ class DynamicCardStack {
     this.pageState = [];
     for (const ac of this.cards) {
       if (ac._meta) {
-        this.pageState[i] = { ...ac._meta};
+        this.pageState[i] = { ...ac._meta };
       }
       i++;
     }
@@ -265,7 +263,7 @@ class DynamicCardStack {
    * @param killComponents Remove components
    */
   async _edit(cardContent, components = false, killComponents = false) {
-    const message = { ...cardContent};
+    const message = { ...cardContent };
 
     message.components = this._renderComponents(killComponents);
 

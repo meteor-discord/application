@@ -44,7 +44,7 @@ module.exports = {
       if (g.roles.length >= 2) pills.push(smallIconPill('user_shield', `${g.roles.length} Roles`));
       if (emojis.length >= 1) pills.push(smallIconPill('emoji', emojis.length + ' Emoji'));
       if (channels.length >= 1) pills.push(smallIconPill('channel', g.channels.length + ' Channels'));
-      if (g.owner) pills.push(`${icon('user_king')}  <@${g.owner.id}>`);
+      if (g.owner) pills.push(`${icon('user_king')} <@${g.owner.id}>`);
 
       let pillDisplay = '';
       for (let i = 0; i < pills.length; i++) {
@@ -103,9 +103,7 @@ module.exports = {
           const sub = featureCards.splice(0, 2);
           sub[0].name = `${icon('list')} Server Features (${i}/${ic})`;
 
-          pages.push(
-            page(JSON.parse(JSON.stringify({...guildCard, fields: [...guildCard.fields, ...sub]})))
-          );
+          pages.push(page(JSON.parse(JSON.stringify({ ...guildCard, fields: [...guildCard.fields, ...sub] }))));
         }
 
         await paginator.createPaginator({

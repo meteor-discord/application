@@ -23,7 +23,7 @@ const ALIASES = {
 };
 
 module.exports.format = function (text, color) {
-  if (!ANSI_COLORS[color] && !ALIASES[color]) throw 'Invalid ANSI Color';
+  if (!ANSI_COLORS[color] && !ALIASES[color]) throw new Error('Invalid ANSI Color');
   if (!ANSI_COLORS[color]) color = ALIASES[color];
   return `${ANSI_COLORS[color]}${text}${ANSI_COLORS.reset}`;
 };

@@ -33,7 +33,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, `Unable to fetch inspirational quote.`));
     }
   },

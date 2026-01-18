@@ -91,10 +91,10 @@ async function translateMessage(context, message, to, from) {
 
         if (emb.description) newEmbed.description = stringwrap(tr['embeds/' + i + '/description'], 4096);
 
-        if (emb.author) newEmbed.author = { ...emb.author};
+        if (emb.author) newEmbed.author = { ...emb.author };
         if (emb.author?.name) newEmbed.author.name = stringwrap(tr['embeds/' + i + '/author/name'], 256);
 
-        if (emb.footer) newEmbed.footer = { ...emb.footer};
+        if (emb.footer) newEmbed.footer = { ...emb.footer };
         if (emb.footer?.text) newEmbed.footer.text = stringwrap(tr['embeds/' + i + '/footer/text'], 2048);
 
         if (emb.fields) {
@@ -109,7 +109,7 @@ async function translateMessage(context, message, to, from) {
             fi++;
           }
         }
-        result.embeds[i] = { ...newEmbed};
+        result.embeds[i] = { ...newEmbed };
         i++;
       }
     }

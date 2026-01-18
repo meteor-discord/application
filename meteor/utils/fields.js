@@ -24,7 +24,7 @@ module.exports.guildFeaturesField = function (g) {
 
   fN = fN.sort((a, b) => a.normalize().localeCompare(b.normalize()));
   while (fN.length) {
-    sfN = fN.splice(0, 10);
+    const sfN = fN.splice(0, 10);
     const ft = [];
     for (const f of sfN) {
       let ic = fD[f];
@@ -39,7 +39,7 @@ module.exports.guildFeaturesField = function (g) {
       );
     }
     featureCards.push({
-      name: `​`,
+      name: '​',
       value: ft.join('\n'),
       inline: true,
     });

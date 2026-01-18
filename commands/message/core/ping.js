@@ -18,15 +18,15 @@ module.exports = {
   run: async context => {
     await acknowledge(context);
 
-    ping = await context.client.ping();
+    const pongData = await context.client.ping();
     editOrReply(
       context,
       createEmbed('default', context, {
         description:
           `${icon('latency')} **Pong!**\n` +
           codeblock('ansi', [
-            `rest      ${format(`${ping.rest}ms`, 'm')}`,
-            `gateway   ${format(`${ping.gateway}ms`, 'm')}`,
+            `rest      ${format(`${pongData.rest}ms`, 'm')}`,
+            `gateway   ${format(`${pongData.gateway}ms`, 'm')}`,
           ]),
       })
     );

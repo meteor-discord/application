@@ -4,7 +4,7 @@ const { editOrReply } = require('#utils/message');
 const { PERMISSION_GROUPS } = require('#constants');
 const { acknowledge } = require('#utils/interactions');
 
-const { InteractionCallbackTypes, ApplicationCommandTypes } = require('detritus-client/lib/constants');
+const { ApplicationCommandTypes } = require('detritus-client/lib/constants');
 
 module.exports = {
   name: 'View User Banner',

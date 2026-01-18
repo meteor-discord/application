@@ -1,14 +1,12 @@
-const { BADGE_ICONS } = require('#constants');
-
 const { createEmbed } = require('#utils/embed');
-const { smallIconPill, highlight, smallPill, icon, timestamp } = require('#utils/markdown');
+const { smallIconPill, smallPill, icon, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { renderBadges, getUserAvatar } = require('#utils/users');
 
 const { PERMISSION_GROUPS } = require('#constants');
 const { acknowledge } = require('#utils/interactions');
 
-const { InteractionCallbackTypes, ApplicationCommandTypes, UserFlags } = require('detritus-client/lib/constants');
+const { ApplicationCommandTypes } = require('detritus-client/lib/constants');
 
 module.exports = {
   name: 'View User Details',

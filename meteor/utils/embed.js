@@ -2,7 +2,7 @@ const { COLORS, SUPPORT_ARTICLES } = require('../constants');
 const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('./statics');
 
 const embedTypes = Object.freeze({
-  default: context => {
+  default: () => {
     const footer = {
       text: context.application.name,
     };
@@ -12,7 +12,7 @@ const embedTypes = Object.freeze({
       footer,
     };
   },
-  image: context => {
+  image: () => {
     const footer = {
       text: context.application.name,
     };
@@ -22,12 +22,12 @@ const embedTypes = Object.freeze({
       footer,
     };
   },
-  defaultNoFooter: context => {
+  defaultNoFooter: () => {
     return {
       color: COLORS.embed,
     };
   },
-  success: context => {
+  success: () => {
     return {
       author: {
         name: `Success`,
@@ -35,7 +35,7 @@ const embedTypes = Object.freeze({
       color: COLORS.success,
     };
   },
-  warning: context => {
+  warning: () => {
     const author = {
       name: `Warning`,
     };
@@ -45,7 +45,7 @@ const embedTypes = Object.freeze({
       color: COLORS.warning,
     };
   },
-  error: context => {
+  error: () => {
     const author = {
       name: `Error`,
     };
@@ -55,7 +55,7 @@ const embedTypes = Object.freeze({
       color: COLORS.error,
     };
   },
-  errordetail: context => {
+  errordetail: () => {
     const author = {
       name: `Error`,
     };
@@ -65,7 +65,7 @@ const embedTypes = Object.freeze({
       color: COLORS.error,
     };
   },
-  nsfw: context => {
+  nsfw: () => {
     const author = {
       name: `This command is only available in Age Restricted channels.`,
       url: `https://support.discord.com/hc/en-us/articles/${SUPPORT_ARTICLES.AGE_RESTRICTED_CHANNELS}`,
@@ -76,7 +76,7 @@ const embedTypes = Object.freeze({
       color: COLORS.nsfw,
     };
   },
-  loading: context => {
+  loading: () => {
     const author = {
       name: `Loading`,
     };
@@ -86,7 +86,7 @@ const embedTypes = Object.freeze({
       color: COLORS.embed,
     };
   },
-  ai: context => {
+  ai: () => {
     const author = {
       name: `Generating`,
     };
@@ -96,7 +96,7 @@ const embedTypes = Object.freeze({
       color: COLORS.embed,
     };
   },
-  ai_custom: context => {
+  ai_custom: () => {
     const author = {
       name: `​`,
     };
@@ -114,7 +114,7 @@ const embedTypes = Object.freeze({
 
 // Returns a formatted embed
 module.exports.createEmbed = function (type, context, content) {
-  if (!embedTypes[type]) throw 'Invalid Embed Type';
+  if (!embedTypes[type]) throw new Error('Invalid Embed Type');
   if (!content) embedTypes[type](context);
   const emb = embedTypes[type](context);
 

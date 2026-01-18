@@ -92,7 +92,7 @@ Your X handle is @grok and your task is to respond to user's posts that tag you 
           author: {
             iconUrl:
               'https://play-lh.googleusercontent.com/dQRKhi30KpzG3gww3TdVLzyIAVuOAWylnAcgnEUxqfpm2A8dEt2sgApVvtKAy-DO8aI=w240-h480',
-            name: `​`,
+            name: `Generating...`,
           },
           image: {
             url: STATIC_ASSETS.chat_loading_small,

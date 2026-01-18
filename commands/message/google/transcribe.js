@@ -27,7 +27,7 @@ module.exports = {
       let msg;
       try {
         msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
-      } catch (e) {
+      } catch {
         return editOrReply(context, createEmbed('error', context, 'Unable to fetch message.'));
       }
 

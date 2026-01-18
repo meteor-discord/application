@@ -1,4 +1,3 @@
-const { stringwrap } = require('#utils/markdown');
 const superagent = require('superagent');
 
 module.exports = async context => {
@@ -20,7 +19,7 @@ module.exports = async context => {
         choices = choices.filter(m => m !== context.value.toLowerCase());
         choices.unshift(context.value.toLowerCase());
       }
-    } catch (e) {
+    } catch {
       // idk sucks ig?
     }
   }

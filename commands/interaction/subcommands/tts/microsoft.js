@@ -51,7 +51,7 @@ module.exports = {
         ],
         file: { value: audio.response.body, filename: 'tts.wav' },
       });
-    } catch (e) {
+    } catch {
       await context.editOrRespond({
         embeds: [createEmbed('error', context, 'Unable to generate audio file.')],
       });

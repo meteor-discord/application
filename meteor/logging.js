@@ -1,5 +1,4 @@
 const { icon } = require('#utils/markdown');
-const { USER_AGENT } = require('#utils/user-agent');
 const { COLORS } = require('#constants');
 const superagent = require('superagent');
 
@@ -136,9 +135,8 @@ module.exports.logMessage = async function (message) {
 /**
  * Legacy alias for logMessage
  * @param {string} message - The formatted message to log
- * @param {Object} [context] - Optional context (currently unused but kept for backward compatibility)
  */
-module.exports.basecamp = async function (message, context) {
+module.exports.basecamp = async function (message) {
   return module.exports.logMessage(message);
 };
 

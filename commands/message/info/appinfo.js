@@ -63,14 +63,14 @@ module.exports = {
     try {
       application = await superagent.get(`${Routes.URL}/api/v9/applications/${id}/rpc`);
       application = application.body;
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('warning', context, 'Invalid Application'));
     }
 
     try {
       assets = await superagent.get(`${Routes.URL}/api/oauth2/applications/${id}/assets`);
       assets = assets.body;
-    } catch (e) {
+    } catch {
       // :)
     }
 

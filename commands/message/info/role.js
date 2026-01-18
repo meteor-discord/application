@@ -11,8 +11,8 @@ const { PermissionTools } = require('detritus-client/lib/utils');
 
 // TODO: Move this to a utility module
 function toCodePoint(unicodeSurrogates, sep) {
-  let r = [],
-    c = 0,
+  const r = [];
+  let c = 0,
     p = 0,
     i = 0;
   while (i < unicodeSurrogates.length) {

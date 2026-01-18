@@ -110,9 +110,9 @@ module.exports.timestamp = function (time, flag = 't') {
 module.exports.stringwrap = function (content = '', length, newlines = true) {
   if (!newlines) content = content.replace(/\n/g, ' ');
   if (content.length > length) {
-    c = content.substring(0, length - 1) + '…';
-    while (c.endsWith(' …')) c = c.substr(0, c.length - 2) + '…';
-    return c;
+    let wrapped = content.substring(0, length - 1) + '…';
+    while (wrapped.endsWith(' …')) wrapped = wrapped.substr(0, wrapped.length - 2) + '…';
+    return wrapped;
   }
   return content;
 };
@@ -156,8 +156,7 @@ module.exports.smallIconPill = function (icon, content = '') {
 
 module.exports.iconLinkPill = function (icon, url, content = '', tooltip = '') {
   if (tooltip.length) tooltip = ` '${tooltip}'`;
-  if (content)
-    return `${_icon(icon)} [**\` ${_escapeCodeblock(content)}  \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
+  if (content) return `${_icon(icon)} [**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
   return url;
 };
 

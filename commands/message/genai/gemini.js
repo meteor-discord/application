@@ -92,7 +92,7 @@ module.exports = {
             // this sucks but works, ensures the newly selected option stays selected
             for (let i = 0; i < components.components[0].components[0].options.length; i++) {
               components.components[0].components[0].options[i].default =
-                components.components[0].components[0].options[i].value == ctx.data.values[0];
+                components.components[0].components[0].options[i].value === ctx.data.values[0];
             }
 
             draft = res.body.candidates[parseInt(ctx.data.values[0].replace('draft-', ''))];

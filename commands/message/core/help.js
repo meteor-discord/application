@@ -29,7 +29,7 @@ function renderCommandList(commands, descriptions, limit) {
     if (desc.includes('\n')) desc = desc.split('\n')[0];
     if (desc.length >= 41) desc = stringwrap(desc, 40);
 
-    render.push(` ​ ​ \` ${c}${' '.repeat(pad)}\` ​ ​ ​ ​ ​${desc}`);
+    render.push(` \` ${c}${' '.repeat(pad)}\` ${desc}`);
     i++;
   }
 
@@ -39,7 +39,7 @@ function renderCommandList(commands, descriptions, limit) {
 }
 
 function createCommandPage(context, prefix, command, slashCommands) {
-  alias = '';
+  let alias = '';
   if (command.aliases.length >= 1) {
     for (const al of command.aliases) alias += smallPill(al);
     alias += '\n';
@@ -57,8 +57,8 @@ function createCommandPage(context, prefix, command, slashCommands) {
       argument = pill(argument);
 
       if (a.required) argument = '-# Required Parameter\n' + argument;
-      if (a.help) argument += ` ​ ${a.help}`;
-      if (a.default !== '') argument += `\n ​ ​  ​ ​ ${smallPill(`default: ${a.default}`)}`;
+      if (a.help) argument += ` ${a.help}`;
+      if (a.default !== '') argument += `\n ${smallPill(`default: ${a.default}`)}`;
 
       args.push(argument);
     }

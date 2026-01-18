@@ -32,7 +32,7 @@ module.exports = {
         }
       }
 
-      if (cmds.length == 1 || !context.canManage) {
+      if (cmds.length === 1 || !context.canManage) {
         for (const id of cmds) await context.channel.deleteMessage(id);
       } else {
         await context.channel.bulkDelete(cmds);
