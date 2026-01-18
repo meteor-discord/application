@@ -4,7 +4,7 @@
 > This project will be open-source once its completed.
 
 <p align="center">
-    <a href="https://discord.com/oauth2/authorize?client_id=123&permissions=8&integration_type=0&scope=bot">Add to server</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1421798606234583073&permissions=8&integration_type=0&scope=bot">Add to server</a>
     ·
     <a href="https://example.com/?utm_source=github&utm_medium=readme&utm_campaign=">Visit website</a>
 </p>
@@ -13,15 +13,15 @@
 
 Meteor is an open-source Discord application that is flexible and easy to use. It includes features that improve server security and enhance the user experience.
 
-The Meteor team is committed to making the application better over time, adding new features based on what users want.
+The Meteor Labs is committed to making the application better over time, adding new features based on what users want.
 
-Join the [Discord](https://discord.gg/123) server for more information or to participate in the development of Meteor.
+Join the [Discord](https://discord.gg/6C9pcD4EUq) server for more information or to participate in the development of Meteor.
 
 ### Built with
 
-- [TypeScript](https://github.com/microsoft/TypeScript)
-- [Discord.js](https://github.com/discordjs/discord.js)
-- [Prettier](https://github.com/prettier/prettier)
+- [Node.js](https://nodejs.org) + [pnpm](https://pnpm.io)
+- [Detritus](https://detritusjs.com) (Discord API client)
+- [ESLint](https://eslint.org) + [Prettier](https://prettier.io)
 
 ## Contributing
 
