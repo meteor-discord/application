@@ -28,10 +28,17 @@ module.exports = {
 
       let com = r.toString().match(/([a-z0-9]{7})\.\.([a-z0-9]{7})/);
 
-      return await editOrReply(
+      await editOrReply(
         context,
-        createEmbed('success', context, `Updated ${com[1]} -> ${com[2]} in ${((Date.now() - t) / 1000).toFixed(2)}s`)
+        createEmbed(
+          'success',
+          context,
+          `Updated ${com[1]} -> ${com[2]} in ${((Date.now() - t) / 1000).toFixed(2)}s\nNow restarting...`
+        )
       );
+
+      // pm2 will restart us
+      process.exit(0);
     } catch (e) {
       console.log(e);
       return await editOrReply(context, createEmbed('error', context, 'Manager reported error during update query.'));
