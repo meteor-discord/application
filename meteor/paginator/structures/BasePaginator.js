@@ -62,13 +62,13 @@ module.exports = class BasePaginator extends EventEmitter {
         if (!m.deleted) await m.edit(data);
       }
     } else if (this.commandMessage) {
-      if (!this.commandMessage.deleted) this.commandMessage.edit(data).catch(e => {});
+      if (!this.commandMessage.deleted) this.commandMessage.edit(data).catch(() => {});
     }
   }
 
   async init() {
     // Create Components
-    let msg = this.pages[this.index];
+    const msg = this.pages[this.index];
     msg.components = await this.client.components(this);
 
     // Ensure there are no mentions

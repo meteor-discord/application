@@ -24,11 +24,11 @@ module.exports = {
     await acknowledge(context);
 
     if (!args.user) args.user = context.userId;
-    let u = await getUser(context, args.user);
+    const u = await getUser(context, args.user);
     if (!u || !u.user) return editOrReply(context, createEmbed('warning', context, 'No users found.'));
 
     if (u.member && u.member.avatar !== null) {
-      let pages = [];
+      const pages = [];
       pages.push(
         page(
           createEmbed('default', context, {

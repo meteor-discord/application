@@ -40,16 +40,16 @@ module.exports = {
         createEmbed('warning', context, `Invalid source language (${stringwrap(args.from, 10)}).`)
       );
 
-    let targetLanguage = getCodeFromAny(args.to);
-    let sourceLanguage = getCodeFromAny(args.from);
+    const targetLanguage = getCodeFromAny(args.to);
+    const sourceLanguage = getCodeFromAny(args.from);
 
-    let image = await getRecentImage(context, 50);
+    const image = await getRecentImage(context, 50);
     if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
     let ocr;
     try {
       ocr = await googleVisionOcr(context, image);
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, 'Unable to retrieve Google Vision API response.'));
     }
 
@@ -57,15 +57,15 @@ module.exports = {
       return editOrReply(context, createEmbed('warning', context, ocr.response.body.text));
 
     try {
-      let translate = await googleTranslate(context, ocr.response.body.text, targetLanguage, sourceLanguage);
+      const translate = await googleTranslate(context, ocr.response.body.text, targetLanguage, sourceLanguage);
 
-      let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
-      let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
+      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
+      const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
 
       return editOrReply(
         context,
         createEmbed('default', context, {
-          description: `-# ${icon('locale')} ​ ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage])} ​ ​ ​​${icon('arrow_right')} ​ ​ ​ ​${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to])}\n${codeblock('ansi', [translate.response.body.translation.substr(0, 4000)])}`,
+          description: `-# ${icon('locale')}   ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage])}       ${icon('arrow_right')}        ${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to])}\n${codeblock('ansi', [translate.response.body.translation.substr(0, 4000)])}`,
           thumbnail: {
             url: image,
           },

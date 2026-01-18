@@ -52,9 +52,12 @@ const SEARCH_CARD_TYPES = {
 function createSearchResultPage(context, result, doodle) {
   let res;
   switch (result.type) {
-    case SEARCH_CARD_TYPES.SEARCH_RESULT:
-      let displayLink = result.display_link;
-      while (displayLink.startsWith('www.')) displayLink = displayLink.substring(4, displayLink.length);
+    case SEARCH_CARD_TYPES.SEARCH_RESULT: {
+      const displayLink = (() => {
+        let link = result.display_link;
+        while (link.startsWith('www.')) link = link.substring(4, link.length);
+        return link;
+      })();
 
       res = createEmbed('default', context, {
         author: {
@@ -71,6 +74,7 @@ function createSearchResultPage(context, result, doodle) {
       if (result.thumbnail) res.thumbnail = { url: result.thumbnail };
 
       break;
+    }
     case SEARCH_CARD_TYPES.KNOWLEDGE_GRAPH:
       res = createEmbed('default', context, {
         description: '',
@@ -215,7 +219,7 @@ function createSearchResultPage(context, result, doodle) {
       break;
     case SEARCH_CARD_TYPES.DATA_FINANCE:
       res = createEmbed('default', context, {
-        description: `-# $${result.finance.ticker} (${result.finance.exchange}) ${result.finance.time}\n${result.finance.title}\n# $${result.finance.price}\n**${result.finance.change}** ​  ​  ​  ​  ​  ​ ${link(result.finance.disclaimer.url, `${result.finance.disclaimer.label} ${icon('link_open_external')}`, result.finance.disclaimer.label)}`,
+        description: `-# $${result.finance.ticker} (${result.finance.exchange}) ${result.finance.time}\n${result.finance.title}\n# $${result.finance.price}\n**${result.finance.change}** ${link(result.finance.disclaimer.url, `${result.finance.disclaimer.label} ${icon('link_open_external')}`, result.finance.disclaimer.label)}`,
         footer: {
           iconUrl: STATICS.googlefinance,
           text: `Google Finance • ${context.application.name}`,
@@ -295,7 +299,7 @@ module.exports = {
 
       if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(createSearchResultPage(context, res, search.body.doodle));
       }

@@ -1,22 +1,11 @@
-const { emojipedia, emojiKitchen, unicodeMetadata } = require('#api');
-const {
-  EMOJIPEDIA_PLATFORM_TYPES,
-  EMOJIPEDIA_PLATFORM_TYPE_ALIASES,
-  PERMISSION_GROUPS,
-  EMOJIPEDIA_PLATFORM_PRIORITY,
-} = require('#constants');
-
-const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
-const { pill, iconPill, highlight, timestamp, smallIconPill, icon, smallPill } = require('#utils/markdown');
-const { editOrReply } = require('#utils/message');
-const { STATICS, STATIC_ASSETS } = require('#utils/statics');
-
-const { Utils } = require('detritus-client');
-const { Components, Snowflake } = require('detritus-client/lib/utils');
-const { InteractionCallbackTypes, DiscordRegexNames } = require('detritus-client/lib/constants');
-const { acknowledge } = require('#utils/interactions');
+const { unicodeMetadata } = require('#api');
 const { paginator } = require('#client');
-const { createDynamicCardStack } = require('#cardstack/index');
+const { PERMISSION_GROUPS } = require('#constants');
+
+const { createEmbed, page } = require('#utils/embed');
+const { acknowledge } = require('#utils/interactions');
+const { pill, smallIconPill, smallPill } = require('#utils/markdown');
+const { editOrReply } = require('#utils/message');
 
 module.exports = {
   label: 'input',
@@ -43,14 +32,14 @@ module.exports = {
     if (!args.input.length) return editOrReply(context, createEmbed('warning', context, 'No input provided.'));
 
     try {
-      let meta = await unicodeMetadata(context, args.input);
+      const meta = await unicodeMetadata(context, args.input);
 
-      let chars = meta.response.body;
-      let pages = [];
+      const chars = meta.response.body;
+      const pages = [];
 
       console.log(meta.response.body);
       while (chars.length) {
-        let cset = chars.splice(0, 20);
+        const cset = chars.splice(0, 20);
 
         let padLen = 0;
         cset.map(c => {
@@ -65,7 +54,7 @@ module.exports = {
         );
       }
 
-      return createDynamicCardStack(context, {
+      return paginator.createCardStack(context, {
         cards: pages,
       });
     } catch (e) {

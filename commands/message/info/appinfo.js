@@ -52,8 +52,8 @@ module.exports = {
     await acknowledge(context);
 
     let id;
-    if (/[0-9]{17,19}/.test(args.id)) {
-      id = args.id.match(/[0-9]{17,19}/);
+    if (/\d{17,19}/.test(args.id)) {
+      id = args.id.match(/\d{17,19}/);
     } else {
       return editOrReply(context, createEmbed('warning', context, 'Invalid Application ID'));
     }
@@ -63,18 +63,18 @@ module.exports = {
     try {
       application = await superagent.get(`${Routes.URL}/api/v9/applications/${id}/rpc`);
       application = application.body;
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('warning', context, 'Invalid Application'));
     }
 
     try {
       assets = await superagent.get(`${Routes.URL}/api/oauth2/applications/${id}/assets`);
       assets = assets.body;
-    } catch (e) {
+    } catch {
       // :)
     }
 
-    let embed = createEmbed('default', context, {
+    const embed = createEmbed('default', context, {
       description: `${icon('robot')} **${application.name}** ${highlight(`(${application.id})`)}\n${application.description}`,
       fields: [],
     });
@@ -85,7 +85,7 @@ module.exports = {
       };
 
     if (application.terms_of_service_url || application.privacy_policy_url) {
-      let content = [];
+      const content = [];
       if (application.terms_of_service_url)
         content.push(`${icon('agreements')} ${link(application.terms_of_service_url, 'Terms of Service')}`);
       if (application.privacy_policy_url)
@@ -99,7 +99,7 @@ module.exports = {
     }
 
     if ('bot_public' in application) {
-      let content = [];
+      const content = [];
       if (application.bot_public) content.push(`• App is public`);
       if (application.custom_install_url)
         content.push(`${icon('link')} ${link(application.custom_install_url, 'Invite App')}`);
@@ -126,7 +126,7 @@ module.exports = {
     }
 
     if (application.max_participants) {
-      let content = [];
+      const content = [];
 
       content.push(`Max Participants: **${application.max_participants}**`);
       if (application.embedded_activity_config !== null) {
@@ -144,7 +144,7 @@ module.exports = {
     }
 
     if (application.flags) {
-      let fl = [];
+      const fl = [];
       for (const flag of Object.keys(applicationFlags)) {
         if (application.flags & (1 << applicationFlags[flag])) fl.push('• ' + applicationFlagNames[flag]);
       }
@@ -157,7 +157,7 @@ module.exports = {
     }
 
     if (assets.length) {
-      let asset = assets.map(a =>
+      const asset = assets.map(a =>
         link(
           `https://cdn.discordapp.com/app-assets/${application.id}/${a.id}.png?size=4096`,
           stringwrap(a.name, 23, false)

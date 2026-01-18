@@ -32,7 +32,7 @@ module.exports = {
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = `> ${msg.content.split('\n').join('\n> ')}\n${input}`;
       if (msg.embeds?.length)
@@ -92,10 +92,10 @@ module.exports = {
             // this sucks but works, ensures the newly selected option stays selected
             for (let i = 0; i < components.components[0].components[0].options.length; i++) {
               components.components[0].components[0].options[i].default =
-                components.components[0].components[0].options[i].value == ctx.data.values[0];
+                components.components[0].components[0].options[i].value === ctx.data.values[0];
             }
 
-            draft = res.body.candidates[parseInt(ctx.data.values[0].replace('draft-', ''))];
+            const draft = res.body.candidates[parseInt(ctx.data.values[0].replace('draft-', ''))];
 
             description = [];
             files = [];
@@ -127,10 +127,10 @@ module.exports = {
           },
         });
 
-        let draftOptions = [];
+        const draftOptions = [];
         for (let i = 0; i < res.body.candidates.length; i++) {
           draftOptions.push({
-            label: `Draft ${i + 1}: ​ ${stringwrap(res.body.candidates[i], 50, false)}`,
+            label: `Draft ${i + 1}: ${stringwrap(res.body.candidates[i], 50, false)}`,
             value: 'draft-' + i,
             default: false,
           });

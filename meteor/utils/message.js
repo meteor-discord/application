@@ -2,7 +2,6 @@ const { Permissions, MessageFlags } = require('detritus-client/lib/constants');
 const { basecamp, formatErrorMessage } = require('../logging');
 const { COLORS, MESSAGE_BLOCK_REASONS } = require('#constants');
 const { icon, link } = require('./markdown');
-const { timestamp } = require('#utils/markdown');
 
 module.exports.editOrReply = function (context, message, disableReference = false) {
   // Apply message_reference
@@ -12,10 +11,10 @@ module.exports.editOrReply = function (context, message, disableReference = fals
     !message.embeds &&
     !message.components &&
     !message.files &&
-    typeof message == 'object'
+    typeof message === 'object'
   )
     message = { embeds: [message] };
-  else if (typeof message == 'string') message = { content: message };
+  else if (typeof message === 'string') message = { content: message };
   if (!message.message_reference && !disableReference) message.reference = true;
   // Disable mentions
   if (!message.allowedMentions) message.allowedMentions = { parse: [], repliedUser: false };
@@ -51,7 +50,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       if (message.content) {
         if (message.embeds && message.embeds.length <= 4) {
           message.embeds.unshift({
-            description: `${icon('flask_incognito')} ​  ​  This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[context._meta.incognitoReason].message}.`,
+            description: `${icon('flask_incognito')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[context._meta.incognitoReason].message}.`,
             color: COLORS.incognito,
           });
         }
@@ -74,7 +73,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
           if (message.content) {
             if (message.embeds && message.embeds.length <= 4) {
               message.embeds.unshift({
-                description: `${icon('flask_incognito')} ​  ​  This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[errorData.code].message}.`,
+                description: `${icon('flask_incognito')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[errorData.code].message}.`,
                 color: COLORS.incognito,
               });
             }
@@ -83,7 +82,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
             message.content = `-# ${icon('flask_mini')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[errorData.code].message} • ${link('https://support.discord.com/hc/en-us/articles/' + MESSAGE_BLOCK_REASONS[errorData.code].support_article, 'Learn More', 'Support Article')}`;
           }
 
-          let replacementMessage = await context.createMessage(message);
+          const replacementMessage = await context.createMessage(message);
 
           if (!context._meta) context._meta = {};
           context._meta.replacementMessageId = replacementMessage.id;

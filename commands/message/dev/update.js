@@ -26,7 +26,7 @@ module.exports = {
       if (r.toString().includes('Already up to date.'))
         return await editOrReply(context, createEmbed('warning', context, 'Already up to date.'));
 
-      let com = r.toString().match(/([a-z0-9]{7})\.\.([a-z0-9]{7})/);
+      const com = r.toString().match(/([a-z0-9]{7})\.\.([a-z0-9]{7})/);
 
       await editOrReply(
         context,

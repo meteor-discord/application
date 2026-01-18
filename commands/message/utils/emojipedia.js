@@ -10,27 +10,6 @@ const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 const { InteractionCallbackTypes, MessageComponentButtonStyles } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
-const onlyEmoji = require('emoji-aware').onlyEmoji;
-
-function toCodePoint(unicodeSurrogates, sep) {
-  var r = [],
-    c = 0,
-    p = 0,
-    i = 0;
-  while (i < unicodeSurrogates.length) {
-    c = unicodeSurrogates.charCodeAt(i++);
-    if (p) {
-      r.push((0x10000 + ((p - 0xd800) << 10) + (c - 0xdc00)).toString(16));
-      p = 0;
-    } else if (0xd800 <= c && c <= 0xdbff) {
-      p = c;
-    } else {
-      r.push(c.toString(16));
-    }
-  }
-  return r.join(sep || '-');
-}
-
 module.exports = {
   label: 'emoji',
   name: 'emojipedia',
@@ -63,6 +42,8 @@ module.exports = {
       console.log(e);
       return await editOrReply(context, createEmbed('error', context, e?.response?.body?.message || 'No emoji found.'));
     }
+
+    let currentView;
 
     const components = new Components({
       timeout: 100000,

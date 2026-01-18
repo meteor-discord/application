@@ -24,19 +24,18 @@ module.exports = {
   ],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
 
     let input = args.text;
 
-    let prompt = `You are a friendly chat bot designed to help people.\n- Today\'s date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.`;
+    let prompt = `You are a friendly chat bot designed to help people.\n- Today's date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.`;
     if (args.prompt !== '') prompt = args.prompt;
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = msg.content;
       else if (msg.embeds?.length)
@@ -54,11 +53,11 @@ module.exports = {
         );
     }
 
-    let model = 'chat-bison-001';
-    if (args.model && isLimitedTestUser(context.user)) model = args.model;
+    // let model = 'chat-bison-001';
+    // if (args.model && isLimitedTestUser(context.user)) model = args.model;
 
-    let temperature = '0.25';
-    if (args.temperature !== 0.25) temperature = parseFloat(args.temperature);
+    // let temperature = '0.25';
+    // if (args.temperature !== 0.25) temperature = parseFloat(args.temperature);
 
     try {
       await editOrReply(context, createEmbed('ai_custom', context, STATIC_ICONS.ai_palm_idle));
@@ -66,8 +65,8 @@ module.exports = {
       let res = await palm2(context, prompt, input);
       res = res.response;
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (!res.body.output)
         return editOrReply(context, createEmbed('error', context, `PaLM 2 returned an error. Try again later.`));

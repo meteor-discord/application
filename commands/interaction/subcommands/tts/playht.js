@@ -36,7 +36,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
     try {
-      let audio = await playht(context, args.text, args.voice);
+      const audio = await playht(context, args.text, args.voice);
 
       await context.editOrRespond({
         embeds: [

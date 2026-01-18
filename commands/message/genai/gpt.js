@@ -34,12 +34,12 @@ module.exports = {
 
     let input = args.text;
 
-    let prompt = `You are a friendly chat bot designed to help people.\n- Today\'s date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.\n- Respond in a natural way, using Markdown formatting.`;
+    let prompt = `You are a friendly chat bot designed to help people.\n- Today's date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.\n- Respond in a natural way, using Markdown formatting.`;
     if (args.prompt !== '') prompt = args.prompt;
 
     // Get content if the user replies to anything
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) input = `> ${msg.content.split('\n').join('\n> ')}\n${input}`;
       if (msg.embeds?.length)
@@ -56,7 +56,7 @@ module.exports = {
         createEmbed('defaultNoFooter', context, {
           author: {
             iconUrl: STATICS.openai,
-            name: `​`,
+            name: `Generating...`,
           },
           image: {
             url: STATIC_ASSETS.chat_loading_small,
@@ -67,8 +67,8 @@ module.exports = {
       let res = await gpt(context, prompt, input, model);
       res = res.response;
 
-      let description = [];
-      let files = [];
+      const description = [];
+      const files = [];
 
       if (!res.body.response)
         return editOrReply(context, createEmbed('error', context, `OpenAI returned an error. Try again later.`));

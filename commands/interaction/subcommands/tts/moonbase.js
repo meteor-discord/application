@@ -29,7 +29,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
     try {
-      let audio = await moonbase(context, args.text, args.voice);
+      const audio = await moonbase(context, args.text, args.voice);
 
       await context.editOrRespond({
         embeds: [

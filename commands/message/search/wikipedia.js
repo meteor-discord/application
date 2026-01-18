@@ -26,7 +26,7 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let search = await superagent
+      const search = await superagent
         .get(`https://api.wikimedia.org/core/v1/wikipedia/en/search/page`)
         .query({
           q: args.query,
@@ -35,12 +35,12 @@ module.exports = {
         })
         .set('User-Agent', USER_AGENT);
 
-      let pages = [];
+      const pages = [];
 
       if (!search.body.pages.length) return editOrReply(context, createEmbed('error', context, `No results found.`));
 
       for (const res of Object.values(search.body.pages)) {
-        let p = createEmbed('default', context, {
+        const p = createEmbed('default', context, {
           author: {
             name: res.title,
             url: `https://en.wikipedia.org/wiki/${res.key}`,
@@ -53,7 +53,7 @@ module.exports = {
 
         if (res.thumbnail && res.thumbnail.url)
           p.thumbnail = {
-            url: 'https:' + res.thumbnail.url.replace(/d3\/.*?\/[0-9]*px-/, '/d3/').replace('/thumb/d/', '/d'),
+            url: 'https:' + res.thumbnail.url.replace(/d3\/.*?\/\d*px-/, '/d3/').replace('/thumb/d/', '/d'),
           };
 
         if (res.excerpt) p.description = res.excerpt.replace(/<.*?>/g, '');

@@ -1,14 +1,13 @@
-const { BADGE_ICONS, PERMISSION_GROUPS } = require('#constants');
+const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { smallIconPill, highlight, smallPill, icon, timestamp } = require('#utils/markdown');
+const { smallIconPill, smallPill, icon, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { renderBadges, getUserAvatar } = require('#utils/users');
 
 const {
   ApplicationCommandOptionTypes,
-  UserFlags,
   InteractionContextTypes,
   ApplicationIntegrationTypes,
 } = require('detritus-client/lib/constants');
@@ -54,7 +53,7 @@ module.exports = {
       let cardContent = '';
 
       // Badge Container
-      let b = renderBadges(u);
+      const b = renderBadges(u);
       if (b.length >= 1) cardContent += `\n-# ${b.join('')}\n`;
 
       cardContent += `\n${smallIconPill('id', 'User ID')} ${smallPill(u.id)}`;
@@ -65,7 +64,7 @@ module.exports = {
 
       if (u.hasFlag(1 << 23)) cardContent += `\n-# Provisional Account`;
 
-      let userCard = createEmbed('default', context, {
+      const userCard = createEmbed('default', context, {
         author: {
           name: usernameDisplay,
           iconUrl: getUserAvatar(u),
@@ -85,7 +84,7 @@ module.exports = {
       // Guild Container
       if (m) {
         userCard.fields[0].value = userCard.fields[0].value + `\n**Joined Server: **${timestamp(m.joinedAt, 'f')}`;
-        let guildFields = [];
+        const guildFields = [];
 
         if (m.isOwner) guildFields.push(`${icon('user_king')} **Server Owner**`);
         if (context.guild)

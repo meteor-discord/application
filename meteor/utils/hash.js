@@ -26,7 +26,7 @@ const RADIX = CHARS.length;
  */
 module.exports.Xid = input => {
   if (typeof input === 'string') {
-    var h = 0,
+    let h = 0,
       i,
       c;
     if (input.length === 0) return h;
@@ -42,7 +42,7 @@ module.exports.Xid = input => {
   const buf = new Array(6);
   let len = 0;
 
-  let l = input - Math.floor(Number.MIN_SAFE_INTEGER);
+  const l = input - Math.floor(Number.MIN_SAFE_INTEGER);
   buf[len++] = START_CHARS.charAt(Math.floor(l % START_RADIX));
   input = Math.floor(l / START_RADIX);
 

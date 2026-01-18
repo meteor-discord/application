@@ -8,7 +8,7 @@ const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
 
 // TODO: general purpose constant? regex util?
-const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
+const URL_REGEX = /https?:\/\/(www\.)?[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
 
 module.exports = {
   name: 'summarize',
@@ -27,7 +27,7 @@ module.exports = {
 
     let content = args.text;
     if (context.message.messageReference) {
-      let msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+      const msg = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
 
       if (msg.content && msg.content.length) content = msg.content;
       else if (msg.embeds?.length)
@@ -38,18 +38,18 @@ module.exports = {
         }
     }
 
-    let webUrl = content.match(URL_REGEX);
+    const webUrl = content.match(URL_REGEX);
     if (!webUrl) return editOrReply(context, createEmbed('warning', context, `No URLs found.`));
     try {
       await editOrReply(context, createEmbed('ai_custom', 'Generating page summary...', STATIC_ICONS.ai_summary));
 
-      let res = await SparkWebSummarize(context, webUrl[0]);
+      const res = await SparkWebSummarize(context, webUrl[0]);
       if (!res.response.body.summaries)
         return editOrReply(context, createEmbed('error', context, 'Summary generation failed.'));
 
-      let summaries = res.response.body.summaries.map(m => m.split('\n')[0]);
+      const summaries = res.response.body.summaries.map(m => m.split('\n')[0]);
 
-      let responseEmbed = createEmbed('defaultNoFooter', context, {
+      const responseEmbed = createEmbed('defaultNoFooter', context, {
         author: {
           iconUrl: STATIC_ICONS.ai_summary,
           name: res.response.body.page_metadata?.title || 'Key points about the page',

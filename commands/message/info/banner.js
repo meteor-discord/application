@@ -24,7 +24,7 @@ module.exports = {
     await acknowledge(context);
 
     if (!args.user) args.user = context.userId;
-    let u = await getUser(context, args.user);
+    const u = await getUser(context, args.user);
 
     if (!u || !u.user) return editOrReply(context, createEmbed('warning', context, 'No users found.'));
 
@@ -34,7 +34,7 @@ module.exports = {
     let userBanner = u.user.bannerUrl ? u.user.bannerUrl + '?size=4096' : undefined;
     if (!u.user.banner)
       userBanner = `https://lh3.googleusercontent.com/akBt-2Rz3efGuxAnOoSJbGuaqxZuRAI7ZUYKBgYZLT4vsk34qVWoAm3o6--RxupzZpayLSRsxO1LCwBECyBT_giQ3xhLMR03z7xngvm4m9ZgQ2Gya1i-3Q%3Dw1920-h677-bc0x0055aa-fcrop64%3D1%2C0000000000010001-rj-b36-c0x${u.user.accentColor.toString(16)}-s`;
-    let pages = [];
+    const pages = [];
 
     if (!u.member?.banner && u.member) u.member = await context.guild.fetchMember(u.user.id);
 

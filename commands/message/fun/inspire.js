@@ -21,7 +21,7 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', USER_AGENT);
+      const res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', USER_AGENT);
 
       return await editOrReply(
         context,
@@ -33,7 +33,7 @@ module.exports = {
           },
         })
       );
-    } catch (e) {
+    } catch {
       return editOrReply(context, createEmbed('error', context, `Unable to fetch inspirational quote.`));
     }
   },

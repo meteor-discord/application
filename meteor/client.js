@@ -28,8 +28,8 @@ const client = new ShardClient(token, {
     ],
     presence: {
       activity: {
-        state: `${DEFAULT_PREFIXES[0]}help ​ • ​ ${DEFAULT_BOT_NAME}`,
-        name: `${DEFAULT_PREFIXES[0]}help ​ ​• ​ ${DEFAULT_BOT_NAME}`,
+        state: `${DEFAULT_PREFIXES[0]}help • ${DEFAULT_BOT_NAME}`,
+        name: `${DEFAULT_PREFIXES[0]}help • ${DEFAULT_BOT_NAME}`,
         emoji: {
           name: '🧪',
         },
@@ -49,7 +49,7 @@ module.exports.paginator = new Paginator(client, {
 
 // Clients
 
-commandPrefixes = DEFAULT_PREFIXES;
+let commandPrefixes = DEFAULT_PREFIXES;
 if (process.env.PREFIX_OVERRIDE) commandPrefixes = process.env.PREFIX_OVERRIDE.split('|');
 
 const commandClient = new CommandClient(client, {
@@ -61,7 +61,7 @@ const commandClient = new CommandClient(client, {
     { duration: 60000, limit: 50, type: 'guild' },
     { duration: 5000, limit: 5, type: 'channel' },
   ],
-  onCommandCheck: async (context, command) => {
+  onCommandCheck: async context => {
     /*
       I don't know why, I don't know since when - but timeouts apply to bots now.
       This code checks if the bot is currently timed out, preventing any and all
@@ -100,7 +100,7 @@ const { editOrReply } = require('#utils/message');
 commandClient.on('commandPermissionsFailClient', ({ context, permissions }) => {
   if (!context.channel.can(Permissions.SEND_MESSAGES)) return;
   const perms = [];
-  for (let permission of permissions) {
+  for (const permission of permissions) {
     if (permission in PERMISSIONS_TEXT) {
       perms.push(highlight(` ${PERMISSIONS_TEXT[permission]} `));
     } else {
@@ -127,7 +127,7 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
   if (context.message?.deleted) return reply.delete();
 
   let hasPrefix = false;
-  for (const p of [...commandPrefixes, context.client.user.mention])
+  for (const p of [...(commandPrefixes || []), context.client.user.mention])
     if (context.message.content.toLowerCase().startsWith(p)) hasPrefix = true;
 
   // TODO: there has to be a better way to do this, see if the command
@@ -135,7 +135,7 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
   if (hasPrefix) {
     // Extract command
     let command = context.message.content.toLowerCase();
-    for (const p of [...commandPrefixes, context.client.user.mention])
+    for (const p of [...(commandPrefixes || []), context.client.user.mention])
       if (command.startsWith(p)) command = command.replace(p, '');
     while (command.startsWith(' ') && command.length) command = command.substring(1, command.length);
     if (
@@ -190,7 +190,7 @@ commandClient.on('commandRunError', async ({ context, error }) => {
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
-  } catch (e) {
+  } catch {
     await editOrReply(context, {
       content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
@@ -246,7 +246,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
 });
 
 (async () => {
-  client.on(ClientEvents.REST_RESPONSE, async ({ response, restRequest }) => {
+  client.on(ClientEvents.REST_RESPONSE, async ({ response }) => {
     const route = response.request.route;
     if (route) {
       if (!response.ok) {
@@ -277,23 +277,21 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
   });
 
   try {
-    let startTimings = Date.now();
+    const startTimings = Date.now();
     await client.run();
-    console.log(`[${process.env.HOSTNAME || 'meteor'}] client connected (${Date.now() - startTimings}ms)`);
+    console.log(`[meteor] client connected (${Date.now() - startTimings}ms)`);
 
     {
       await commandClient.addMultipleIn('./commands/message/');
       await commandClient.run();
-      console.log(`[${process.env.HOSTNAME || 'meteor'}] command client ready (${Date.now() - startTimings}ms)`);
+      console.log(`[meteor] command client ready (${Date.now() - startTimings}ms)`);
     }
     {
       await interactionClient.addMultipleIn('./commands/interaction/context');
       await interactionClient.addMultipleIn('./commands/interaction/user');
       await interactionClient.addMultipleIn('./commands/interaction/slash');
       await interactionClient.run();
-      console.log(
-        `[${process.env.HOSTNAME || 'meteor'}] interaction command client ready (${Date.now() - startTimings}ms)`
-      );
+      console.log(`[meteor] interaction command client ready (${Date.now() - startTimings}ms)`);
     }
   } catch (e) {
     console.log(e);

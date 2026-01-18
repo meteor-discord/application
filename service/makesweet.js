@@ -4,23 +4,23 @@ const effects = ['billboard-cityscape', 'circuit-board', 'flag', 'flying-bear', 
 
 async function fetchImage(url) {
   try {
-    let res = await superagent.get(`https://external-content.duckduckgo.com/iu/`).query({
+    const res = await superagent.get(`https://external-content.duckduckgo.com/iu/`).query({
       u: url,
     });
     return res.body;
-  } catch (e) {
+  } catch {
     return null;
   }
 }
 
 async function processMakesweet(effect, args, image) {
-  if (!effects.includes(effect.toLowerCase())) throw 'Invalid Effect';
+  if (!effects.includes(effect.toLowerCase())) throw new Error('Invalid Effect');
   try {
     if (image) {
       image = await fetchImage(image);
-      if (!image) throw 'Unable to fetch image';
+      if (!image) throw new Error('Unable to fetch image');
 
-      let res = await superagent
+      const res = await superagent
         .post(`http://api.makesweet.com/make/${effect.toLowerCase()}`)
         .set('Authorization', process.env.MAKESWEET_KEY)
         .buffer(true)
@@ -28,7 +28,7 @@ async function processMakesweet(effect, args, image) {
         .attach('image', image, 'image.png');
       return res;
     }
-    let res = await superagent
+    const res = await superagent
       .post(`http://api.makesweet.com/make/${effect.toLowerCase()}`)
       .set('Authorization', process.env.MAKESWEET_KEY)
       .buffer(true)
@@ -36,12 +36,12 @@ async function processMakesweet(effect, args, image) {
     return res;
   } catch (e) {
     console.log(e);
-    throw 'Unable to generate image.';
+    throw new Error('Unable to generate image.');
   }
 }
 
 exports.heartLocket = async (text, url) => {
-  return await processMakesweet('heart-locket', { text: text, textfirst: 1 }, url);
+  return await processMakesweet('heart-locket', { text, textfirst: 1 }, url);
 };
 
 exports.billboardCityscape = async url => {

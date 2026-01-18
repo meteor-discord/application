@@ -7,7 +7,7 @@ const { icon, highlight } = require('#utils/markdown');
 
 const { ApplicationCommandOptionTypes } = require('detritus-client/lib/constants');
 
-let voices = [];
+const voices = [];
 for (const k of Object.keys(TIKTOK_VOICES_SPANISH))
   voices.unshift({
     value: k,
@@ -47,7 +47,7 @@ module.exports = {
           embeds: [createEmbed('warning', context, 'Text too long (must be 100 or shorter).')],
         });
 
-      let audio = await tiktok(context, args.text, args.voice);
+      const audio = await tiktok(context, args.text, args.voice);
 
       await context.editOrRespond({
         embeds: [

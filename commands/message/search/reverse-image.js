@@ -10,7 +10,7 @@ const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
 function createReverseImageSearchResultPage(context, result, source) {
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       author: {
         iconUrl: favicon(result.url),
@@ -48,15 +48,15 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let image = await getRecentImage(context, 50);
+      const image = await getRecentImage(context, 50);
       if (!image) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
       let search = await reverseImageSearch(context, image);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(createReverseImageSearchResultPage(context, res, image));
       }

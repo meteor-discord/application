@@ -1,12 +1,11 @@
 const { icon } = require('#utils/markdown');
-const { USER_AGENT } = require('#utils/user-agent');
 const { COLORS } = require('#constants');
 const superagent = require('superagent');
 
 const ERROR_WEBHOOK = process.env.ERROR_WEBHOOK;
 
 const formatErrorMessage = (sev = 0, code, content) => {
-  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[${process.env.HOSTNAME || 'meteor'}]\` **\` ${code}  \`** | ${content}`;
+  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[meteor]\` **\` ${code}  \`** | ${content}`;
 };
 
 /**
@@ -98,7 +97,7 @@ module.exports.logError = async function (packages, type = '01') {
 
     embed.title = `${icon('warning')} Error Report`;
     embed.footer = {
-      text: `${process.env.HOSTNAME || 'meteor'} • type ${type}`,
+      text: `meteor • type ${type}`,
     };
 
     await superagent.post(ERROR_WEBHOOK).send({
@@ -136,9 +135,8 @@ module.exports.logMessage = async function (message) {
 /**
  * Legacy alias for logMessage
  * @param {string} message - The formatted message to log
- * @param {Object} [context] - Optional context (currently unused but kept for backward compatibility)
  */
-module.exports.basecamp = async function (message, context) {
+module.exports.basecamp = async function (message) {
   return module.exports.logMessage(message);
 };
 

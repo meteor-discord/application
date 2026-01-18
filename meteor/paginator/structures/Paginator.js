@@ -1,5 +1,4 @@
 const { COMPONENT_BUTTON_ICONS } = require('#constants');
-const { icon } = require('#utils/markdown');
 const { MessageFlags } = require('detritus-client/lib/constants');
 const InteractionPaginator = require('./InteractionPaginator');
 const assert = require('assert');
@@ -17,7 +16,7 @@ const instances = new WeakSet();
 module.exports = class Paginator {
   constructor(client, data = {}) {
     if (instances.has(client)) {
-      throw 'Only attach one pagination client';
+      throw new Error('Only attach one pagination client');
     }
 
     assert.ok(hasOwnProperty.call(client, 'gateway'), 'Provided `client` has no `gateway` property.');
@@ -73,14 +72,14 @@ module.exports = class Paginator {
 
       // i have plans to fix this with pagination v2 whenever i get around to working on it
 
-      let newPaginator = Object.assign(Object.create(Object.getPrototypeOf(listener)), listener);
+      const newPaginator = Object.assign(Object.create(Object.getPrototypeOf(listener)), listener);
 
       newPaginator.context = context;
       newPaginator.targetUser = context.user.id;
       newPaginator.ephemeral = true;
 
-      if (context.customId == 'next') await newPaginator.getNext();
-      else if (context.customId == 'previous') await newPaginator.getPrevious();
+      if (context.customId === 'next') await newPaginator.getNext();
+      else if (context.customId === 'previous') await newPaginator.getPrevious();
 
       this.activeListeners.push(newPaginator);
       await newPaginator.init();
@@ -120,14 +119,16 @@ module.exports = class Paginator {
         try {
           await listener.waitingForPage.delete();
           await this.client.rest.deleteMessage(data.channel_id, data.id);
-        } catch (e) {}
+        } catch {
+          // Ignore deletion errors
+        }
 
         listener.waitingForPage = null;
       })
       .catch(() => {});
   }
 
-  async components(listener) {
+  async components() {
     const components = new Components({
       timeout: this.expires,
       run: this.handleButtonEvent.bind(this),
@@ -135,18 +136,14 @@ module.exports = class Paginator {
 
     for (const b of this.buttons) {
       // If an object is provided, build button from that
-      if (typeof b == 'object') {
-        components.createButton(
-          Object.assign(
-            {
-              customId: 'custom',
-              disabled: 0,
-              style: 2,
-              emoji: COMPONENT_BUTTON_ICONS.UNKNOWN,
-            },
-            b
-          )
-        );
+      if (typeof b === 'object') {
+        components.createButton({
+          customId: 'custom',
+          disabled: 0,
+          style: 2,
+          emoji: COMPONENT_BUTTON_ICONS.UNKNOWN,
+          ...b,
+        });
       } else {
         components.createButton({
           customId: b,
@@ -163,7 +160,7 @@ module.exports = class Paginator {
   async createPaginator(data) {
     if (this.pageNumber && Array.isArray(data.pages)) {
       for (let i = 0; i < data.pages.length; ++i) {
-        const element = data.pages[i];
+        // Page numbering logic would go here
       }
     }
 
@@ -190,7 +187,7 @@ module.exports = class Paginator {
     this.buttons = typeof data.buttons !== 'object' ? ['previous', 'next'] : data.buttons;
 
     // No need for a paginator if we only have one page.
-    if (data.pages.length == 1) {
+    if (data.pages.length === 1) {
       if (this.buttons) this.buttons = this.buttons.filter(i => !['next', 'previous'].includes(i));
     }
 

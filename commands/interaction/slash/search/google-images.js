@@ -1,8 +1,7 @@
 const { googleImages } = require('#api');
-const { paginator } = require('#client');
 const { PERMISSION_GROUPS } = require('#constants');
 
-const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
+const { createEmbed, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { favicon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
@@ -16,7 +15,7 @@ const {
 const { createDynamicCardStack } = require('#cardstack/index');
 
 function createImageResultPage(context, result) {
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       author: {
         iconUrl: favicon(result.url),
@@ -65,9 +64,9 @@ module.exports = {
       let search = await googleImages(context, args.query, false); //safesearch is always on
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(createImageResultPage(context, res));
       }

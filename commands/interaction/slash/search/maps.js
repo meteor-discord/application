@@ -4,7 +4,7 @@ const { PERMISSION_GROUPS } = require('#constants');
 const { hexToDecimalColor } = require('#utils/color');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { link, icon, iconAsEmojiObject, citation } = require('#utils/markdown');
+const { icon, link, stringwrap, citation, iconAsEmojiObject } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 
@@ -12,11 +12,12 @@ const {
   ApplicationCommandOptionTypes,
   InteractionContextTypes,
   ApplicationIntegrationTypes,
+  InteractionCallbackTypes,
 } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
 function renderPlaceCard(context, place) {
-  let cards = [
+  const cards = [
     createEmbed('defaultNoFooter', context, {
       author: {
         iconUrl: place.style.icon.url,
@@ -54,7 +55,7 @@ function renderPlaceCard(context, place) {
   if (place.facts?.length) {
     let fc = 1;
     cards[0].fields = place.facts.map(f => {
-      let factField = {
+      const factField = {
         name: f.label,
         value: f.value,
         inline: true,
@@ -136,7 +137,7 @@ module.exports = {
       if (search.place) {
         embeds = [...embeds, ...renderPlaceCard(context, search.place)];
       } else {
-        let supplementalCache = {};
+        const supplementalCache = {};
 
         components = new Components({
           timeout: 100000,
@@ -147,15 +148,15 @@ module.exports = {
             try {
               // Disable component and update the default
 
-              let value = ctx.data.values[0];
+              const value = ctx.data.values[0];
 
               let searchSupplemental;
 
               for (let i = 0; i < components.components[0].components[0].options.length; i++) {
-                let c = components.components[0].components[0];
+                const c = components.components[0].components[0];
 
                 components.components[0].components[0].options[i].default =
-                  components.components[0].components[0].options[i].value == value;
+                  components.components[0].components[0].options[i].value === value;
                 components.components[0].components[0].options[i].emoji = iconAsEmojiObject(
                   `maps_${search.places[i].place.icon}_pin`
                 );
@@ -234,7 +235,7 @@ module.exports = {
         components,
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

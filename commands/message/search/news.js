@@ -13,7 +13,7 @@ function renderNewsCard(context, res, supplementalKey, includeSupplementalData =
   // search_service/endpoints/google-news#NEWS_CARD_TYPES.COLLECTION
   if (res.type && res.type === 2) res = res.cards[0];
 
-  let result = createEmbed('default', context, {
+  const result = createEmbed('default', context, {
     author: {
       name: res.publisher.name,
       iconUrl: res.publisher.icon,
@@ -64,7 +64,7 @@ module.exports = {
 
       if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.cards) {
         let sup;
         if (res.supplemental_key || res.supplemental_key === 0)
@@ -97,9 +97,9 @@ module.exports = {
               });
             },
             resolvePage: async pg => {
-              let fullCoverage = await googleNewsSupplemental(context, pg.getState('full_coverage_key'));
+              const fullCoverage = await googleNewsSupplemental(context, pg.getState('full_coverage_key'));
 
-              let cards = fullCoverage.response.body.cards.map(c => renderNewsCard(context, c, undefined, false));
+              const cards = fullCoverage.response.body.cards.map(c => renderNewsCard(context, c, undefined, false));
 
               return {
                 type: ResolveCallbackTypes.SUBSTACK,

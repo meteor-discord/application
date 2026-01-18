@@ -7,7 +7,7 @@ const {
 } = require('#constants');
 
 const { createEmbed, formatPaginationEmbeds } = require('#utils/embed');
-const { pill, iconPill, highlight, timestamp, smallIconPill, icon } = require('#utils/markdown');
+const { pill, timestamp, smallIconPill, icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 
@@ -20,8 +20,8 @@ const { paginator } = require('#client');
 const onlyEmoji = require('emoji-aware').onlyEmoji;
 
 function toCodePoint(unicodeSurrogates, sep) {
-  var r = [],
-    c = 0,
+  const r = [];
+  let c = 0,
     p = 0,
     i = 0;
   while (i < unicodeSurrogates.length) {
@@ -63,9 +63,9 @@ module.exports = {
 
     // Stickers
     if (msg.stickerItems.length) {
-      let s = msg.stickerItems.first();
+      const s = msg.stickerItems.first();
       // lottie
-      if (s.formatType == 3)
+      if (s.formatType === 3)
         return editOrReply(
           context,
           createEmbed('default', context, {
@@ -78,7 +78,7 @@ module.exports = {
           })
         );
       // gif
-      if (s.formatType == 4)
+      if (s.formatType === 4)
         return editOrReply(
           context,
           createEmbed('default', context, {
@@ -109,30 +109,29 @@ module.exports = {
       );
     }
 
-    let { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
-    embeds = [];
+    const { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
     if (matches.length) {
-      let pages = [];
-      let entries = [];
+      const pages = [];
+      const entries = [];
       for (const m of matches) {
         if (entries.map(e => e.id).includes(m.id)) continue;
         entries.push(m);
       }
 
       while (entries.length) {
-        let sprites = entries.splice(0, 4);
-        let embeds = [];
+        const sprites = entries.splice(0, 4);
+        const embeds = [];
         for (const s of sprites) {
-          let fields = sprites.map(s => {
+          const fields = sprites.map(s => {
             return {
               inline: true,
               name: `${icon('emoji')} \\:${s.name}\\:`,
-              value: `-# ID: ${s.id}\n-# Created ${timestamp(Snowflake.timestamp(s.id), 'R')}${context.guild.emojis.find(e => e.id == matches[0].id) ? '\n-# Custom emoji is from this server' : ''}`,
+              value: `-# ID: ${s.id}\n-# Created ${timestamp(Snowflake.timestamp(s.id), 'R')}${context.guild.emojis.find(e => e.id === matches[0].id) ? '\n-# Custom emoji is from this server' : ''}`,
             };
           });
           if (fields.length >= 3) {
             fields.splice(2, 0, { name: ` `, value: ` `, inline: true });
-            if (fields.length == 5) fields.push({ name: ` `, value: ` `, inline: true });
+            if (fields.length === 5) fields.push({ name: ` `, value: ` `, inline: true });
           }
           embeds.push(
             createEmbed('default', context, {
@@ -165,12 +164,12 @@ module.exports = {
           if (emoji.length >= 3)
             return editOrReply(context, createEmbed('warning', context, 'You cannot mix more than two emoji.'));
 
-          let em = await emojiKitchen(emoji);
+          const em = await emojiKitchen(emoji);
           if (!em.body.results[0]) {
             for (const em of emoji) {
               try {
                 await emojiKitchen([em]);
-              } catch (e) {
+              } catch {
                 return editOrReply(context, createEmbed('warning', context, `Unsupported Emoji (${em})`));
               }
             }
@@ -178,13 +177,13 @@ module.exports = {
             return editOrReply(context, createEmbed('error', context, 'Combination not supported.'));
           }
           return editOrReply(context, createEmbed('image', context, { url: em.body.results[0].url }));
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('error', context, 'Unable to mix emoji.'));
         }
       }
 
       // Regular Emoji Handling
-      if (emoji.length == 0)
+      if (emoji.length === 0)
         return await editOrReply(context, createEmbed('warning', context, 'You need to specify an emoji to enlarge.'));
 
       args.type = args.type.toLowerCase();
@@ -196,7 +195,7 @@ module.exports = {
       try {
         res = await emojipedia(context, emoji[0], toCodePoint(emoji[0]));
         res = res.response.body;
-      } catch (e) {
+      } catch {
         return await editOrReply(context, createEmbed('error', context, `No emoji data available for ${emoji[0]}.`));
       }
 
@@ -204,7 +203,7 @@ module.exports = {
         return await editOrReply(context, createEmbed('error', context, 'No images available for this emoji.'));
 
       if (args.type === 'twitter') {
-        if (!context.message.content.includes('-type') && !res.data.platforms['twitter']) {
+        if (!context.message.content.includes('-type') && !res.data.platforms.twitter) {
           for (const k of EMOJIPEDIA_PLATFORM_PRIORITY) {
             if (args.type === 'twitter' && res.data.platforms[k]) args.type = k;
           }
@@ -214,10 +213,10 @@ module.exports = {
       }
 
       // This handles selecting the correct "default" platform for enlarge.
-      if (res.data.platforms['discord']) args.type = 'discord';
+      if (res.data.platforms.discord) args.type = 'discord';
 
       if (!res.data.platforms[args.type]) {
-        let embed = createEmbed('error', context, "No emoji image available for platform '" + args.type + "'.");
+        const embed = createEmbed('error', context, "No emoji image available for platform '" + args.type + "'.");
         embed.footer = {
           text: 'Available platforms: ' + Object.keys(res.data.platforms).join(', ').substr(0, 2000),
         };
@@ -246,45 +245,45 @@ module.exports = {
           // this sucks but works, ensures the newly selected option stays selected
           // update 25/03/24 - it sucks even more now
 
-          if (ctx.data.customId == 'emoji-type') {
+          if (ctx.data.customId === 'emoji-type') {
             currentPlatform = ctx.data.values[0];
             currentRevision = res.data.platforms[currentPlatform].images[0].id;
 
             // Ensure the select is disabled if we only have sprites for one platform
-            components.components[0].components[0].disabled = res.data.platforms.length == 1;
+            components.components[0].components[0].disabled = res.data.platforms.length === 1;
 
             // Disable options select if only one sprite is available
-            components.components[1].components[0].disabled = res.data.platforms[currentPlatform].images.length == 1;
+            components.components[1].components[0].disabled = res.data.platforms[currentPlatform].images.length === 1;
 
             for (let i = 0; i < components.components[0].components[0].options.length; i++) {
               components.components[0].components[0].options[i].default =
-                components.components[0].components[0].options[i].value == currentPlatform;
+                components.components[0].components[0].options[i].value === currentPlatform;
             }
 
-            let newVersionOptions = res.data.platforms[currentPlatform].images.map(r => {
+            const newVersionOptions = res.data.platforms[currentPlatform].images.map(r => {
               return {
                 label: r.version,
                 value: r.id,
-                default: r.id == res.data.platforms[currentPlatform].images[0].id,
+                default: r.id === res.data.platforms[currentPlatform].images[0].id,
               };
             });
 
             components.components[1].components[0].options = newVersionOptions;
-          } else if (ctx.data.customId == 'emoji-version') {
+          } else if (ctx.data.customId === 'emoji-version') {
             for (let i = 0; i < components.components[1].components[0].options.length; i++) {
               components.components[1].components[0].options[i].default =
-                components.components[1].components[0].options[i].value == ctx.data.values[0];
+                components.components[1].components[0].options[i].value === ctx.data.values[0];
               components.components[1].components[0].options[i].default =
-                components.components[1].components[0].options[i].value == ctx.data.values[0];
+                components.components[1].components[0].options[i].value === ctx.data.values[0];
             }
 
             // Disable options select if only one sprite is available
-            components.components[1].components[0].disabled = res.data.platforms[currentPlatform].images.length == 1;
+            components.components[1].components[0].disabled = res.data.platforms[currentPlatform].images.length === 1;
             currentRevision = ctx.data.values[0];
           }
 
           const emojiAsset = res.data.platforms[currentPlatform].images.filter(p => {
-            return p.id == currentRevision;
+            return p.id === currentRevision;
           });
 
           currentView = createEmbed('default', context, {
@@ -307,30 +306,30 @@ module.exports = {
         },
       });
 
-      let selectOptions = res.data.platforms[currentPlatform].images.map(r => {
+      const selectOptions = res.data.platforms[currentPlatform].images.map(r => {
         return {
           label: r.version,
           value: r.id,
-          default: r.id == res.data.platforms[DEFAULT_PLATFORM].images[0].id,
+          default: r.id === res.data.platforms[DEFAULT_PLATFORM].images[0].id,
         };
       });
 
       currentRevision = res.data.platforms[DEFAULT_PLATFORM].images[0].id;
 
       // This ensures our priority platforms are always included in the response.
-      let platforms = Object.keys(res.data.platforms).sort((a, b) => {
+      const platforms = Object.keys(res.data.platforms).sort((a, b) => {
         return Number(EMOJIPEDIA_PLATFORM_PRIORITY.includes(b)) - Number(EMOJIPEDIA_PLATFORM_PRIORITY.includes(a));
       });
 
-      let selectTypeOptions = platforms
+      const selectTypeOptions = platforms
         .splice(0, 25)
         .sort()
         .map(r => {
-          let pl = res.data.platforms[r];
+          const pl = res.data.platforms[r];
           return {
             label: pl.name,
             value: r,
-            default: r == DEFAULT_PLATFORM,
+            default: r === DEFAULT_PLATFORM,
           };
         });
 

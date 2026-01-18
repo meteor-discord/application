@@ -32,7 +32,7 @@ module.exports = {
       display.push(`${iconPill('clock', 'Last Restart ')} ${timestamp(Date.now() - process.uptime() * 1000, 'R')}`);
       display.push(``);
       display.push(
-        `${iconLinkPill('gitlab', OPEN_SOURCE_REPOSITORY_URL, 'Source Code')} ​ ​ ${iconLinkPill('link', context.application.oauth2UrlFormat({ scope: 'bot applications.commands', permissions: 412317248576 }), `Invite ${context.client.user.username}`).replace('ptb.discordapp.com', 'discord.com')}`
+        `${iconLinkPill('gitlab', OPEN_SOURCE_REPOSITORY_URL, 'Source Code')} ${iconLinkPill('link', context.application.oauth2UrlFormat({ scope: 'bot applications.commands', permissions: 412317248576 }), `Invite ${context.client.user.username}`).replace('ptb.discordapp.com', 'discord.com')}`
       );
 
       return editOrReply(

@@ -19,7 +19,7 @@ module.exports = {
 
     const time = Date.now();
     console.log(
-      `[${process.env.HOSTNAME}] refreshing all commands @ ${Date.now()} by ${context.user.username}${context.user.discriminator} (${context.user.id})`
+      `[meteor] refreshing all commands @ ${Date.now()} by ${context.user.username}${context.user.discriminator} (${context.user.id})`
     );
 
     try {
@@ -43,10 +43,10 @@ module.exports = {
         await commandClient.addMultipleIn('../commands/message/', { subdirectories: true });
       }
 
-      let diff = Date.now() - time;
+      const diff = Date.now() - time;
       return editOrReply(context, `Reloaded commands in **\`${diff}ms\`**.`);
     } catch (e) {
-      let diff = Date.now() - time;
+      const diff = Date.now() - time;
       return editOrReply(
         context,
         `Failed to reload all commands after **\`${diff}ms\`**.\n` + codeblock('js', [e.stack || e.message])

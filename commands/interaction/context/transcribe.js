@@ -49,7 +49,7 @@ module.exports = {
         ],
         flags: MessageFlags.EPHEMERAL,
       });
-    } catch (e) {
+    } catch {
       return editOrReply(context, {
         embeds: [createEmbed('error', context, 'Unable to transcribe message.')],
         flags: MessageFlags.EPHEMERAL,

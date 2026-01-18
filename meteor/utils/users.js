@@ -1,36 +1,36 @@
 async function getUser(context, query) {
   let user;
   let member;
-  if (query == '@me') query = context.user.id;
-  if (/[0-9]{17,19}/.test(query)) {
-    let uid = query.match(/[0-9]{17,19}/);
+  if (query === '@me') query = context.user.id;
+  if (/\d{17,19}/.test(query)) {
+    const uid = query.match(/\d{17,19}/);
     try {
       user = await context.client.rest.fetchUser(uid);
       if (context.guild) member = await getMember(context, user.username);
       if (member && member.id !== user.id) member = undefined;
-    } catch (e) {
+    } catch {
       user = undefined;
     }
   } else {
     member = await getMember(context, query);
     if (member) user = await context.client.rest.fetchUser(member.user.id);
   }
-  return { user: user, member: member };
+  return { user, member };
 }
 
 async function getMember(context, query) {
   if (!context.guild) return;
-  if (query == '@me') query = context.author.id;
-  if (/[0-9]{17,19}/.test(query)) {
-    let uid = query.match(/[0-9]{17,19}/);
+  if (query === '@me') query = context.author.id;
+  if (/\d{17,19}/.test(query)) {
+    const uid = query.match(/\d{17,19}/);
     try {
-      member = await context.guild.fetchMember(uid);
+      const member = await context.guild.fetchMember(uid);
       return member;
-    } catch (e) {
+    } catch {
       return;
     }
   } else {
-    let members = await context.guild.fetchMembersSearch({ query });
+    const members = await context.guild.fetchMembersSearch({ query });
     if (members) return members.first();
     return;
   }
@@ -126,7 +126,7 @@ const BADGES = Object.freeze({
 });
 
 function renderBadges(user) {
-  let badges = [];
+  const badges = [];
   for (const flag of Object.keys(BADGES))
     if (user.hasFlag(BADGES[flag]))
       badges.push(
@@ -138,11 +138,7 @@ function renderBadges(user) {
       );
   if (!user.bot && (getUserAvatar(user).endsWith('.gif') || user.banner)) {
     badges.push(
-      link(
-        BADGE_TYPES['nitro'].link,
-        BADGE_TYPES['nitro'].icon + HIDDEN_MASKED_LINK_CHARACTER,
-        BADGE_TYPES['nitro'].description
-      )
+      link(BADGE_TYPES.nitro.link, BADGE_TYPES.nitro.icon + HIDDEN_MASKED_LINK_CHARACTER, BADGE_TYPES.nitro.description)
     );
   }
 

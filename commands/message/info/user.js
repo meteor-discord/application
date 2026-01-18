@@ -3,11 +3,9 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { icon, highlight, timestamp, smallIconPill, smallPill } = require('#utils/markdown');
+const { icon, timestamp, smallIconPill, smallPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { getUser, renderBadges, getUserAvatar } = require('#utils/users');
-
-const { UserFlags } = require('detritus-client/lib/constants');
 
 module.exports = {
   name: 'user',
@@ -26,18 +24,17 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      let u;
       if (!args.user) {
         args.user = context.user.id;
       }
 
-      if (args.user == '456226577798135808')
+      if (args.user === '456226577798135808')
         return editOrReply(context, createEmbed('error', context, 'This user has been deleted.'));
 
-      user = await getUser(context, args.user);
-      u = user.user;
+      const user = await getUser(context, args.user);
+      const u = user.user;
       if (!u) return editOrReply(context, createEmbed('warning', context, 'No users found.'));
-      let m = user.member;
+      const m = user.member;
 
       // User Card
 
@@ -48,7 +45,7 @@ module.exports = {
       let cardContent = '';
 
       // Badge Container
-      let b = renderBadges(u);
+      const b = renderBadges(u);
       if (b.length >= 1) cardContent += `\n-# ${b.join('')}\n`;
 
       cardContent += `\n${smallIconPill('id', 'User ID')} ${smallPill(u.id)}`;
@@ -61,7 +58,7 @@ module.exports = {
 
       if (u.hasFlag(1 << 23)) cardContent += `\n-# Provisional Account`;
 
-      let userCard = createEmbed('default', context, {
+      const userCard = createEmbed('default', context, {
         author: {
           name: usernameDisplay,
           iconUrl: getUserAvatar(u),
@@ -82,7 +79,7 @@ module.exports = {
       // Guild Container
       if (m) {
         userCard.fields[0].value = userCard.fields[0].value + `\n**Joined Server: **${timestamp(m.joinedAt, 'f')}`;
-        let guildFields = [];
+        const guildFields = [];
 
         if (m.isOwner) guildFields.push(`${icon('user_king')} **Server Owner**`);
         if (m.roles.length >= 1) guildFields.push(`**Roles: ** ${m.roles.length}/${context.guild.roles.length}`);
@@ -97,11 +94,11 @@ module.exports = {
       if (!m?.banner && m) u.member = await context.guild.fetchMember(u.id);
 
       // No special handling
-      if (m == undefined || (m.avatar === null && m.banner === null)) return editOrReply(context, userCard);
+      if (m === undefined || (m.avatar === null && m.banner === null)) return editOrReply(context, userCard);
 
-      let pages = [];
+      const pages = [];
 
-      let memberCard = structuredClone(userCard);
+      const memberCard = structuredClone(userCard);
       if (m?.avatar !== null) memberCard.thumbnail = { url: m.avatarUrl + '?size=4096' };
       if (m?.banner !== null)
         memberCard.image = {

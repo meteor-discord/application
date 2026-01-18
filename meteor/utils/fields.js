@@ -1,9 +1,9 @@
 const { GUILD_FEATURES, GUILD_FEATURE_ICONS_REDESIGN } = require('../constants');
 
 module.exports.guildFeaturesField = function (g) {
-  let featureCards = [];
+  const featureCards = [];
   let fN = [];
-  let fD = {};
+  const fD = {};
 
   for (const feat of g.features.toArray()) {
     if (GUILD_FEATURES[feat]) {
@@ -24,8 +24,8 @@ module.exports.guildFeaturesField = function (g) {
 
   fN = fN.sort((a, b) => a.normalize().localeCompare(b.normalize()));
   while (fN.length) {
-    sfN = fN.splice(0, 10);
-    let ft = [];
+    const sfN = fN.splice(0, 10);
+    const ft = [];
     for (const f of sfN) {
       let ic = fD[f];
       if (!fD[f]) ic = GUILD_FEATURE_ICONS_REDESIGN.CircleQuestionIcon;
@@ -39,7 +39,7 @@ module.exports.guildFeaturesField = function (g) {
       );
     }
     featureCards.push({
-      name: `​`,
+      name: '​',
       value: ft.join('\n'),
       inline: true,
     });

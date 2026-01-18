@@ -32,7 +32,7 @@ async function getRecentMedia(context, limit) {
 
   // Handle Replies
   if (context.message.messageReference) {
-    let ref = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
+    const ref = await context.message.channel.fetchMessage(context.message.messageReference.messageId);
     if (ref.stickerItems.length && ref.stickerItems.first().formatType !== 3)
       return [
         {
@@ -43,7 +43,7 @@ async function getRecentMedia(context, limit) {
     messages = [[context.message.messageReference.messageId, ref]]; // somewhat hacky but it works lol
   } else {
     messages = await context.message.channel.fetchMessages({
-      limit: limit,
+      limit,
       before: context.message.id,
     });
   }
@@ -52,9 +52,9 @@ async function getRecentMedia(context, limit) {
     return undefined;
   }
 
-  let attachments = [];
+  const attachments = [];
   for (const m of messages) {
-    let a = getMessageAttachment(m[1]);
+    const a = getMessageAttachment(m[1]);
     if (a) attachments.push(a);
   }
   return attachments;
@@ -66,6 +66,7 @@ module.exports.getRecentVideo = async function (context, limit) {
   }
 
   // Handle Replies
+  let messages;
   if (context.message.messageReference) {
     messages = [
       [
@@ -75,7 +76,7 @@ module.exports.getRecentVideo = async function (context, limit) {
     ]; // somewhat hacky but it works lol
   } else {
     messages = await context.message.channel.fetchMessages({
-      limit: limit,
+      limit,
       before: context.message.id,
     });
   }
@@ -84,9 +85,9 @@ module.exports.getRecentVideo = async function (context, limit) {
     return undefined;
   }
 
-  let attachments = [];
+  const attachments = [];
   for (const m of messages) {
-    let message = m[1];
+    const message = m[1];
     if (
       // Then the embed image
       message.embeds.length > 0 &&
@@ -101,7 +102,7 @@ module.exports.getRecentVideo = async function (context, limit) {
 };
 
 function validateAttachment(attachment, type) {
-  let allowedTypes = attachmentTypes[type];
+  const allowedTypes = attachmentTypes[type];
   if (attachment.contentType && allowedTypes.includes(attachment.contentType)) {
     // discord attachment
     return true;
@@ -116,7 +117,7 @@ function validateAttachment(attachment, type) {
 module.exports.validateAttachment = validateAttachment;
 
 module.exports.getRecentImage = async function (context, limit) {
-  let attachments = await getRecentMedia(context, limit);
+  const attachments = await getRecentMedia(context, limit);
 
   let at;
   for (const a of attachments) {

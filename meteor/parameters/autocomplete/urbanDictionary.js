@@ -5,12 +5,12 @@ module.exports = async context => {
   let choices = [];
   if (context.value) {
     try {
-      let suggestions = await superagent.get('https://api.urbandictionary.com/v0/autocomplete-extra').query({
+      const suggestions = await superagent.get('https://api.urbandictionary.com/v0/autocomplete-extra').query({
         term: context.value,
       });
 
       choices = suggestions.body.results;
-    } catch (e) {
+    } catch {
       // idk sucks ig?
     }
   }

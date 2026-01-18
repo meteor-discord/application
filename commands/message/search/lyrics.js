@@ -14,7 +14,7 @@ const META_FIELDS = {
 };
 
 function renderMetadata(track) {
-  let metadata = track.metadata;
+  const metadata = track.metadata;
   const pills = [];
   for (const m of metadata) {
     if (!META_FIELDS[m.id]) continue;
@@ -38,18 +38,15 @@ function renderLyricsFooter(context, provider) {
         text: `Musixmatch • ${context.application.name}`,
         iconUrl: STATICS.musixmatch,
       };
-      break;
     case LYRIC_PROVIDERS.GENIUS:
       return {
         text: `Genius • ${context.application.name}`,
         iconUrl: STATICS.genius,
       };
-      break;
     case LYRIC_PROVIDERS.LRCLIB:
       return {
         text: `LRCLib • ${context.application.name}`,
       };
-      break;
     default: // Fallback, this should never happen
       return {
         text: context.application.name,
@@ -59,13 +56,13 @@ function renderLyricsFooter(context, provider) {
 }
 
 function createLyricsPage(context, search, fields) {
-  let em = createEmbed('default', context, {
+  const em = createEmbed('default', context, {
     author: {
       // iconUrl: search.body.track.artist_cover,
       name: `${search.body.track.title}`,
     },
     description: `-# Song by ${search.body.track.artist}`,
-    fields: fields,
+    fields,
     footer: renderLyricsFooter(context, search.body.lyrics_provider),
   });
   if (search.body.track.cover) em.thumbnail = { url: search.body.track.cover };
@@ -93,8 +90,8 @@ module.exports = {
       let search = await lyrics(context, args.query);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
-      let fields = [];
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      const fields = [];
 
       for (const f of search.body.lyrics.split('\n\n')) {
         fields.push({
@@ -104,7 +101,7 @@ module.exports = {
         });
       }
 
-      let pages = [];
+      const pages = [];
       while (fields.length) {
         let pageFields = fields.splice(0, 3);
 
@@ -128,7 +125,7 @@ module.exports = {
         pages: formatPaginationEmbeds(pages),
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

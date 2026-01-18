@@ -13,7 +13,7 @@ const {
 const superagent = require('superagent');
 
 const urlr =
-  /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g;
+  /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.\S{2,}|www\.[a-zA-Z0-9]+\.\S{2,})/g;
 
 module.exports = {
   name: 'music-platforms',
@@ -39,15 +39,15 @@ module.exports = {
     try {
       await acknowledge(context, args.incognito, [...PERMISSION_GROUPS.baseline_slash]);
 
-      let urls = args.url.match(urlr);
+      const urls = args.url.match(urlr);
       if (urls) {
         try {
-          let songlink = await superagent.get(
+          const songlink = await superagent.get(
             `https://api.song.link/v1-alpha.1/links?url=${encodeURIComponent(urls[0])}`
           );
-          let song = songlink.body.entitiesByUniqueId[songlink.body.entityUniqueId];
+          const song = songlink.body.entitiesByUniqueId[songlink.body.entityUniqueId];
 
-          let btns = renderMusicButtons(songlink.body.linksByPlatform);
+          const btns = renderMusicButtons(songlink.body.linksByPlatform);
           return editOrReply(context, {
             embeds: [
               createEmbed('defaultNoFooter', context, {
@@ -60,7 +60,7 @@ module.exports = {
             ],
             components: btns,
           });
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('warning', context, 'No results found.'));
         }
       } else {

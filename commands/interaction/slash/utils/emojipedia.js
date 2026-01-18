@@ -47,16 +47,18 @@ module.exports = {
     }
 
     // Regular Emoji Handling
-    if (emoji.length == 0)
+    if (emoji.length === 0)
       return await editOrReply(context, createEmbed('warning', context, 'You need to specify an emoji to enlarge.'));
 
     let res;
     try {
       res = await emojipedia(context, emoji[0]);
       res = res.response.body;
-    } catch (e) {
+    } catch {
       return await editOrReply(context, createEmbed('error', context, `No emoji data available for ${emoji[0]}.`));
     }
+
+    let currentView;
 
     const components = new Components({
       timeout: 100000,

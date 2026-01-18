@@ -37,7 +37,7 @@ module.exports = {
     let language = 'js';
     let message;
     try {
-      if (args.async == false) {
+      if (args.async === false) {
         message = await Promise.resolve(eval(args.code));
       } else {
         const func = new AsyncFunction('context', args.code);

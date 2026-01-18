@@ -47,13 +47,13 @@ function createSearchResultPage(context, entry, bang) {
       );
       if (entry.result.image) res.embeds[0].thumbnail = { url: entry.result.image };
       if (entry.result.deepLinks) {
-        let fl = entry.result.deepLinks;
+        const fl = entry.result.deepLinks;
         while (fl.length >= 1) {
-          fields = fl.splice(0, 4);
-          fields = fields.map(f => link(f.url, f.title));
+          const fields = fl.splice(0, 4);
+          const fieldLinks = fields.map(f => link(f.url, f.title));
           res.embeds[0].fields.push({
             name: '​',
-            value: fields.join('\n'),
+            value: fieldLinks.join('\n'),
             inline: true,
           });
         }
@@ -144,9 +144,9 @@ module.exports = {
           )
         );
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
-        let sp = createSearchResultPage(context, res, search.body.bang);
+        const sp = createSearchResultPage(context, res, search.body.bang);
         if (sp) pages.push(sp);
       }
 

@@ -8,7 +8,7 @@ const {
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { icon, timestamp, link, iconLinkPill } = require('#utils/markdown');
+const { icon, timestamp, iconLinkPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 module.exports = {

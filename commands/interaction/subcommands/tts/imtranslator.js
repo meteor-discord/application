@@ -36,9 +36,7 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
     try {
-      let s = Date.now();
-      let audio = await imtranslator(context, args.text, args.voice);
-      let diff = Date.now() - s;
+      const audio = await imtranslator(context, args.text, args.voice);
       await context.editOrRespond({
         embeds: [
           createEmbed('defaultNoFooter', context, {
@@ -47,7 +45,7 @@ module.exports = {
         ],
         file: { value: audio.response.body, filename: 'tts.wav' },
       });
-    } catch (e) {
+    } catch {
       await context.editOrRespond({
         embeds: [createEmbed('error', context, 'Unable to generate audio file.')],
       });

@@ -12,10 +12,10 @@ const { InteractionCallbackTypes } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
 function createQuoraAnswerPage(context, question, answer) {
-  let tags = question.tags.map(t => {
+  const tags = question.tags.map(t => {
     return pill(t);
   });
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       title: question.title,
       url: answer.url,
@@ -52,7 +52,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
   });
 
   paging.on('interaction', async ({ context: ctx, listener }) => {
-    if (ctx.customId == 'search') {
+    if (ctx.customId === 'search') {
       // Kill the original paginator and replace it with a select
       listener.stopWithoutUpdate();
 
@@ -75,13 +75,13 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
             components: [],
           });
           // Get the page reference and fetch the results
-          let ref = refMappings.filter(r => r.ref == sctx.data.values[0]);
+          let ref = refMappings.filter(r => r.ref === sctx.data.values[0]);
           ref = ref[0];
           try {
             let search = await quoraResult(context, ref.link);
             search = search.response.body;
 
-            if (search.status == 2) return editOrReply(context, createEmbed('error', context, search.message));
+            if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
 
             let nextPages = [];
             // Create the initial page
@@ -100,11 +100,11 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
         },
       });
 
-      let selectOptions = refMappings.map(r => {
+      const selectOptions = refMappings.map(r => {
         return {
           label: r.title,
           value: r.ref,
-          default: r.ref == currentRef,
+          default: r.ref === currentRef,
         };
       });
 
@@ -140,7 +140,7 @@ module.exports = {
       let search = await quora(context, args.query);
       search = search.response.body;
 
-      if (search.status == 2) return editOrReply(context, createEmbed('error', context, search.message));
+      if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
 
       let pages = [];
 

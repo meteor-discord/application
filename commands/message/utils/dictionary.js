@@ -17,7 +17,7 @@ const LABELS = {
 
 // TODO(unity)
 function renderDictionaryEntry(context, result, definition, resultIndex, definitionIndex) {
-  let card = createEmbed('default', context, {
+  const card = createEmbed('default', context, {
     description: `### ${result.word}\n-# ${result.phonetic ? `${result.phonetic}  •  ` : ''}${definition.type}\n\n`,
     url: `https://en.wiktionary.org/wiki/${encodeURIComponent(result.word)}`,
     fields: [],
@@ -117,7 +117,7 @@ module.exports = {
     if (!args.query || args.query.length === 0)
       return editOrReply(context, createEmbed('warning', context, 'Missing query argument.'));
 
-    let language = dictionaryGetCodeFromAny(args.lang);
+    const language = dictionaryGetCodeFromAny(args.lang);
 
     if (!language) return editOrReply(context, createEmbed('warning', context, 'Invalid Language'));
 
@@ -127,7 +127,7 @@ module.exports = {
 
       if (search.body.status === 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
 
       let ri = 0;
       let di = 0;
@@ -153,14 +153,14 @@ module.exports = {
               return page.getState('usage_examples');
             },
             resolvePage: async pg => {
-              let result = search.body.results[pg.getState('result')];
-              let definition = result.entries[pg.getState('definition')];
+              const result = search.body.results[pg.getState('result')];
+              const definition = result.entries[pg.getState('definition')];
 
-              let usageCard = createEmbed('default', context, {
+              const usageCard = createEmbed('default', context, {
                 description: `### ${pg.getState('term')}\n`,
               });
 
-              let additional = definition.definitions
+              const additional = definition.definitions
                 .map(s => s.additional_examples)
                 .flat(2)
                 .filter(e => e !== undefined);
@@ -196,18 +196,18 @@ module.exports = {
               return page.getState('similar');
             },
             resolvePage: async pg => {
-              let result = search.body.results[pg.getState('result')];
-              let definition = result.entries[pg.getState('definition')];
+              const result = search.body.results[pg.getState('result')];
+              const definition = result.entries[pg.getState('definition')];
 
-              let similarCard = createEmbed('default', context, {
+              const similarCard = createEmbed('default', context, {
                 description: `### ${pg.getState('term')}\n-# ${definition.type}\n\n`,
               });
 
-              let synonyms = definition.definitions
+              const synonyms = definition.definitions
                 .map(d => d.synonyms)
                 .flat(2)
                 .filter(e => e !== undefined);
-              let antonyms = definition.definitions
+              const antonyms = definition.definitions
                 .map(d => d.antonyms)
                 .flat(2)
                 .filter(e => e !== undefined);
@@ -236,9 +236,9 @@ module.exports = {
               return page.getState('origin');
             },
             resolvePage: async pg => {
-              let result = search.body.results[pg.getState('result')];
+              const result = search.body.results[pg.getState('result')];
 
-              let originCard = createEmbed('default', context, {
+              const originCard = createEmbed('default', context, {
                 description: `### ${pg.getState('term')}\n${result.origin.description}`,
               });
 

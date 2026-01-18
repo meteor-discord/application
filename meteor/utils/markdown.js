@@ -47,10 +47,10 @@ function _escapeCodeblock(content) {
 module.exports.icon = _icon;
 
 module.exports.iconAsEmojiObject = function (icon) {
-  let i = _icon(icon);
+  const i = _icon(icon);
 
   return {
-    id: i.replace(/<a?:[a-z0-9_]*:([0-9]*)>/g, '$1'),
+    id: i.replace(/<a?:[a-z0-9_]*:(\d*)>/g, '$1'),
     name: 'i',
     animated: i.startsWith('<a:'),
   };
@@ -110,9 +110,9 @@ module.exports.timestamp = function (time, flag = 't') {
 module.exports.stringwrap = function (content = '', length, newlines = true) {
   if (!newlines) content = content.replace(/\n/g, ' ');
   if (content.length > length) {
-    c = content.substring(0, length - 1) + '…';
-    while (c.endsWith(' …')) c = c.substr(0, c.length - 2) + '…';
-    return c;
+    let wrapped = content.substring(0, length - 1) + '…';
+    while (wrapped.endsWith(' …')) wrapped = wrapped.substr(0, wrapped.length - 2) + '…';
+    return wrapped;
   }
   return content;
 };
@@ -139,31 +139,30 @@ module.exports.stringwrapPreserveWords = function (content = '', length, newline
 };
 
 module.exports.pill = function (content = '') {
-  return '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
+  return '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
 };
 
 module.exports.smallPill = function (content = '') {
-  return '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + ' `';
+  return '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + ' `';
 };
 
 module.exports.iconPill = function (icon, content = '') {
-  return _icon(icon) + '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
+  return _icon(icon) + '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
 };
 
 module.exports.smallIconPill = function (icon, content = '') {
-  return _icon(icon) + '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `';
+  return _icon(icon) + '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `';
 };
 
 module.exports.iconLinkPill = function (icon, url, content = '', tooltip = '') {
   if (tooltip.length) tooltip = ` '${tooltip}'`;
-  if (content)
-    return `${_icon(icon)} [**\` ${_escapeCodeblock(content)}  \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
+  if (content) return `${_icon(icon)} [**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
   return url;
 };
 
 module.exports.linkPill = function (url, content = '', tooltip = '') {
   if (tooltip.length) tooltip = ` '${tooltip}'`;
-  if (content) return `[**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
+  if (content) return `[**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
   return url;
 };
 

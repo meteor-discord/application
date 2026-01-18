@@ -23,12 +23,12 @@ const { Components } = require('detritus-client/lib/utils');
 
 // TODO(unity): utils/translate.js
 async function translateMessage(context, message, to, from) {
-  let mappings = {};
+  const mappings = {};
 
   if (message.content) {
     // Special Case - this is (very very very likely) a 1p translated message
     if (message.content.startsWith(`-# ${icon('subtext_translate')}`)) {
-      let cnt = message.content.split('\n');
+      const cnt = message.content.split('\n');
       cnt.shift();
       if (cnt.length >= 1) {
         mappings.content = cnt.join('\n');
@@ -39,7 +39,7 @@ async function translateMessage(context, message, to, from) {
     let i = 0;
     // Message Translation supports Descriptions and Fields
     for (const e of message.embeds) {
-      let emb = e[1];
+      const emb = e[1];
 
       if (![MessageEmbedTypes.ARTICLE, MessageEmbedTypes.RICH, MessageEmbedTypes.LINK].includes(emb.type)) continue;
       if (emb.description) mappings['embeds/' + i + '/description'] = emb.description;
@@ -64,25 +64,25 @@ async function translateMessage(context, message, to, from) {
 
   // Translate message via multitranslate endpoint on 1p
   try {
-    let translation = await googleTranslateMulti(context, mappings, to, from);
+    const translation = await googleTranslateMulti(context, mappings, to, from);
 
-    let tr = translation.response.body.translations;
+    const tr = translation.response.body.translations;
 
     // Deserialize message
-    let result = {};
+    const result = {};
 
     // This relies on mappings.content to handle the special case
-    if (mappings.content) result.content = tr['content'];
+    if (mappings.content) result.content = tr.content;
 
     if (message.embeds) {
       let i = 0;
       result.embeds = [];
       // Message Translation supports Descriptions and Fields
       for (const e of message.embeds) {
-        let emb = e[1];
+        const emb = e[1];
 
         if (![MessageEmbedTypes.ARTICLE, MessageEmbedTypes.RICH, MessageEmbedTypes.LINK].includes(emb.type)) continue;
-        let newEmbed = {
+        const newEmbed = {
           fields: [],
         };
 
@@ -101,10 +101,10 @@ async function translateMessage(context, message, to, from) {
 
         if (emb.description) newEmbed.description = stringwrap(tr['embeds/' + i + '/description'], 4096);
 
-        if (emb.author) newEmbed.author = Object.assign({}, emb.author);
+        if (emb.author) newEmbed.author = { ...emb.author };
         if (emb.author?.name) newEmbed.author.name = stringwrap(tr['embeds/' + i + '/author/name'], 256);
 
-        if (emb.footer) newEmbed.footer = Object.assign({}, emb.footer);
+        if (emb.footer) newEmbed.footer = { ...emb.footer };
         if (emb.footer?.text) newEmbed.footer.text = stringwrap(tr['embeds/' + i + '/footer/text'], 2048);
 
         if (emb.fields) {
@@ -119,7 +119,7 @@ async function translateMessage(context, message, to, from) {
             fi++;
           }
         }
-        result.embeds[i] = Object.assign({}, newEmbed);
+        result.embeds[i] = { ...newEmbed };
         i++;
       }
     }
@@ -131,7 +131,7 @@ async function translateMessage(context, message, to, from) {
   } catch (e) {
     console.log(e);
     console.log(mappings);
-    throw 'Translation Failed.';
+    throw new Error('Translation Failed.');
   }
 }
 
@@ -149,7 +149,7 @@ module.exports = {
       return editOrReply(context, createEmbed('warning', context, 'No content found.'));
 
     try {
-      let translate = await translateMessage(context, message, 'en', 'auto');
+      const translate = await translateMessage(context, message, 'en', 'auto');
 
       if (!translate.message)
         return editOrReply(context, createEmbed('warning', context, 'No translatable content found.'));
@@ -161,23 +161,23 @@ module.exports = {
             if (ctx.userId !== context.userId)
               return await ctx.respond(InteractionCallbackTypes.DEFERRED_UPDATE_MESSAGE);
 
-            let translate = await translateMessage(context, message, ctx.data.values[0], 'auto');
+            const translate = await translateMessage(context, message, ctx.data.values[0], 'auto');
 
             for (let i = 0; i < components.components[0].components[0].options.length; i++) {
               components.components[0].components[0].options[i].default =
                 components.components[0].components[0].options[i].value === ctx.data.values[0];
             }
 
-            let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
-            let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
+            const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || 'auto'] || '';
+            const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
 
-            let newMessage = translate.message;
+            const newMessage = translate.message;
             let newMessageContent = '';
             if (newMessage.content) newMessageContent += '\n' + newMessage.content;
 
             return await ctx.editOrRespond({
               content: stringwrap(
-                `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from || sourceLanguage] || translate.metadata.language.from || args.from}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
+                `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from] || translate.metadata.language.from || 'Auto'}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
                 2000
               ),
               embeds: newMessage.embeds,
@@ -189,7 +189,7 @@ module.exports = {
         },
       });
 
-      let selectLanguageOptions = TRANSLATE_DEFAULT_LANGUAGE_LIST.map((r, i) => {
+      const selectLanguageOptions = TRANSLATE_DEFAULT_LANGUAGE_LIST.map((r, i) => {
         return {
           label: TRANSLATE_LANGUAGES[r],
           value: r,
@@ -205,10 +205,10 @@ module.exports = {
         options: selectLanguageOptions,
       });
 
-      let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
-      let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
+      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || 'auto'] || '';
+      const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
 
-      let newMessage = translate.message;
+      const newMessage = translate.message;
       let newMessageContent = '';
       if (newMessage.content) newMessageContent += '\n' + newMessage.content;
 
@@ -216,7 +216,7 @@ module.exports = {
         context,
         createEmbed('default', context, {
           content: stringwrap(
-            `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from || sourceLanguage] || translate.metadata.language.from || args.from}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
+            `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from] || translate.metadata.language.from || 'Auto'}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
             2000
           ),
           embeds: newMessage.embeds,

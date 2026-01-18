@@ -54,7 +54,7 @@ module.exports = {
     if (!args.to) args.to = 'en';
     if (!args.from) args.from = 'auto';
 
-    let content = args.text;
+    const content = args.text;
 
     if (!content.length) return editOrReply(context, createEmbed('warning', context, 'No text supplied.'));
 
@@ -69,8 +69,8 @@ module.exports = {
         createEmbed('warning', context, `Invalid source language (${stringwrap(args.from, 10, false)}).`)
       );
 
-    let targetLanguage = getCodeFromAny(args.to);
-    let sourceLanguage = getCodeFromAny(args.from);
+    const targetLanguage = getCodeFromAny(args.to);
+    const sourceLanguage = getCodeFromAny(args.from);
 
     if (!targetLanguage)
       return editOrReply(
@@ -84,15 +84,15 @@ module.exports = {
       );
 
     try {
-      let translate = await googleTranslate(context, content, targetLanguage, sourceLanguage);
+      const translate = await googleTranslate(context, content, targetLanguage, sourceLanguage);
 
-      let fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
-      let toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
+      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.from || sourceLanguage] || '';
+      const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.response.body.language.to] || '';
 
       return editOrReply(
         context,
         createEmbed('default', context, {
-          description: `-# ${icon('locale')} ​ ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage] || translate.response.body.language.from || 'Detected Language')} ​ ​ ​​${icon('arrow_right')} ​ ​ ​ ​${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [translate.response.body.translation])}`,
+          description: `-# ${icon('locale')} ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || 'auto'] || translate.response.body.language.from || 'Detected Language')} ${icon('arrow_right')} ${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [translate.response.body.translation])}`,
           footer: {
             iconUrl: STATICS.googletranslate,
             text: `Google Translate • ${context.application.name}`,

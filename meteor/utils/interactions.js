@@ -1,7 +1,5 @@
 const { MessageFlags, InteractionCallbackTypes } = require('detritus-client/lib/constants');
 
-const { Context } = require('detritus-client/lib/command');
-const { InteractionContext } = require('detritus-client/lib/interaction');
 const { PERMISSION_GROUPS, INCOGNITO_REASONS } = require('#constants');
 const { PERMISSIONS_TEXT } = require('#permissions');
 const { checkPermissions } = require('detritus-client/lib/utils/permissions');
@@ -23,7 +21,7 @@ module.exports.acknowledge = async function (
 
     // Handle permissions for user commands in a guild context
     if (context.member && permissions.length >= 1) {
-      let perr = [];
+      const perr = [];
       for (const p of permissions) {
         if (!checkPermissions(context.member.permissions, p)) {
           incognito = true;
@@ -60,5 +58,5 @@ module.exports.acknowledge = async function (
    * In order to avoid our bot from crashing, we catch the
    * error here.
    */
-  return await context.triggerTyping().catch(e => {});
+  return await context.triggerTyping().catch(() => {});
 };

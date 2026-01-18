@@ -8,7 +8,7 @@ const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
 function createWikiHowPage(context, result) {
-  let e = createEmbed('default', context, {
+  const e = createEmbed('default', context, {
     author: {
       name: result.title,
       url: result.link,
@@ -45,9 +45,10 @@ module.exports = {
       let search = await wikihow(context, args.query);
       search = search.response;
 
-      let pages = [];
+      const pages = [];
 
-      if (search.body.data.length == 0) return editOrReply(context, createEmbed('error', context, `No results found.`));
+      if (search.body.data.length === 0)
+        return editOrReply(context, createEmbed('error', context, `No results found.`));
 
       for (const res of search.body.data) {
         pages.push(createWikiHowPage(context, res));

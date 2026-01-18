@@ -1,6 +1,6 @@
 console.log(`[meteor] launching bot`);
 
-const client = './charmer/client.js';
+const client = './meteor/client.js';
 
 // Run the client
 require(client);

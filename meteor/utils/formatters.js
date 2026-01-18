@@ -1,4 +1,4 @@
-export const formatNumber = (num, digits = 1) => {
+const formatNumber = (num, digits = 1) => {
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e3, symbol: 'k' },
@@ -8,7 +8,7 @@ export const formatNumber = (num, digits = 1) => {
     { value: 1e15, symbol: 'q' },
     { value: 1e18, symbol: 'Q' },
   ];
-  const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+  const regexp = /\.0+$|(?<=\.\d*[1-9])0+$/;
   const item = lookup.findLast(item => num >= item.value);
 
   if (!item) return '0';
@@ -19,3 +19,5 @@ export const formatNumber = (num, digits = 1) => {
   const truncatedNum = Math.floor(dividedNum * factor) / factor;
   return truncatedNum.toFixed(digits).replace(regexp, '').concat(item.symbol);
 };
+
+module.exports.formatNumber = formatNumber;

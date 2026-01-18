@@ -9,7 +9,7 @@ const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
 function createImageResultPage(context, result) {
-  let res = page(
+  const res = page(
     createEmbed('default', context, {
       author: {
         iconUrl: favicon(result.url),
@@ -50,9 +50,9 @@ module.exports = {
       let search = await googleImages(context, args.query, context.channel.nsfw);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
-      let pages = [];
+      const pages = [];
       for (const res of search.body.results) {
         pages.push(createImageResultPage(context, res));
       }
