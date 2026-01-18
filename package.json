@@ -25,7 +25,8 @@
     "emoji-aware": "^3.1.0",
     "eventemitter3": "^5.0.1",
     "prettier": "^3.8.0",
-    "superagent": "^10.3.0"
+    "superagent": "^10.3.0",
+    "utils": "gitlab:bignutty/utils"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

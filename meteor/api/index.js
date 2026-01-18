@@ -777,13 +777,11 @@ module.exports.textGenerator = async function (context, input) {
 };
 
 module.exports.emojiKitchen = async function (emoji) {
-  return await superagent.get('https://tenor.googleapis.com/v2/featured').query({
-    key: process.env.GOOGLE_TENOR_KEY,
-    contentfilter: 'high',
-    media_filter: 'png_transparent',
-    component: 'proactive',
-    collection: 'emoji_kitchen_v6',
+  return await superagent.get('https://api.giphy.com/v1/gifs/search').query({
+    api_key: process.env.GIPHY_API_KEY,
     q: emoji.join('_'),
+    limit: 1,
+    rating: 'g',
   });
 };
 

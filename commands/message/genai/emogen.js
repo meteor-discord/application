@@ -9,7 +9,7 @@ module.exports = {
   name: 'emogen',
   label: 'text',
   metadata: {
-    description: `Emogen`,
+    description: `Emoji generator`,
     description_short: 'Emogen',
     examples: ['emogen otter eating a slice of pizza'],
     category: 'genai',
