@@ -1,0 +1,39 @@
+{
+  "name": "labscore",
+  "version": "1.0.0",
+  "description": "labsCore discord bot frontend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "local": "node local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/bignutty/labscore.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/bignutty/labscore/-/issues"
+  },
+  "keywords": [],
+  "author": "bignutty",
+  "license": "CC BY-NC-SA 4.0",
+  "dependencies": {
+    "detritus-client": "^0.17.0-beta.86",
+    "dotenv": "^16.4.7",
+    "emoji-aware": "^3.1.0",
+    "eventemitter3": "^5.0.1",
+    "superagent": "^10.1.1",
+    "utils": "gitlab:bignutty/utils"
+  },
+  "imports": {
+    "#api": "./labscore/api/index.js",
+    "#cardstack/*": "./labscore/cardstack/*.js",
+    "#client": "./labscore/client.js",
+    "#constants": "./labscore/constants.js",
+    "#logging": "./labscore/logging.js",
+    "#obelisk": "./labscore/api/obelisk/index.js",
+    "#parameters": "./labscore/parameters/index.js",
+    "#permissions": "./labscore/permissions.js",
+    "#utils/*": "./labscore/utils/*.js"
+  }
+}
