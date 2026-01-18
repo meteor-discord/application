@@ -6,7 +6,6 @@ const { acknowledge } = require('#utils/interactions');
 const { iconPill, stringwrap, icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 const { InteractionCallbackTypes } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
@@ -16,16 +15,15 @@ module.exports = {
   label: 'text',
   aliases: ['bard', 'gem'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n\nChat with ${icon('brand_google_gemini')} Gemini.`,
+    description: `Chat with ${icon('brand_google_gemini')} Gemini.`,
     description_short: 'Chat with Gemini.',
     examples: ['gemini How many otter species are there?'],
-    category: 'limited',
+    category: 'genai',
     usage: 'gemini <input>',
   },
   args: [],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/bard'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));

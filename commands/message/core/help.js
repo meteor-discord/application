@@ -5,7 +5,6 @@ const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { codeblock, icon, link, pill, smallPill, iconPill, stringwrap } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
-const { hasFeature } = require('#utils/testing');
 
 function createHelpPage(context, title, contents, descriptions) {
   return page(
@@ -120,6 +119,7 @@ const categories = {
   utils: `${icon('tools')} Utility Commands`,
   fun: `${icon('stars')} Fun Commands`,
   mod: `${icon('shield')} Moderation Command`,
+  genai: `${icon('stars')} Generative AI Commands`,
 };
 
 module.exports = {
@@ -135,9 +135,6 @@ module.exports = {
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
   run: async (context, args) => {
-    if (await hasFeature(context, 'core/help')) categories['limited'] = `${iconPill('stars', 'Limited Test Commands')}`;
-    else if (categories['limited']) delete categories['limited'];
-
     await acknowledge(context);
 
     if (args.command) {

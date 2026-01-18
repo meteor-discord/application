@@ -6,7 +6,6 @@ const { acknowledge } = require('#utils/interactions');
 const { iconPill, smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 // TODO: general purpose constant? regex util?
 const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
@@ -16,15 +15,14 @@ module.exports = {
   aliases: ['summary', 'tldr'],
   label: 'text',
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nSummarize web pages and articles.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nSummarize web pages and articles.`,
     description_short: 'Website summaries.',
     examples: ['tldr https://www.theverge.com/2023/11/17/23965185/discord-is-shutting-down-its-ai-chatbot-clyde'],
-    category: 'limited',
+    category: 'genai',
     usage: 'summarize',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'flamingo/summary'))) return;
     await acknowledge(context);
 
     let content = args.text;
