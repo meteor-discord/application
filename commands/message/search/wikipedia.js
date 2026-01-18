@@ -5,6 +5,7 @@ const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
+const { USER_AGENT } = require('#utils/user-agent');
 
 const superagent = require('superagent');
 
@@ -32,7 +33,7 @@ module.exports = {
           limit: 100,
           language: 'en',
         })
-        .set('User-Agent', 'meteor/2.0');
+        .set('User-Agent', USER_AGENT);
 
       let pages = [];
 

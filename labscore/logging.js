@@ -1,4 +1,5 @@
 const { icon } = require('#utils/markdown');
+const { USER_AGENT } = require('#utils/user-agent');
 const superagent = require('superagent');
 
 const MAINTOWER_BASE_URL = process.env.MAINTOWER_URL;
@@ -26,7 +27,7 @@ module.exports.maintower = async function (packages, type) {
       .post(MAINTOWER_BASE_URL + 'invoke')
       .set({
         Authorization: process.env.API_KEY,
-        'x-meteor-client': 'meteor/2.0',
+        'x-meteor-client': USER_AGENT,
       })
       .query({
         client: maintowerClient,
@@ -55,7 +56,7 @@ module.exports.basecamp = async function (log, content = '') {
       .post(MAINTOWER_BASE_URL + 'basecamp')
       .set({
         Authorization: process.env.API_KEY,
-        'x-meteor-client': 'meteor/2.0',
+        'x-meteor-client': USER_AGENT,
       })
       .send({ log, content });
     return;
