@@ -1,9 +1,6 @@
 const { ClusterManager } = require('detritus-client');
 const superagent = require('superagent');
 
-// Configure environment
-require('dotenv').config();
-
 const { basecamp, formatErrorMessage } = require('#logging');
 
 const time = Date.now();
