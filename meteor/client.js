@@ -12,7 +12,7 @@ const { PERMISSIONS_TEXT } = require('#permissions');
 
 const Paginator = require('./paginator').Paginator;
 
-const token = process.env.token;
+const token = process.env.DISCORD_TOKEN;
 
 const client = new ShardClient(token, {
   cache: { messages: { expire: 30 * 60 * 1000 } },
