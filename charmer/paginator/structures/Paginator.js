@@ -20,10 +20,7 @@ module.exports = class Paginator {
       throw 'Only attach one pagination client';
     }
 
-    assert.ok(
-      hasOwnProperty.call(client, 'gateway'),
-      'Provided `client` has no `gateway` property. Use PaginationCluster.'
-    );
+    assert.ok(hasOwnProperty.call(client, 'gateway'), 'Provided `client` has no `gateway` property.');
 
     this.client = client;
     this.maxTime = data.maxTime || 300000;

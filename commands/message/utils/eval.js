@@ -50,7 +50,6 @@ module.exports = {
             _isBot: !0,
             _killed: !1,
             application: {},
-            cluster: {},
             commandClient: {},
             imageFormat: 'png',
             token:
