@@ -10,30 +10,27 @@ on:
 
 jobs:
   lint:
-    name: ESLint and Prettier
+    name: Check code quality
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: lts/*
           cache: 'pnpm'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          run_install: true
 
       - name: Prettier check
-        run: pnpm exec prettier --check .
+        run: pnpm prettier --check .
 
       - name: ESLint check
-        run: pnpm exec eslint . --max-warnings=0
+        run: pnpm eslint . --max-warnings=0
