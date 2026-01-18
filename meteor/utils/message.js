@@ -1,7 +1,7 @@
 const { Permissions, MessageFlags } = require('detritus-client/lib/constants');
 const { basecamp, formatErrorMessage } = require('../logging');
-const { COLORS, MESSAGE_BLOCK_REASONS } = require('#constants');
-const { icon, link } = require('./markdown');
+const { MESSAGE_BLOCK_REASONS } = require('#constants');
+const { applyIncognitoNotice } = require('./incognito');
 
 module.exports.editOrReply = function (context, message, disableReference = false) {
   // Apply message_reference
@@ -46,18 +46,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
     }
 
     if (context._meta?.incognitoReason) {
-      // TODO: make this an applyIncognitoNotice helper
-      if (message.content) {
-        if (message.embeds && message.embeds.length <= 4) {
-          message.embeds.unshift({
-            description: `${icon('flask_incognito')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[context._meta.incognitoReason].message}.`,
-            color: COLORS.incognito,
-          });
-        }
-      } else {
-        // Uses new subtext formatting to look more "native"
-        message.content = `-# ${icon('flask_mini')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[context._meta.incognitoReason].message} • ${link('https://support.discord.com/hc/en-us/articles/' + MESSAGE_BLOCK_REASONS[context._meta.incognitoReason].support_article, 'Learn More', 'Support Article')}${context._meta.incognitoMetadata ? ' • ' + link(context._meta.incognitoMetadata, 'View Missing Permissions', 'View Missing Permissions', false) : ''}`;
-      }
+      applyIncognitoNotice(message, context._meta.incognitoReason, context._meta.incognitoMetadata);
     }
 
     return context.editOrRespond(message).catch(async e => {
@@ -69,18 +58,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
 
           message.flags = MessageFlags.EPHEMERAL;
 
-          // Create a notice
-          if (message.content) {
-            if (message.embeds && message.embeds.length <= 4) {
-              message.embeds.unshift({
-                description: `${icon('flask_incognito')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[errorData.code].message}.`,
-                color: COLORS.incognito,
-              });
-            }
-          } else {
-            // Uses new subtext formatting to look more "native"
-            message.content = `-# ${icon('flask_mini')} This response has been made incognito due to ${MESSAGE_BLOCK_REASONS[errorData.code].message} • ${link('https://support.discord.com/hc/en-us/articles/' + MESSAGE_BLOCK_REASONS[errorData.code].support_article, 'Learn More', 'Support Article')}`;
-          }
+          applyIncognitoNotice(message, errorData.code);
 
           const replacementMessage = await context.createMessage(message);
 

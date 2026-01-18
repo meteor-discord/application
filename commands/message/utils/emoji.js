@@ -7,6 +7,7 @@ const {
 } = require('#constants');
 
 const { createEmbed, formatPaginationEmbeds } = require('#utils/embed');
+const { toCodePoint } = require('#utils/formatters');
 const { pill, timestamp, smallIconPill, icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
@@ -18,25 +19,6 @@ const { acknowledge } = require('#utils/interactions');
 const { paginator } = require('#client');
 
 const onlyEmoji = require('emoji-aware').onlyEmoji;
-
-function toCodePoint(unicodeSurrogates, sep) {
-  const r = [];
-  let c = 0,
-    p = 0,
-    i = 0;
-  while (i < unicodeSurrogates.length) {
-    c = unicodeSurrogates.charCodeAt(i++);
-    if (p) {
-      r.push((0x10000 + ((p - 0xd800) << 10) + (c - 0xdc00)).toString(16));
-      p = 0;
-    } else if (0xd800 <= c && c <= 0xdbff) {
-      p = c;
-    } else {
-      r.push(c.toString(16));
-    }
-  }
-  return r.join(sep || '-');
-}
 
 module.exports = {
   label: 'emoji',

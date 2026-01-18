@@ -9,7 +9,7 @@ function getAcronym(guildName) {
 function getGuildIcon(guild) {
   return guild.iconUrl
     ? guild.iconUrl + '?size=4096'
-    : // Removes emojis from the icon since this api doesn't support them, todo for the future maybe build our own image generation service for these.
+    : // Removes emojis from the icon since this api doesn't support them
       'https://ui-avatars.com/api/?background=333339&color=fff&size=512&uppercase=false&length=999&name=' +
         encodeURIComponent(
           getAcronym(guild.name).replace(

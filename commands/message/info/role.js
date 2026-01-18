@@ -3,31 +3,12 @@ const { PERMISSION_GROUPS } = require('#constants');
 const { PERMISSION_CATEGORIES, PERMISSIONS_TEXT } = require('#permissions');
 
 const { createEmbed, page, formatPaginationEmbeds } = require('#utils/embed');
+const { toCodePoint } = require('#utils/formatters');
 const { acknowledge } = require('#utils/interactions');
 const { icon, iconPill, smallPill, pill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 const { PermissionTools } = require('detritus-client/lib/utils');
-
-// TODO: Move this to a utility module
-function toCodePoint(unicodeSurrogates, sep) {
-  const r = [];
-  let c = 0,
-    p = 0,
-    i = 0;
-  while (i < unicodeSurrogates.length) {
-    c = unicodeSurrogates.charCodeAt(i++);
-    if (p) {
-      r.push((0x10000 + ((p - 0xd800) << 10) + (c - 0xdc00)).toString(16));
-      p = 0;
-    } else if (0xd800 <= c && c <= 0xdbff) {
-      p = c;
-    } else {
-      r.push(c.toString(16));
-    }
-  }
-  return r.join(sep || '-');
-}
 
 const DEFAULT_ROLE_COLOR = '99AAB5';
 
