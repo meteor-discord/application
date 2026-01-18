@@ -82,7 +82,6 @@ module.exports = {
           url: (g.bannerUrl || g.splashUrl || g.discoverySplashUrl) + '?size=4096',
         };
 
-        // TODO: report
         if (g.discoverySplashUrl)
           guildCard.image.url = guildCard.image.url.replace('/splashes/', '/discovery-splashes/');
       }

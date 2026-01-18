@@ -91,7 +91,6 @@ function createCommandPage(context, prefix, command, slashCommands) {
     }
   }
 
-  // TODO: maybe try building a little parser that highlights things via ansi
   if (command.metadata.usage)
     cPage.fields.push({
       name: `${icon('settings')} Usage`,

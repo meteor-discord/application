@@ -210,8 +210,12 @@ class DynamicCardStack {
         });
       }
 
-      // TODO: ensure flags don't get overwritten/allow supplying custom flags
-      card.flags = this.flags;
+      // Merge card flags with stack flags to avoid overwriting custom flags
+      if (card.flags !== undefined) {
+        card.flags |= this.flags;
+      } else {
+        card.flags = this.flags;
+      }
 
       return card;
     } catch (e) {
@@ -260,9 +264,10 @@ class DynamicCardStack {
    * Automatically applies and re-renders components.
    * @param {Message} cardContent Card Content
    * @param {boolean, Array} components Custom Components Array
-   * @param killComponents Remove components
+   * @param {boolean} killComponents Remove components
+   * @param {number} customFlags Optional custom flags to merge with stack flags
    */
-  async _edit(cardContent, components = false, killComponents = false) {
+  async _edit(cardContent, components = false, killComponents = false, customFlags = 0) {
     const message = { ...cardContent };
 
     message.components = this._renderComponents(killComponents);
@@ -273,13 +278,15 @@ class DynamicCardStack {
 
     if (message._meta) delete message._meta;
 
+    // Merge custom flags with stack flags
+    const flags = this.flags | customFlags;
+
     try {
       return editOrReply(this.context, {
         ...message,
         reference: true,
         allowedMentions: { parse: [], repliedUser: false },
-        // TODO: allow supplying flags
-        flags: this.flags,
+        flags,
       });
     } catch (e) {
       console.error('Message editing failed:');

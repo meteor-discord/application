@@ -296,7 +296,6 @@ module.exports.ICONS_NEXTGEN_LEGACY_MAPPINGS = Object.freeze({
   weather_warning_flood: 'weds_warning_flood',
 });
 
-// TODO: Load icon configuration from server
 module.exports.ICONS = Object.freeze({
   brand: '<:ico_brand_2024:1263593574478643221>',
   flask_incognito: '<:ico_flask_incognito:1263608937459224688>',
