@@ -22,7 +22,7 @@ const manager = new ClusterManager(client, token, {
 });
 
 (async () => {
-  console.log(`[${process.env.HOSTNAME || 'labscore'}] launching bot`);
+  console.log(`[${process.env.HOSTNAME || 'meteor'}] launching bot`);
 
   // Logging
   manager.on('clusterProcess', ({ clusterProcess }) => {
@@ -47,8 +47,8 @@ const manager = new ClusterManager(client, token, {
   });
 
   await manager.run();
-  console.log(`[${process.env.HOSTNAME || 'labscore'}] bot ready (${Date.now() - time}ms)`);
+  console.log(`[${process.env.HOSTNAME || 'meteor'}] bot ready (${Date.now() - time}ms)`);
   console.log(
-    `[${process.env.HOSTNAME || 'labscore'}] manager running shards ${manager.shardStart}-${manager.shardEnd} (${manager.shardCount})`
+    `[${process.env.HOSTNAME || 'meteor'}] manager running shards ${manager.shardStart}-${manager.shardEnd} (${manager.shardCount})`
   );
 })();

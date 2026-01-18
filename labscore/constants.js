@@ -16,7 +16,7 @@ module.exports.DISCORD_INVITES = Object.freeze({
   feedback_cardstack: 'https://discord.gg/qwrBNeK7dt',
 });
 
-module.exports.DEFAULT_BOT_NAME = 'labsCore';
+module.exports.DEFAULT_BOT_NAME = 'Meteor';
 
 // The first prefix in this list is considered the
 // default prefix and will be displayed in various

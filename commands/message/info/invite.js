@@ -32,7 +32,7 @@ module.exports = {
             '󠄴',
             'App Directory Invite',
             true
-          ) + link(DISCORD_INVITES.invite + ' ', '󠄴', 'labsCore Support Server', true),
+          ) + link(DISCORD_INVITES.invite + ' ', '󠄴', 'Meteor Support Server', true),
         embeds: [
           createEmbed('default', context, {
             description: [
@@ -43,7 +43,7 @@ module.exports = {
                 'Invite Link (Enable User Commands)',
                 'Discord Application Invite URL'
               ),
-              iconLinkPill('robot', DISCORD_INVITES.support, 'Support Server', 'labsCore Support Server'),
+              iconLinkPill('robot', DISCORD_INVITES.support, 'Support Server', 'Meteor Support Server'),
               iconLinkPill('gitlab', OPEN_SOURCE_REPOSITORY_URL, 'Source Code'),
             ].join('\n'),
             image: {

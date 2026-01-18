@@ -13,7 +13,7 @@ if (process.env.MAINTOWER_OVERRIDE) maintowerClient = process.env.MAINTOWER_OVER
 const BLOCKED_LOGS = ['Unknown Message', 'Unknown interaction', 'Message was blocked by AutoMod'];
 
 module.exports.formatErrorMessage = (sev = 0, code, content) => {
-  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[${process.env.HOSTNAME || 'labscore'}]\` **\` ${code}  \`** | ${content}`;
+  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[${process.env.HOSTNAME || 'meteor'}]\` **\` ${code}  \`** | ${content}`;
 };
 
 module.exports.maintower = async function (packages, type) {

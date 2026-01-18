@@ -290,16 +290,16 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     await cluster.run().then();
 
     console.log(
-      `[${process.env.HOSTNAME || 'labscore'}]{${cluster.clusterId}} cluster ran (${Date.now() - clusterTimings}ms)`
+      `[${process.env.HOSTNAME || 'meteor'}]{${cluster.clusterId}} cluster ran (${Date.now() - clusterTimings}ms)`
     );
     let shards = `{${cluster.clusterId}} (${cluster.shards.map(shard => shard.shardId).join(', ')})`;
-    console.log(`[${process.env.HOSTNAME || 'labscore'}]${shards} shards loaded`);
+    console.log(`[${process.env.HOSTNAME || 'meteor'}]${shards} shards loaded`);
 
     {
       await commandClient.addMultipleIn('../commands/message/');
       await commandClient.run();
       console.log(
-        `[${process.env.HOSTNAME || 'labscore'}]${shards} command client ready (${Date.now() - clusterTimings}ms)`
+        `[${process.env.HOSTNAME || 'meteor'}]${shards} command client ready (${Date.now() - clusterTimings}ms)`
       );
     }
     {
@@ -308,7 +308,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
       await interactionClient.addMultipleIn('../commands/interaction/slash');
       await interactionClient.run();
       console.log(
-        `[${process.env.HOSTNAME || 'labscore'}]${shards} interaction command client ready (${Date.now() - clusterTimings}ms)`
+        `[${process.env.HOSTNAME || 'meteor'}]${shards} interaction command client ready (${Date.now() - clusterTimings}ms)`
       );
     }
   } catch (e) {
