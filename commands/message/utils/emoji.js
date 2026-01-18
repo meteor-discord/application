@@ -20,8 +20,8 @@ const { paginator } = require('#client');
 const onlyEmoji = require('emoji-aware').onlyEmoji;
 
 function toCodePoint(unicodeSurrogates, sep) {
-  let r = [],
-    c = 0,
+  const r = [];
+  let c = 0,
     p = 0,
     i = 0;
   while (i < unicodeSurrogates.length) {
@@ -110,7 +110,7 @@ module.exports = {
     }
 
     const { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
-    embeds = [];
+    const embeds = [];
     if (matches.length) {
       const pages = [];
       const entries = [];

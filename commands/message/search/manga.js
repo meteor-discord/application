@@ -198,7 +198,7 @@ module.exports = {
           },
         },
       });
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status === 1)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
       if (e.response?.body?.status === 2)

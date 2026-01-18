@@ -1,7 +1,5 @@
 const { unicodeMetadata } = require('#api');
-const {
-  PERMISSION_GROUPS,
-} = require('#constants');
+const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, page } = require('#utils/embed');
 const { pill, smallIconPill, smallPill } = require('#utils/markdown');
@@ -57,7 +55,7 @@ module.exports = {
       return createDynamicCardStack(context, {
         cards: pages,
       });
-    } catch {
+    } catch (e) {
       return editOrReply(context, createEmbed('error', context, e?.response?.body?.message || 'Something went wrong.'));
     }
   },

@@ -252,7 +252,7 @@ module.exports = {
           },
         },
       });
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status && e.response.body.status === 2)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(e);

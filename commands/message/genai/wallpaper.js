@@ -68,7 +68,7 @@ module.exports = {
       });
 
       return editOrReply(context, { embeds, files });
-    } catch {
+    } catch (e) {
       console.log(e);
       if (e.response?.body?.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));

@@ -224,7 +224,7 @@ module.exports = {
         embeds,
         components,
       });
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);

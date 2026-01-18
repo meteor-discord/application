@@ -130,7 +130,7 @@ module.exports = {
         embeds: [currentView],
         components,
       });
-    } catch {
+    } catch (e) {
       await editOrReply(context, createEmbed('error', context, `Something went wrong.`));
       console.log(e);
     }

@@ -72,7 +72,7 @@ module.exports = {
       } else {
         return editOrReply(context, createEmbed('warning', context, 'No urls found.'));
       }
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('warning', context, `No results found.`));
     }

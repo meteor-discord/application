@@ -105,7 +105,7 @@ module.exports = {
         .field('LanguageChoiceWrapper', REXTESTER_LANGUAGES[args.lang]);
 
       data = JSON.parse(data.text);
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Code execution failed.'));
     }

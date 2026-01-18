@@ -118,10 +118,10 @@ async function translateMessage(context, message, to, from) {
       message: result,
       metadata: translation.response.body,
     };
-  } catch {
+  } catch (e) {
     console.log(e);
     console.log(mappings);
-    throw 'Translation Failed.';
+    throw new Error('Translation Failed.');
   }
 }
 
@@ -199,7 +199,7 @@ module.exports = {
             embeds: newMessage.embeds,
           })
         );
-      } catch {
+      } catch (e) {
         console.log(e);
         return editOrReply(context, createEmbed('error', context, 'Unable to translate message.'));
       }
@@ -227,14 +227,14 @@ module.exports = {
       return editOrReply(
         context,
         createEmbed('default', context, {
-          description: `-# ${icon('locale')} ​ ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage] || translate.response.body.language.from || 'Detected Language')} ​ ​ ​​${icon('arrow_right')} ​ ​ ​ ​${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [stringwrap(translate.response.body.translation, 1900)])}`,
+          description: `-# ${icon('locale')} ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage] || translate.response.body.language.from || 'Detected Language')} ${icon('arrow_right')} ${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [stringwrap(translate.response.body.translation, 1900)])}`,
           footer: {
             iconUrl: STATICS.googletranslate,
             text: `Google Translate • ${context.application.name}`,
           },
         })
       );
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status && e.response.body.status === 2)
         return editOrReply(context, createEmbed('error', context, `Unable to translate text.`));
       console.log(e);

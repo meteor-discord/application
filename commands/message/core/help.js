@@ -211,7 +211,7 @@ module.exports = {
             createCommandPage(context, prefix, results[0], context.interactionCommandClient.commands)
           );
         }
-      } catch {
+      } catch (e) {
         console.log(e);
       }
     } else {

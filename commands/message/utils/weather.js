@@ -151,7 +151,7 @@ module.exports = {
           },
         ],
       });
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('warning', context, `No weather data available for given location.`));
     }

@@ -45,7 +45,7 @@ module.exports = {
           },
         })
       );
-    } catch {
+    } catch (e) {
       console.error(e);
       if (e.response?.body?.message)
         return editOrReply(

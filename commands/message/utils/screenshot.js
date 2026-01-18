@@ -61,7 +61,7 @@ module.exports = {
         ],
         files: [{ filename: 'screenshot.png', value: ss.response.body }],
       });
-    } catch {
+    } catch (e) {
       console.log(e);
       if (e.response?.body?.status === 2)
         return await editOrReply(context, createEmbed('error', context, e.response.body.message));

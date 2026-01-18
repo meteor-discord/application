@@ -74,7 +74,7 @@ module.exports = {
         ],
         files,
       });
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, e.response.body.message));
     }

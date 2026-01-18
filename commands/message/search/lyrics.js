@@ -127,7 +127,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);

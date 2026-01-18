@@ -75,7 +75,7 @@ module.exports = {
           },
         })
       );
-    } catch {
+    } catch (e) {
       if (e.response?.body?.status && e.response.body.status === 2)
         return editOrReply(context, createEmbed('error', context, `Unable to translate text.`));
       console.log(e);

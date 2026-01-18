@@ -154,7 +154,7 @@ module.exports = {
       const refMappings = search.results;
 
       await quoraPaginator(context, pages, refMappings, refMappings[0].ref);
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform quora search.`));
     }

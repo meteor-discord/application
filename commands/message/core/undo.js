@@ -39,7 +39,7 @@ module.exports = {
       }
 
       if (context.canManage) await context.message.delete();
-    } catch {
+    } catch (e) {
       console.log(e);
     }
   },

@@ -93,7 +93,7 @@ module.exports = {
         context,
         pages: formatPaginationEmbeds(pages),
       });
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, `Unable to perform rule34 search.`));
     }

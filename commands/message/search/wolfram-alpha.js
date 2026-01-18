@@ -136,7 +136,7 @@ module.exports = {
           },
         },
       });
-    } catch {
+    } catch (e) {
       if (e.response?.body?.error)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(e);

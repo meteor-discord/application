@@ -41,7 +41,7 @@ module.exports = {
           description: display.join('\n'),
         })
       );
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Unable to fetch bot statistics.'));
     }

@@ -66,14 +66,14 @@ module.exports = {
         context,
         createEmbed('default', context, {
           author,
-          description: `${msg}${iconPill('agreements', 'Scores')} ​ ​ ​ *${link('https://developers.perspectiveapi.com/s/about-the-api-attributes-and-languages', 'What do these mean?', 'Check out the detection details.')}* ${codeblock('ansi', formatPerspectiveScores(perspectiveApi.response.body))}`,
+          description: `${msg}${iconPill('agreements', 'Scores')} *${link('https://developers.perspectiveapi.com/s/about-the-api-attributes-and-languages', 'What do these mean?', 'Check out the detection details.')}* ${codeblock('ansi', formatPerspectiveScores(perspectiveApi.response.body))}`,
           footer: {
             iconUrl: STATICS.perspectiveapi,
             text: `Perspective • ${context.application.name}`,
           },
         })
       );
-    } catch {
+    } catch (e) {
       await editOrReply(context, createEmbed('error', context, `Something went wrong.`));
       console.log(e);
     }

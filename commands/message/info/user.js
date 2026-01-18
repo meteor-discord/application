@@ -125,7 +125,7 @@ module.exports = {
           },
         ],
       });
-    } catch {
+    } catch (e) {
       console.log(e);
       return editOrReply(context, createEmbed('error', context, 'Unable to display user info.'));
     }

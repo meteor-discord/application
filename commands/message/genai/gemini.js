@@ -167,7 +167,7 @@ module.exports = {
           components,
         });
       }
-    } catch {
+    } catch (e) {
       if (e.response?.body?.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
 

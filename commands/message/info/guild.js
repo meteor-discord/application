@@ -114,7 +114,7 @@ module.exports = {
       }
 
       return editOrReply(context, guildCard);
-    } catch {
+    } catch (e) {
       console.log(e);
     }
   },
