@@ -20,25 +20,6 @@ const { paginator } = require('#client');
 
 const onlyEmoji = require('emoji-aware').onlyEmoji;
 
-function toCodePoint(unicodeSurrogates, sep) {
-  let r = [],
-    c = 0,
-    p = 0,
-    i = 0;
-  while (i < unicodeSurrogates.length) {
-    c = unicodeSurrogates.charCodeAt(i++);
-    if (p) {
-      r.push((0x10000 + ((p - 0xd800) << 10) + (c - 0xdc00)).toString(16));
-      p = 0;
-    } else if (0xd800 <= c && c <= 0xdbff) {
-      p = c;
-    } else {
-      r.push(c.toString(16));
-    }
-  }
-  return r.join(sep || '-');
-}
-
 module.exports = {
   name: 'emoji',
   description: 'Turn emoji into images. Supports both built-in and custom emoji.',
@@ -63,7 +44,7 @@ module.exports = {
     await acknowledge(context, args.incognito, [...PERMISSION_GROUPS.baseline_slash]);
 
     const { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
-    embeds = [];
+    const embeds = [];
     if (matches.length) {
       const pages = [];
       const entries = [];
@@ -74,7 +55,7 @@ module.exports = {
 
       while (entries.length) {
         const sprites = entries.splice(0, 4);
-        const embeds = [];
+        const pageEmbeds = [];
         for (const s of sprites) {
           const fields = sprites.map(s => {
             return {
@@ -85,9 +66,9 @@ module.exports = {
           });
           if (fields.length >= 3) {
             fields.splice(2, 0, { name: ` `, value: ` `, inline: true });
-            if (fields.length == 5) fields.push({ name: ` `, value: ` `, inline: true });
+            if (fields.length === 5) fields.push({ name: ` `, value: ` `, inline: true });
           }
-          embeds.push(
+          pageEmbeds.push(
             createEmbed('default', context, {
               url: 'https://lajczi.dev',
               fields,
@@ -124,7 +105,7 @@ module.exports = {
             for (const em of emoji) {
               try {
                 await emojiKitchen([em]);
-              } catch (e) {
+              } catch {
                 return editOrReply(context, createEmbed('warning', context, `Unsupported Emoji (${em})`));
               }
             }
@@ -132,7 +113,7 @@ module.exports = {
             return editOrReply(context, createEmbed('error', context, 'Combination not supported.'));
           }
           return editOrReply(context, createEmbed('image', context, { url: em.body.results[0].url }));
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('error', context, 'Unable to mix emoji.'));
         }
       }
@@ -145,7 +126,7 @@ module.exports = {
       try {
         res = await emojipedia(context, emoji[0]);
         res = res.response.body;
-      } catch (e) {
+      } catch {
         return await editOrReply(context, createEmbed('error', context, `No emoji data available for ${emoji[0]}.`));
       }
 

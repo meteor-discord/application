@@ -101,10 +101,10 @@ async function translateMessage(context, message, to, from) {
 
         if (emb.description) newEmbed.description = stringwrap(tr['embeds/' + i + '/description'], 4096);
 
-        if (emb.author) newEmbed.author = { ...emb.author};
+        if (emb.author) newEmbed.author = { ...emb.author };
         if (emb.author?.name) newEmbed.author.name = stringwrap(tr['embeds/' + i + '/author/name'], 256);
 
-        if (emb.footer) newEmbed.footer = { ...emb.footer};
+        if (emb.footer) newEmbed.footer = { ...emb.footer };
         if (emb.footer?.text) newEmbed.footer.text = stringwrap(tr['embeds/' + i + '/footer/text'], 2048);
 
         if (emb.fields) {
@@ -119,7 +119,7 @@ async function translateMessage(context, message, to, from) {
             fi++;
           }
         }
-        result.embeds[i] = { ...newEmbed};
+        result.embeds[i] = { ...newEmbed };
         i++;
       }
     }
@@ -131,7 +131,7 @@ async function translateMessage(context, message, to, from) {
   } catch (e) {
     console.log(e);
     console.log(mappings);
-    throw 'Translation Failed.';
+    throw new Error('Translation Failed.');
   }
 }
 
@@ -168,7 +168,7 @@ module.exports = {
                 components.components[0].components[0].options[i].value === ctx.data.values[0];
             }
 
-            const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
+            const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || 'auto'] || '';
             const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
 
             const newMessage = translate.message;
@@ -177,7 +177,7 @@ module.exports = {
 
             return await ctx.editOrRespond({
               content: stringwrap(
-                `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from || sourceLanguage] || translate.metadata.language.from || args.from}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
+                `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from] || translate.metadata.language.from || 'Auto'}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
                 2000
               ),
               embeds: newMessage.embeds,
@@ -205,7 +205,7 @@ module.exports = {
         options: selectLanguageOptions,
       });
 
-      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || sourceLanguage] || '';
+      const fromFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.from || 'auto'] || '';
       const toFlag = TRANSLATE_DISPLAY_MAPPINGS[translate.metadata.language.to] || '';
 
       const newMessage = translate.message;
@@ -216,7 +216,7 @@ module.exports = {
         context,
         createEmbed('default', context, {
           content: stringwrap(
-            `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from || sourceLanguage] || translate.metadata.language.from || args.from}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
+            `-# ${icon('subtext_translate')} Translated from  ${fromFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.from] || translate.metadata.language.from || 'Auto'}** to  ${toFlag} **${TRANSLATE_LANGUAGES[translate.metadata.language.to] || translate.metadata.language.to}**  •  Google Translate${newMessageContent}`,
             2000
           ),
           embeds: newMessage.embeds,

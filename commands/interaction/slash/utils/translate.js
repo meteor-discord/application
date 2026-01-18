@@ -92,7 +92,7 @@ module.exports = {
       return editOrReply(
         context,
         createEmbed('default', context, {
-          description: `-# ${icon('locale')} ​ ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || sourceLanguage] || translate.response.body.language.from || 'Detected Language')} ​ ​ ​​${icon('arrow_right')} ​ ​ ​ ​${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [translate.response.body.translation])}`,
+          description: `-# ${icon('locale')} ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from || 'auto'] || translate.response.body.language.from || 'Detected Language')} ${icon('arrow_right')} ${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [translate.response.body.translation])}`,
           footer: {
             iconUrl: STATICS.googletranslate,
             text: `Google Translate • ${context.application.name}`,

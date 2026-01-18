@@ -4,7 +4,7 @@ const { PERMISSION_GROUPS } = require('#constants');
 const { hexToDecimalColor } = require('#utils/color');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { link, icon, iconAsEmojiObject, citation } = require('#utils/markdown');
+const { icon, link, stringwrap, citation, iconAsEmojiObject } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 
@@ -155,7 +155,7 @@ module.exports = {
                 const c = components.components[0].components[0];
 
                 components.components[0].components[0].options[i].default =
-                  components.components[0].components[0].options[i].value == value;
+                  components.components[0].components[0].options[i].value === value;
                 components.components[0].components[0].options[i].emoji = iconAsEmojiObject(
                   `maps_${search.places[i].place.icon}_pin`
                 );
@@ -234,7 +234,7 @@ module.exports = {
         components,
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('warning', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

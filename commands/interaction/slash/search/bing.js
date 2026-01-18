@@ -36,11 +36,11 @@ function createSearchResultPage(context, entry) {
       if (entry.result.deepLinks) {
         const fl = entry.result.deepLinks;
         while (fl.length >= 1) {
-          fields = fl.splice(0, 4);
-          fields = fields.map(f => link(f.url, f.title));
+          const fields = fl.splice(0, 4);
+          const fieldLinks = fields.map(f => link(f.url, f.title));
           res.embeds[0].fields.push({
             name: '​',
-            value: fields.join('\n'),
+            value: fieldLinks.join('\n'),
             inline: true,
           });
         }

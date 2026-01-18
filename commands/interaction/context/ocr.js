@@ -7,7 +7,6 @@ const { acknowledge } = require('#utils/interactions');
 const { codeblock, pill, icon, stringwrap } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
-const { Context, Argument } = require('detritus-client/lib/command');
 
 const {
   ApplicationCommandTypes,
@@ -61,7 +60,7 @@ module.exports = {
           return editOrReply(
             context,
             createEmbed('default', context, {
-              description: `-# ${icon('locale')} ​ ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from] || translate.response.body.language.from || 'Detected Language')} ​ ​ ​​${icon('arrow_right')} ​ ​ ​ ​${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [stringwrap(translate.response.body.translation, 1900)])}`,
+              description: `-# ${icon('locale')} ${fromFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.from] || translate.response.body.language.from || 'Detected Language')} ${icon('arrow_right')} ${toFlag} ${pill(TRANSLATE_LANGUAGES[translate.response.body.language.to] || translate.response.body.language.to)}\n${codeblock('ansi', [stringwrap(translate.response.body.translation, 1900)])}`,
               thumbnail: {
                 url: attachment,
               },

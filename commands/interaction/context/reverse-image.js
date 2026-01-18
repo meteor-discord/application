@@ -61,7 +61,7 @@ module.exports = {
       let search = await reverseImageSearch(context, attachment);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {

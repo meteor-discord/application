@@ -44,18 +44,15 @@ function renderLyricsFooter(context, provider) {
         text: `Musixmatch • ${context.application.name}`,
         iconUrl: STATICS.musixmatch,
       };
-      break;
     case LYRIC_PROVIDERS.GENIUS:
       return {
         text: `Genius • ${context.application.name}`,
         iconUrl: STATICS.genius,
       };
-      break;
     case LYRIC_PROVIDERS.LRCLIB:
       return {
         text: `LRCLib • ${context.application.name}`,
       };
-      break;
     default: // Fallback, this should never happen
       return {
         text: context.application.name,
@@ -106,7 +103,7 @@ module.exports = {
       let search = await lyrics(context, args.query);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
       const fields = [];
 
       for (const f of search.body.lyrics.split('\n\n')) {
@@ -141,7 +138,7 @@ module.exports = {
         pages: formatPaginationEmbeds(pages),
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status == 2 && e.response.body.message)
+      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
         return editOrReply(context, createEmbed('error', context, e.response.body.message));
       console.log(JSON.stringify(e.raw) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));

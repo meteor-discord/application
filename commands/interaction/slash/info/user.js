@@ -1,14 +1,13 @@
-const { BADGE_ICONS, PERMISSION_GROUPS } = require('#constants');
+const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { smallIconPill, highlight, smallPill, icon, timestamp } = require('#utils/markdown');
+const { smallIconPill, smallPill, icon, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { renderBadges, getUserAvatar } = require('#utils/users');
 
 const {
   ApplicationCommandOptionTypes,
-  UserFlags,
   InteractionContextTypes,
   ApplicationIntegrationTypes,
 } = require('detritus-client/lib/constants');

@@ -60,7 +60,7 @@ module.exports = {
             ],
             components: btns,
           });
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('warning', context, 'No results found.'));
         }
       } else {

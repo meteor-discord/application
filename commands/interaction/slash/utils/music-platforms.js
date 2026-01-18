@@ -60,13 +60,13 @@ module.exports = {
             ],
             components: btns,
           });
-        } catch (e) {
+        } catch {
           return editOrReply(context, createEmbed('warning', context, 'No results found.'));
         }
       } else {
         return editOrReply(context, createEmbed('warning', context, 'No urls found.'));
       }
-    } catch (e) {
+    } catch {
       console.log(e);
       await editOrReply(context, createEmbed('error', context, 'Unable to look up song url.'));
     }

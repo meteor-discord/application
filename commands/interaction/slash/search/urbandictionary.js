@@ -31,7 +31,7 @@ function createUrbanPage(context, result) {
     });
   e.fields.push({
     name: 'Stats',
-    value: `${iconPill('upvote', result.score.likes)}  ​  ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
+    value: `${iconPill('upvote', result.score.likes)} ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
     inline: true,
   });
   if (result.example)
@@ -70,7 +70,7 @@ module.exports = {
       let search = await urbandictionary(context, args.term);
       search = search.response;
 
-      if (search.body.status == 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.body.status === 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {

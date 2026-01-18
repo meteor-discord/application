@@ -1,6 +1,6 @@
 const { movie } = require('#api');
 const { paginator } = require('#client');
-const { PERMISSION_GROUPS, OMNI_ANIME_FORMAT_TYPES, OMNI_MOVIE_TYPES } = require('#constants');
+const { PERMISSION_GROUPS, OMNI_MOVIE_TYPES } = require('#constants');
 
 const { hexToDecimalColor } = require('#utils/color');
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
@@ -67,7 +67,7 @@ module.exports = {
       let search = await movie(context, args.query, context.channel.nsfw);
       search = search.response;
 
-      if (search.body.status == 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
 
       const pages = [];
       for (const res of search.body.results) {
@@ -81,9 +81,9 @@ module.exports = {
         pages: formatPaginationEmbeds(pages),
       });
     } catch (e) {
-      if (e.response?.body?.status == 1)
+      if (e.response?.body?.status === 1)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
-      if (e.response?.body?.status == 2)
+      if (e.response?.body?.status === 2)
         return editOrReply(context, createEmbed('warning', context, e.response?.body?.message));
 
       console.log(e);

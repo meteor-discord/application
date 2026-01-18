@@ -205,7 +205,7 @@ module.exports = {
     try {
       if (!args.type) args.type = 'all';
 
-      if (args.type == 'all') args.type = undefined;
+      if (args.type === 'all') args.type = undefined;
       else {
         if (!YOUTUBE_CATEGORIES[args.type.toLowerCase()])
           return editOrReply(context, createEmbed('warning', context, `Invalid Parameter (type).`));
