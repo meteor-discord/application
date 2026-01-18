@@ -1,7 +1,7 @@
 {
-  "name": "labscore",
+  "name": "application",
   "version": "1.0.0",
-  "description": "labsCore discord bot frontend",
+  "description": "Meteor Discord app frontend.",
   "main": "index.js",
   "scripts": {
     "start": "node .",
@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/bignutty/labscore.git"
+    "url": "git+https://github.com/meteor-discord/application.git"
   },
-  "bugs": {
-    "url": "https://gitlab.com/bignutty/labscore/-/issues"
-  },
-  "keywords": [],
-  "author": "bignutty",
+  "author": "Meteor Labs",
   "license": "CC BY-NC-SA 4.0",
+  "packageManager": "pnpm@10.23.0",
   "dependencies": {
     "detritus-client": "^0.17.0-beta.86",
     "dotenv": "^16.4.7",
