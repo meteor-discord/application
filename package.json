@@ -20,13 +20,12 @@
     "pnpm": ">=10"
   },
   "dependencies": {
-    "detritus-client": "^0.17.0-beta.86",
+    "detritus-client": "0.17.0-beta.89",
     "detritus-client-rest": "0.11.0-beta.21",
     "emoji-aware": "^3.1.0",
     "eventemitter3": "^5.0.1",
     "prettier": "^3.8.0",
-    "superagent": "^10.1.1",
-    "utils": "gitlab:bignutty/utils"
+    "superagent": "^10.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       detritus-client:
-        specifier: ^0.17.0-beta.86
+        specifier: 0.17.0-beta.89
         version: 0.17.0-beta.89(eventemitter3@5.0.1)
       detritus-client-rest:
         specifier: 0.11.0-beta.21
@@ -24,11 +24,8 @@ importers:
         specifier: ^3.8.0
         version: 3.8.0
       superagent:
-        specifier: ^10.1.1
+        specifier: ^10.3.0
         version: 10.3.0
-      utils:
-        specifier: gitlab:bignutty/utils
-        version: https://gitlab.com/api/v4/projects/bignutty%2Futils/repository/archive.tar.gz?sha=ed2716a5e765e53a079ce0ff7ceb4845dd7efa19
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.2
@@ -734,10 +731,6 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
-
-  utils@https://gitlab.com/api/v4/projects/bignutty%2Futils/repository/archive.tar.gz?sha=ed2716a5e765e53a079ce0ff7ceb4845dd7efa19:
-    resolution: {tarball: https://gitlab.com/api/v4/projects/bignutty%2Futils/repository/archive.tar.gz?sha=ed2716a5e765e53a079ce0ff7ceb4845dd7efa19}
-    version: 1.0.1
 
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
@@ -1487,8 +1480,6 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
-
-  utils@https://gitlab.com/api/v4/projects/bignutty%2Futils/repository/archive.tar.gz?sha=ed2716a5e765e53a079ce0ff7ceb4845dd7efa19: {}
 
   which@2.0.2:
     dependencies:
