@@ -25,14 +25,14 @@
     "utils": "gitlab:bignutty/utils"
   },
   "imports": {
-    "#api": "./labscore/api/index.js",
-    "#cardstack/*": "./labscore/cardstack/*.js",
-    "#client": "./labscore/client.js",
-    "#constants": "./labscore/constants.js",
-    "#logging": "./labscore/logging.js",
-    "#obelisk": "./labscore/api/obelisk/index.js",
-    "#parameters": "./labscore/parameters/index.js",
-    "#permissions": "./labscore/permissions.js",
-    "#utils/*": "./labscore/utils/*.js"
+    "#api": "./charmer/api/index.js",
+    "#cardstack/*": "./charmer/cardstack/*.js",
+    "#client": "./charmer/client.js",
+    "#constants": "./charmer/constants.js",
+    "#logging": "./charmer/logging.js",
+    "#obelisk": "./charmer/api/obelisk/index.js",
+    "#parameters": "./charmer/parameters/index.js",
+    "#permissions": "./charmer/permissions.js",
+    "#utils/*": "./charmer/utils/*.js"
   }
 }

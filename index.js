@@ -10,7 +10,7 @@ const time = Date.now();
 const token = process.env.token;
 
 // Get the correct path for each environment type
-let client = './labscore/client.js';
+let client = './charmer/client.js';
 if (process.env.PATH_OVERRIDE) client = process.env.PATH_OVERRIDE;
 
 const SHARDS = process.env.SHARDS || 2;
