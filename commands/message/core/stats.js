@@ -20,8 +20,8 @@ module.exports = {
     await acknowledge(context);
 
     try {
-      const shardUsage = process.memoryUsage();
-      const usage = shardUsage.heapTotal + shardUsage.external + shardUsage.arrayBuffers;
+      const memoryUsage = process.memoryUsage();
+      const usage = memoryUsage.heapTotal + memoryUsage.external + memoryUsage.arrayBuffers;
       const guilds = context.client.guilds.length;
 
       const display = [`${iconPill('home', 'Servers      ')} ${highlight(` ${formatNumber(guilds, 1)} `)}`];
