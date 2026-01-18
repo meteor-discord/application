@@ -5,7 +5,6 @@ const {
   PERMISSION_GROUPS,
   EMOJIPEDIA_PLATFORM_PRIORITY,
 } = require('#constants');
-const { ingest } = require('#logging');
 
 const { createEmbed, formatPaginationEmbeds } = require('#utils/embed');
 const { pill, iconPill, highlight, timestamp, smallIconPill, icon } = require('#utils/markdown');
@@ -49,7 +48,6 @@ module.exports = {
     examples: ['e 😀', 'emojimix 🐱 🍞'],
     category: 'utils',
     usage: 'emoji <emoji> [<emoji to mix>]',
-    use_custom_ingest: true,
     slashCommand: 'emoji',
   },
   args: [{ name: 'type', default: 'twitter', type: 'string', help: `Emoji platform type` }],

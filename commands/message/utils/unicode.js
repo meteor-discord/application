@@ -5,7 +5,6 @@ const {
   PERMISSION_GROUPS,
   EMOJIPEDIA_PLATFORM_PRIORITY,
 } = require('#constants');
-const { ingest } = require('#logging');
 
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { pill, iconPill, highlight, timestamp, smallIconPill, icon, smallPill } = require('#utils/markdown');

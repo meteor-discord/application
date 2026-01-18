@@ -90,7 +90,7 @@ const commandClient = new CommandClient(client, {
 
 const interactionClient = new InteractionCommandClient(client);
 
-const { maintower, basecamp, formatErrorMessage } = require('#logging');
+const { logError, logMessage, formatErrorMessage } = require('#logging');
 
 const { createEmbed } = require('#utils/embed');
 const { icon, highlight } = require('#utils/markdown');
@@ -152,39 +152,43 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
 
 commandClient.on('commandRunError', async ({ context, error }) => {
   try {
-    // No service configured
-    if (!process.env.MAINTOWER_URL) {
-      console.log(error);
-
-      await editOrReply(context, {
-        content: `${icon('cross')} Something went wrong while attempting to run this command. (check console)`,
-      });
-
-      return;
-    }
-
     console.error(error ? error.stack || error.message : error);
 
-    // Log the error via our maintower service
-    let packages = {
+    // Prepare error packages for logging
+    const packages = {
       data: {},
       origin: {},
       meta: {},
     };
 
-    if (context.user)
-      packages.origin.user = { name: `${context.user.username}#${context.user.discriminator}`, id: context.user.id };
-    if (context.guild) packages.origin.guild = { name: context.guild.name, id: context.guild.id };
-    if (context.channel) packages.origin.channel = { name: context.channel.name, id: context.channel.id };
+    if (context.user) {
+      packages.origin.user = {
+        name: `${context.user.username}#${context.user.discriminator}`,
+        id: context.user.id,
+      };
+    }
+    if (context.guild) {
+      packages.origin.guild = {
+        name: context.guild.name,
+        id: context.guild.id,
+      };
+    }
+    if (context.channel) {
+      packages.origin.channel = {
+        name: context.channel.name,
+        id: context.channel.id,
+      };
+    }
 
     packages.data.command = context.message.content;
     packages.data.error = error ? error.stack || error.message : error;
     if (error.raw) packages.data.raw = JSON.stringify(error.raw, null, 2);
 
-    let req = await maintower(packages, '01');
+    // Log to Discord webhook (non-blocking)
+    logError(packages, '01').catch(err => console.error('Failed to log error:', err));
 
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command. (Reference: \`${req}\`)`,
+      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
   } catch (e) {
     await editOrReply(context, {
@@ -195,39 +199,43 @@ commandClient.on('commandRunError', async ({ context, error }) => {
 
 interactionClient.on('commandRunError', async ({ context, error }) => {
   try {
-    // No service configured
-    if (!process.env.MAINTOWER_URL) {
-      console.error(error ? error.stack || error.message : error);
-
-      await editOrReply(context, {
-        content: `${icon('cross')} Something went wrong while attempting to run this command. (check console)`,
-      });
-
-      return;
-    }
-
     console.error(error ? error.stack || error.message : error);
 
-    // Log the error via our maintower service
-    let packages = {
+    // Prepare error packages for logging
+    const packages = {
       data: {},
       origin: {},
       meta: {},
     };
 
-    if (context.user)
-      packages.origin.user = { name: `${context.user.username}#${context.user.discriminator}`, id: context.user.id };
-    if (context.guild) packages.origin.guild = { name: context.guild.name, id: context.guild.id };
-    if (context.channel) packages.origin.channel = { name: context.channel.name, id: context.channel.id };
+    if (context.user) {
+      packages.origin.user = {
+        name: `${context.user.username}#${context.user.discriminator}`,
+        id: context.user.id,
+      };
+    }
+    if (context.guild) {
+      packages.origin.guild = {
+        name: context.guild.name,
+        id: context.guild.id,
+      };
+    }
+    if (context.channel) {
+      packages.origin.channel = {
+        name: context.channel.name,
+        id: context.channel.id,
+      };
+    }
 
     packages.data.command = context.command.name;
     packages.data.error = error ? error.stack || error.message : error;
     if (error.raw) packages.data.raw = JSON.stringify(error.raw, null, 2);
 
-    let req = await maintower(packages, '01');
+    // Log to Discord webhook (non-blocking)
+    logError(packages, '01').catch(err => console.error('Failed to log error:', err));
 
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command. (Reference: \`${req}\`)`,
+      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
     });
   } catch (e) {
     console.log(e);
@@ -238,32 +246,34 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
 });
 
 (async () => {
-  // Logging
   client.on(ClientEvents.REST_RESPONSE, async ({ response, restRequest }) => {
-    // No service configured
-    if (!process.env.MAINTOWER_URL) return;
-
     const route = response.request.route;
     if (route) {
       if (!response.ok) {
         const message = `(NOT OK) ${response.statusCode} ${response.request.method}-${response.request.url} (${route.path})`;
         console.log(message);
-        console.log(await response.text());
-        await basecamp(
+        const responseText = await response.text();
+        console.log(responseText);
+
+        // Log to Discord webhook (non-blocking)
+        logMessage(
           formatErrorMessage(
             3,
             'REST_ERROR',
-            `REST request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${await response.text()}\`\`\``
+            `REST request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${responseText.substring(0, 500)}\`\`\``
           )
-        );
+        ).catch(err => console.error('Failed to log REST error:', err));
       }
     }
   });
 
   client.on(ClientEvents.WARN, async ({ error }) => {
     console.warn(error);
-    if (!process.env.MAINTOWER_URL) return;
-    await basecamp(formatErrorMessage(2, 'CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``));
+
+    // Log to Discord webhook (non-blocking)
+    logMessage(formatErrorMessage(2, 'CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``)).catch(err =>
+      console.error('Failed to log warning:', err)
+    );
   });
 
   try {
