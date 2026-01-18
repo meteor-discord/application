@@ -54,7 +54,7 @@ module.exports = {
       if (attachment && validateAttachment(attachment, 'image')) {
         attachment = attachment.url;
       } else {
-        delete attachment;
+        attachment = null;
       }
       if (!attachment) return editOrReply(context, createEmbed('warning', context, 'No images found.'));
 
