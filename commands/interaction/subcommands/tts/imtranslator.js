@@ -23,30 +23,34 @@ module.exports = {
       description: 'Text',
       type: ApplicationCommandOptionTypes.STRING,
       required: true,
-      maxLength: 256
+      maxLength: 256,
     },
     {
       name: 'incognito',
       description: 'Makes the response only visible to you.',
       type: ApplicationCommandOptionTypes.BOOLEAN,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   ],
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
-    try{
-      let s = Date.now()
-      let audio = await imtranslator(context, args.text, args.voice)
-      let diff = (Date.now() - s)
+    try {
+      let s = Date.now();
+      let audio = await imtranslator(context, args.text, args.voice);
+      let diff = Date.now() - s;
       await context.editOrRespond({
-        embeds: [createEmbed("defaultNoFooter", context, { description: `${icon("audio")} Audio Generated in ${highlight(audio.timings + "s")}.` })],
-        file: { value: audio.response.body, filename: "tts.wav" }
-      })
-    }catch(e){
+        embeds: [
+          createEmbed('defaultNoFooter', context, {
+            description: `${icon('audio')} Audio Generated in ${highlight(audio.timings + 's')}.`,
+          }),
+        ],
+        file: { value: audio.response.body, filename: 'tts.wav' },
+      });
+    } catch (e) {
       await context.editOrRespond({
-        embeds: [createEmbed("error", context, "Unable to generate audio file.")]
-      })
+        embeds: [createEmbed('error', context, 'Unable to generate audio file.')],
+      });
     }
   },
 };

@@ -13,25 +13,27 @@ module.exports = {
     description: 'Generates a random inspirational quote.',
     description_short: 'Inspirational Quotes',
     category: 'fun',
-    usage: `inspire`
+    usage: `inspire`,
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
-  run: async (context) => {
+  run: async context => {
     await acknowledge(context);
-    
-    try {
-      let res = await superagent.get(`https://inspirobot.me/api?generate=true`)
-        .set("User-Agent", "labscore/2.0")
 
-      return await editOrReply(context, createEmbed("image", context, {
-        url: res.text,
-        provider: {
-          icon: STATICS.inspirobot,
-          text: "Inspirobot"
-        }
-      }))
+    try {
+      let res = await superagent.get(`https://inspirobot.me/api?generate=true`).set('User-Agent', 'labscore/2.0');
+
+      return await editOrReply(
+        context,
+        createEmbed('image', context, {
+          url: res.text,
+          provider: {
+            icon: STATICS.inspirobot,
+            text: 'Inspirobot',
+          },
+        })
+      );
     } catch (e) {
-      return editOrReply(context, createEmbed("error", context, `Unable to fetch inspirational quote.`))
+      return editOrReply(context, createEmbed('error', context, `Unable to fetch inspirational quote.`));
     }
-  }
+  },
 };

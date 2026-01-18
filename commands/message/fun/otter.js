@@ -3,7 +3,7 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { editOrReply } = require('#utils/message')
+const { editOrReply } = require('#utils/message');
 
 module.exports = {
   name: 'otter',
@@ -12,23 +12,26 @@ module.exports = {
     description_short: 'Otter images',
     category: 'fun',
     usage: `otter`,
-    slashCommand: "otter"
+    slashCommand: 'otter',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
-  run: async (context) => {
+  run: async context => {
     await acknowledge(context);
-    
-    try{
-      const ott = (await otter()).response.body
-    
-      return editOrReply(context, createEmbed("default", context, {
-        image: {
-          url: ott.url
-        }
-      }))
-    }catch(e){
-      console.log(e)
-      return editOrReply(context, createEmbed("error", context, `Unable to fetch otter.`))
+
+    try {
+      const ott = (await otter()).response.body;
+
+      return editOrReply(
+        context,
+        createEmbed('default', context, {
+          image: {
+            url: ott.url,
+          },
+        })
+      );
+    } catch (e) {
+      console.log(e);
+      return editOrReply(context, createEmbed('error', context, `Unable to fetch otter.`));
     }
-  }
+  },
 };

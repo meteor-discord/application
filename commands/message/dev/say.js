@@ -1,24 +1,24 @@
-const { acknowledge } = require("#utils/interactions");
+const { acknowledge } = require('#utils/interactions');
 
 module.exports = {
-  label: "text",
-  name: "say",
+  label: 'text',
+  name: 'say',
   metadata: {
     description: 'speak.',
     description_short: 'speak',
     examples: ['say hug'],
     category: 'dev',
-    usage: 'say <text>'
+    usage: 'say <text>',
   },
   onBefore: context => context.user.isClientOwner,
-  onCancel: ()=>{},
+  onCancel: () => {},
   run: async (context, args) => {
     await acknowledge(context);
-    
-    if(context.message.canDelete) context.message.delete();
+
+    if (context.message.canDelete) context.message.delete();
     await context.reply({
       content: args.text,
-      allowedMentions: {parse: [], repliedUser: false}
+      allowedMentions: { parse: [], repliedUser: false },
     });
-  }
+  },
 };

@@ -1,7 +1,7 @@
 module.exports = {
-  Paginator: require("./structures/Paginator"),
-  PaginatorCluster: require("./structures/PaginatorCluster"),
+  Paginator: require('./structures/Paginator'),
+  PaginatorCluster: require('./structures/PaginatorCluster'),
   get version() {
-      return require("../package").version;
-  }
+    return require('../package').version;
+  },
 };

@@ -1,19 +1,15 @@
-const {createEmbed, page} = require("#utils/embed");
-const {iconAsEmojiObject, codeblock} = require("#utils/markdown");
-const {editOrReply} = require("#utils/message");
-const {STATIC_ASSETS} = require("#utils/statics");
+const { createEmbed, page } = require('#utils/embed');
+const { iconAsEmojiObject, codeblock } = require('#utils/markdown');
+const { editOrReply } = require('#utils/message');
+const { STATIC_ASSETS } = require('#utils/statics');
 
-const {Context} = require("detritus-client/lib/command");
-const {MessageComponentTypes, InteractionCallbackTypes, MessageFlags} = require("detritus-client/lib/constants");
-const {Message} = require("detritus-client/lib/structures");
-const {ComponentContext, ComponentActionRow, ComponentButton} = require("detritus-client/lib/utils");
+const { Context } = require('detritus-client/lib/command');
+const { MessageComponentTypes, InteractionCallbackTypes, MessageFlags } = require('detritus-client/lib/constants');
+const { Message } = require('detritus-client/lib/structures');
+const { ComponentContext, ComponentActionRow, ComponentButton } = require('detritus-client/lib/utils');
 
-const {
-  STACK_CACHE_KEYS,
-  BuiltInButtonTypes,
-  ResolveCallbackTypes
-} = require("./constants");
-const {InteractiveComponentTypes, DEFAULT_BUTTON_STYLES} = require("#cardstack/constants");
+const { STACK_CACHE_KEYS, BuiltInButtonTypes, ResolveCallbackTypes } = require('./constants');
+const { InteractiveComponentTypes, DEFAULT_BUTTON_STYLES } = require('#cardstack/constants');
 
 /**
  * Stores all active card stacks
@@ -21,7 +17,7 @@ const {InteractiveComponentTypes, DEFAULT_BUTTON_STYLES} = require("#cardstack/c
  */
 const activeStacks = new WeakMap();
 
-const { xid } = require("utils");
+const { xid } = require('utils');
 
 /**
  * DynamicCardStack represents an interactive stacks
@@ -50,13 +46,14 @@ class DynamicCardStack {
     this.options = options;
 
     this.cards = options.cards || [];
-    this.buttons = options.buttons || ["previous", "next"]
+    this.buttons = options.buttons || ['previous', 'next'];
     this.interactive_components = options.interactive || {};
     this.index = options.startingIndex || 0;
     this.loopPages = options.loop || true;
     this.expires = options.expires || 60 * 1000;
     this.pageNumbers = options.pageNumbers || true;
-    this.pageNumberGenerator = options.pageNumberGenerator || ((pg) => `Page ${pg.index + 1}/${pg.activeCardStack.length}`);
+    this.pageNumberGenerator =
+      options.pageNumberGenerator || (pg => `Page ${pg.index + 1}/${pg.activeCardStack.length}`);
     this.disableCloning = options.disableCloning || false;
     this.flags = options.flags || 0;
 
@@ -98,16 +95,16 @@ class DynamicCardStack {
     return setTimeout(async () => {
       // If we have an interaction within the expiry window
       // restart the expiry window with 30s
-      if((this.lastInteraction - this.spawned) > 0){
-        clearTimeout(this.timeout)
+      if (this.lastInteraction - this.spawned > 0) {
+        clearTimeout(this.timeout);
         this.spawned = Date.now();
         // New expiry time is 30 seconds
-        this.expires = 30*1000;
+        this.expires = 30 * 1000;
         this.timeout = this._createTimeout();
       } else {
         await this.kill(true);
       }
-    }, this.expires)
+    }, this.expires);
   }
 
   /**
@@ -143,15 +140,15 @@ class DynamicCardStack {
 
     this.activeCardStack = [...this.cards];
 
-    this.updatePageState()
+    this.updatePageState();
 
-    this.timeout = this._createTimeout()
-    this.spawned = Date.now()
+    this.timeout = this._createTimeout();
+    this.spawned = Date.now();
 
-
-    if (createMessage) return this._edit({
-      ...this.getCurrentCard()
-    });
+    if (createMessage)
+      return this._edit({
+        ...this.getCurrentCard(),
+      });
 
     return this;
   }
@@ -163,8 +160,8 @@ class DynamicCardStack {
     let i = 0;
     this.pageState = [];
     for (const ac of this.cards) {
-      if (ac["_meta"]) {
-        this.pageState[i] = Object.assign({}, ac["_meta"]);
+      if (ac['_meta']) {
+        this.pageState[i] = Object.assign({}, ac['_meta']);
       }
       i++;
     }
@@ -183,12 +180,17 @@ class DynamicCardStack {
       // This creates an error card with debug information
       // in case that our activeCardStack gets corrupted
       // or lost somehow (bad implementation)
-      if (!this.activeCardStack[index]) card = page(createEmbed("errordetail", this.context, {
-        error: "Unable to resolve card.",
-        content: `Index: \`${this.index}\`, Stack Size: \`${this.index}\`\n` +
-          (Object.keys(this.getAllStateForPage(this.index)).length >= 1 ?
-            codeblock("json", [JSON.stringify(this.getAllStateForPage(this.index), null, 2)]).substring(0, 5000) : "")
-      }))
+      if (!this.activeCardStack[index])
+        card = page(
+          createEmbed('errordetail', this.context, {
+            error: 'Unable to resolve card.',
+            content:
+              `Index: \`${this.index}\`, Stack Size: \`${this.index}\`\n` +
+              (Object.keys(this.getAllStateForPage(this.index)).length >= 1
+                ? codeblock('json', [JSON.stringify(this.getAllStateForPage(this.index), null, 2)]).substring(0, 5000)
+                : ''),
+          })
+        );
 
       /*
       if (!card.content) card.content = "";
@@ -201,14 +203,14 @@ class DynamicCardStack {
       // - We have more than one card in the active stack
       // - We have embeds in the stack
       if (this.pageNumbers && card.embeds?.length && this.activeCardStack.length >= 2) {
-        card.embeds = card.embeds.map((e) => {
-          if (!e.footer) e.footer = {text: this.pageNumberGenerator(this)}
+        card.embeds = card.embeds.map(e => {
+          if (!e.footer) e.footer = { text: this.pageNumberGenerator(this) };
           else {
             if (e.footer.text) e.footer.text += ` • ${this.pageNumberGenerator(this)}`;
             else e.footer.text = this.pageNumberGenerator(this);
           }
           return e;
-        })
+        });
       }
 
       // TODO: ensure flags don't get overwritten/allow supplying custom flags
@@ -216,12 +218,14 @@ class DynamicCardStack {
 
       return card;
     } catch (e) {
-      console.error("Card rendering failed:")
-      console.error(e)
-      return page(createEmbed("errordetail", this.context, {
-        error: "Unable to render card:",
-        content: codeblock("js", [(e ? e.stack || e.message : e).replaceAll(process.cwd(), '')])
-      }))
+      console.error('Card rendering failed:');
+      console.error(e);
+      return page(
+        createEmbed('errordetail', this.context, {
+          error: 'Unable to render card:',
+          content: codeblock('js', [(e ? e.stack || e.message : e).replaceAll(process.cwd(), '')]),
+        })
+      );
     }
   }
 
@@ -236,7 +240,7 @@ class DynamicCardStack {
     }
 
     if (this.currentSelectedSubcategory == null) this.rootIndex = this.index;
-    return Object.assign(this.getCardByIndex(this.index), {components: this._renderComponents()});
+    return Object.assign(this.getCardByIndex(this.index), { components: this._renderComponents() });
   }
 
   /**
@@ -251,7 +255,7 @@ class DynamicCardStack {
     }
 
     if (this.currentSelectedSubcategory == null) this.rootIndex = this.index;
-    return Object.assign(this.getCardByIndex(this.index), {components: this._renderComponents()});
+    return Object.assign(this.getCardByIndex(this.index), { components: this._renderComponents() });
   }
 
   /**
@@ -270,19 +274,19 @@ class DynamicCardStack {
       message.components = components;
     }
 
-    if (message["_meta"]) delete message["_meta"];
+    if (message['_meta']) delete message['_meta'];
 
     try {
       return editOrReply(this.context, {
         ...message,
         reference: true,
-        allowedMentions: {parse: [], repliedUser: false},
+        allowedMentions: { parse: [], repliedUser: false },
         // TODO: allow supplying flags
-        flags: this.flags
-      })
+        flags: this.flags,
+      });
     } catch (e) {
-      console.error("Message editing failed:")
-      console.error(e)
+      console.error('Message editing failed:');
+      console.error(e);
     }
   }
 
@@ -292,7 +296,7 @@ class DynamicCardStack {
    * @returns {Message} Card
    */
   getCurrentCard() {
-    return this.getCardByIndex(this.index)
+    return this.getCardByIndex(this.index);
   }
 
   /**
@@ -300,8 +304,8 @@ class DynamicCardStack {
    * @param {String} key
    */
   getState(key) {
-    if (typeof(this.pageState[this.rootIndex]) == "undefined") return null;
-    if (typeof(this.pageState[this.rootIndex][key]) == "undefined") return null;
+    if (typeof this.pageState[this.rootIndex] == 'undefined') return null;
+    if (typeof this.pageState[this.rootIndex][key] == 'undefined') return null;
     return this.pageState[this.rootIndex][key];
   }
 
@@ -342,34 +346,34 @@ class DynamicCardStack {
   _renderButton(id, button, disabled = false) {
     // Validate if the component should be visible on this page.
     // If a function is provided we need to execute it.
-    if (typeof (button.visible) === "boolean" && button.visible === false) return null;
-    else if (typeof (button.visible) === "function" && !button.visible(this)) return null;
+    if (typeof button.visible === 'boolean' && button.visible === false) return null;
+    else if (typeof button.visible === 'function' && !button.visible(this)) return null;
 
     let component = {
       type: MessageComponentTypes.BUTTON,
       // id/XID is used for dynamically generated components via BUTTON_GENERATOR
-      customId: button.customId ? id + "/" + xid(button.customId) : id,
+      customId: button.customId ? id + '/' + xid(button.customId) : id,
       style: button.style || 2,
-      disabled: disabled
-    }
+      disabled: disabled,
+    };
 
     // Dynamic disabling
-    if (!disabled && button.condition && typeof (button.condition) == "function")
+    if (!disabled && button.condition && typeof button.condition == 'function')
       component.disabled = !button.condition(this);
 
     // Dynamic label
     if (button.label) {
-      if (typeof (button.label) === "function") component.label = button.label(this);
+      if (typeof button.label === 'function') component.label = button.label(this);
       else component.label = button.label;
     }
 
-    if (button.icon) component.emoji = iconAsEmojiObject(button.icon) || undefined
+    if (button.icon) component.emoji = iconAsEmojiObject(button.icon) || undefined;
 
     // Change color if this is the active button.
     if (this.currentSelectedSubcategory === id) component.style = component.activeColor || 1;
 
     // Add to active components cache
-    if (component.customId.includes("/")) this.currentComponentsBatch[component.customId] = button;
+    if (component.customId.includes('/')) this.currentComponentsBatch[component.customId] = button;
 
     return new ComponentButton(component);
   }
@@ -395,10 +399,10 @@ class DynamicCardStack {
         customId: b,
         style: 2,
         disabled: this.activeCardStack.length === 1 || disabled,
-      }
+      };
 
-      if(DEFAULT_BUTTON_STYLES[b].icon) btn.emoji = iconAsEmojiObject(DEFAULT_BUTTON_STYLES[b].icon);
-      if(DEFAULT_BUTTON_STYLES[b].label) btn.label = DEFAULT_BUTTON_STYLES[b].label;
+      if (DEFAULT_BUTTON_STYLES[b].icon) btn.emoji = iconAsEmojiObject(DEFAULT_BUTTON_STYLES[b].icon);
+      if (DEFAULT_BUTTON_STYLES[b].label) btn.label = DEFAULT_BUTTON_STYLES[b].label;
 
       componentSlots[0].push(new ComponentButton(btn));
     }
@@ -418,11 +422,11 @@ class DynamicCardStack {
           }
           break;
         default:
-          console.error("Unknown Component Type: " + button.type + ".")
+          console.error('Unknown Component Type: ' + button.type + '.');
       }
       if (renderedButtons.length) {
         // null means the button shouldn't be rendered.
-        for (const r of renderedButtons.filter((rb) => rb !== null)) componentSlots[button.slot || 0].push(r);
+        for (const r of renderedButtons.filter(rb => rb !== null)) componentSlots[button.slot || 0].push(r);
       }
     }
 
@@ -440,15 +444,16 @@ class DynamicCardStack {
 
         // Avoid adding listeners to disabled components
         // for optimization's sake
-        if(c.disabled) row.addButton(c);
-        else row.addButton({
-          ...c,
-          run: this._handleInteraction.bind(this)
-        })
+        if (c.disabled) row.addButton(c);
+        else
+          row.addButton({
+            ...c,
+            run: this._handleInteraction.bind(this),
+          });
 
         // Create a new row for content to overflow in.
         if (row.isFull) {
-          renderedSlots.push(row)
+          renderedSlots.push(row);
           row = new ComponentActionRow({});
         }
       }
@@ -457,7 +462,7 @@ class DynamicCardStack {
       if (!row.isEmpty) renderedSlots.push(row);
     }
 
-    if (renderedSlots.length > 5) console.warn("Component Overflow - Limiting to 5.")
+    if (renderedSlots.length > 5) console.warn('Component Overflow - Limiting to 5.');
 
     return renderedSlots.splice(0, 5);
   }
@@ -492,7 +497,7 @@ class DynamicCardStack {
    * @private
    */
   _getComponent(id) {
-    if (id.includes("/")) return this.currentComponentsBatch[id];
+    if (id.includes('/')) return this.currentComponentsBatch[id];
     return this.interactive_components[id];
   }
 
@@ -520,7 +525,7 @@ class DynamicCardStack {
    */
   async _handleInteraction(ctx) {
     if (ctx.user.id !== this.context.user.id) {
-      if (this.disableCloning) return ctx.respond({type: InteractionCallbackTypes.DEFERRED_UPDATE_MESSAGE});
+      if (this.disableCloning) return ctx.respond({ type: InteractionCallbackTypes.DEFERRED_UPDATE_MESSAGE });
 
       /**
        * Card Stack Cloning
@@ -536,9 +541,11 @@ class DynamicCardStack {
        */
 
       // New message that the new cardstack will attach to.
-      await ctx.respond(InteractionCallbackTypes.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE, {flags: MessageFlags.EPHEMERAL});
+      await ctx.respond(InteractionCallbackTypes.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE, {
+        flags: MessageFlags.EPHEMERAL,
+      });
 
-      let newStack = Object.assign(Object.create(Object.getPrototypeOf(this)), this)
+      let newStack = Object.assign(Object.create(Object.getPrototypeOf(this)), this);
 
       // Reassign the context
       newStack.context = ctx;
@@ -563,12 +570,12 @@ class DynamicCardStack {
     // Built-in Buttons
     if (Object.values(BuiltInButtonTypes).includes(ctx.data.customId)) {
       switch (ctx.data.customId) {
-        case "next":
-          return ctx.editOrRespond(this.nextCard())
-        case "previous":
-          return ctx.editOrRespond(this.previousCard())
+        case 'next':
+          return ctx.editOrRespond(this.nextCard());
+        case 'previous':
+          return ctx.editOrRespond(this.previousCard());
         default:
-          console.error("unknown button??")
+          console.error('unknown button??');
       }
       return;
     }
@@ -585,7 +592,7 @@ class DynamicCardStack {
         this.index = this.rootIndex;
         this.currentSelectedSubcategory = null;
 
-        return await ctx.editOrRespond(Object.assign(this.getCurrentCard(), {components: this._renderComponents()}));
+        return await ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
       } else this.currentSelectedSubcategory = cid;
 
       let resolveTime = Date.now();
@@ -594,7 +601,7 @@ class DynamicCardStack {
         // If we have a cached result, retrieve it
         if (this._getCachedValue(this.rootIndex, cid, STACK_CACHE_KEYS.RESULT_CARDS) !== null) {
           this.activeCardStack = [...this._getCachedValue(this.rootIndex, cid, STACK_CACHE_KEYS.RESULT_CARDS)];
-          await ctx.editOrRespond(Object.assign(this.getCurrentCard(), {components: this._renderComponents()}));
+          await ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
           return;
         } else {
           // Controls if we should display a loading (skeleton) embed while the
@@ -602,21 +609,22 @@ class DynamicCardStack {
           // ever be used if we rely on local data or can guarantee almost-instant
           // processing/fetching times.
           if (!component.instantResult) {
-            let processingEmbed = page(createEmbed("default", ctx, {
-              image: {
-                url: STATIC_ASSETS.card_skeleton
-              }
-            }))
+            let processingEmbed = page(
+              createEmbed('default', ctx, {
+                image: {
+                  url: STATIC_ASSETS.card_skeleton,
+                },
+              })
+            );
 
             // Render a custom loading skeleton embed
             // TODO: maybe allow several loading modes here
             //    i.e COPY_PARENT which will copy select fields
             //    from the parent embed or SKELETON_WITH_TITLE.
             //      -> needs iterating on visual language first
-            if (component.renderLoadingState)
-              processingEmbed = page(component.renderLoadingState(this, component));
+            if (component.renderLoadingState) processingEmbed = page(component.renderLoadingState(this, component));
 
-            await ctx.editOrRespond(Object.assign(processingEmbed, {components: this._renderComponents(true)}))
+            await ctx.editOrRespond(Object.assign(processingEmbed, { components: this._renderComponents(true) }));
           }
 
           // Compute the active cardstack.
@@ -646,7 +654,9 @@ class DynamicCardStack {
               // types probably need revalidating/re-fetching since the parent
               // has changed and might carry new data/state.
               if (!this._getComponent(ctx.data.customId).disableCache) {
-                this._setCachedValue(this.rootIndex, ctx.data.customId, STACK_CACHE_KEYS.RESULT_CARDS, [...this.activeCardStack]);
+                this._setCachedValue(this.rootIndex, ctx.data.customId, STACK_CACHE_KEYS.RESULT_CARDS, [
+                  ...this.activeCardStack,
+                ]);
               }
               break;
             /**
@@ -681,7 +691,6 @@ class DynamicCardStack {
               this.currentSelectedSubcategory = null;
               break;
           }
-
         }
       } catch (e) {
         // Display an error if we're NOT
@@ -689,18 +698,20 @@ class DynamicCardStack {
         // things badly).
         if (this.currentSelectedSubcategory != null)
           this.activeCardStack = [
-            page(createEmbed("errordetail", ctx, {
-              error: "Card stack rendering failed.",
-              content: codeblock("js", [(e ? e.stack || e.message : e).replaceAll(process.cwd(), '')])
-            }))
+            page(
+              createEmbed('errordetail', ctx, {
+                error: 'Card stack rendering failed.',
+                content: codeblock('js', [(e ? e.stack || e.message : e).replaceAll(process.cwd(), '')]),
+              })
+            ),
           ];
-        console.error("Card Resolving Failed:")
-        console.error(e)
+        console.error('Card Resolving Failed:');
+        console.error(e);
       }
 
       // Update the card stack with a card from the new stack.
       if (component.instantResult) {
-        await ctx.editOrRespond(Object.assign(this.getCurrentCard(), {components: this._renderComponents()}))
+        await ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
       } else {
         // This timeout exists 1. for cosmetic reasons so people can
         // see the skeleton state and 2. in order to avoid a really
@@ -709,18 +720,18 @@ class DynamicCardStack {
 
         // If we've already waited at least 2 seconds during processing
         // it *should* be safe to just edit the message now.
-        if ((Date.now() - resolveTime) < 2000) {
+        if (Date.now() - resolveTime < 2000) {
           setTimeout(() => {
-            return ctx.editOrRespond(Object.assign(this.getCurrentCard(), {components: this._renderComponents()}))
-          }, 1500)
+            return ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
+          }, 1500);
         } else {
-          await ctx.editOrRespond(Object.assign(this.getCurrentCard(), {components: this._renderComponents()}))
+          await ctx.editOrRespond(Object.assign(this.getCurrentCard(), { components: this._renderComponents() }));
         }
       }
       return;
     }
 
-    console.error("Unknown button was triggered on stack: " + ctx.data.customId);
+    console.error('Unknown button was triggered on stack: ' + ctx.data.customId);
   }
 }
 

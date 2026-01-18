@@ -1,90 +1,98 @@
-const { googleGenaiGeminiApi } = require("#api");
-const { PERMISSION_GROUPS } = require("#constants");
+const { googleGenaiGeminiApi } = require('#api');
+const { PERMISSION_GROUPS } = require('#constants');
 
-const { createEmbed } = require("#utils/embed");
-const { acknowledge } = require("#utils/interactions");
-const { stringwrap, iconPill, smallIconPill } = require("#utils/markdown");
-const { editOrReply } = require("#utils/message");
-const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require("#utils/statics");
-const { hasFeature } = require("#utils/testing");
+const { createEmbed } = require('#utils/embed');
+const { acknowledge } = require('#utils/interactions');
+const { stringwrap, iconPill, smallIconPill } = require('#utils/markdown');
+const { editOrReply } = require('#utils/message');
+const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('#utils/statics');
+const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'gemini-pro',
   label: 'text',
-  aliases: ['gpro','gempro','gem-pro'],
+  aliases: ['gpro', 'gempro', 'gem-pro'],
   metadata: {
-    description: `${iconPill("generative_ai", "LIMITED TESTING")}\n${smallIconPill("reply", "Supports Replies")}\n\nRun Gemini 2.5 Pro with a custom prompt.`,
+    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini 2.5 Pro with a custom prompt.`,
     description_short: 'Gemini 2.5 Pro',
     examples: ['gem why do they call it oven when you of in the cold food of out hot eat the food'],
     category: 'limited',
-    usage: 'gemini-pro <input> [<prompt>]'
+    usage: 'gemini-pro <input> [<prompt>]',
   },
   args: [
-    { name: 'prompt', default: '', required: false, help: "The starting system prompt." },
-    { name: 'model', default: 'gemini-2.5-pro-preview-05-06', required: false, help: "The model." },
-//    { name: 'temperature', default: 0.25, required: false, help: "Model temperature." },
+    { name: 'prompt', default: '', required: false, help: 'The starting system prompt.' },
+    { name: 'model', default: 'gemini-2.5-pro-preview-05-06', required: false, help: 'The model.' },
+    //    { name: 'temperature', default: 0.25, required: false, help: "Model temperature." },
   ],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if(!await hasFeature(context, "ai/gemini/text")) return;
+    if (!(await hasFeature(context, 'ai/gemini/text'))) return;
     await acknowledge(context);
-    
-    if(!args.text) return editOrReply(context, createEmbed("warning", context, `Missing Parameter (text).`))
-  
-    let model = "gemini-2.5-pro-preview-05-06"
-    if(args.model && await hasFeature(context, "ai/gpt/model-selection")) model = args.model;
+
+    if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
+
+    let model = 'gemini-2.5-pro-preview-05-06';
+    if (args.model && (await hasFeature(context, 'ai/gpt/model-selection'))) model = args.model;
 
     let input = args.text;
 
-    let prompt = `You are a friendly assistant designed to help people.\n- Today\'s date is ${new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"long", day:"numeric"})}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.\n- Respond in a natural way, using Markdown formatting.`
-    if(args.prompt !== "") prompt = args.prompt
+    let prompt = `You are a friendly assistant designed to help people.\n- Today\'s date is ${new Date().toLocaleDateString('en-us', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}\n- You should always use gender neutral pronouns when possible.\n- When answering a question, be concise and to the point.\n- Try to keep responses below 1000 characters. This does not apply to subjects that require more exhaustive or in-depth explanation.\n- Respond in a natural way, using Markdown formatting.`;
+    if (args.prompt !== '') prompt = args.prompt;
 
-    try{
-      await editOrReply(context, createEmbed("defaultNoFooter", context, {
-        author: {
-          iconUrl: STATIC_ICONS.ai_gemini,
-          name: `​`
-        },
-        image: {
-          url: STATIC_ASSETS.chat_loading_small
-        }
-      }))
+    try {
+      await editOrReply(
+        context,
+        createEmbed('defaultNoFooter', context, {
+          author: {
+            iconUrl: STATIC_ICONS.ai_gemini,
+            name: `​`,
+          },
+          image: {
+            url: STATIC_ASSETS.chat_loading_small,
+          },
+        })
+      );
 
-      let res = await googleGenaiGeminiApi(context, model, input, prompt)
+      let res = await googleGenaiGeminiApi(context, model, input, prompt);
 
-      let description = []
+      let description = [];
       let files = [];
-      
-      if(res.response.body.message) return editOrReply(context, createEmbed("error", context, e.response.body.message))
 
-      let output = res.response.body.output
-      if(!output) return editOrReply(context, createEmbed("error", context, `Gemini returned an error. Try again later.`)) 
+      if (res.response.body.message)
+        return editOrReply(context, createEmbed('error', context, e.response.body.message));
 
-      if(output.length <= 4000) description.push(output)
+      let output = res.response.body.output;
+      if (!output)
+        return editOrReply(context, createEmbed('error', context, `Gemini returned an error. Try again later.`));
+
+      if (output.length <= 4000) description.push(output);
       else {
         files.push({
           filename: `gemini.${Date.now().toString(36)}.txt`,
-          value: Buffer.from(output)
-        })
+          value: Buffer.from(output),
+        });
       }
 
       return editOrReply(context, {
-        embeds:[createEmbed("defaultNoFooter", context, {
-          author: {
-            name: stringwrap(input, 50, false),
-            iconUrl: STATIC_ICONS.ai_gemini
-          },
-          description: description.join('\n'),
-          footer: {
-            text: `${model} • Data submitted to Gemini may be used by Google for training.`
-          }
-        })],
-        files
-      })
-    } catch(e){
-      console.log(e)
-      if(e.response?.body?.message) return editOrReply(context, createEmbed("error", context, e.response.body.message))
-      return editOrReply(context, createEmbed("error", context, `Gemini API failed.`))
+        embeds: [
+          createEmbed('defaultNoFooter', context, {
+            author: {
+              name: stringwrap(input, 50, false),
+              iconUrl: STATIC_ICONS.ai_gemini,
+            },
+            description: description.join('\n'),
+            footer: {
+              text: `${model} • Data submitted to Gemini may be used by Google for training.`,
+            },
+          }),
+        ],
+        files,
+      });
+    } catch (e) {
+      console.log(e);
+      if (e.response?.body?.message)
+        return editOrReply(context, createEmbed('error', context, e.response.body.message));
+      return editOrReply(context, createEmbed('error', context, `Gemini API failed.`));
     }
-  }
+  },
 };

@@ -1,6 +1,6 @@
 // Adapted from https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/Xid.java
-const START_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const CHARS = START_CHARS + "0123456789";
+const START_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const CHARS = START_CHARS + '0123456789';
 const START_RADIX = START_CHARS.length;
 const RADIX = CHARS.length;
 
@@ -24,16 +24,18 @@ const RADIX = CHARS.length;
  * @param input Input
  * @returns {string} Xid
  */
-module.exports.Xid = (input) => {
-  if(typeof(input)==="string"){
-    var h = 0, i, c;
+module.exports.Xid = input => {
+  if (typeof input === 'string') {
+    var h = 0,
+      i,
+      c;
     if (input.length === 0) return h;
     for (i = 0; i < input.length; i++) {
       c = input.charCodeAt(i);
-      h = ((h << 5) - h) + c;
+      h = (h << 5) - h + c;
       h |= 0;
     }
-    if(h<=0) h = h*-1;
+    if (h <= 0) h = h * -1;
     input = h;
   }
 
@@ -49,5 +51,5 @@ module.exports.Xid = (input) => {
     input = Math.floor(input / RADIX);
   }
 
-  return buf.slice(0, len).reverse().join("");
-}
+  return buf.slice(0, len).reverse().join('');
+};

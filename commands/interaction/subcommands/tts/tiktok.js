@@ -15,6 +15,6 @@ module.exports = {
     require('./tiktok/italian'),
     require('./tiktok/korean'),
     require('./tiktok/portugese'),
-    require('./tiktok/indonesian')
-  ]
+    require('./tiktok/indonesian'),
+  ],
 };

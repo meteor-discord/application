@@ -1,21 +1,20 @@
-
 module.exports.BuiltInButtonTypes = Object.freeze({
-  NEXT_PAGE: "next",
-  PREVIOUS_PAGE: "previous"
-})
+  NEXT_PAGE: 'next',
+  PREVIOUS_PAGE: 'previous',
+});
 
 module.exports.DEFAULT_BUTTON_STYLES = Object.freeze({
   [this.BuiltInButtonTypes.NEXT_PAGE]: {
-    label: "❯"
+    label: '❯',
   },
   [this.BuiltInButtonTypes.PREVIOUS_PAGE]: {
-    label: "❮"
-  }
-})
+    label: '❮',
+  },
+});
 
 module.exports.STACK_CACHE_KEYS = Object.freeze({
-  RESULT_CARDS: 0
-})
+  RESULT_CARDS: 0,
+});
 
 /**
  * Callback Types for a Dynamic Card Stack
@@ -34,8 +33,8 @@ module.exports.ResolveCallbackTypes = Object.freeze({
   UNKNOWN_CALLBACK_TYPE: 0,
   SUBSTACK: 1,
   REPLACE_PARENT_CARD: 2,
-  REPLACE_STACK: 3
-})
+  REPLACE_STACK: 3,
+});
 
 /**
  * @typedef {number} InteractiveComponentTypes
@@ -53,5 +52,5 @@ module.exports.InteractiveComponentTypes = Object.freeze({
   /** A singular dynamic button */
   BUTTON: 1,
   /** Button generator that can return as many buttons as are necessary. */
-  BUTTON_GENERATOR: 2
+  BUTTON_GENERATOR: 2,
 });

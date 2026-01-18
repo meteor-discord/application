@@ -6,6 +6,6 @@ module.exports = {
     require('../subcommands/tts/microsoft'),
     require('../subcommands/tts/moonbase'),
     require('../subcommands/tts/playht'),
-    require('../subcommands/tts/imtranslator')
-  ]
+    require('../subcommands/tts/imtranslator'),
+  ],
 };

@@ -1,13 +1,10 @@
-const { ClusterClient } = require("detritus-client");
-const Paginator = require("./Paginator");
-const assert = require("assert");
+const { ClusterClient } = require('detritus-client');
+const Paginator = require('./Paginator');
+const assert = require('assert');
 
 module.exports = class PaginatorCluster {
   constructor(clusterClient, data = {}) {
-    assert.ok(
-      clusterClient instanceof ClusterClient,
-      "clusterClient must be an instance of ClusterClient"
-    );
+    assert.ok(clusterClient instanceof ClusterClient, 'clusterClient must be an instance of ClusterClient');
 
     const paginators = new WeakMap();
 
@@ -34,4 +31,4 @@ module.exports = class PaginatorCluster {
 
     return targetPaginator.createPaginator(data);
   }
-}
+};

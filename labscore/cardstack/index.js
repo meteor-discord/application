@@ -1,4 +1,4 @@
-const { DynamicCardStack } = require("./stack");
+const { DynamicCardStack } = require('./stack');
 
 module.exports = {
   /**
@@ -20,8 +20,8 @@ module.exports = {
    *
    * @returns {DynamicCardStack}
    */
-  createDynamicCardStack: (context, options)=>{
+  createDynamicCardStack: (context, options) => {
     new DynamicCardStack(context, options);
   },
-  CARD_STACK_CONSTANTS: require("./constants"),
-}
+  CARD_STACK_CONSTANTS: require('./constants'),
+};

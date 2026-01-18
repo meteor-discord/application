@@ -1,9 +1,9 @@
 const { PERMISSION_GROUPS } = require('#constants');
-const { format } = require('#utils/ansi')
+const { format } = require('#utils/ansi');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { codeblock, icon } = require('#utils/markdown')
-const { editOrReply } = require('#utils/message')
+const { codeblock, icon } = require('#utils/markdown');
+const { editOrReply } = require('#utils/message');
 
 module.exports = {
   description: 'ping!',
@@ -12,15 +12,23 @@ module.exports = {
     description: 'Displays information about the bots connection to discord.',
     description_short: 'Bot connection details',
     category: 'core',
-    usage: 'ping'
+    usage: 'ping',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
-  run: async (context) => {
+  run: async context => {
     await acknowledge(context);
-    
-    ping = await context.client.ping()
-    editOrReply(context, createEmbed("default", context, {
-      description: `${icon("latency")} **Pong!**\n` + codeblock("ansi", [`rest      ${format(`${ping.rest}ms`, "m")}`, `gateway   ${format(`${ping.gateway}ms`, "m")}`])
-    }))
+
+    ping = await context.client.ping();
+    editOrReply(
+      context,
+      createEmbed('default', context, {
+        description:
+          `${icon('latency')} **Pong!**\n` +
+          codeblock('ansi', [
+            `rest      ${format(`${ping.rest}ms`, 'm')}`,
+            `gateway   ${format(`${ping.gateway}ms`, 'm')}`,
+          ]),
+      })
+    );
   },
 };

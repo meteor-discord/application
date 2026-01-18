@@ -1,8 +1,8 @@
 const Hosts = Object.freeze({
-  prod: "https://labscore-v2.vercel.app",
-  local: "http://localhost",
-  statics: "https://bignutty.gitlab.io/webstorage4/v2/"
-})
+  prod: 'https://labscore-v2.vercel.app',
+  local: 'http://localhost',
+  statics: 'https://bignutty.gitlab.io/webstorage4/v2/',
+});
 
 const Api = Object.freeze({
   HOST: Hosts.prod,
@@ -29,7 +29,7 @@ const Api = Object.freeze({
   IMAGE_SUPERRESOLUTION: '/image/deepai/superresolution',
   IMAGE_TEXT2IMAGE: '/image/deepai/text2image',
   IMAGE_WAIFU2X: '/image/deepai/waifu2x',
-  
+
   IMAGE_EMOGEN: '/image/emogen/generate',
 
   OMNI_ANIME: '/omni/anime',
@@ -84,9 +84,9 @@ const Api = Object.freeze({
   UTILS_UNICODE_METADATA: '/utils/unicode-metadata',
   UTILS_WEATHER: '/utils/weather',
   UTILS_WEBSHOT: '/utils/webshot',
-})
+});
 
 module.exports = {
   Api,
-  Hosts
-}
+  Hosts,
+};

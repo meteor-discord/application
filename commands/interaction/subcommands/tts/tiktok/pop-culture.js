@@ -7,11 +7,12 @@ const { icon, highlight } = require('#utils/markdown');
 
 const { ApplicationCommandOptionTypes } = require('detritus-client/lib/constants');
 
-let voices = []
-for(const k of Object.keys(TIKTOK_VOICES_POP_CULTURE)) voices.unshift({
-  value: k,
-  name: TIKTOK_VOICES_POP_CULTURE[k]
-})
+let voices = [];
+for (const k of Object.keys(TIKTOK_VOICES_POP_CULTURE))
+  voices.unshift({
+    value: k,
+    name: TIKTOK_VOICES_POP_CULTURE[k],
+  });
 
 module.exports = {
   description: 'Voices of Pop Culture Characters.',
@@ -22,7 +23,7 @@ module.exports = {
       name: 'text',
       description: 'Text',
       type: ApplicationCommandOptionTypes.STRING,
-      required: true
+      required: true,
     },
     {
       name: 'voice',
@@ -35,29 +36,33 @@ module.exports = {
       description: 'Makes the response only visible to you.',
       type: ApplicationCommandOptionTypes.BOOLEAN,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   ],
   run: async (context, args) => {
     await acknowledge(context, args.incognito);
-    
+
     try {
-      if(args.text.length >= 101) return await context.editOrRespond({
-        embeds: [createEmbed("warning", context, "Text too long (must be 100 or shorter).")]
-      })
+      if (args.text.length >= 101)
+        return await context.editOrRespond({
+          embeds: [createEmbed('warning', context, 'Text too long (must be 100 or shorter).')],
+        });
 
-      let audio = await tiktok(context, args.text, args.voice)
+      let audio = await tiktok(context, args.text, args.voice);
 
       await context.editOrRespond({
-        embeds: [createEmbed("defaultNoFooter", context, { description: `${icon("audio")} Audio Generated in ${highlight(audio.timings + "s")}.` })],
-        file: { value: audio.response.body, filename: "tiktok.mp3" }
-      })
-
+        embeds: [
+          createEmbed('defaultNoFooter', context, {
+            description: `${icon('audio')} Audio Generated in ${highlight(audio.timings + 's')}.`,
+          }),
+        ],
+        file: { value: audio.response.body, filename: 'tiktok.mp3' },
+      });
     } catch (e) {
-      console.log(e)
+      console.log(e);
       await context.editOrRespond({
-        embeds: [createEmbed("error", context, "Unable to generate audio file.")]
-      })
+        embeds: [createEmbed('error', context, 'Unable to generate audio file.')],
+      });
     }
   },
 };

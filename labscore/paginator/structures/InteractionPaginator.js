@@ -1,4 +1,4 @@
-const BasePaginator = require("./BasePaginator");
+const BasePaginator = require('./BasePaginator');
 
 module.exports = class InteractionPaginator extends BasePaginator {
   constructor(client, data) {
