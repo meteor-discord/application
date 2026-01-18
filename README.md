@@ -36,4 +36,5 @@ See the [contributing guide](CONTRIBUTING.md) for details on how to contribute.
 ## Copyright
 
 labsCore © 2024-2026 by bignutty
+
 Meteor Labs © 2026
