@@ -38,18 +38,15 @@ function renderLyricsFooter(context, provider) {
         text: `Musixmatch • ${context.application.name}`,
         iconUrl: STATICS.musixmatch,
       };
-      break;
     case LYRIC_PROVIDERS.GENIUS:
       return {
         text: `Genius • ${context.application.name}`,
         iconUrl: STATICS.genius,
       };
-      break;
     case LYRIC_PROVIDERS.LRCLIB:
       return {
         text: `LRCLib • ${context.application.name}`,
       };
-      break;
     default: // Fallback, this should never happen
       return {
         text: context.application.name,

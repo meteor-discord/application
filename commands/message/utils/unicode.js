@@ -1,7 +1,9 @@
 const { unicodeMetadata } = require('#api');
+const { paginator } = require('#client');
 const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, page } = require('#utils/embed');
+const { acknowledge } = require('#utils/interactions');
 const { pill, smallIconPill, smallPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
@@ -52,7 +54,7 @@ module.exports = {
         );
       }
 
-      return createDynamicCardStack(context, {
+      return paginator.createCardStack(context, {
         cards: pages,
       });
     } catch (e) {

@@ -139,19 +139,19 @@ module.exports.stringwrapPreserveWords = function (content = '', length, newline
 };
 
 module.exports.pill = function (content = '') {
-  return '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
+  return '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
 };
 
 module.exports.smallPill = function (content = '') {
-  return '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + ' `';
+  return '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + ' `';
 };
 
 module.exports.iconPill = function (icon, content = '') {
-  return _icon(icon) + '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
+  return _icon(icon) + '  **` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `**';
 };
 
 module.exports.smallIconPill = function (icon, content = '') {
-  return _icon(icon) + '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `';
+  return _icon(icon) + '  ` ' + _escapeCodeblock(content).replace(/ /g, ' ') + '  `';
 };
 
 module.exports.iconLinkPill = function (icon, url, content = '', tooltip = '') {
@@ -162,7 +162,7 @@ module.exports.iconLinkPill = function (icon, url, content = '', tooltip = '') {
 
 module.exports.linkPill = function (url, content = '', tooltip = '') {
   if (tooltip.length) tooltip = ` '${tooltip}'`;
-  if (content) return `[**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
+  if (content) return `[**\` ${_escapeCodeblock(content)} \`**](${url.replace(/\)/g, '\\)')}${tooltip})`;
   return url;
 };
 

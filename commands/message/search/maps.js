@@ -8,6 +8,7 @@ const { link, icon, iconAsEmojiObject, citation, stringwrap } = require('#utils/
 const { editOrReply } = require('#utils/message');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
 
+const { InteractionCallbackTypes } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
 function renderPlaceCard(context, place) {
@@ -195,7 +196,7 @@ module.exports = {
                 embeds: [mapCard, ...renderPlaceCard(context, searchSupplemental.place)],
                 components,
               });
-            } catch {
+            } catch (e) {
               console.log(e);
               components.components[0].components[0].disabled = false;
               await ctx.editOrRespond({

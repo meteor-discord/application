@@ -8,6 +8,7 @@ const { codeblock, iconPill, smallPill, stringwrap } = require('#utils/markdown'
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
+const { InteractionCallbackTypes } = require('detritus-client/lib/constants');
 const { Components } = require('detritus-client/lib/utils');
 
 function getPerspectiveColor(score) {
@@ -22,7 +23,7 @@ TODO: this entire code is terrible, rework it some day
 */
 
 function renderPerspectiveAnalysis(payload, input, type) {
-  if (!payload.annotations[type]) throw 'unknown type';
+  if (!payload.annotations[type]) throw new Error('unknown type');
 
   const analysis = payload.annotations[type];
 

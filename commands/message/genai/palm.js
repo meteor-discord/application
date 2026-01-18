@@ -53,11 +53,11 @@ module.exports = {
         );
     }
 
-    let model = 'chat-bison-001';
-    if (args.model && isLimitedTestUser(context.user)) model = args.model;
+    // let model = 'chat-bison-001';
+    // if (args.model && isLimitedTestUser(context.user)) model = args.model;
 
-    let temperature = '0.25';
-    if (args.temperature !== 0.25) temperature = parseFloat(args.temperature);
+    // let temperature = '0.25';
+    // if (args.temperature !== 0.25) temperature = parseFloat(args.temperature);
 
     try {
       await editOrReply(context, createEmbed('ai_custom', context, STATIC_ICONS.ai_palm_idle));

@@ -25,7 +25,7 @@ module.exports = {
 
     // If we have an argument, generate code
     if (args.text.length) {
-      const response = await editOrReply(context, createEmbed('loading', context, `Generating qr code...`));
+      await editOrReply(context, createEmbed('loading', context, `Generating qr code...`));
       try {
         const t = Date.now();
 

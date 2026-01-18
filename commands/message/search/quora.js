@@ -93,7 +93,7 @@ async function quoraPaginator(context, pages, refMappings, currentRef) {
             nextPages = formatPaginationEmbeds(nextPages);
 
             await quoraPaginator(context, nextPages, refMappings, sctx.data.values[0]);
-          } catch {
+          } catch (e) {
             console.log(e);
             return editOrReply(context, createEmbed('error', context, `Unable to perform quora search.`));
           }

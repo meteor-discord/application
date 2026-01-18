@@ -3,11 +3,9 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { icon, highlight, timestamp, smallIconPill, smallPill } = require('#utils/markdown');
+const { icon, timestamp, smallIconPill, smallPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { getUser, renderBadges, getUserAvatar } = require('#utils/users');
-
-const { UserFlags } = require('detritus-client/lib/constants');
 
 module.exports = {
   name: 'user',

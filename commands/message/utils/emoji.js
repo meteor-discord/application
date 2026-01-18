@@ -110,7 +110,6 @@ module.exports = {
     }
 
     const { matches } = Utils.regex(DiscordRegexNames.EMOJI, args.emoji);
-    const embeds = [];
     if (matches.length) {
       const pages = [];
       const entries = [];

@@ -37,7 +37,7 @@ function renderWeatherCard(context, data, units) {
   let description = `### ${weatherIcon(data.result.current.icon.id)} ${temperature(data.result.current.temperature.current, units)}   •   ${data.result.current.condition.label}\n-# Feels like ${temperature(data.result.current.temperature.feels_like, units)}  •   High ${temperature(data.result.current.temperature.max, units)} • Low ${temperature(data.result.current.temperature.min, units)}\n\n${pill('Wind')} `;
 
   if (units === '°F') description += smallPill((data.result.current.wind.speed / 1.609).toFixed(2) + ' mph');
-  else description += smallPill(data.result.current.wind.speed.toFixed(2) + ' km/h');
+  else description += smallPill(data.result.current.wind.speed.toFixed(2) + ' km/h');
 
   const secondaryPills = [];
   if (data.result.current.humidity > 0)
@@ -49,7 +49,7 @@ function renderWeatherCard(context, data, units) {
 
   if (secondaryPills.length >= 1) description += '\n' + secondaryPills.join(`\n`);
   if (data.result.air_quality) {
-    description += `\n${iconPill('air_quality_' + data.result.air_quality.type, 'Air Quality')} ${smallPill(`${data.result.air_quality.label} (${data.result.air_quality.value})`)}`;
+    description += `\n${iconPill('air_quality_' + data.result.air_quality.type, 'Air Quality')} ${smallPill(`${data.result.air_quality.label} (${data.result.air_quality.value})`)}`;
   }
 
   description += `\n\n${iconPill('sun', 'Sunrise')} ${timestamp(data.result.current.sun.sunrise, 't')} ${iconPill('moon', 'Sunset')} ${timestamp(data.result.current.sun.sunset, 't')}`;
@@ -58,7 +58,7 @@ function renderWeatherCard(context, data, units) {
   if (data.result.warnings.length >= 1) {
     for (const w of [data.result.warnings[0]]) {
       if (description.includes(stringwrap(w.label, 50))) continue;
-      description += `\n\n${icon('weather_warning_' + (w.icon || 'generic').toLowerCase())} **${stringwrap(w.label, 50)}**\n-# ${stringwrap(w.source, 50)} • ${link(w.url, 'Learn More', 'Learn more about this alert')}`;
+      description += `\n\n${icon('weather_warning_' + (w.icon || 'generic').toLowerCase())} **${stringwrap(w.label, 50)}**\n-# ${stringwrap(w.source, 50)} • ${link(w.url, 'Learn More', 'Learn more about this alert')}`;
     }
   }
 

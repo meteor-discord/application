@@ -1,6 +1,6 @@
 const { movie } = require('#api');
 const { paginator } = require('#client');
-const { PERMISSION_GROUPS, OMNI_ANIME_FORMAT_TYPES, OMNI_MOVIE_TYPES } = require('#constants');
+const { PERMISSION_GROUPS, OMNI_MOVIE_TYPES } = require('#constants');
 
 const { hexToDecimalColor } = require('#utils/color');
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');

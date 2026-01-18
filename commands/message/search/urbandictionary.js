@@ -25,7 +25,7 @@ function createUrbanPage(context, result) {
     });
   e.fields.push({
     name: 'Stats',
-    value: `${iconPill('upvote', result.score.likes)}  ​  ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
+    value: `${iconPill('upvote', result.score.likes)} ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
     inline: true,
   });
   if (result.example)

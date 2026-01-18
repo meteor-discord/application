@@ -69,7 +69,7 @@ module.exports = {
           iconUrl: getGuildIcon(g),
           url: `https://discord.gg/${inviteCode[1]}`,
         },
-        description: `-# discord.gg/${inviteCode[1]}\n${iconPill('user_multiple', invite.approximateMemberCount.toLocaleString())} ​ ​ • ​ ​ ${smallIconPill('status_online', invite.approximatePresenceCount.toLocaleString())}​ ​ ​ ${smallIconPill('status_offline', (invite.approximateMemberCount - invite.approximatePresenceCount).toLocaleString())}\n\n${gDesc}${smallIconPill('id', 'Server ID')} ${smallPill(g.id)}\n${smallIconPill('calendar', 'Server Created')} ${timestamp(g.createdAt, 'f')}`,
+        description: `-# discord.gg/${inviteCode[1]}\n${iconPill('user_multiple', invite.approximateMemberCount.toLocaleString())} • ${smallIconPill('status_online', invite.approximatePresenceCount.toLocaleString())} ${smallIconPill('status_offline', (invite.approximateMemberCount - invite.approximatePresenceCount).toLocaleString())}\n\n${gDesc}${smallIconPill('id', 'Server ID')} ${smallPill(g.id)}\n${smallIconPill('calendar', 'Server Created')} ${timestamp(g.createdAt, 'f')}`,
         fields: [],
       });
 
