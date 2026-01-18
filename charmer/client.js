@@ -1,4 +1,4 @@
-const { Client, CommandClient, InteractionCommandClient } = require('detritus-client');
+const { ShardClient, CommandClient, InteractionCommandClient } = require('detritus-client');
 const {
   ActivityTypes,
   PresenceStatuses,
@@ -14,7 +14,7 @@ const Paginator = require('./paginator').Paginator;
 
 const token = process.env.token;
 
-const client = new Client(token, {
+const client = new ShardClient(token, {
   cache: { messages: { expire: 30 * 60 * 1000 } },
   gateway: {
     identifyProperties: {
@@ -282,14 +282,14 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     console.log(`[${process.env.HOSTNAME || 'meteor'}] client connected (${Date.now() - startTimings}ms)`);
 
     {
-      await commandClient.addMultipleIn('../commands/message/');
+      await commandClient.addMultipleIn('./commands/message/');
       await commandClient.run();
       console.log(`[${process.env.HOSTNAME || 'meteor'}] command client ready (${Date.now() - startTimings}ms)`);
     }
     {
-      await interactionClient.addMultipleIn('../commands/interaction/context');
-      await interactionClient.addMultipleIn('../commands/interaction/user');
-      await interactionClient.addMultipleIn('../commands/interaction/slash');
+      await interactionClient.addMultipleIn('./commands/interaction/context');
+      await interactionClient.addMultipleIn('./commands/interaction/user');
+      await interactionClient.addMultipleIn('./commands/interaction/slash');
       await interactionClient.run();
       console.log(
         `[${process.env.HOSTNAME || 'meteor'}] interaction command client ready (${Date.now() - startTimings}ms)`

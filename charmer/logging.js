@@ -133,4 +133,13 @@ module.exports.logMessage = async function (message) {
   }
 };
 
+/**
+ * Legacy alias for logMessage
+ * @param {string} message - The formatted message to log
+ * @param {Object} [context] - Optional context (currently unused but kept for backward compatibility)
+ */
+module.exports.basecamp = async function (message, context) {
+  return module.exports.logMessage(message);
+};
+
 module.exports.formatErrorMessage = formatErrorMessage;

@@ -3,21 +3,23 @@ const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('./statics');
 
 const embedTypes = Object.freeze({
   default: context => {
+    const footer = {
+      text: context.application.name,
+    };
+    if (STATICS.labscore) footer.iconUrl = STATICS.labscore;
     return {
       color: COLORS.embed,
-      footer: {
-        iconUrl: STATICS.labscore,
-        text: context.application.name,
-      },
+      footer,
     };
   },
   image: context => {
+    const footer = {
+      text: context.application.name,
+    };
+    if (STATICS.labscore) footer.iconUrl = STATICS.labscore;
     return {
       color: COLORS.embed,
-      footer: {
-        iconUrl: STATICS.labscore,
-        text: context.application.name,
-      },
+      footer,
     };
   },
   defaultNoFooter: context => {
@@ -34,71 +36,79 @@ const embedTypes = Object.freeze({
     };
   },
   warning: context => {
+    const author = {
+      name: `Warning`,
+    };
+    if (STATIC_ICONS.warning) author.iconUrl = STATIC_ICONS.warning;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.warning,
-        name: `Warning`,
-      },
+      author,
       color: COLORS.warning,
     };
   },
   error: context => {
+    const author = {
+      name: `Error`,
+    };
+    if (STATIC_ICONS.error) author.iconUrl = STATIC_ICONS.error;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.error,
-        name: `Error`,
-      },
+      author,
       color: COLORS.error,
     };
   },
   errordetail: context => {
+    const author = {
+      name: `Error`,
+    };
+    if (STATIC_ICONS.error) author.iconUrl = STATIC_ICONS.error;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.error,
-        name: `Error`,
-      },
+      author,
       color: COLORS.error,
     };
   },
   nsfw: context => {
+    const author = {
+      name: `This command is only available in Age Restricted channels.`,
+      url: `https://support.discord.com/hc/en-us/articles/${SUPPORT_ARTICLES.AGE_RESTRICTED_CHANNELS}`,
+    };
+    if (STATIC_ICONS.adult) author.iconUrl = STATIC_ICONS.adult;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.adult,
-        name: `This command is only available in Age Restricted channels.`,
-        url: `https://support.discord.com/hc/en-us/articles/${SUPPORT_ARTICLES.AGE_RESTRICTED_CHANNELS}`,
-      },
+      author,
       color: COLORS.nsfw,
     };
   },
   loading: context => {
+    const author = {
+      name: `Loading`,
+    };
+    if (STATIC_ICONS.loading) author.iconUrl = STATIC_ICONS.loading;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.loading,
-        name: `Loading`,
-      },
+      author,
       color: COLORS.embed,
     };
   },
   ai: context => {
+    const author = {
+      name: `Generating`,
+    };
+    if (STATIC_ICONS.ai) author.iconUrl = STATIC_ICONS.ai;
     return {
-      author: {
-        iconUrl: STATIC_ICONS.ai,
-        name: `Generating`,
-      },
+      author,
       color: COLORS.embed,
     };
   },
   ai_custom: context => {
-    return {
-      author: {
-        iconUrl: STATIC_ICONS.ai,
-        name: `​`,
-      },
-      image: {
-        url: STATIC_ASSETS.chat_loading,
-      },
+    const author = {
+      name: `​`,
+    };
+    if (STATIC_ICONS.ai) author.iconUrl = STATIC_ICONS.ai;
+    const embed = {
+      author,
       color: COLORS.embed,
     };
+    if (STATIC_ASSETS.chat_loading) {
+      embed.image = { url: STATIC_ASSETS.chat_loading };
+    }
+    return embed;
   },
 });
 
@@ -123,8 +133,9 @@ module.exports.createEmbed = function (type, context, content) {
     return emb;
   }
 
-  if (content && content.footer && !content.footer.iconUrl && type !== 'defaultNoFooter')
-    content.footer.iconUrl = STATICS.labscore;
+  if (content && content.footer && !content.footer.iconUrl && type !== 'defaultNoFooter') {
+    if (STATICS.labscore) content.footer.iconUrl = STATICS.labscore;
+  }
 
   if (['image'].includes(type)) {
     if (content.url.includes('://')) {

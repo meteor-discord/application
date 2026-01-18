@@ -11,6 +11,9 @@ importers:
       detritus-client:
         specifier: ^0.17.0-beta.86
         version: 0.17.0-beta.89(eventemitter3@5.0.1)
+      detritus-client-rest:
+        specifier: 0.11.0-beta.21
+        version: 0.11.0-beta.21(eventemitter3@5.0.1)
       emoji-aware:
         specifier: ^3.1.0
         version: 3.1.0

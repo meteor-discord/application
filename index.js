@@ -1,4 +1,4 @@
-console.log(`[Meteor] launching bot`);
+console.log(`[meteor] launching bot`);
 
 const client = './charmer/client.js';
 
