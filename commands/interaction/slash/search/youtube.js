@@ -6,6 +6,7 @@ const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { link, iconPill, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
+const { intToString } = require('#utils/numbers');
 const { STATICS } = require('#utils/statics');
 
 const {
@@ -13,27 +14,6 @@ const {
   InteractionContextTypes,
   ApplicationIntegrationTypes,
 } = require('detritus-client/lib/constants');
-
-// TODO: Move this to a numbers utility
-// https://www.html-code-generator.com/javascript/shorten-long-numbers
-const intToString = num => {
-  num = num.toString().replace(/[^0-9.]/g, '');
-  if (num < 1000) return num;
-
-  const si = [
-    { v: 1e3, s: 'K' },
-    { v: 1e6, s: 'M' },
-    { v: 1e9, s: 'B' },
-    { v: 1e12, s: 'T' },
-    { v: 1e15, s: 'P' },
-    { v: 1e18, s: 'E' },
-  ];
-  let index;
-  for (index = si.length - 1; index > 0; index--) {
-    if (num >= si[index].v) break;
-  }
-  return (num / si[index].v).toFixed(2).replace(/\.0+$|(\.\d*[1-9])0+$/, '$1') + si[index].s;
-};
 
 function createYoutubePage(context, result) {
   let res;

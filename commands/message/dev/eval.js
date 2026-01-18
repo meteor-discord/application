@@ -7,7 +7,6 @@ const { DiscordRegexNames } = require('detritus-client/lib/constants');
 
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
-// TODO: remake this eventually
 module.exports = {
   label: 'code',
   name: 'dev',

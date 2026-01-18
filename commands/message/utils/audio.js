@@ -4,12 +4,9 @@ const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
+const { URL_REGEX } = require('#utils/urls');
 
 const superagent = require('superagent');
-
-// TODO: make this a constant, or add a URL util
-const urlr =
-  /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.\S{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.\S{2,}|www\.[a-zA-Z0-9]+\.\S{2,})/g;
 
 module.exports = {
   name: 'audio',
@@ -36,8 +33,8 @@ module.exports = {
         }
       }
 
-      let urls = msg.content.match(urlr);
-      if (msg.messageSnapshots?.length >= 1) urls = msg.messageSnapshots.first().message.content.match(urlr);
+      let urls = msg.content.match(URL_REGEX);
+      if (msg.messageSnapshots?.length >= 1) urls = msg.messageSnapshots.first().message.content.match(URL_REGEX);
       if (urls) {
         const songlink = await superagent.get(`https://api.song.link/v1-alpha.1/links`).query({
           url: urls[0],

@@ -5,10 +5,8 @@ const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
+const { HTTP_URL_REGEX } = require('#utils/urls');
 const { STATIC_ICONS } = require('#utils/statics');
-
-// TODO: general purpose constant?
-const URL_REGEX = /https?:\/\/(www\.)?[-\w@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
 
 module.exports = {
   name: 'ask',
@@ -39,7 +37,7 @@ module.exports = {
         if (e[1].url) content = e[1].url;
       }
 
-    const webUrl = content.match(URL_REGEX);
+    const webUrl = content.match(HTTP_URL_REGEX);
     if (!webUrl) return editOrReply(context, createEmbed('warning', context, `No URLs found.`));
     try {
       await editOrReply(context, createEmbed('ai_custom', 'Generating response...', STATIC_ICONS.ai_summary));

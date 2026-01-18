@@ -130,8 +130,6 @@ commandClient.on('commandDelete', async ({ context, reply }) => {
   for (const p of [...(commandPrefixes || []), context.client.user.mention])
     if (context.message.content.toLowerCase().startsWith(p)) hasPrefix = true;
 
-  // TODO: there has to be a better way to do this, see if the command
-  //  client exposes a parser or whatever
   if (hasPrefix) {
     // Extract command
     let command = context.message.content.toLowerCase();

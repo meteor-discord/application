@@ -4,9 +4,7 @@ const { webshot } = require('#api');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
 const { editOrReply } = require('#utils/message');
-
-// TODO: make this a constant, or add a URL util
-const urlr = /^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})*(?::\d{1,5})?(?:\/\S*)?$/g;
+const { DOMAIN_REGEX } = require('#utils/urls');
 
 module.exports = {
   label: 'url',
@@ -31,7 +29,7 @@ module.exports = {
 
     if (!args.url) return editOrReply(context, createEmbed('warning', context, 'No link provided.'));
 
-    const urls = args.url.match(urlr);
+    const urls = args.url.match(DOMAIN_REGEX);
     if (!urls) return editOrReply(context, createEmbed('warning', context, 'No link found.'));
 
     args.url = urls[0];

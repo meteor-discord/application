@@ -18,10 +18,6 @@ function getPerspectiveColor(score) {
   return 'g';
 }
 
-/*
-TODO: this entire code is terrible, rework it some day
-*/
-
 function renderPerspectiveAnalysis(payload, input, type) {
   if (!payload.annotations[type]) throw new Error('unknown type');
 

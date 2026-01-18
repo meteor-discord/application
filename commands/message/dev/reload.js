@@ -2,7 +2,6 @@ const { acknowledge } = require('#utils/interactions');
 const { codeblock } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
-// TODO: remake this eventually
 module.exports = {
   name: 'reload',
   aliases: ['rl'],

@@ -6,8 +6,6 @@ const { Permissions } = require('detritus-client/lib/constants');
 const { PERMISSION_GROUPS } = require('#constants');
 const { acknowledge } = require('#utils/interactions');
 
-// TODO: rework this eventually
-// -> filter by user
 module.exports = {
   label: 'filter',
   name: 'purge',
