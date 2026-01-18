@@ -21,7 +21,7 @@ module.exports.DEFAULT_BOT_NAME = 'Meteor';
 // The first prefix in this list is considered the
 // default prefix and will be displayed in various
 // places throughout the app
-module.exports.DEFAULT_PREFIXES = ['lc.', 'ic.', 'pb.'];
+module.exports.DEFAULT_PREFIXES = ['m.', ';'];
 
 module.exports.PRIVACY_POLICY_SECTIONS = [
   '### Summary\n- We do not store or collect information about our users or their servers.\n- We share certain data with third parties that is strictly necessary to operate certain functionality.',
@@ -37,7 +37,7 @@ module.exports.SUPPORT_ARTICLES = {
   AGE_RESTRICTED_CHANNELS: 115000084051,
 };
 
-module.exports.OPEN_SOURCE_REPOSITORY_URL = 'https://gitlab.com/bignutty/labscore';
+module.exports.OPEN_SOURCE_REPOSITORY_URL = 'https://github.com/meteor-discord/application';
 
 module.exports.COLORS = Object.freeze({
   error: 16404060,

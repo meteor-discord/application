@@ -35,4 +35,5 @@ See the [contributing guide](CONTRIBUTING.md) for details on how to contribute.
 
 ## Copyright
 
-labsCore © 2024-2026 by bignutty is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+labsCore © 2024-2026 by bignutty
+Meteor Labs © 2026
