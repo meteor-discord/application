@@ -103,7 +103,7 @@ module.exports = {
 
       const image = await superagent.get(res.image_link);
 
-      // Upload the image to the labscore art feed channel
+      // Upload the image to the meteor art feed channel
       const artHook = await superagent
         .post(process.env.ART_WEBHOOK)
         .field(

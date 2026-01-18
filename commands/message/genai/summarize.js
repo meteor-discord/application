@@ -14,7 +14,7 @@ module.exports = {
   label: 'text',
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nSummarize web pages and articles.`,
-    description_short: 'Website summaries.',
+    description_short: 'Website summaries',
     examples: ['tldr https://www.theverge.com/2023/11/17/23965185/discord-is-shutting-down-its-ai-chatbot-clyde'],
     category: 'genai',
     usage: 'summarize',

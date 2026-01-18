@@ -15,6 +15,13 @@ module.exports = {
   run: async (context, args) => {
     await acknowledge(context);
 
+    if (!args.text || !args.text.trim()) {
+      return context.reply({
+        content: 'Cannot send an empty message.',
+        allowedMentions: { parse: [], repliedUser: false },
+      });
+    }
+
     if (context.message.canDelete) context.message.delete();
     await context.reply({
       content: args.text,
