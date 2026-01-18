@@ -34,7 +34,7 @@ module.exports = {
       await editOrReply(
         context,
         createEmbed('defaultNoFooter', context, {
-          url: 'https://bignutty.gitlab.io',
+          url: 'https://lajczi.dev',
           author: {
             iconUrl: image,
             name: stringwrap(args.text, 50, false),
@@ -54,7 +54,7 @@ module.exports = {
       let imgName = `lciedt.${(Date.now() + Math.random()).toString(36)}.${res.response.headers['content-type'].split('/')[1]}`;
       return await editOrReply(context, {
         embed: createEmbed('default', context, {
-          url: 'https://bignutty.gitlab.io',
+          url: 'https://lajczi.dev',
           author: {
             iconUrl: image,
             name: stringwrap(args.text, 50, false),

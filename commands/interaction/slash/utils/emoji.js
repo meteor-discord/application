@@ -94,7 +94,7 @@ module.exports = {
           }
           embeds.push(
             createEmbed('default', context, {
-              url: 'https://bignutty.gitlab.io',
+              url: 'https://lajczi.dev',
               fields,
               image: {
                 url: `https://cdn.discordapp.com/emojis/${s.id}${s.animated ? '.webp' : '.png'}?size=4096${s.animated ? '&animated=true' : ''}`,

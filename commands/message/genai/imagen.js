@@ -37,7 +37,7 @@ module.exports = {
       for (let i = 0; i < IMAGE_COUNT; i++) {
         loadingEmbeds.push(
           createEmbed('defaultNoFooter', context, {
-            url: 'https://bignutty.gitlab.io',
+            url: 'https://lajczi.dev',
             image: {
               url: STATIC_ASSETS.image_placeholder,
             },
@@ -63,7 +63,7 @@ module.exports = {
           value: Buffer.from(i.bytesBase64Encoded, 'base64'),
         });
         return createEmbed('defaultNoFooter', context, {
-          url: 'https://bignutty.gitlab.io',
+          url: 'https://lajczi.dev',
           image: {
             url: `attachment://${imgName}`,
           },
