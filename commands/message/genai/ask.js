@@ -17,7 +17,7 @@ module.exports = {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nAsk questions about web pages and videos. You have to **reply** to a message or embed containing a link to ask questions about it.`,
     description_short: 'Website prompts.',
     examples: ['ask why do they call it oven when you of in the cold food of out hot eat the food'],
-    category: 'genai',
+    category: 'broken',
     usage: 'ask <question>',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],

@@ -16,7 +16,7 @@ module.exports = {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini Vision on an Image with a custom prompt.`,
     description_short: 'Run Gemini Vision ',
     examples: ['gv Which show is this image from?'],
-    category: 'genai',
+    category: 'broken',
     usage: 'gemini-vision <attachment> <prompt>',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],

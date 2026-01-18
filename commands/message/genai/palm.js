@@ -15,7 +15,7 @@ module.exports = {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to ${icon('brand_google_palm2')} PaLM 2.`,
     description_short: 'Chat with PaLM 2.',
     examples: ['palm How many otter species are there?'],
-    category: 'genai',
+    category: 'broken',
     usage: 'palm <input> [-prompt <prompt override>]',
   },
   args: [
