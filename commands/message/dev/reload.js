@@ -7,7 +7,7 @@ module.exports = {
   name: 'reload',
   aliases: ['rl'],
   metadata: {
-    description: 'Reloads commands on all shards. Add `-s` to also re-register interaction commands.',
+    description: 'Reloads commands. Add `-s` to also re-register interaction commands.',
     description_short: 'Reload Commands',
     category: 'dev',
     usage: 'reload [-s]',
