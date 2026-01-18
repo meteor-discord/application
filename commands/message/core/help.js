@@ -3,7 +3,7 @@ const { DISCORD_INVITES, DEFAULT_PREFIXES, PERMISSION_GROUPS } = require('#const
 
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { codeblock, icon, link, pill, smallPill, iconPill, stringwrap } = require('#utils/markdown');
+const { codeblock, icon, link, pill, smallPill, stringwrap } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 function createHelpPage(context, title, contents, descriptions) {

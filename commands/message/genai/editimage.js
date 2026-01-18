@@ -3,7 +3,7 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, stringwrap, stringwrapPreserveWords } = require('#utils/markdown');
+const { stringwrap, stringwrapPreserveWords } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ASSETS, STATIC_ICONS } = require('#utils/statics');
 const { getRecentImage } = require('#utils/attachment');

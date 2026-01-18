@@ -3,7 +3,6 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 module.exports = {

@@ -3,7 +3,7 @@ const { webAsk } = require('#obelisk');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, smallIconPill } = require('#utils/markdown');
+const { smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
 

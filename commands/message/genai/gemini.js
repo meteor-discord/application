@@ -3,7 +3,7 @@ const { LlmPrivateBard } = require('#obelisk');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, stringwrap, icon } = require('#utils/markdown');
+const { stringwrap, icon } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
 
