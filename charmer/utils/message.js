@@ -38,8 +38,8 @@ module.exports.editOrReply = function (context, message, disableReference = fals
         basecamp(
           formatErrorMessage(
             3,
-            'SHARD_MESSAGE_ERROR',
-            `\`[Shard ${context.client.shardId}]\` Command \`${context.command.name}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
+            'MESSAGE_ERROR',
+            `Command \`${context.command.name}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
           ),
           message
         );
@@ -96,8 +96,8 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       basecamp(
         formatErrorMessage(
           3,
-          'SHARD_MESSAGE_ERROR',
-          `\`[Shard ${context.client.shardId}]\` Command \`${context.command?.name || context.message?.content || 'Unknown Command (check console)'}\` failed to respond: @ \`${Date.now()}\`\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
+          'MESSAGE_ERROR',
+          `Command \`${context.command?.name || context.message?.content || 'Unknown Command (check console)'}\` failed to respond: @ \`${Date.now()}\`\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
         ),
         message
       );
@@ -112,8 +112,8 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       basecamp(
         formatErrorMessage(
           3,
-          'SHARD_MESSAGE_ERROR',
-          `\`[Shard ${context.client.shardId}]\` Command \`${context.message?.content}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
+          'MESSAGE_ERROR',
+          `Command \`${context.message?.content}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
         ),
         message
       );

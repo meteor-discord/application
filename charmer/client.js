@@ -1,4 +1,4 @@
-const { ClusterClient, CommandClient, InteractionCommandClient } = require('detritus-client');
+const { ShardClient, CommandClient, InteractionCommandClient } = require('detritus-client');
 const {
   ActivityTypes,
   PresenceStatuses,
@@ -10,9 +10,11 @@ const {
 const { DEFAULT_BOT_NAME, DEFAULT_PREFIXES } = require('#constants');
 const { PERMISSIONS_TEXT } = require('#permissions');
 
-const Paginator = require('./paginator').PaginatorCluster;
+const Paginator = require('./paginator').Paginator;
 
-const cluster = new ClusterClient('', {
+const token = process.env.token;
+
+const client = new ShardClient(token, {
   cache: { messages: { expire: 30 * 60 * 1000 } },
   gateway: {
     identifyProperties: {
@@ -38,8 +40,8 @@ const cluster = new ClusterClient('', {
   },
 });
 
-// Create this clusters paginator
-module.exports.paginator = new Paginator(cluster, {
+// Create paginator
+module.exports.paginator = new Paginator(client, {
   maxTime: 300000,
   pageLoop: true,
   pageNumber: true,
@@ -50,12 +52,11 @@ module.exports.paginator = new Paginator(cluster, {
 commandPrefixes = DEFAULT_PREFIXES;
 if (process.env.PREFIX_OVERRIDE) commandPrefixes = process.env.PREFIX_OVERRIDE.split('|');
 
-const commandClient = new CommandClient(cluster, {
+const commandClient = new CommandClient(client, {
   activateOnEdits: true,
   mentionsEnabled: true,
   prefix: commandPrefixes[0],
   prefixes: commandPrefixes,
-  useClusterClient: true,
   ratelimits: [
     { duration: 60000, limit: 50, type: 'guild' },
     { duration: 5000, limit: 5, type: 'channel' },
@@ -87,9 +88,7 @@ const commandClient = new CommandClient(cluster, {
   },
 });
 
-const interactionClient = new InteractionCommandClient(cluster, {
-  useClusterClient: true,
-});
+const interactionClient = new InteractionCommandClient(client);
 
 const { maintower, basecamp, formatErrorMessage } = require('#logging');
 
@@ -170,10 +169,7 @@ commandClient.on('commandRunError', async ({ context, error }) => {
     let packages = {
       data: {},
       origin: {},
-      meta: {
-        shard: context.shardId.toString(),
-        cluster: context.manager.clusterId.toString(),
-      },
+      meta: {},
     };
 
     if (context.user)
@@ -216,10 +212,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     let packages = {
       data: {},
       origin: {},
-      meta: {
-        shard: context.shardId.toString(),
-        cluster: context.manager.clusterId.toString(),
-      },
+      meta: {},
     };
 
     if (context.user)
@@ -246,56 +239,42 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
 
 (async () => {
   // Logging
-  cluster.on(ClientEvents.REST_RESPONSE, async ({ response, restRequest, shard }) => {
+  client.on(ClientEvents.REST_RESPONSE, async ({ response, restRequest }) => {
     // No service configured
     if (!process.env.MAINTOWER_URL) return;
 
     const route = response.request.route;
     if (route) {
       if (!response.ok) {
-        const message = `Shard #${shard.shardId}: (NOT OK) ${response.statusCode} ${response.request.method}-${response.request.url} (${route.path})`;
+        const message = `(NOT OK) ${response.statusCode} ${response.request.method}-${response.request.url} (${route.path})`;
         console.log(message);
         console.log(await response.text());
         await basecamp(
           formatErrorMessage(
             3,
-            'SHARD_REST_ERROR',
-            `\`[Shard ${shard.shardId}]\` Shard request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${await response.text()}\`\`\``
+            'REST_ERROR',
+            `REST request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${await response.text()}\`\`\``
           )
         );
       }
     }
   });
 
-  cluster.on(ClientEvents.WARN, async ({ error }) => {
+  client.on(ClientEvents.WARN, async ({ error }) => {
     console.warn(error);
     if (!process.env.MAINTOWER_URL) return;
-    await basecamp(
-      formatErrorMessage(
-        2,
-        'CLUSTER_WARNING',
-        `\`Cluster ${cluster.manager.clusterId} reported warning\`:\n\`\`\`${error}\`\`\``
-      )
-    );
+    await basecamp(formatErrorMessage(2, 'CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``));
   });
 
   try {
-    let clusterTimings = Date.now();
-    // TODO: This should in theory already be done by detritus, figure out why it isn't
-    await cluster.run().then();
-
-    console.log(
-      `[${process.env.HOSTNAME || 'meteor'}]{${cluster.clusterId}} cluster ran (${Date.now() - clusterTimings}ms)`
-    );
-    let shards = `{${cluster.clusterId}} (${cluster.shards.map(shard => shard.shardId).join(', ')})`;
-    console.log(`[${process.env.HOSTNAME || 'meteor'}]${shards} shards loaded`);
+    let startTimings = Date.now();
+    await client.run();
+    console.log(`[${process.env.HOSTNAME || 'meteor'}] client connected (${Date.now() - startTimings}ms)`);
 
     {
       await commandClient.addMultipleIn('../commands/message/');
       await commandClient.run();
-      console.log(
-        `[${process.env.HOSTNAME || 'meteor'}]${shards} command client ready (${Date.now() - clusterTimings}ms)`
-      );
+      console.log(`[${process.env.HOSTNAME || 'meteor'}] command client ready (${Date.now() - startTimings}ms)`);
     }
     {
       await interactionClient.addMultipleIn('../commands/interaction/context');
@@ -303,7 +282,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
       await interactionClient.addMultipleIn('../commands/interaction/slash');
       await interactionClient.run();
       console.log(
-        `[${process.env.HOSTNAME || 'meteor'}]${shards} interaction command client ready (${Date.now() - clusterTimings}ms)`
+        `[${process.env.HOSTNAME || 'meteor'}] interaction command client ready (${Date.now() - startTimings}ms)`
       );
     }
   } catch (e) {

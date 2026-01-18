@@ -21,11 +21,11 @@ module.exports = {
     console.log(
       `[${process.env.HOSTNAME}] refreshing all commands @ ${Date.now()} by ${context.user.username}${context.user.discriminator} (${context.user.id})`
     );
-    let data;
-    if (context.message.content.includes('-s'))
-      data = await context.manager.broadcastEval(async cluster => {
-        if (cluster.interactionCommandClient) {
-          const interactionClient = cluster.interactionCommandClient;
+
+    try {
+      if (context.message.content.includes('-s')) {
+        const interactionClient = context.client.interactionCommandClient;
+        if (interactionClient) {
           interactionClient.clear();
 
           // Directories specific to the interaction client
@@ -35,43 +35,22 @@ module.exports = {
 
           await interactionClient.checkAndUploadCommands();
         }
-        if (cluster.commandClient) {
-          const commandClient = cluster.commandClient;
-          commandClient.clear();
+      }
 
-          await commandClient.addMultipleIn('../commands/message/', { subdirectories: true });
-        }
-        return cluster.shards.length;
-      });
-    else
-      data = await context.manager.broadcastEval(async cluster => {
-        if (cluster.commandClient) {
-          const commandClient = cluster.commandClient;
-          commandClient.clear();
+      const commandClient = context.client.commandClient;
+      if (commandClient) {
+        commandClient.clear();
+        await commandClient.addMultipleIn('../commands/message/', { subdirectories: true });
+      }
 
-          await commandClient.addMultipleIn('../commands/message/', { subdirectories: true });
-        }
-        return cluster.shards.length;
-      });
-    let refreshed = data
-      .map(e => {
-        return parseInt(e);
-      })
-      .reduce((a, b) => {
-        return a + b;
-      }, 0);
-    let diff = Date.now();
-    if (diff < time) diff.setDate(diff.getDate() + 1);
-    diff = diff - time;
-    if (`${refreshed}` == 'NaN') {
+      let diff = Date.now() - time;
+      return editOrReply(context, `Reloaded commands in **\`${diff}ms\`**.`);
+    } catch (e) {
+      let diff = Date.now() - time;
       return editOrReply(
         context,
-        `Failed to reload all commands after **\`${diff}ms\`**.\n` + codeblock('js', [`${data[0].stack}`])
+        `Failed to reload all commands after **\`${diff}ms\`**.\n` + codeblock('js', [e.stack || e.message])
       );
     }
-    return editOrReply(
-      context,
-      `Reloaded commands on \`${refreshed}/${context.manager.cluster.shardCount}\` shards in **\`${diff}ms\`**.`
-    );
   },
 };
