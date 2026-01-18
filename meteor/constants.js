@@ -108,6 +108,7 @@ module.exports.ICONS_NEXTGEN = Object.freeze({
   brand: '<:nxtd_ico_brand:1430645224803139644>',
   brand_gray: '<:nxtd_ico_brand_gray:1430645230977155172>',
   brand_discord: '<:nxtd_ico_discord:1430645249390280876>',
+  brand_github: '<:nxtd_ico_brand_github:1430645226774597723>',
   brand_gitlab: '<:nxtd_ico_brand_gitlab:1430645226774597723>',
   brand_google: '<:nxtd_ico_brand_google:1430645228968083547>',
 
@@ -247,6 +248,7 @@ module.exports.ICONS_NEXTGEN_LEGACY_MAPPINGS = Object.freeze({
   user_profile: 'user_circle',
 
   discord: 'brand_discord',
+  github: 'brand_github',
   gitlab: 'brand_gitlab',
   generative_ai: 'ai_writing',
 
@@ -390,6 +392,7 @@ module.exports.ICONS = Object.freeze({
   downvote: '<:ico_downvote:1263589702171103242>',
   upvote: '<:ico_upvote:1263589685243154515>',
 
+  github: '<:ico_github:1263589629999976561>',
   gitlab: '<:ico_gitlab:1263589629999976561>',
 
   generative_ai: '<:ico_generative_ai:1263589586387468349>',

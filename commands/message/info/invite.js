@@ -44,7 +44,7 @@ module.exports = {
                 'Discord Application Invite URL'
               ),
               iconLinkPill('robot', DISCORD_INVITES.support, 'Support Server', 'Meteor Support Server'),
-              iconLinkPill('gitlab', OPEN_SOURCE_REPOSITORY_URL, 'Source Code'),
+              iconLinkPill('github', OPEN_SOURCE_REPOSITORY_URL, 'Source Code'),
             ].join('\n'),
             image: {
               url: STATIC_ASSETS.embed_invite_spacer,
