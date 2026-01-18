@@ -20,7 +20,6 @@ Join the [Discord](https://discord.gg/123) server for more information or to par
 ### Built with
 
 - [TypeScript](https://github.com/microsoft/TypeScript)
-- [Bun](https://github.com/oven-sh/bun)
 - [Discord.js](https://github.com/discordjs/discord.js)
 - [Prettier](https://github.com/prettier/prettier)
 

@@ -20,6 +20,9 @@ importers:
       eventemitter3:
         specifier: ^5.0.1
         version: 5.0.1
+      prettier:
+        specifier: ^3.8.0
+        version: 3.8.0
       superagent:
         specifier: ^10.1.1
         version: 10.3.0
@@ -228,6 +231,11 @@ packages:
 
   parsimmon@1.18.1:
     resolution: {integrity: sha512-u7p959wLfGAhJpSDJVYXoyMCXWYwHia78HhRBWqk7AIbxdmlrfdp5wX0l3xv/iTSH5HvhN9K7o26hwwpgS5Nmw==}
+
+  prettier@3.8.0:
+    resolution: {integrity: sha512-yEPsovQfpxYfgWNhCfECjG5AQaO+K3dp6XERmOepyPDVqcJm+bjyCVO3pmU+nAPe0N5dDvekfGezt/EIiRe1TA==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   qs@6.14.1:
     resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
@@ -460,6 +468,8 @@ snapshots:
       wrappy: 1.0.2
 
   parsimmon@1.18.1: {}
+
+  prettier@3.8.0: {}
 
   qs@6.14.1:
     dependencies:
