@@ -3,9 +3,8 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { editOrReply } = require('#utils/message');
-const { iconPill, stringwrap, smallIconPill } = require('#utils/markdown');
+const { stringwrap, smallIconPill } = require('#utils/markdown');
 const { STATICS, STATIC_ASSETS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 const { acknowledge } = require('#utils/interactions');
 
 module.exports = {
@@ -13,10 +12,10 @@ module.exports = {
   label: 'text',
   aliases: ['chatgpt', 'openai'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nTalk to GPT-4o.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to GPT-4o.`,
     description_short: 'Chat with GPT-4o.',
     examples: ['gpt How many otter species are there?'],
-    category: 'limited',
+    category: 'genai',
     usage: 'gpt <input> [-prompt <prompt override>] [-model <model identifier>]',
   },
   args: [
@@ -26,11 +25,10 @@ module.exports = {
   ],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/gpt'))) return;
     await acknowledge(context);
 
     let model = 'gpt-4o';
-    if (args.model && (await hasFeature(context, 'ai/gpt/model-selection'))) model = args.model;
+    if (args.model) model = args.model;
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
 

@@ -3,32 +3,30 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, stringwrap } = require('#utils/markdown');
+const { stringwrap } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS, STATIC_ASSETS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'imagen',
   label: 'text',
   aliases: ['aiimg'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n\nGenerate images with Imagen 3`,
+    description: `Generate images with Imagen 3`,
     description_short: 'Create Images with Imagen 3',
     examples: ['imagen a painting of northern lights'],
-    category: 'limited',
+    category: 'genai',
     usage: 'imagen <prompt>',
   },
   args: [{ name: 'model', default: 'imagen-4', required: false, help: 'The model.' }],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/imagen'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (prompt).`));
 
     let model = 'imagen-4';
-    if (args.model && (await hasFeature(context, 'ai/gpt/model-selection'))) model = args.model;
+    if (args.model) model = args.model;
 
     const IMAGE_COUNT = 4;
 

@@ -3,20 +3,19 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { stringwrap, iconPill, smallIconPill } = require('#utils/markdown');
+const { stringwrap, smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS, STATICS, STATIC_ASSETS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'gemini-pro',
   label: 'text',
   aliases: ['gpro', 'gempro', 'gem-pro'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini 2.5 Pro with a custom prompt.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini 2.5 Pro with a custom prompt.`,
     description_short: 'Gemini 2.5 Pro',
     examples: ['gem why do they call it oven when you of in the cold food of out hot eat the food'],
-    category: 'limited',
+    category: 'genai',
     usage: 'gemini-pro <input> [<prompt>]',
   },
   args: [
@@ -26,13 +25,12 @@ module.exports = {
   ],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/gemini/text'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
 
     let model = 'gemini-2.5-pro-preview-05-06';
-    if (args.model && (await hasFeature(context, 'ai/gpt/model-selection'))) model = args.model;
+    if (args.model) model = args.model;
 
     let input = args.text;
 

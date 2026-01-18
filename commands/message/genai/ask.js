@@ -3,10 +3,9 @@ const { webAsk } = require('#obelisk');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, smallIconPill } = require('#utils/markdown');
+const { smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 // TODO: general purpose constant?
 const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([^> \n]*)/;
@@ -15,7 +14,7 @@ module.exports = {
   name: 'ask',
   label: 'text',
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nAsk questions about web pages and videos. You have to **reply** to a message or embed containing a link to ask questions about it.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nAsk questions about web pages and videos. You have to **reply** to a message or embed containing a link to ask questions about it.`,
     description_short: 'Website prompts.',
     examples: ['ask why do they call it oven when you of in the cold food of out hot eat the food'],
     category: 'broken',
@@ -24,7 +23,6 @@ module.exports = {
   permissionsClient: [...PERMISSION_GROUPS.baseline],
   run: async (context, args) => {
     return;
-    if (!(await hasFeature(context, 'flamingo/summary'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, 'You need to ask a question.'));

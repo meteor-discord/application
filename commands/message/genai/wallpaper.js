@@ -3,26 +3,24 @@ const { GenerativeImagesModelsWallpaper } = require('#obelisk');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, stringwrap } = require('#utils/markdown');
+const { stringwrap } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS, STATIC_ASSETS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'wallpaper',
   label: 'text',
   aliases: ['aiwp'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n\nGenerate AI Wallpapers`,
+    description: `Generate AI Wallpapers`,
     description_short: 'Create Wallpapers',
     examples: ['wallpaper a painting of northern lights, in the bauhaus style -format square'],
-    category: 'broken',
+    category: 'genai',
     usage: 'wallpaper <prompt> [-format <square|landscape>]',
   },
   args: [{ name: 'format', default: 'landscape', required: false, help: 'Image style (landscape, square).' }],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/imagen'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (prompt).`));

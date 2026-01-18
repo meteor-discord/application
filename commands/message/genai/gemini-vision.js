@@ -4,17 +4,16 @@ const { geminiVision } = require('#obelisk');
 const { getRecentImage } = require('#utils/attachment');
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { stringwrap, iconPill, smallIconPill } = require('#utils/markdown');
+const { stringwrap, smallIconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'gemini-vision',
   label: 'text',
   aliases: ['gv'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini Vision on an Image with a custom prompt.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini Vision on an Image with a custom prompt.`,
     description_short: 'Run Gemini Vision ',
     examples: ['gv Which show is this image from?'],
     category: 'broken',
@@ -23,7 +22,6 @@ module.exports = {
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
     return;
-    if (!(await hasFeature(context, 'ai/gemini/vision'))) return;
     await acknowledge(context);
 
     // for the sake of privacy, make the context window one message

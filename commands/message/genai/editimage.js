@@ -3,10 +3,9 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill, stringwrap, stringwrapPreserveWords } = require('#utils/markdown');
+const { stringwrap, stringwrapPreserveWords } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATIC_ASSETS, STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 const { getRecentImage } = require('#utils/attachment');
 
 module.exports = {
@@ -14,15 +13,14 @@ module.exports = {
   label: 'text',
   aliases: ['edit'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n\nEdit images`,
+    description: `Edit images`,
     description_short: 'Edit images',
     examples: ['edit make it red!'],
-    category: 'limited',
+    category: 'genai',
     usage: 'edit <attachment> <prompt>',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/imagen'))) return;
     await acknowledge(context);
 
     let image = await getRecentImage(context, 50);

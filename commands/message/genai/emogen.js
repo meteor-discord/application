@@ -3,24 +3,21 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { iconPill } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
-const { hasFeature } = require('#utils/testing');
 
 module.exports = {
   name: 'emogen',
   label: 'text',
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n\nEmogen`,
+    description: `Emogen`,
     description_short: 'Emogen',
     examples: ['emogen otter eating a slice of pizza'],
-    category: 'limited',
+    category: 'genai',
     usage: 'emogen <prompt>',
   },
   args: [{ name: 'style', default: 'microsoft', required: false, help: 'Emogen Style' }],
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
-    if (!(await hasFeature(context, 'ai/imagen'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (prompt).`));

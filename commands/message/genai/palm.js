@@ -3,9 +3,8 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');
 const { editOrReply } = require('#utils/message');
-const { iconPill, stringwrap, smallIconPill, icon } = require('#utils/markdown');
+const { stringwrap, smallIconPill, icon } = require('#utils/markdown');
 const { STATIC_ICONS } = require('#utils/statics');
-const { hasFeature } = require('#utils/testing');
 const { acknowledge } = require('#utils/interactions');
 
 module.exports = {
@@ -13,7 +12,7 @@ module.exports = {
   label: 'text',
   aliases: ['palm2'],
   metadata: {
-    description: `${iconPill('generative_ai', 'LIMITED TESTING')}\n${smallIconPill('reply', 'Supports Replies')}\n\nTalk to ${icon('brand_google_palm2')} PaLM 2.`,
+    description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to ${icon('brand_google_palm2')} PaLM 2.`,
     description_short: 'Chat with PaLM 2.',
     examples: ['palm How many otter species are there?'],
     category: 'broken',
@@ -26,7 +25,6 @@ module.exports = {
   permissionsClient: [...PERMISSION_GROUPS.baseline, ...PERMISSION_GROUPS.attachments],
   run: async (context, args) => {
     return;
-    if (!(await hasFeature(context, 'ai/palm'))) return;
     await acknowledge(context);
 
     if (!args.text) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (text).`));
