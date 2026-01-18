@@ -20,7 +20,6 @@ module.exports.PRIVACY_POLICY_SECTIONS = [
 ];
 
 module.exports.PRIVACY_POLICY_LAST_UPDATE = 1699120509970;
-module.exports.PRIVACY_POLICY_PREVIOUS_REVISION = 'privacy_june22.1dborzeh8yhs';
 
 module.exports.SUPPORT_ARTICLES = {
   AGE_RESTRICTED_CHANNELS: 115000084051,
