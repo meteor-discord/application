@@ -1,13 +1,6 @@
 const { Permissions } = require('detritus-client/lib/constants');
 const { decimalToHexColor } = require('#utils/color');
 
-// This controls the end of service notice and command rejection system.
-// I've decided to add this flag so you don't have to figure out where all
-// the relevant references to it in the code live.
-module.exports.EOS_ENABLED = false;
-module.exports.EOS_NOTICE_URL = 'https://bignutty.gitlab.io/blog/labscore-eos-notice';
-module.exports.EOS_NOTICE_TIMESTAMP = 1767222000000;
-
 module.exports.DISCORD_INVITES = Object.freeze({
   support: 'https://discord.gg/6C9pcD4EUq',
 });

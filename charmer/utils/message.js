@@ -1,6 +1,6 @@
 const { Permissions, MessageFlags } = require('detritus-client/lib/constants');
 const { basecamp, formatErrorMessage } = require('../logging');
-const { COLORS, MESSAGE_BLOCK_REASONS, EOS_NOTICE_URL, EOS_NOTICE_TIMESTAMP, EOS_ENABLED } = require('#constants');
+const { COLORS, MESSAGE_BLOCK_REASONS } = require('#constants');
 const { icon, link } = require('./markdown');
 const { timestamp } = require('#utils/markdown');
 
@@ -19,23 +19,6 @@ module.exports.editOrReply = function (context, message, disableReference = fals
   if (!message.message_reference && !disableReference) message.reference = true;
   // Disable mentions
   if (!message.allowedMentions) message.allowedMentions = { parse: [], repliedUser: false };
-
-  // Apply eos notice to all responses
-  if (EOS_ENABLED && !message.content?.includes(`-# ${icon('flask_mini')} Meteor will be shutting down`)) {
-    if (!message.content)
-      message.content = `-# ${icon('flask_mini')} Meteor will be shutting down ${timestamp(EOS_NOTICE_TIMESTAMP, 'R')} • ${link(EOS_NOTICE_URL, 'Learn more', 'Learn more', false)}`;
-    // omnitranslate checks for this, so we have to handle it as a special case
-    else if (message.content.startsWith(`-# ${icon('subtext_translate')}`)) {
-      message.content =
-        message.content.split('\n')[0] +
-        `\n-# ${icon('flask_mini')} Meteor will be shutting down ${timestamp(EOS_NOTICE_TIMESTAMP, 'R')} • ${link(EOS_NOTICE_URL, 'Learn more', 'Learn more', false)}\n` +
-        message.content.split('\n').slice(1, 99999).join('\n');
-    } else
-      message.content =
-        `-# ${icon('flask_mini')} Meteor will be shutting down ${timestamp(EOS_NOTICE_TIMESTAMP, 'R')} • ${link(EOS_NOTICE_URL, 'Learn more', 'Learn more', false)}` +
-        '\n' +
-        message.content;
-  }
 
   let flags = 0;
 

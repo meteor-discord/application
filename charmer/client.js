@@ -7,7 +7,7 @@ const {
   ClientEvents,
 } = require('detritus-client/lib/constants');
 
-const { DEFAULT_BOT_NAME, DEFAULT_PREFIXES, EOS_NOTICE_TIMESTAMP, EOS_ENABLED } = require('#constants');
+const { DEFAULT_BOT_NAME, DEFAULT_PREFIXES } = require('#constants');
 const { PERMISSIONS_TEXT } = require('#permissions');
 
 const Paginator = require('./paginator').PaginatorCluster;
@@ -70,8 +70,6 @@ const commandClient = new CommandClient(cluster, {
     // Only apply filters below to a GUILD context.
     if (!context.guild) return true;
 
-    if (EOS_ENABLED && Date.now() >= EOS_NOTICE_TIMESTAMP) return false;
-
     let b = context.guild.members.get(context.client.user.id);
     // Bot member is not cached for whatever reason, fetch it.
     if (b === undefined) b = await context.guild.fetchMember(context.client.user.id);
@@ -91,9 +89,6 @@ const commandClient = new CommandClient(cluster, {
 
 const interactionClient = new InteractionCommandClient(cluster, {
   useClusterClient: true,
-  onCommandCheck: async context => {
-    return !(EOS_ENABLED && Date.now() < EOS_NOTICE_TIMESTAMP);
-  },
 });
 
 const { maintower, basecamp, formatErrorMessage } = require('#logging');
