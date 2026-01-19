@@ -25,7 +25,7 @@ module.exports = {
   permissions: [Permissions.MANAGE_MESSAGES],
   onPermissionsFail: context =>
     editOrReply(context, {
-      content: `${icon('exclaim_red')} ${context.message.author.mention}, you are lacking the permission \`Manage Messages\`.`,
+      content: `${icon('exclaim_red')} You are lacking the permission \`Manage Messages\`.`,
     }),
   ratelimit: {
     type: 'guild',

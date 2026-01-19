@@ -52,9 +52,9 @@ module.exports.paginator = new Paginator(client, {
 let commandPrefixes = DEFAULT_PREFIXES;
 if (process.env.PREFIX_OVERRIDE) commandPrefixes = process.env.PREFIX_OVERRIDE.split('|');
 
-// Cooldown system with smart features
+// Cooldown system
 const cooldowns = new Map();
-const OWNER_IDS = new Set((process.env.OWNER_IDS || '').split(',').filter(Boolean));
+const cooldownNotices = new Map();
 
 const commandClient = new CommandClient(client, {
   activateOnEdits: true,
@@ -88,48 +88,43 @@ const commandClient = new CommandClient(client, {
     }
 
     // Cooldown check
-    const defaultCooldown = 3; // 3 seconds
-    const cooldownSeconds = context.command?.cooldown || defaultCooldown;
-    const cooldownAmount = cooldownSeconds * 1000; // Convert to milliseconds
-
+    const cooldownSeconds = Math.max(0, context.command?.cooldown ?? 5);
+    const cooldownAmount = cooldownSeconds * 1000;
     const userId = context.user.id;
     const commandName = context.command?.name;
 
     if (commandName && cooldownSeconds > 0) {
       const now = Date.now();
 
-      // Initialize cooldown map for command if needed
-      if (!cooldowns.has(commandName)) {
-        cooldowns.set(commandName, new Map());
-      }
-
-      const commandCooldowns = cooldowns.get(commandName);
+      const commandCooldowns = cooldowns.get(commandName) ?? cooldowns.set(commandName, new Map()).get(commandName);
       const cooldownEnd = commandCooldowns.get(userId);
 
       // Check if still on cooldown
       if (cooldownEnd && cooldownEnd > now) {
-        const timeLeft = Math.ceil((cooldownEnd - now) / 1000);
+        const timeLeftSec = Math.max(1, Math.ceil((cooldownEnd - now) / 1000));
 
-        try {
-          const embed = createEmbed('warning', context);
-          embed.title = `Spam Protection`;
-          embed.description = `Please wait **${timeLeft}s** before running \`${commandName}\` again.`;
+        const noticeKey = `${commandName}:${context.channelId}:${userId}`;
+        const existingNotice = cooldownNotices.get(noticeKey);
 
-          const reply = await context.reply({ embeds: [embed] });
+        if (existingNotice && existingNotice.expiresAt > now) return false;
 
-          // Delete the cooldown message after the cooldown expires
-          setTimeout(
-            () => {
-              try {
-                reply.delete();
-              } catch (e) {
-                // Message already deleted or other error
-              }
-            },
-            cooldownEnd - now + 500
-          ); // Add 500ms buffer
-        } catch (e) {
-          // Couldn't send reply
+        const embed = createEmbed('warning', context);
+        embed.title = 'Spam Protection';
+        const canUseAt = Math.floor(cooldownEnd / 1000);
+        embed.description = `Please wait **${timeLeftSec}** seconds before running \`${commandName}\` again. Available <t:${canUseAt}:R>.`;
+
+        const reply = await context.reply({ embeds: [embed] }).catch(() => null);
+
+        if (reply) {
+          const expiresAt = cooldownEnd;
+          cooldownNotices.set(noticeKey, { expiresAt });
+
+          const deleteIn = Math.max(500, cooldownEnd - now + 250);
+          const deleteTimeout = setTimeout(() => {
+            cooldownNotices.delete(noticeKey);
+            reply.delete().catch(() => null);
+          }, deleteIn);
+          if (deleteTimeout.unref) deleteTimeout.unref();
         }
 
         return false; // Block command execution
@@ -139,22 +134,12 @@ const commandClient = new CommandClient(client, {
       const newCooldownEnd = now + cooldownAmount;
       commandCooldowns.set(userId, newCooldownEnd);
 
-      // Cleanup old entries to prevent memory leaks
-      // Remove entries that expired more than 1 minute ago
-      for (const [id, expireTime] of commandCooldowns.entries()) {
-        if (expireTime < now - 60000) {
-          commandCooldowns.delete(id);
-        }
-      }
-
       // Clean up specific user cooldown after it expires
       const cleanupTimeout = setTimeout(() => {
         if (commandCooldowns.get(userId) === newCooldownEnd) {
           commandCooldowns.delete(userId);
         }
       }, cooldownAmount);
-
-      // Make timeout unref so it doesn't keep the process alive
       if (cleanupTimeout.unref) cleanupTimeout.unref();
     }
 
