@@ -9,6 +9,7 @@ const { acknowledge } = require('#utils/interactions');
 module.exports = {
   label: 'filter',
   name: 'purge',
+  aliases: ['clear', 'p'],
   metadata: {
     description: `Removes recent messages in chat. Allows you to optionally filter by message content to remove spam.`,
     description_short: 'Mass-delete recent messages',
