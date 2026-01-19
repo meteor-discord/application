@@ -39,13 +39,14 @@ module.exports = {
       const range = match ? `${highlight(match[1])} → ${highlight(match[2])}` : 'updated';
       const elapsed = ((Date.now() - start) / 1000).toFixed(2);
 
-      await editOrReply(
-        context,
-        createEmbed('default', context, {
-          title: 'Manual Git Pull',
-          description: `Updated ${range} in ${highlight(elapsed + 's')}. Restarting...\n\n${codeblock('diff', [output.slice(0, 1800)])}`,
-        })
-      );
+      await editOrReply(context, {
+        embeds: [
+          createEmbed('default', context, {
+            title: 'Manual Git Pull',
+            description: `Updated ${range} in ${highlight(elapsed + 's')}. Restarting...\n\n${codeblock('diff', [output.slice(0, 1800)])}`,
+          }),
+        ],
+      });
 
       // Wait for message to be sent, then exit so pm2 can restart us
       await new Promise(resolve => setTimeout(resolve, 2000));
