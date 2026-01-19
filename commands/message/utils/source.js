@@ -13,12 +13,11 @@ module.exports = {
     category: 'utils',
     usage: 'source',
   },
-  onCancel: () => {},
   run: async context => {
     return editOrReply(context, {
       embeds: [
         createEmbed('default', context, {
-          title: `${icon('github')} Source Code`,
+          title: `${icon('robot')} Source Code`,
           description: `This bot is open source! View the source code on GitHub.`,
           footer: {
             text: `${context.application.name} • Open Source`,
