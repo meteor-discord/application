@@ -9,13 +9,13 @@ async function request(path, type, headers, args, host) {
   if (host) url = host + path;
 
   // apply default headers
-  if (!headers.Authorization) headers.Authorization = process.env.API_KEY;
+  if (!headers.Authorization) headers.Authorization = `Bearer ${process.env.API_KEY}`;
   if (!headers['user-agent']) headers['user-agent'] = USER_AGENT;
   if (!headers['x-meteor-client']) headers['x-meteor-client'] = USER_AGENT;
 
   if (type === 'GET') {
     if (!args) {
-      const response = await superagent.get(url);
+      const response = await superagent.get(url).set(headers);
       return {
         timings: ((Date.now() - timing) / 1000).toFixed(2),
         response,
