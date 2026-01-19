@@ -1,11 +1,11 @@
-const { icon } = require('#utils/markdown');
+const { codeblock } = require('#utils/markdown');
 const { COLORS } = require('#constants');
 const superagent = require('superagent');
 
 const ERROR_WEBHOOK = process.env.ERROR_WEBHOOK;
 
 const formatErrorMessage = (sev = 0, code, content) => {
-  return `${icon('webhook_exclaim_' + parseInt(sev))} \`[${Date.now()}]\` @ \`[meteor]\` **\` ${code}  \`** | ${content}`;
+  return `\`[${Date.now()}]\` @ \`[meteor]\` **\` ${code}  \`** | ${content}`;
 };
 
 /**
@@ -42,22 +42,22 @@ module.exports.logError = async function (packages, type = '01') {
     if (packages.origin) {
       if (packages.origin.user) {
         embed.fields.push({
-          name: `${icon('user')} User`,
-          value: `${packages.origin.user.name}\n\`${packages.origin.user.id}\``,
+          name: 'User',
+          value: `${packages.origin.user.name}${codeblock('', [packages.origin.user.id])}`,
           inline: true,
         });
       }
       if (packages.origin.guild) {
         embed.fields.push({
-          name: `${icon('home')} Server`,
-          value: `${packages.origin.guild.name}\n\`${packages.origin.guild.id}\``,
+          name: 'Server',
+          value: `${packages.origin.guild.name}${codeblock('', [packages.origin.guild.id])}`,
           inline: true,
         });
       }
       if (packages.origin.channel) {
         embed.fields.push({
-          name: `${icon('channel')} Channel`,
-          value: `${packages.origin.channel.name}\n\`${packages.origin.channel.id}\``,
+          name: 'Channel',
+          value: `${packages.origin.channel.name}${codeblock('', [packages.origin.channel.id])}`,
           inline: true,
         });
       }
@@ -68,8 +68,8 @@ module.exports.logError = async function (packages, type = '01') {
       const commandText =
         packages.data.command.length > 1000 ? packages.data.command.substring(0, 1000) + '...' : packages.data.command;
       embed.fields.push({
-        name: `${icon('slash')} Command`,
-        value: `\`\`\`\n${commandText}\n\`\`\``,
+        name: 'Command',
+        value: codeblock('', [commandText]),
         inline: false,
       });
     }
@@ -79,8 +79,8 @@ module.exports.logError = async function (packages, type = '01') {
       const errorText =
         packages.data.error.length > 1000 ? packages.data.error.substring(0, 1000) + '...' : packages.data.error;
       embed.fields.push({
-        name: `${icon('exclaim_3')} Error`,
-        value: `\`\`\`js\n${errorText}\n\`\`\``,
+        name: 'Error',
+        value: codeblock('js', [errorText]),
         inline: false,
       });
     }
@@ -89,13 +89,13 @@ module.exports.logError = async function (packages, type = '01') {
     if (packages.data && packages.data.raw) {
       const rawText = packages.data.raw.length > 500 ? packages.data.raw.substring(0, 500) + '...' : packages.data.raw;
       embed.fields.push({
-        name: `${icon('note')} Raw Data`,
-        value: `\`\`\`json\n${rawText}\n\`\`\``,
+        name: 'Raw Data',
+        value: codeblock('json', [rawText]),
         inline: false,
       });
     }
 
-    embed.title = `${icon('warning')} Error Report`;
+    embed.title = 'Error Report';
     embed.footer = {
       text: `meteor • type ${type}`,
     };
