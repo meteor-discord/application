@@ -41,7 +41,7 @@ module.exports = {
 
       await editOrReply(
         context,
-        createEmbed('success', context, {
+        createEmbed('default', context, {
           title: 'Manual Git Pull',
           description: `Updated ${range} in ${highlight(elapsed + 's')}. Restarting...\n\n${codeblock('diff', [output.slice(0, 1800)])}`,
         })
