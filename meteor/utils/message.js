@@ -1,5 +1,5 @@
 const { Permissions, MessageFlags } = require('detritus-client/lib/constants');
-const { basecamp, formatErrorMessage } = require('../logging');
+const { logMessage, formatErrorMessage } = require('../logging');
 const { MESSAGE_BLOCK_REASONS } = require('#constants');
 const { applyIncognitoNotice } = require('./incognito');
 
@@ -34,7 +34,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
   if (context.editOrRespond) {
     if (context._meta?.replacementMessageId) {
       return context.editMessage(context._meta.replacementMessageId, message).catch(e => {
-        basecamp(
+        logMessage(
           formatErrorMessage(
             3,
             'MESSAGE_ERROR',
@@ -70,7 +70,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       } catch (e) {
         console.log(e);
       }
-      basecamp(
+      logMessage(
         formatErrorMessage(
           3,
           'MESSAGE_ERROR',
@@ -86,7 +86,7 @@ module.exports.editOrReply = function (context, message, disableReference = fals
   if (!context.message.deleted && context.channel.can(Permissions.SEND_MESSAGES))
     return context.editOrReply(message).catch(e => {
       console.log(e.status);
-      basecamp(
+      logMessage(
         formatErrorMessage(
           3,
           'MESSAGE_ERROR',
