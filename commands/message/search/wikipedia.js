@@ -13,6 +13,7 @@ module.exports = {
   name: 'wikipedia',
   label: 'query',
   aliases: ['wiki'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results from Wikipedia.',
     description_short: 'Search on Wikipedia',

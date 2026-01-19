@@ -11,6 +11,7 @@ module.exports = {
   name: 'palm',
   label: 'text',
   aliases: ['palm2'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to ${icon('brand_google_palm2')} PaLM 2.`,
     description_short: 'Chat with PaLM 2.',

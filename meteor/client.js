@@ -52,6 +52,10 @@ module.exports.paginator = new Paginator(client, {
 let commandPrefixes = DEFAULT_PREFIXES;
 if (process.env.PREFIX_OVERRIDE) commandPrefixes = process.env.PREFIX_OVERRIDE.split('|');
 
+// Cooldown system with smart features
+const cooldowns = new Map();
+const OWNER_IDS = new Set((process.env.OWNER_IDS || '').split(',').filter(Boolean));
+
 const commandClient = new CommandClient(client, {
   activateOnEdits: true,
   mentionsEnabled: true,
@@ -81,6 +85,77 @@ const commandClient = new CommandClient(client, {
       // as our cache does not appear to update when the bots
       // timeout expires.
       if (b.communicationDisabledUntilUnix - Date.now() >= 1) return false;
+    }
+
+    // Cooldown check
+    const defaultCooldown = 3; // 3 seconds
+    const cooldownSeconds = context.command?.cooldown || defaultCooldown;
+    const cooldownAmount = cooldownSeconds * 1000; // Convert to milliseconds
+
+    const userId = context.user.id;
+    const commandName = context.command?.name;
+
+    if (commandName && cooldownSeconds > 0) {
+      const now = Date.now();
+
+      // Initialize cooldown map for command if needed
+      if (!cooldowns.has(commandName)) {
+        cooldowns.set(commandName, new Map());
+      }
+
+      const commandCooldowns = cooldowns.get(commandName);
+      const cooldownEnd = commandCooldowns.get(userId);
+
+      // Check if still on cooldown
+      if (cooldownEnd && cooldownEnd > now) {
+        const timeLeft = Math.ceil((cooldownEnd - now) / 1000);
+
+        try {
+          const embed = createEmbed('warning', context);
+          embed.title = `Spam Protection`;
+          embed.description = `Please wait **${timeLeft}s** before running \`${commandName}\` again.`;
+
+          const reply = await context.reply({ embeds: [embed] });
+
+          // Delete the cooldown message after the cooldown expires
+          setTimeout(
+            () => {
+              try {
+                reply.delete();
+              } catch (e) {
+                // Message already deleted or other error
+              }
+            },
+            cooldownEnd - now + 500
+          ); // Add 500ms buffer
+        } catch (e) {
+          // Couldn't send reply
+        }
+
+        return false; // Block command execution
+      }
+
+      // Set new cooldown - BEFORE executing the command
+      const newCooldownEnd = now + cooldownAmount;
+      commandCooldowns.set(userId, newCooldownEnd);
+
+      // Cleanup old entries to prevent memory leaks
+      // Remove entries that expired more than 1 minute ago
+      for (const [id, expireTime] of commandCooldowns.entries()) {
+        if (expireTime < now - 60000) {
+          commandCooldowns.delete(id);
+        }
+      }
+
+      // Clean up specific user cooldown after it expires
+      const cleanupTimeout = setTimeout(() => {
+        if (commandCooldowns.get(userId) === newCooldownEnd) {
+          commandCooldowns.delete(userId);
+        }
+      }, cooldownAmount);
+
+      // Make timeout unref so it doesn't keep the process alive
+      if (cleanupTimeout.unref) cleanupTimeout.unref();
     }
 
     // Command should be fine to run.

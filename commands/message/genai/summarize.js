@@ -12,6 +12,7 @@ module.exports = {
   name: 'summarize',
   aliases: ['summary', 'tldr'],
   label: 'text',
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nSummarize web pages and articles.`,
     description_short: 'Website summaries',

@@ -30,6 +30,7 @@ module.exports = {
   name: 'wikihow',
   label: 'query',
   aliases: ['wh', 'how'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results from WikiHow.',
     description_short: 'Search on WikiHow',

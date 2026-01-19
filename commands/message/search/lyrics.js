@@ -73,6 +73,7 @@ function createLyricsPage(context, search, fields) {
 module.exports = {
   name: 'lyrics',
   label: 'query',
+  cooldown: 10,
   metadata: {
     description: 'Searches for song lyrics.',
     description_short: 'Search song lyrics',

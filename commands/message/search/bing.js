@@ -109,6 +109,7 @@ module.exports = {
   name: 'bing',
   label: 'query',
   aliases: ['search2'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results from Microsoft Bing.',
     description_short: 'Search on Bing',

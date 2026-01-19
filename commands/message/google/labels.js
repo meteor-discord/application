@@ -10,6 +10,7 @@ const { STATICS } = require('#utils/statics');
 
 module.exports = {
   name: 'labels',
+  cooldown: 10,
   metadata: {
     description: 'Applies labels to an image based on its visual contents.',
     description_short: 'Image content label detection',

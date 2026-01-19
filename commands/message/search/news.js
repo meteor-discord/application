@@ -46,6 +46,7 @@ module.exports = {
   name: 'news',
   label: 'query',
   aliases: ['n'],
+  cooldown: 10,
   metadata: {
     description: 'Show the latest News from around the world or search for topics.',
     description_short: 'Search News',

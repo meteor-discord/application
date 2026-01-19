@@ -265,6 +265,7 @@ module.exports = {
   name: 'google',
   label: 'query',
   aliases: ['g', 'search'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results from Google.',
     description_short: 'Search on Google',

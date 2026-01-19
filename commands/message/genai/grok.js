@@ -12,6 +12,7 @@ module.exports = {
   name: 'grok',
   label: 'text',
   aliases: ['@grok'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to grok.`,
     description_short: '@grok is this true',

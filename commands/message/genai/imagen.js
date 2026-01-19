@@ -11,6 +11,7 @@ module.exports = {
   name: 'imagen',
   label: 'text',
   aliases: ['aiimg'],
+  cooldown: 10,
   metadata: {
     description: `Generate images with Imagen 3`,
     description_short: 'Create Images with Imagen 3',

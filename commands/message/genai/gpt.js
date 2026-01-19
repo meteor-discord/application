@@ -11,6 +11,7 @@ module.exports = {
   name: 'gpt',
   label: 'text',
   aliases: ['chatgpt', 'openai'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nTalk to GPT-4o.`,
     description_short: 'Chat with GPT-4o.',

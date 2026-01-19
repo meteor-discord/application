@@ -104,6 +104,7 @@ module.exports = {
   name: 'duckduckgo',
   label: 'query',
   aliases: ['ddg'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results from DuckDuckGo.\n\nSupports Bangs.',
     description_short: 'Search on DuckDuckGo',

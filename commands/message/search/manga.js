@@ -99,6 +99,7 @@ module.exports = {
   name: 'manga',
   label: 'query',
   aliases: ['man'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results for Manga.',
     description_short: 'Search Manga',
