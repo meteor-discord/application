@@ -87,6 +87,7 @@ module.exports = {
   name: 'maps',
   aliases: ['m', 'map', 'googlemaps', 'gm'],
   label: 'query',
+  cooldown: 10,
   metadata: {
     description: 'Searches for places on Google Maps.',
     description_short: 'Search google maps',

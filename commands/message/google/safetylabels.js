@@ -10,6 +10,7 @@ const { STATICS } = require('#utils/statics');
 
 module.exports = {
   name: 'safetylabels',
+  cooldown: 10,
   metadata: {
     description: 'Applies detection labels for potentially sensitive content of an image.',
     description_short: 'Sensitive content detection labels',

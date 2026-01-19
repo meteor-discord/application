@@ -14,6 +14,7 @@ module.exports = {
   name: 'gemini',
   label: 'text',
   aliases: ['bard', 'gem'],
+  cooldown: 10,
   metadata: {
     description: `Chat with ${icon('brand_google_gemini')} Gemini.`,
     description_short: 'Chat with Gemini.',

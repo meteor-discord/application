@@ -56,6 +56,7 @@ module.exports = {
   name: 'wolframalpha',
   label: 'query',
   aliases: ['wa', 'wolfram-alpha', 'wolfram'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nComputes a query using Wolfram|Alpha.`,
     description_short: 'Compute via Wolfram|Alpha',

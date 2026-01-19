@@ -11,6 +11,7 @@ const { STATIC_ICONS } = require('#utils/statics');
 module.exports = {
   name: 'ask',
   label: 'text',
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nAsk questions about web pages and videos. You have to **reply** to a message or embed containing a link to ask questions about it.`,
     description_short: 'Website prompts.',

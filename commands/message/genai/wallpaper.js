@@ -11,6 +11,7 @@ module.exports = {
   name: 'wallpaper',
   label: 'text',
   aliases: ['aiwp'],
+  cooldown: 10,
   metadata: {
     description: `Generate AI Wallpapers`,
     description_short: 'Create Wallpapers',

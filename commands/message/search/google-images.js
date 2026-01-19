@@ -33,6 +33,7 @@ module.exports = {
   name: 'image',
   label: 'query',
   aliases: ['i', 'img', 'images'],
+  cooldown: 10,
   metadata: {
     description: 'Returns image search results from Google.',
     description_short: 'Search on Google Images',

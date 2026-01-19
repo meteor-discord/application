@@ -11,6 +11,7 @@ module.exports = {
   name: 'gemini-pro',
   label: 'text',
   aliases: ['gpro', 'gempro', 'gem-pro'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini 2.5 Pro with a custom prompt.`,
     description_short: 'Gemini 2.5 Pro',

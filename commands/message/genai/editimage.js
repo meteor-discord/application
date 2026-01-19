@@ -12,6 +12,7 @@ module.exports = {
   name: 'editimage',
   label: 'text',
   aliases: ['edit'],
+  cooldown: 10,
   metadata: {
     description: `Edit images`,
     description_short: 'Edit images',

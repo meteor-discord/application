@@ -10,6 +10,7 @@ const { STATICS } = require('#utils/statics');
 module.exports = {
   name: 'transcribe',
   aliases: ['tcr'],
+  cooldown: 10,
   metadata: {
     description: `${icon('reply')} __Replying__ to a voice message when using this command will transcribe the contents of the voice message.`,
     description_short: 'Discord voice message transcription',

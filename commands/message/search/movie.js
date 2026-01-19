@@ -38,6 +38,7 @@ module.exports = {
   name: 'movie',
   label: 'query',
   aliases: ['tv', 'show', 'shows', 'tvshows', 'movies', 'mov'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results for Movies & TV Shows.',
     description_short: 'Search Movies & TV Shows',

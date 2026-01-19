@@ -33,6 +33,7 @@ module.exports = {
   name: 'bingimage',
   label: 'query',
   aliases: ['bi', 'bimg', 'img2'],
+  cooldown: 10,
   metadata: {
     description: 'Returns image search results from Microsoft Bing.',
     description_short: 'Search on Bing Images',

@@ -12,6 +12,7 @@ module.exports = {
   name: 'gemini-vision',
   label: 'text',
   aliases: ['gv'],
+  cooldown: 10,
   metadata: {
     description: `${smallIconPill('reply', 'Supports Replies')}\n\nRun Gemini Vision on an Image with a custom prompt.`,
     description_short: 'Run Gemini Vision ',

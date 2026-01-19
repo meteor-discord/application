@@ -45,6 +45,7 @@ module.exports = {
   name: 'rule34',
   label: 'query',
   aliases: ['r34'],
+  cooldown: 10,
   metadata: {
     description: 'Returns image search results from various rule34-focused sites.',
     description_short: 'Search on rule34 sites',

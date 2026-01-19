@@ -93,6 +93,7 @@ module.exports = {
   name: 'anime',
   label: 'query',
   aliases: ['ani'],
+  cooldown: 10,
   metadata: {
     description: 'Returns search results for Anime.',
     description_short: 'Search Anime',

@@ -36,6 +36,7 @@ function createReverseImageSearchResultPage(context, result, source) {
 module.exports = {
   name: 'reverse-image',
   aliases: ['reverse', 'reverseimage'],
+  cooldown: 10,
   metadata: {
     description: 'Performs a reverse-image-search.',
     description_short: 'Reverse image search',

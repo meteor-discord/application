@@ -131,6 +131,7 @@ module.exports = {
   name: 'youtube',
   label: 'query',
   aliases: ['yt'],
+  cooldown: 10,
   metadata: {
     description: `Search YouTube videos, channels and playlists.\n\nAvailable categories are ${Object.keys(
       YOUTUBE_CATEGORIES

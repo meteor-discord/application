@@ -8,6 +8,7 @@ const { editOrReply } = require('#utils/message');
 module.exports = {
   name: 'emogen',
   label: 'text',
+  cooldown: 10,
   metadata: {
     description: `Emoji generator`,
     description_short: 'Emogen',

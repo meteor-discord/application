@@ -46,6 +46,7 @@ module.exports = {
   name: 'urbandictionary',
   label: 'query',
   aliases: ['urban', 'ud'],
+  cooldown: 10,
   metadata: {
     description:
       'Returns search results from UrbanDictionary. Might include profanity.\nProviding no search query will return random results.',
