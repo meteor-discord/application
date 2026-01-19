@@ -87,62 +87,63 @@ module.exports.BADGE_ICONS = Object.freeze({
 
 // next generation icons
 module.exports.ICONS = Object.freeze({
-  button_user_profile_swap: '<:ico_button_user_profile_swap:1263594003442700368>',
-  button_thermometer: '<:ico_button_thermometer:1263593823016062987>',
-  button_translate: '<:ico_button_translate:1304161023288283249>',
+  button_user_profile_swap: '<:button_user_profile_swap:1462762197888274442>',
+  button_thermometer: '<:button_thermometer:1462762201134661819>',
+  button_translate: '<:button_translate:1462762199356411904>',
 
   /* Brands */
-  brand: '<:nxtd_ico_brand:1430645224803139644>',
+  brand: '<:brand:1462762202820907114>',
 
   /* Icon Toolkit */
-  calendar: '<:nxtd_ico_calendar:1430645232977842226>',
-  flag: '<:nxtd_ico_flag:1430645261339983934>',
-  home: '<:nxtd_ico_home:1430645264661741769>',
-  image: '<:nxtd_ico_image:1430645268570837083>',
-  padlock: '<:nxtd_ico_lock:1430645279090020522>',
-  qr: '<:nxtd_ico_qr:1430645297729769504>',
-  robot: '<:nxtd_ico_robot:1430645306302795897>',
-  settings: '<:nxtd_ico_settings:1430645312204181606>',
-  shield: '<:nxtd_ico_shield:1430645314423099472>',
-  tools: '<:nxtd_ico_tools:1430645325353324758>',
+  calendar: '<:calendar:1462762196609273856>',
+  flag: '<:flag:1462762189298470984>',
+  home: '<:home:1462762187809357834>',
+  image: '<:image:1462762186345676893>',
+  padlock: '<:padlock:1462762178036629701>',
+  qr: '<:qr:1462762175570645052>',
+  robot: '<:robot:1462762169237110795>',
+  settings: '<:settings:1462762167743942799>',
+  shield: '<:shield:1462762165323960407>',
+  tools: '<:tools:1462762160554901637>',
 
   /* Discord */
-  link: '<:nxtd_ico_link:1430645273234903070>',
-  locale: '<:nxtd_ico_locale:1430645277395521598>',
-  reply: '<:nxtd_ico_reply:1430645304407101491>',
-  slash: '<:nxtd_ico_slash:1430645315874324570>',
-  sticker: '<:nxtd_ico_sticker:1430645320907493508>',
+  link: '<:link:1462762182922993776>',
+  locale: '<:locale:1462762180989423669>',
+  reply: '<:reply:1462762171657359492>',
+  slash: '<:slash:1462762163969200249>',
+  sticker: '<:sticker:1462762162060529737>',
 
-  audio: '<:nxtd_ico_audio:1430645220508438569>',
+  audio: '<:audio:1462762204096102400>',
 
   /* Users */
-  user: '<:nxtd_ico_user:1430645326771126323>',
-  user_king: '<:nxtd_ico_user_king:1430645331946901555>',
-  user_shield: '<:nxtd_ico_user_shield:1430645333410451527>',
+  user: '<:user:1462762159007338643>',
+  user_king: '<:user_king:1462762157585465529>',
+  user_shield: '<:user_shield:1462762155802886264>',
 
-  arrow_right: '<:nxtd_ico_arrow_right:1430645211633160213>',
+  arrow_right: '<:arrow_right:1462762205408923709>',
+  arrow_left: '<:arrow_left:1462767021501452385>',
 
-  exclaim_green: '<:nxtd_ico_exclaim_green:1430645253647634564>',
-  exclaim_red: '<:nxtd_ico_exclaim_red:1430645257107804260>',
+  exclaim_green: '<:exclaim_green:1462762195061575877>',
+  exclaim_red: '<:exclaim_red:1462762193874456734>',
 
-  information: '<:nxtd_ico_information:1430645271586541659>',
-  question: '<:nxtd_ico_question:1430645299084398662>',
-  warning: '<:nxtd_ico_warning:1430645336405446799>',
+  information: '<:information:1462762184491798560>',
+  question: '<:question:1462762173758570566>',
+  warning: '<:warning:1462762154393337944>',
 
   /* Weds */
-  weds_air_quality_0: '<:nxtd_ico_weds_quality_0:1430645339769278504>',
-  weds_air_quality_1: '<:nxtd_ico_weds_quality_1:1430645341509648657>',
-  weds_air_quality_2: '<:nxtd_ico_weds_quality_2:1430645343518724127>',
-  weds_air_quality_3: '<:nxtd_ico_weds_quality_3:1430645345154764902>',
-  weds_air_quality_4: '<:nxtd_ico_weds_quality_4:1430645346551464117>',
+  weds_air_quality_0: '<:weds_air_quality_0:1462762153126793392>',
+  weds_air_quality_1: '<:weds_air_quality_1:1462762151902052529>',
+  weds_air_quality_2: '<:weds_air_quality_2:1462762149398056982>',
+  weds_air_quality_3: '<:weds_air_quality_3:1462762147732787344>',
+  weds_air_quality_4: '<:weds_air_quality_4:1462762146382483519>',
 
-  weds_uv_index_0: '<:nxtd_ico_weds_uv_0:1430645350674206902>',
-  weds_uv_index_1: '<:nxtd_ico_weds_uv_1:1430645352062521405>',
-  weds_uv_index_2: '<:nxtd_ico_weds_uv_2:1430645353694363648>',
-  weds_uv_index_3: '<:nxtd_ico_weds_uv_3:1430645355636199445>',
-  weds_uv_index_4: '<:nxtd_ico_weds_uv_4:1430645357158600787>',
-  weds_warning_frost: '<:nextgen_ico_weds_warning_frost:1329933455898837051>',
-  weds_warning_flood: '<:nextgen_ico_weds_warning_flood:1329933447401046079>',
+  weds_uv_index_0: '<:weds_uv_index_0:1462762144763215892>',
+  weds_uv_index_1: '<:weds_uv_index_1:1462762143391944754>',
+  weds_uv_index_2: '<:weds_uv_index_2:1462762141915287634>',
+  weds_uv_index_3: '<:weds_uv_index_3:1462762140137033858>',
+  weds_uv_index_4: '<:weds_uv_index_4:1462762138719359166>',
+  weds_warning_frost: '<:weds_warning_frost:1462762135913238568>',
+  weds_warning_flood: '<:weds_warning_flood:1462762137557401731>',
 });
 
 module.exports.MUSIC_PLATFORM_ICONS = Object.freeze({
@@ -162,7 +163,7 @@ module.exports.MUSIC_PLATFORM_ICONS = Object.freeze({
 
 module.exports.COMPONENT_BUTTON_ICONS = Object.freeze({
   NEXT: this.ICONS.arrow_right,
-  PREVIOUS: this.ICONS.arrow_right,
+  PREVIOUS: this.ICONS.arrow_left,
   STOP: this.ICONS.shield,
   SEARCH: this.ICONS.qr,
   UNKNOWN: this.ICONS.question,
