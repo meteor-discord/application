@@ -86,14 +86,14 @@ module.exports = {
     await acknowledge(context);
 
     if (!args.query) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (query).`));
-    
+
     try {
       let search = await lyrics(context, args.query);
       search = JSON.parse(search.response.text).response.body;
 
       if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
       if (search.status === 1) return editOrReply(context, createEmbed('warning', context, search.message));
-      
+
       const fields = [];
 
       for (const f of search.lyrics.split('\n\n')) {

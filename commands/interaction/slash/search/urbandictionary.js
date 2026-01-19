@@ -15,7 +15,7 @@ const {
 } = require('detritus-client/lib/constants');
 
 function createUrbanPage(context, result) {
-  const cleanText = (text) => text?.replace(/\[([^\]]+)\]/g, '**$1**') || '';
+  const cleanText = text => text?.replace(/\[([^\]]+)\]/g, '**$1**') || '';
 
   const e = createEmbed('default', context, {
     description: `**${link(result.link, result.title)}**`,
@@ -76,7 +76,8 @@ module.exports = {
       if (body.status === 1) return editOrReply(context, createEmbed('warning', context, body.message));
 
       const results = body.results || [];
-      if (!Array.isArray(results) || results.length === 0) return editOrReply(context, createEmbed('warning', context, `No results found.`));
+      if (!Array.isArray(results) || results.length === 0)
+        return editOrReply(context, createEmbed('warning', context, `No results found.`));
 
       const pages = [];
       for (const res of results) {

@@ -112,7 +112,8 @@ module.exports = {
       const body = search.response.body;
 
       if (body.status === 2) return editOrReply(context, createEmbed('error', context, body.message));
-      if (body.status === 1) return editOrReply(context, createEmbed('warning', context, body.message || 'No lyrics found.'));
+      if (body.status === 1)
+        return editOrReply(context, createEmbed('warning', context, body.message || 'No lyrics found.'));
       if (!body.track) return editOrReply(context, createEmbed('warning', context, 'No lyrics found.'));
       const fields = [];
 
