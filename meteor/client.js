@@ -186,11 +186,11 @@ commandClient.on('commandRunError', async ({ context, error }) => {
     logError(packages, '01').catch(err => console.error('Failed to log error:', err));
 
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
+      content: `${icon('exclaim_red')} Something went wrong while attempting to run this command.`,
     });
   } catch {
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
+      content: `${icon('exclaim_red')} Something went wrong while attempting to run this command.`,
     });
   }
 });
@@ -233,12 +233,12 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     logError(packages, '01').catch(err => console.error('Failed to log error:', err));
 
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
+      content: `${icon('exclaim_red')} Something went wrong while attempting to run this command.`,
     });
   } catch (e) {
     console.log(e);
     await editOrReply(context, {
-      content: `${icon('cross')} Something went wrong while attempting to run this command.`,
+      content: `${icon('exclaim_red')} Something went wrong while attempting to run this command.`,
     });
   }
 });

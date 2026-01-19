@@ -1,11 +1,10 @@
-const { ICONS, ICONS_NEXTGEN, ICONS_NEXTGEN_LEGACY_MAPPINGS } = require('../constants');
+const { ICONS } = require('../constants');
 
 // Markdown Helpers
 
 // Check if an icon exists.
 function _iconExists(icon) {
-  if (ICONS_NEXTGEN_LEGACY_MAPPINGS[icon]) icon = ICONS_NEXTGEN_LEGACY_MAPPINGS[icon];
-  return !ICONS_NEXTGEN[icon] || !ICONS[icon];
+  return !!ICONS[icon];
 }
 
 let customIcons;
@@ -24,16 +23,11 @@ function _icon(icon) {
   // }
 
   let _icns = structuredClone(ICONS);
-  _icns = Object.assign(_icns, ICONS_NEXTGEN);
-
   if (customIcons) _icns = Object.assign(_icns, customIcons);
 
   let i = _icns.question;
 
-  // apply nextgen icon mappings
-  if (ICONS_NEXTGEN_LEGACY_MAPPINGS[icon]) icon = ICONS_NEXTGEN_LEGACY_MAPPINGS[icon];
-
-  // The icon resolve order matters - nextgen icons should always take priority
+  // Resolve icon
   if (_icns[icon]) i = _icns[icon];
 
   return i.replace(/:[a-z0-9_]*:/, ':i:');

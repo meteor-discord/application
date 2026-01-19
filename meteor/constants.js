@@ -85,112 +85,45 @@ module.exports.BADGE_ICONS = Object.freeze({
   staff: '<:b:1263605715688231035>',
 });
 
-// labscore_nxt/nextgen icons
-module.exports.ICONS_NEXTGEN = Object.freeze({
-  button_mag: '<:ico_button_mag:1271212564122173552>',
-  button_thermometer: '<:ico_button_thermometer:1263593823016062987>',
-  button_trash: '<:ico_button_trash:1271212355883372716>',
+// next generation icons
+module.exports.ICONS = Object.freeze({
   button_user_profile_swap: '<:ico_button_user_profile_swap:1263594003442700368>',
+  button_thermometer: '<:ico_button_thermometer:1263593823016062987>',
   button_translate: '<:ico_button_translate:1304161023288283249>',
-
-  button_chevron_left: '<:button_chevron_left:1263594121256374413>',
-  button_chevron_right: '<:button_chevron_right:1263594132023279669>',
-
-  open_in_new: '<:nxt_ico_open_in_new:1363577624252649675>',
-
-  button_full_coverage: '<:ico_full_coverage:1341535912017793045>',
-  button_wolfram_compute: '<:ico_wolfram_compute:1342276477269577758>',
-
-  gs_auto_awesome: '<:ico_gs_auto_awesome:1352186988416995380>',
 
   /* Brands */
   brand: '<:nxtd_ico_brand:1430645224803139644>',
-  brand_gray: '<:nxtd_ico_brand_gray:1430645230977155172>',
-  brand_discord: '<:nxtd_ico_discord:1430645249390280876>',
-  brand_gitlab: '<:nxtd_ico_brand_gitlab:1430645226774597723>',
-  brand_google: '<:nxtd_ico_brand_google:1430645228968083547>',
 
   /* Icon Toolkit */
-  analytics: '<:nxtd_ico_analytics:1430645206184890499>',
   calendar: '<:nxtd_ico_calendar:1430645232977842226>',
-  clock: '<:nxtd_ico_clock:1430645238476706015>',
-  connection: '<:nxtd_ico_connection:1430645241949720606>',
-  connection_warning: '<:nxtd_ico_connection_warning:1430645244147273800>',
   flag: '<:nxtd_ico_flag:1430645261339983934>',
-  hashmark: '<:nxtd_ico_channel:1430645234521346059>',
-  hashmark_warning: '<:nxtd_ico_channel_adult:1430645236207714476>',
   home: '<:nxtd_ico_home:1430645264661741769>',
   image: '<:nxtd_ico_image:1430645268570837083>',
-  image_stack: '<:nxtd_ico_image_stack:1430645270256947221>',
-  list_stack: '<:nxtd_ico_list_stack:1430645275806142606>',
-  newspaper: '<:nxtd_ico_newspaper:1430645284312186910>',
-  note: '<:nxtd_ico_note:1430645287398932581>',
   padlock: '<:nxtd_ico_lock:1430645279090020522>',
-  pencil: '<:nxtd_ico_pencil:1430645288766275664>',
-  pencil_note: '<:nxtd_ico_pencil_note:1430645290813096138>',
-  planet: '<:nxtd_ico_planet:1430645292679565373>',
-  privacy_policy: '<:nxtd_ico_privacy_policy:1430645296068558929>',
   qr: '<:nxtd_ico_qr:1430645297729769504>',
   robot: '<:nxtd_ico_robot:1430645306302795897>',
-  rocket: '<:nxtd_ico_rocket:1430645307804225629>',
-  search: '<:nxtd_ico_search:1430645309360308425>',
-  search_square: '<:nxtd_ico_search_square:1430645310383980586>',
   settings: '<:nxtd_ico_settings:1430645312204181606>',
   shield: '<:nxtd_ico_shield:1430645314423099472>',
-  sparkles: '<:nxtd_ico_sparkles:1430645317468033096>',
   tools: '<:nxtd_ico_tools:1430645325353324758>',
 
   /* Discord */
-  discord_boost: '<:nxtd_ico_boost:1430645222647267428>',
-  discord_nitro: '<:nxtd_ico_nitro:1430645285767348367>',
-  discord_status_offline: '<:nxtd_ico_disc_status_offline:1430645245833510952>',
-  discord_status_online: '<:nxtd_ico_disc_status_online:1430645247385534524>',
-
-  attachment: '<:nxtd_ico_attachment_image:1430645218650230956>',
-  attachment_file: '<:nxtd_ico_attachment_file:1430645216792281238>',
-  emoji: '<:nxtd_ico_emoji:1430645250782662867>',
-  forward: '<:nxtd_ico_forward:1430645263122567338>',
-  id: '<:nxtd_ico_id:1430645266075095153>',
   link: '<:nxtd_ico_link:1430645273234903070>',
   locale: '<:nxtd_ico_locale:1430645277395521598>',
-  message: '<:nxtd_ico_message:1430645280868401212>',
   reply: '<:nxtd_ico_reply:1430645304407101491>',
   slash: '<:nxtd_ico_slash:1430645315874324570>',
   sticker: '<:nxtd_ico_sticker:1430645320907493508>',
 
-  at: '<:nxtd_ico_at:1430645214988734705>',
   audio: '<:nxtd_ico_audio:1430645220508438569>',
-  microphone: '<:nxtd_ico_microphone:1430645282659369083>',
-  stage: '<:nxtd_ico_stage:1430645319460323438>',
 
   /* Users */
   user: '<:nxtd_ico_user:1430645326771126323>',
-  user_circle: '<:nxtd_ico_user_circle:1430645328670883921>',
   user_king: '<:nxtd_ico_user_king:1430645331946901555>',
-  user_group: '<:nxtd_ico_user_group:1430645330545872906>',
   user_shield: '<:nxtd_ico_user_shield:1430645333410451527>',
-  user_stack: '<:nxtd_ico_user_stack:1430645334714880081>',
 
-  arrow_down: '<:nxtd_ico_arrow_down:1430645208244158464>',
-  arrow_left: '<:nxtd_ico_arrow_left:1430645210060296202>',
   arrow_right: '<:nxtd_ico_arrow_right:1430645211633160213>',
-  arrow_up: '<:nxtd_ico_arrow_up:1430645213633974393>',
 
-  downvote: '<:nxtd_ico_rate_downvote:1430645300703264828>',
-  upvote: '<:nxtd_ico_rate_upvote:1430645302771187783>',
-
-  album: '<:nxtd_ico_album:1430645204196655186>',
-  comments: '<:nxtd_ico_comments:1430645240401887332>',
-  playlist: '<:nxtd_ico_playlist:1430645294563070144>',
-  thumb_up: '<:nxtd_ico_thumb_up:1430645323692376235>',
-  thumb_down: '<:nxtd_ico_thumb_down:1430645322224500746>',
-  eye: '<:nxtd_ico_eye:1430645260031229962>',
-
-  exclaim: '<:nxtd_ico_exclaim:1430645252305326151>',
   exclaim_green: '<:nxtd_ico_exclaim_green:1430645253647634564>',
-  exclaim_pink: '<:nxtd_ico_exclaim_pink:1430645255388139671>',
   exclaim_red: '<:nxtd_ico_exclaim_red:1430645257107804260>',
-  exclaim_yellow: '<:nxtd_ico_exclaim_yellow:1430645258634395748>',
 
   information: '<:nxtd_ico_information:1430645271586541659>',
   question: '<:nxtd_ico_question:1430645299084398662>',
@@ -208,383 +141,8 @@ module.exports.ICONS_NEXTGEN = Object.freeze({
   weds_uv_index_2: '<:nxtd_ico_weds_uv_2:1430645353694363648>',
   weds_uv_index_3: '<:nxtd_ico_weds_uv_3:1430645355636199445>',
   weds_uv_index_4: '<:nxtd_ico_weds_uv_4:1430645357158600787>',
-
-  weds_moon: '<:nxtd_ico_weds_moon:1430645338019987537> ',
-  weds_sun: '<:nxtd_ico_weds_sun:1430645348036116500> ',
-
-  weds_warning: '<:nextgen_ico_weds_warning:1329933496780722357>',
-  // These icon names (weds_warning_:warningId) have to be synced with the server (/utils_service/endpoints/weather.js).
-  weds_warning_wind: '<:nextgen_ico_weds_warning_wind:1329933507006435359>',
-  weds_warning_tropicalstorm: '<:nextgen_ico_weds_warning_tropica:1329933486819115079>',
-  weds_warning_tornado: '<:nextgen_ico_weds_warning_tornado:1329933476522365101>',
-  weds_warning_temperature: '<:nextgen_ico_weds_warning_heat:1329933467370258452>',
   weds_warning_frost: '<:nextgen_ico_weds_warning_frost:1329933455898837051>',
   weds_warning_flood: '<:nextgen_ico_weds_warning_flood:1329933447401046079>',
-});
-
-// nextgen icons legacy name -> new name mappings
-module.exports.ICONS_NEXTGEN_LEGACY_MAPPINGS = Object.freeze({
-  link_open_external: 'open_in_new',
-  stars: 'sparkles',
-
-  example: 'pencil_note',
-  list: 'list_stack',
-  definition: 'book_search',
-  latency: 'connection',
-  mag: 'search',
-  search: 'search_square',
-  trend: 'analytics',
-
-  activity: 'rocket',
-  agreements: 'privacy_policy',
-  apps: 'shapes',
-  channel: 'hashmark',
-  channel_nsfw: 'hashmark_warning',
-  mention: 'at',
-
-  user_multiple: 'user_group',
-  user_profile: 'user_circle',
-
-  discord: 'brand_discord',
-  gitlab: 'brand_gitlab',
-  generative_ai: 'ai_writing',
-
-  boost: 'discord_boost',
-  nitro: 'discord_nitro',
-
-  moon: 'weds_moon',
-  sun: 'weds_sun',
-
-  user_card: 'user_stack',
-
-  visible: 'eye',
-
-  status_offline: 'discord_status_offline',
-  status_online: 'discord_status_online',
-
-  exclaim_0: 'exclaim',
-  exclaim_1: 'exclaim_green',
-  exclaim_2: 'exclaim_yellow',
-  exclaim_3: 'exclaim_red',
-  exclaim_4: 'exclaim_pink',
-
-  uv_index_0: 'weds_uv_index_0',
-  uv_index_1: 'weds_uv_index_1',
-  uv_index_2: 'weds_uv_index_2',
-  uv_index_3: 'weds_uv_index_3',
-  uv_index_4: 'weds_uv_index_4',
-
-  air_quality_0: 'weds_air_quality_0',
-  air_quality_1: 'weds_air_quality_1',
-  air_quality_2: 'weds_air_quality_2',
-  air_quality_3: 'weds_air_quality_3',
-  air_quality_4: 'weds_air_quality_4',
-
-  stat_comments: 'comments',
-  stat_likes: 'thumb_up',
-  stat_people: 'user_group',
-  stat_videos: 'playlist',
-  stat_views: 'eye',
-
-  // WEATHER BLOCK
-  weather_warning_generic: 'weds_warning',
-  weather_warning_storm: 'weds_warning_wind',
-  weather_warning_tropical_storm: 'weds_warning_tropicalstorm',
-  weather_warning_tornado: 'weds_warning_tornado',
-  weather_warning_heat: 'weds_warning_temperature',
-  weather_warning_frost: 'weds_warning_frost',
-  weather_warning_flood: 'weds_warning_flood',
-});
-
-module.exports.ICONS = Object.freeze({
-  brand: '<:ico_brand_2024:1263593574478643221>',
-  flask_incognito: '<:ico_flask_incognito:1263608937459224688>',
-
-  flask_mini: '<:ico_subt_flask:1263593669215256597>',
-  subtext_lightbulb: '<:ico_subt_lightbulb:1263593690358616084>',
-  subtext_translate: '<:ico_subtext_translate:1323844562875187291>',
-
-  button_mag: '<:ico_button_mag:1271212564122173552>',
-  button_thermometer: '<:ico_button_thermometer:1263593823016062987>',
-  button_trash: '<:ico_button_trash:1271212355883372716>',
-  button_user_profile_swap: '<:ico_button_user_profile_swap:1263594003442700368>',
-  button_translate: '<:ico_button_translate:1304161023288283249>',
-
-  button_chevron_left: '<:button_chevron_left:1263594121256374413>',
-  button_chevron_right: '<:button_chevron_right:1263594132023279669>',
-
-  link_open_external: '<:ico_link_open_external:1266361666702934071>',
-
-  home: '<:ico_home:1263593114694586400>',
-  image: '<:ico_image:1263593101755289610>',
-  search: '<:ico_search:1263593084810301493>',
-  shield: '<:ico_shield:1263593069530583171>',
-  stars: ' <:ico_stars:1263593055512957122>',
-  tools: '<:ico_tools:1263593031903346698>',
-
-  agreements: '<:ico_agreements:1263592506017189988>',
-  calendar: '<:ico_calendar:1263592493505577041>',
-  certificate: '<:ico_certificate:1263592480461553794>',
-  clock: '<:ico_clock:1263592462841020537>',
-  definition: '<:ico_definition:1263592450136473684>',
-  example: '<:ico_example:1263592408021471253>',
-  equals: '<:ico_equals:1266486823992168468>',
-  flag: '<:ico_flag:1263592391630127114>',
-  list: '<:ico_list:1263592365994803306>',
-  mag: '<:ico_mag:1263592345845108747>',
-  note: '<:ico_note:1263592327856001105>',
-  padlock: '<:ico_padlock:1263592313280528434>',
-  pencil: '<:ico_pencil:1263592296570421351>',
-  planet: '<:ico_planet:1263592281685098568>',
-  qr: '<:ico_qr:1263592268053348393>',
-  robot: '<:ico_robot:1263592241776164893>',
-  settings: '<:ico_settings:1263592222784356402>',
-  trend: '<:ico_trend:1263592191981256786>',
-  visible: '<:ico_visible:1263592172436066374>',
-
-  activity: '<:ico_activity:1263591756570689682>',
-  apps: '<:ico_apps:1271251455818469530>',
-  attachment: '<:ico_attachment:1263591742452666378>',
-  boost: '<:ico_boost:1263591721741193226>',
-  discord: '<:ico_discord:1263591704439689226>',
-  emoji: '<:ico_emoji:1263591687691833479>',
-  id: '<:ico_id:1329911839693471834>',
-  link: '<:ico_link:1263591669727629406>',
-  locale: '<:ico_locale:1263591655143903314>',
-  message: '<:ico_message:1263591634537545788>',
-  nitro: '<:ico_nitro:1263591618603126865>',
-  reply: '<:ico_reply:1263591597778407474>',
-  slash: '<:ico_slash:1263591582884434091>',
-  sticker: '<:ico_sticker:1263591567676145754>',
-
-  audio: '<:ico_audio:1263591286779412480>',
-  channel: '<:ico_channel:1263591268211097662>',
-  channel_nsfw: '<:ico_channel_nsfw:1263591241057173514>',
-  mention: '<:ico_mention:1263591215429849189>',
-  microphone: '<:ico_microphone:1263591199911051427>',
-  stage: '<:ico_stage:1271252974529810482>',
-
-  user: '<:ico_user:1263590776617828462>',
-  user_card: '<:ico_user_card:1263590467166277698>',
-  user_king: '<:ico_user_king:1263590410228334637>',
-  user_multiple: '<:ico_user_multiple:1263590373754929162>',
-  user_profile: '<:ico_user_profile:1263590325927284827>',
-  user_shield: '<:ico_user_shield:1263590283552231444>',
-
-  status_offline: '<:ico_status_offline:1263590209644134520>',
-  status_online: '<:ico_status_online:1263590195333169204>',
-
-  arrow_down: '<:ico_arrow_down:1263589989778853928>',
-  arrow_left: '<:ico_arrow_left:1263590017159139339>',
-  arrow_right: '<:ico_arrow_right:1263590004886863902>',
-  arrow_up: '<:ico_arrow_up:1263590030174195833>',
-
-  stat_comments: '<:ico_stat_comments:1263589816407162911>',
-  stat_likes: '<:ico_stat_likes:1263589802289397903>',
-  stat_people: '<:ico_stat_people:1263589790251618434>',
-  stat_videos: '<:ico_stat_videos:1263589779258216508>',
-  stat_views: '<:ico_stat_views:1263589767900299385>',
-
-  downvote: '<:ico_downvote:1263589702171103242>',
-  upvote: '<:ico_upvote:1263589685243154515>',
-
-  gitlab: '<:ico_gitlab:1263589629999976561>',
-
-  generative_ai: '<:ico_generative_ai:1263589586387468349>',
-  latency: '<:ico_latency:1263589536139710566>',
-
-  moon: '<:ico_moon:1263589209059496137> ',
-  sun: '<:ico_sun:1263589195251716116> ',
-
-  exclaim_0: '<:ico_exclaim_0:1263588923670532106>',
-  exclaim_1: '<:ico_exclaim_1:1263588911754510538>',
-  exclaim_2: '<:ico_exclaim_2:1263588899670855712>',
-  exclaim_3: '<:ico_exclaim_3:1263588890485457046>',
-  exclaim_4: '<:ico_exclaim_4:1263588879307640883>',
-  question_large: '<:ico_question_large:1263589058999750787>',
-
-  // Used by weds
-  air_quality_0: '<:ic_quality_0:1278416585739997184>',
-  air_quality_1: '<:ic_quality_1:1278416596506906664>',
-  air_quality_2: '<:ic_quality_2:1278416607055708251>',
-  air_quality_3: '<:ic_quality_3:1278416621215420506>',
-  air_quality_4: '<:ic_quality_4:1278416629973254175>',
-
-  uv_index_0: '<:ic_uv_0:1278416641633550336>',
-  uv_index_1: '<:ic_uv_1:1278416651569856522>',
-  uv_index_2: '<:ic_uv_2:1278416662974038118>',
-  uv_index_3: '<:ic_uv_3:1278416673761919006>',
-  uv_index_4: '<:ic_uv_4:1278416684763451485>',
-
-  // These icon names (weather_:conditionId) have to be synced with the server.
-  weather_blizzard: '<:ico_w_blizzard:1263583584850022460>',
-  weather_blowing_snow: '<:ico_w_blowing_snow:1263583671726903377>',
-  weather_clear_day: '<:ico_w_clear_day:1263583684158820383>',
-  weather_clear_night: '<:ico_w_clear_night:1263583704069181622>',
-  weather_cloudy: '<:ico_w_cloudy:1263583715704180879>',
-  weather_drizzle: '<:ico_w_drizzle:1263583728769302609>',
-  weather_flurries: '<:ico_w_flurries:1263583744053215333>',
-  weather_haze_fog_dust_smoke: '<:ico_w_haze_fog_dust_smoke:1263583772885127188>',
-  weather_heavy_rain: '<:ico_w_heavy_rain:1263583786428399717>',
-  weather_heavy_snow: '<:ico_w_heavy_snow:1263583800957337640>',
-  weather_icy: '<:ico_w_icy:1263583815717359658>',
-  weather_isolated_scattered_thunderstorms_day: '<:ico_w_iso_scattered_tstorm_day:1263583831433150526>',
-  weather_isolated_scattered_thunderstorms_night: '<:ico_w_iso_scattered_tstorm_night:1263584235847942246>',
-  weather_isolated_thunderstorms: '<:ico_w_isolated_thunderstorms:1263584283264548986>',
-  weather_mixed_rain_hail_sleet: '<:ico_w_mixed_rain_sleet_hail:1263584310598959185>',
-  weather_mixed_rain_snow: '<:ico_w_mixed_rain_snow:1263584323752296468>',
-  weather_mostly_clear_day: '<:ico_w_mostly_clear_day:1263584337471864986>',
-  weather_mostly_clear_night: '<:ico_w_mostly_clear_night:1263584621493489784>',
-  weather_mostly_cloudy_day: '<:ico_w_mostly_cloudy_day:1263584634793623575>',
-  weather_mostly_cloudy_night: '<:ico_w_mostly_cloudy_night:1263584648508866662>',
-  weather_partly_cloudy_day: '<:ico_w_partly_cloudy_day:1263584669644095558>',
-  weather_partly_cloudy_night: '<:ico_w_partly_cloudy_night:1263584672844087316>',
-  weather_scattered_showers_day: '<:ico_w_scattered_showers_day:1263584683657134101>',
-  weather_scattered_showers_night: '<:ico_w_scattered_showers_night:1263584693555560478>',
-  weather_scattered_snow_showers_day: '<:ico_w_scattered_snow_showers_day:1263584731178467449> ',
-  weather_scattered_snow_showers_night: '<:ico_scattered_snow_showers_night:1263584941996904448>',
-  weather_showers_rain: '<:ico_w_showers_rain:1263584960359567381>',
-  weather_showers_snow: '<:ico_w_snow_showers_snow:1263584991552471171>',
-  weather_sleet_hail: '<:ico_w_sleet_hail:1263584973697581140>',
-  weather_strong_thunderstorms: '<:ico_w_strong_tstorms:1263585008589869056>',
-  weather_tornado: '<:ico_w_tornado:1263585022552707154>',
-  weather_tropical_storm_hurricane: '<:ico_w_tropical_storm_hurricane:1263585036058366003>',
-  weather_very_cold: '<:very_cold:1278416835661926495>',
-  weather_very_hot: '<:very_hot:1278416845560348732>',
-  weather_windy: '<:ico_w_windy_breezy:1263585171849084968>',
-
-  weather_warning_generic: '<:ico_weather_warning:1269684384966119444>',
-  // These icon names (weather_warning_:warningId) have to be synced with the server.
-  weather_warning_storm: '<:ico_weather_wind:1269680554140242066>',
-  weather_warning_tropical_storm: '<:ico_weather_tropicalstorm:1269680544430428312>',
-  weather_warning_tornado: '<:ico_weather_tornado:1269680535517794334>',
-  weather_warning_heat: '<:ico_weather_heat:1269680524897681564>',
-  weather_warning_frost: '<:ico_weather_frost:1269680515145797652>',
-  weather_warning_flood: '<:ico_weather_flood:1269680505519865982>',
-
-  /* Maps Experience */
-
-  maps_location_pin: '<:maps_red_pin:1307493148800581643>',
-
-  maps_star: '<:ico_star:1306748432496463903>',
-  maps_star_half: '<:ico_star_half:1306748464037761064>',
-  maps_star_empty: '<:ico_star_empty_alt:1306748453187096598>',
-
-  // These icon names (maps_:type_pin) have to be synced
-  // with the server (search_service/utils/places).
-  maps_airport_pin: '<:maps_airport_pin:1307489862349492294>',
-  maps_atm_pin: '<:maps_atm_pin:1307491755188555898>',
-  maps_bank_dollar_pin: '<:maps_bank_dollar_pin:1307491765493698630>',
-  maps_bank_euro_pin: '<:maps_bank_euro_pin:1307491810687320175>',
-  maps_bank_intl_pin: '<:maps_bank_intl_pin:1307491820749455380>',
-  maps_bank_jp_pin: '<:maps_bank_jp_pin:1307491870703747142>',
-  maps_bank_pound_pin: '<:maps_bank_pound_pin:1307491883941101729>',
-  maps_bank_rmb_pin: '<:maps_bank_rmb_pin:1307491895836016700>',
-  maps_bank_won_pin: '<:maps_bank_won_pin:1307491909559779438>',
-  maps_bar_pin: '<:maps_bar_pin:1307491920880205936>',
-  maps_bike_pin: '<:maps_bike_pin:1307491931168837643>',
-  maps_boating_pin: '<:maps_boating_pin:1307491944410382416>',
-  maps_bridge_pin: '<:maps_bridge_pin:1307491957861388288>',
-  maps_cafe_pin: '<:maps_cafe_pin:1307491969110511646>',
-  maps_camera_pin: '<:maps_camera_pin:1307491997090582608>',
-  maps_camping_pin: '<:maps_camping_pin:1307492059736969268>',
-  maps_car_rental_pin: '<:maps_car_rental_pin:1307492307406426194>',
-  maps_cemetery_jp_pin: '<:maps_cemetery_jp_pin:1307492318873391245>',
-  maps_cemetery_pin: '<:maps_cemetery_pin:1307492328801566741>',
-  maps_city_office_jp_pin: '<:maps_city_office_jp_pin:1307492339471745054>',
-  maps_civic_bldg_pin: '<:maps_civic_bldg_pin:1307492350766874705>',
-  maps_civic_bldg_red_pin: '<:maps_civic_bldg_red_pin:1307492360883798046>',
-  maps_civil_office_jp_pin: '<:maps_civil_office_jp_pin:1307492371566690457>',
-  maps_convenience_pin: '<:maps_convenience_pin:1307492382593384509>',
-  maps_dice_pin: '<:maps_dice_pin:1307492393494380594>',
-  maps_dolphin_pin: '<:maps_dolphin_pin:1307492405636894822>',
-  maps_dot_gray_pin: '<:maps_dot_gray_pin:1307492434980114492>',
-  maps_dot_green_pin: '<:maps_dot_green_pin:1307492525841453157>',
-  maps_dot_light_gray_pin: '<:maps_dot_light_gray_pin:1307492536067031060>',
-  maps_dot_red_pin: '<:maps_dot_red_pin:1307492545793622036>',
-  maps_ev_pin: '<:maps_ev_pin:1307492558217285652>',
-  maps_event_venue_pin: '<:maps_event_venue_pin:1307492569927647293>',
-  maps_ferriswheel_pin: '<:maps_ferriswheel_pin:1307492583135645770>',
-  maps_fire_jp_pin: '<:maps_fire_jp_pin:1307492593587978251>',
-  maps_fishing_pin: '<:maps_fishing_pin:1307492603637403708>',
-  maps_flower_pin: '<:maps_flower_pin:1307492617017229342>',
-  maps_gas_pin: '<:maps_gas_pin:1307492627561709649>',
-  maps_glass_pin: '<:maps_glass_pin:1307492648109477960>',
-  maps_golf_pin: '<:maps_golf_pin:1307492660591722570>',
-  maps_government_cn_pin: '<:maps_government_cn_pin:1307492671157440522>',
-  maps_hiking_pin: '<:maps_hiking_pin:1307492767307530262>',
-  maps_historic_cn_pin: '<:maps_historic_cn_pin:1307492779211096204>',
-  maps_historic_pin: '<:maps_historic_pin:1307492790988574750>',
-  maps_hospital_pin: '<:maps_hospital_pin:1307492801147310111>',
-  maps_hotspring_pin: '<:maps_hotspring_pin:1307492810987147299>',
-  maps_library_pin: '<:maps_library_pin:1307492821879492770>',
-  maps_lighthouse_pin: '<:maps_lighthouse_pin:1307492833837580338>',
-  maps_lodging_pin: '<:maps_lodging_pin:1307492844952358922>',
-  maps_medical_pin: '<:maps_medical_pin:1307492856872566896>',
-  maps_monument_pin: '<:maps_monument_pin:1307492867627028511>',
-  maps_mountain_pin: '<:maps_mountain_pin:1307492876674138243>',
-  maps_movie_pin: '<:maps_movie_pin:1307492902561382410>',
-  maps_museum_jp_pin: '<:maps_museum_jp_pin:1307492943220703352>',
-  maps_museum_pin: '<:maps_museum_pin:1307493021268574349>',
-  maps_note_pin: '<:maps_note_pin:1307493031485902950>',
-  maps_palette_pin: '<:maps_palette_pin:1307493053287890964>',
-  maps_parking_pin: '<:maps_parking_pin:1307493063786238042>',
-  maps_paw_pin: '<:maps_paw_pin:1307493075609981020>',
-  maps_pharmacy_pin: '<:maps_pharmacy_pin:1307493086586212532>',
-  maps_police_jp_pin: '<:maps_police_jp_pin:1307493097726410802>',
-  maps_police_pin: '<:maps_police_pin:1307493109365608528>',
-  maps_postoffice_jp_pin: '<:maps_postoffice_jp_pin:1307493121340215316>',
-  maps_postoffice_pin: '<:maps_postoffice_pin:1307493134158266429>',
-  maps_relic_jp_pin: '<:maps_relic_jp_pin:1307493185194561577>',
-  maps_resort_pin: '<:maps_resort_pin:1307493196099747911>',
-  maps_restaurant_pin: '<:maps_restaurant_pin:1307493206493237348>',
-  maps_restroom_pin: '<:maps_restroom_pin:1307493216916082698>',
-  maps_school_pin: '<:maps_school_pin:1307493226734948393>',
-  maps_shopping_pin: '<:maps_shopping_pin:1307493252462678107>',
-  maps_shoppingcart_pin: '<:maps_shoppingcart_pin:1307493264848453652>',
-  maps_stadium_pin: '<:maps_stadium_pin:1307493275812237372>',
-  maps_street_pin: '<:maps_street_pin:1307493286067306576>',
-  maps_theater_pin: '<:maps_theater_pin:1307493296096149505>',
-  maps_transit_pin: '<:maps_transit_pin:1307493312693010492>',
-  maps_tree_pin: '<:maps_tree_pin:1307493327658291281>',
-  maps_worship_buddhist_pin: '<:maps_worship_buddhist_pin:1307493338156503131>',
-  maps_worship_christian_pin: '<:maps_worship_christian_pin:1307493348688396408>',
-  maps_worship_dharma_pin: '<:maps_worship_dharma_pin:1307493368028201020>',
-  maps_worship_hindu_pin: '<:maps_worship_hindu_pin:1307493380053270608>',
-  maps_worship_jain_pin: '<:maps_worship_jain_pin:1307493390987821117>',
-  maps_worship_jewish_pin: '<:maps_worship_jewish_pin:1307493402396459091>',
-  maps_worship_mormon_pin: '<:maps_worship_mormon_pin:1307493432834392087>',
-  maps_worship_shinto_pin: '<:maps_worship_shinto_pin:1307493443693707356>',
-  maps_worship_sikh_pin: '<:maps_worship_sikh_pin:1307493454053376020>',
-  maps_worship_temple_pin: '<:maps_worship_temple_pin:1307493467793915924>',
-
-  /* Various Brand Icons */
-  brand_google_gemini: '<:brand_google_gemini:1320506533003530270>',
-  brand_google_palm2: '<:brand_google_palm2:1321959401376186492>',
-
-  information: '<:ico_information:1263590946226835510>',
-  question: '<:ico_question:1263590898906697800>',
-  warning: '<:ico_warning:1263590857072967832>',
-
-  // Internal Icons
-  empty: '<:ico_empty:1263591098740113478>',
-
-  // Legacy Icon Compat
-  success_simple: '<:ico_check:1263594912692178974>',
-  failiure_simple: '<:ico_cross:1263594899048235100>',
-
-  /*
-    Webhook Icons
-
-    These emoji are located on the
-    china (682672131359637534) server
-    since webhooks can't access bot-owned emoji.
-  */
-  webhook_exclaim_0: '<:ico_exclaim_0:1321960522547068938>',
-  webhook_exclaim_1: '<:ico_exclaim_1:1321960524300292146> ',
-  webhook_exclaim_2: '<:ico_exclaim_2:1321960526162694225> ',
-  webhook_exclaim_3: '<:ico_exclaim_3:1321960528058253524> ',
-  webhook_exclaim_4: '<:ico_exclaim_4:1321960529811738776>',
 });
 
 module.exports.MUSIC_PLATFORM_ICONS = Object.freeze({
@@ -603,11 +161,11 @@ module.exports.MUSIC_PLATFORM_ICONS = Object.freeze({
 });
 
 module.exports.COMPONENT_BUTTON_ICONS = Object.freeze({
-  NEXT: this.ICONS.button_chevron_right,
-  PREVIOUS: this.ICONS.button_chevron_left,
-  STOP: this.ICONS.button_trash,
-  SEARCH: this.ICONS.button_mag,
-  UNKNOWN: this.ICONS.question_large,
+  NEXT: this.ICONS.arrow_right,
+  PREVIOUS: this.ICONS.arrow_right,
+  STOP: this.ICONS.shield,
+  SEARCH: this.ICONS.qr,
+  UNKNOWN: this.ICONS.question,
 });
 
 module.exports.GUILD_FEATURE_ICONS_REDESIGN = Object.freeze({
@@ -1104,8 +662,8 @@ module.exports.TRANSLATE_LANGUAGE_ALIASES = Object.freeze({
 // there are a lot of overlapping flags (specifically in eastern territories),
 // we have separata "display" and "resolve" mappings now.
 module.exports.TRANSLATE_DISPLAY_MAPPINGS = Object.freeze({
-  auto: this.ICONS_NEXTGEN.gs_auto_awesome,
-  und: this.ICONS_NEXTGEN.gs_auto_awesome,
+  auto: this.ICONS.gs_auto_awesome,
+  und: this.ICONS.gs_auto_awesome,
   af: '🇿🇦',
   sq: '🇦🇱',
   am: '🇪🇹',

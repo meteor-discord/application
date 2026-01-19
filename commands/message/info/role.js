@@ -121,7 +121,7 @@ module.exports = {
         const permissionsRender = [];
         for (const p of section.permissions) {
           permissionsRender.push(
-            `${PermissionTools.checkPermissions(r.permissions, p) ? icon('success_simple') : icon('failiure_simple')} ${PERMISSIONS_TEXT[p]}`
+            `${PermissionTools.checkPermissions(r.permissions, p) ? icon('exclaim_green') : icon('exclaim_red')} ${PERMISSIONS_TEXT[p]}`
           );
         }
         permSection.push(sectionRender + permissionsRender.join('\n'));

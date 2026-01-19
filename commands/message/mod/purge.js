@@ -24,7 +24,7 @@ module.exports = {
   permissions: [Permissions.MANAGE_MESSAGES],
   onPermissionsFail: context =>
     editOrReply(context, {
-      content: `${icon('failiure_simple')} ${context.message.author.mention}, you are lacking the permission \`Manage Messages\`.`,
+      content: `${icon('exclaim_red')} ${context.message.author.mention}, you are lacking the permission \`Manage Messages\`.`,
     }),
   ratelimit: {
     type: 'guild',
@@ -38,7 +38,7 @@ module.exports = {
 
     if (args.amount >= 51 || args.amount <= 0) {
       return editOrReply(context, {
-        content: `${icon('failiure_simple')} ${context.message.author.mention}, Invalid amount (1-50).`,
+        content: `${icon('exclaim_red')} ${context.message.author.mention}, Invalid amount (1-50).`,
       });
     }
     const messages = await context.message.channel.fetchMessages({ limit: args.amount });
@@ -64,24 +64,24 @@ module.exports = {
     });
 
     if (deleteIds.length === 0) {
-      return editOrReply(context, { content: `${icon('failiure_simple')} No messages found.` });
+      return editOrReply(context, { content: `${icon('exclaim_red')} No messages found.` });
     }
     if (deleteIds.length === 1) {
       try {
         await context.client.rest.deleteMessage(context.channel.id, deleteIds[0]);
-        return editOrReply(context, { content: `${icon('success_simple')} Removed \`1\` message.` });
+        return editOrReply(context, { content: `${icon('exclaim_green')} Removed \`1\` message.` });
       } catch {
         await editOrReply(context, {
-          content: `${icon('failiure_simple')} Something went wrong while attempting to remove \`1\` message.`,
+          content: `${icon('exclaim_red')} Something went wrong while attempting to remove \`1\` message.`,
         });
       }
     } else {
       try {
         await context.client.rest.bulkDeleteMessages(context.channel.id, deleteIds);
-        return editOrReply(context, { content: `${icon('success_simple')} Removed \`${deleteIds.length}\` messages.` });
+        return editOrReply(context, { content: `${icon('exclaim_green')} Removed \`${deleteIds.length}\` messages.` });
       } catch {
         await editOrReply(context, {
-          content: `${icon('failiure_simple')} Something went wrong while attempting to remove \`${deleteIds.length}\` messages.`,
+          content: `${icon('exclaim_red')} Something went wrong while attempting to remove \`${deleteIds.length}\` messages.`,
         });
       }
     }
