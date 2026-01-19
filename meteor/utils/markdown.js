@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 if (fs.existsSync(path.join(__dirname, './emoji.json'))) customIcons = require('./emoji.json');
 
-let _icns = {...ICONS, ...ICONS_NEXTGEN};
+const _icns = {...ICONS, ...ICONS_NEXTGEN};
 
 // Internal icon resolver
 function _icon(icon) {
