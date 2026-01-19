@@ -19,7 +19,6 @@ module.exports = {
     usage: 'update [-f]',
   },
   onBefore: context => context.user.isClientOwner,
-  onCancel: () => {},
   run: async (context, args) => {
     await editOrReply(context, createEmbed('loading', context, 'Fetching updates...'));
 
