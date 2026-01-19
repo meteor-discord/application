@@ -6,6 +6,7 @@ const { editOrReply } = require('#utils/message');
 const { validateAttachment } = require('#utils/attachment');
 const { STATICS } = require('#utils/statics');
 
+const { randomUUID } = require('crypto');
 const superagent = require('superagent');
 const {
   ApplicationCommandOptionTypes,
@@ -71,7 +72,7 @@ module.exports = {
       const upload = await superagent
         .post('https://api.e-z.host/files')
         .set('key', process.env.EZ_HOST_API_KEY)
-        .attach('file', resized.body, `resized_${width}x${height}.${Date.now().toString(36)}.png`);
+        .attach('file', resized.body, `resized_${width}x${height}_${randomUUID()}.png`);
 
       if (!upload.body?.rawUrl) throw new Error('Upload failed');
 
