@@ -4,7 +4,7 @@ const superagent = require('superagent');
 
 const ERROR_WEBHOOK = process.env.ERROR_WEBHOOK;
 
-const formatErrorMessage = (sev = 0, code, content) => {
+const formatErrorMessage = (code, content) => {
   return `\`[${Date.now()}]\` @ \`[meteor]\` **\` ${code}  \`** | ${content}`;
 };
 
@@ -97,7 +97,7 @@ module.exports.logError = async function (packages, type = '01') {
 
     embed.title = 'Error Report';
     embed.footer = {
-      text: `meteor • type ${type}`,
+      text: `Meteor • type ${type}`,
     };
 
     await superagent.post(ERROR_WEBHOOK).send({

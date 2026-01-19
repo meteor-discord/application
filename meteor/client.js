@@ -324,7 +324,6 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
         // Log to Discord webhook (non-blocking)
         logMessage(
           formatErrorMessage(
-            3,
             'REST_ERROR',
             `REST request error: \`${response.statusCode}\`\n**\` ${response.request.method}  \`** \`${response.request.url}\` (${route.path})\n\`\`\`js\n${responseText.substring(0, 500)}\`\`\``
           )
@@ -337,7 +336,7 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     console.warn(error);
 
     // Log to Discord webhook (non-blocking)
-    logMessage(formatErrorMessage(2, 'CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``)).catch(err =>
+    logMessage(formatErrorMessage('CLIENT_WARNING', `Client reported warning:\n\`\`\`${error}\`\`\``)).catch(err =>
       console.error('Failed to log warning:', err)
     );
   });

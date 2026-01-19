@@ -36,7 +36,6 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       return context.editMessage(context._meta.replacementMessageId, message).catch(e => {
         logMessage(
           formatErrorMessage(
-            3,
             'MESSAGE_ERROR',
             `Command \`${context.command.name}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
           ),
@@ -72,7 +71,6 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       }
       logMessage(
         formatErrorMessage(
-          3,
           'MESSAGE_ERROR',
           `Command \`${context.command?.name || context.message?.content || 'Unknown Command (check console)'}\` failed to respond: @ \`${Date.now()}\`\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
         ),
@@ -88,7 +86,6 @@ module.exports.editOrReply = function (context, message, disableReference = fals
       console.log(e.status);
       logMessage(
         formatErrorMessage(
-          3,
           'MESSAGE_ERROR',
           `Command \`${context.message?.content}\` failed to respond:\nGuild: \`${context.guild?.id}\`\nChannel: \`${context.channel?.id}\`\nUser: \`${context.user?.id}\`\`\`\`js\n${e}\`\`\``
         ),
