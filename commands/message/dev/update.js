@@ -4,7 +4,6 @@ const { editOrReply } = require('#utils/message');
 
 const { exec } = require('child_process');
 const util = require('util');
-const { aliases } = require('./reload');
 
 const execAsync = util.promisify(exec);
 const MAX_LOG_CHARS = 3800;
