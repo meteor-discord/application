@@ -1,17 +1,18 @@
 const { createEmbed } = require('#utils/embed');
-const { smallPill } = require('#utils/markdown');
+const { codeblock, smallPill, highlight } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 
 const { exec } = require('child_process');
 const util = require('util');
 
 const execAsync = util.promisify(exec);
-const MAX_LOG_CHARS = 3800;
+const MAX_LOG_CHARS = 1800;
 
 function truncateLog(text, limit = MAX_LOG_CHARS) {
   if (!text) return '';
   if (text.length <= limit) return text;
-  return text.slice(0, limit - 3) + '...';
+  const half = Math.floor((limit - 30) / 2);
+  return text.slice(0, half) + '\n...\n' + text.slice(-half);
 }
 
 module.exports = {
@@ -21,14 +22,14 @@ module.exports = {
   metadata: {
     description: `Updates bot code from git.\nUse ${smallPill('-f')} to force an update.`,
     description_short: 'Update bot code.',
-    examples: ['update'],
+    examples: ['update', 'update -f'],
     category: 'dev',
-    usage: 'update',
+    usage: 'update [-f]',
   },
   onBefore: context => context.user.isClientOwner,
   onCancel: () => {},
   run: async (context, args) => {
-    await editOrReply(context, createEmbed('loading', context, 'Updating bot...'));
+    await editOrReply(context, createEmbed('loading', context, 'Fetching updates...'));
 
     try {
       const start = Date.now();
@@ -40,27 +41,38 @@ module.exports = {
       const output = (stdout || '') + (stderr || '');
 
       if (output.includes('Already up to date.')) {
-        return await editOrReply(context, createEmbed('warning', context, 'Already up to date.'));
+        return await editOrReply(context, createEmbed('success', context, 'Already up to date.'));
       }
 
       const match = output.match(/([a-z0-9]{7})\.{2}([a-z0-9]{7})/i);
-      const range = match ? `${match[1]} -> ${match[2]}` : 'git pull';
-      const logSnippet = truncateLog(output || 'git pull completed');
+      const range = match ? `${highlight(match[1])} → ${highlight(match[2])}` : 'updated';
       const elapsed = ((Date.now() - start) / 1000).toFixed(2);
+      const logSnippet = truncateLog(output || 'git pull completed');
+
+      const display = [];
+      display.push(`Updated ${range} in ${highlight(elapsed + 's')}. Restarting...`);
+      display.push('');
+      display.push(codeblock('diff', logSnippet));
 
       await editOrReply(
         context,
-        createEmbed('default', context, {
+        createEmbed('success', context, {
           title: 'Manual Git Pull',
-          description: `Updated ${range} in ${elapsed}s. Restarting...\n\n\u3010pull log\u3011\n\`\`\`\n${logSnippet}\n\`\`\``,
+          description: display.join('\n'),
         })
       );
 
       // pm2 will restart us
-      process.exit(0);
+      setTimeout(() => process.exit(0), 1000);
     } catch (e) {
       console.error(e);
-      return await editOrReply(context, createEmbed('error', context, 'Manager reported error during update query.'));
+      const errorMsg = e.stderr || e.message || 'Unknown error';
+      return await editOrReply(
+        context,
+        createEmbed('error', context, {
+          description: `Failed to update.\n${codeblock('', errorMsg.slice(0, 500))}`,
+        })
+      );
     }
   },
 };
