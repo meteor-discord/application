@@ -26,8 +26,8 @@ module.exports = {
     return await editOrReply(
       context,
       createEmbed('default', context, {
-        description: `${icon('brand')} **${context.client.user.username} Privacy Policy**\n*Last Updated: ${timestamp(PRIVACY_POLICY_LAST_UPDATE, 'f')}*\n${PRIVACY_POLICY_SECTIONS.join('\n')}\n\nIf you have any further questions, please contact us via our ${iconLinkPill('discord', DISCORD_INVITES.support, 'Support Server', 'Click to join')}`,
-        color: COLORS.brand,
+        description: `${icon('information')} **${context.client.user.username} Privacy Policy**\n*Last Updated: ${timestamp(PRIVACY_POLICY_LAST_UPDATE, 'f')}*\n${PRIVACY_POLICY_SECTIONS.join('\n')}\n\nIf you have any further questions, please contact us via our ${iconLinkPill('discord', DISCORD_INVITES.support, 'Support Server', 'Click to join')}`,
+        color: COLORS.embed,
       })
     );
   },

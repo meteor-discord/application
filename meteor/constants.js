@@ -19,7 +19,7 @@ module.exports.PRIVACY_POLICY_SECTIONS = [
   '### Third Parties\nWe use a variety of third party products and services to operate certain functionality of our application. Information shared with third parties is strictly limited to information necessary to provide the functionality (command arguments).\nWe do not offer any functionality that shares details about users, a channel or a server with third parties and their services.',
 ];
 
-module.exports.PRIVACY_POLICY_LAST_UPDATE = 1699120509970;
+module.exports.PRIVACY_POLICY_LAST_UPDATE = 1768777200000;
 
 module.exports.SUPPORT_ARTICLES = {
   AGE_RESTRICTED_CHANNELS: 115000084051,
