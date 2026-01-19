@@ -52,7 +52,7 @@ module.exports = {
       const display = [];
       display.push(`Updated ${range} in ${highlight(elapsed + 's')}. Restarting...`);
       display.push('');
-      display.push(codeblock('diff', logSnippet));
+      display.push(codeblock('diff', [logSnippet]));
 
       await editOrReply(
         context,
@@ -68,12 +68,25 @@ module.exports = {
     } catch (e) {
       console.error(e);
       const errorMsg = e.stderr || e.message || 'Unknown error';
-      return await editOrReply(
-        context,
-        createEmbed('error', context, {
-          description: `Failed to update.\n${codeblock('', errorMsg.slice(0, 500))}`,
-        })
-      );
+
+      // Check for common git issues
+      if (errorMsg.includes('unstaged changes') || errorMsg.includes('uncommitted changes')) {
+        return await editOrReply(context, createEmbed('error', context, 'Git error: You have uncommitted changes.'));
+      }
+
+      if (errorMsg.includes('Could not resolve host')) {
+        return await editOrReply(
+          context,
+          createEmbed('error', context, 'Network error: Could not reach git repository.')
+        );
+      }
+
+      const display = [];
+      display.push('Failed to update.');
+      display.push('');
+      display.push(codeblock('', [errorMsg.slice(0, 500)]));
+
+      return await editOrReply(context, createEmbed('error', context, display.join('\n')));
     }
   },
 };
