@@ -39,7 +39,7 @@ module.exports = {
 
     if (args.amount >= 51 || args.amount <= 0) {
       return editOrReply(context, {
-        content: `${icon('exclaim_red')} ${context.message.author.mention}, Invalid amount (1-50).`,
+        content: `${icon('exclaim_red')}  Invalid amount (1-50).`,
       });
     }
     const messages = await context.message.channel.fetchMessages({ limit: args.amount });

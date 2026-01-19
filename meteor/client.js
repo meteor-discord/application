@@ -111,7 +111,8 @@ const commandClient = new CommandClient(client, {
         const embed = createEmbed('warning', context);
         embed.title = 'Spam Protection';
         const canUseAt = Math.floor(cooldownEnd / 1000);
-        embed.description = `Please wait **${timeLeftSec}** seconds before running \`${commandName}\` again. Available <t:${canUseAt}:R>.`;
+        const secondsLabel = `second${timeLeftSec === 1 ? '' : 's'}`;
+        embed.description = `Please wait **${timeLeftSec}** ${secondsLabel} before running \`${commandName}\` again. Available <t:${canUseAt}:R>.`;
 
         const reply = await context.reply({ embeds: [embed] }).catch(() => null);
 
@@ -122,7 +123,11 @@ const commandClient = new CommandClient(client, {
           const deleteIn = Math.max(500, cooldownEnd - now + 250);
           const deleteTimeout = setTimeout(() => {
             cooldownNotices.delete(noticeKey);
-            reply.delete().catch(() => null);
+            try {
+              reply.delete().catch(() => null);
+            } finally {
+              cooldownNotices.delete(noticeKey);
+            }
           }, deleteIn);
           if (deleteTimeout.unref) deleteTimeout.unref();
         }
@@ -130,7 +135,7 @@ const commandClient = new CommandClient(client, {
         return false; // Block command execution
       }
 
-      // Set new cooldown - BEFORE executing the command
+      // Set new cooldown before executing the command
       const newCooldownEnd = now + cooldownAmount;
       commandCooldowns.set(userId, newCooldownEnd);
 
@@ -138,6 +143,9 @@ const commandClient = new CommandClient(client, {
       const cleanupTimeout = setTimeout(() => {
         if (commandCooldowns.get(userId) === newCooldownEnd) {
           commandCooldowns.delete(userId);
+          if (commandCooldowns.size === 0) {
+            cooldowns.delete(commandName);
+          }
         }
       }, cooldownAmount);
       if (cleanupTimeout.unref) cleanupTimeout.unref();
