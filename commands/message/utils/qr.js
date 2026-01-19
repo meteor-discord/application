@@ -78,7 +78,7 @@ module.exports = {
             url: image,
           },
           footer: {
-            iconUrl: STATICS.labscore,
+            iconUrl: STATICS.meteor,
             text: `Meteor • Took ${((Date.now() - t) / 1000).toFixed(2)}s`,
           },
         })

@@ -120,8 +120,8 @@ const Statics = Object.freeze({
       file: 'brands/inspirobot.png',
       revision: 1,
     },
-    labscore: {
-      file: 'brands/labscore.png',
+    meteor: {
+      file: 'brands/meteor.png',
       revision: 2,
     },
     makesweet: {
@@ -276,7 +276,7 @@ module.exports.STATICS = Object.freeze({
   emojipedia: staticAsset(Statics.brands.emojipedia),
   inferkit: staticAsset(Statics.brands.inferkit),
   inspirobot: staticAsset(Statics.brands.inspirobot),
-  labscore: staticAsset(Statics.brands.labscore),
+  meteor: staticAsset(Statics.brands.meteor),
   makesweet: staticAsset(Statics.brands.makesweet),
   musixmatch: staticAsset(Statics.brands.musixmatch),
   openai: staticAsset(Statics.brands.openai),

@@ -6,7 +6,7 @@ const embedTypes = Object.freeze({
     const footer = {
       text: context.application.name,
     };
-    if (STATICS.labscore) footer.iconUrl = STATICS.labscore;
+    if (STATICS.meteor) footer.iconUrl = STATICS.meteor;
     return {
       color: COLORS.embed,
       footer,
@@ -16,7 +16,7 @@ const embedTypes = Object.freeze({
     const footer = {
       text: context.application.name,
     };
-    if (STATICS.labscore) footer.iconUrl = STATICS.labscore;
+    if (STATICS.meteor) footer.iconUrl = STATICS.meteor;
     return {
       color: COLORS.embed,
       footer,
@@ -134,7 +134,7 @@ module.exports.createEmbed = function (type, context, content) {
   }
 
   if (content && content.footer && !content.footer.iconUrl && type !== 'defaultNoFooter') {
-    if (STATICS.labscore) content.footer.iconUrl = STATICS.labscore;
+    if (STATICS.meteor) content.footer.iconUrl = STATICS.meteor;
   }
 
   if (['image'].includes(type)) {

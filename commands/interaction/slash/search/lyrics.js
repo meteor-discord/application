@@ -56,7 +56,7 @@ function renderLyricsFooter(context, provider) {
     default: // Fallback, this should never happen
       return {
         text: context.application.name,
-        iconUrl: STATICS.labscore,
+        iconUrl: STATICS.meteor,
       };
   }
 }
