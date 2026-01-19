@@ -62,8 +62,9 @@ module.exports = {
         })
       );
 
-      // pm2 will restart us
-      setTimeout(() => process.exit(0), 1000);
+      // Wait for message to be sent, then exit so pm2 can restart us
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      process.exit(0);
     } catch (e) {
       console.error(e);
       const errorMsg = e.stderr || e.message || 'Unknown error';
