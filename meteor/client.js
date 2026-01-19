@@ -280,14 +280,14 @@ interactionClient.on('commandRunError', async ({ context, error }) => {
     console.log(`[meteor] client connected (${Date.now() - startTimings}ms)`);
 
     {
-      await commandClient.addMultipleIn('./commands/message/');
+      await commandClient.addMultipleIn('commands/message');
       await commandClient.run();
       console.log(`[meteor] command client ready (${Date.now() - startTimings}ms)`);
     }
     {
-      await interactionClient.addMultipleIn('./commands/interaction/context');
-      await interactionClient.addMultipleIn('./commands/interaction/user');
-      await interactionClient.addMultipleIn('./commands/interaction/slash');
+      await interactionClient.addMultipleIn('commands/interaction/context');
+      await interactionClient.addMultipleIn('commands/interaction/user');
+      await interactionClient.addMultipleIn('commands/interaction/slash');
       await interactionClient.run();
       console.log(`[meteor] interaction command client ready (${Date.now() - startTimings}ms)`);
     }

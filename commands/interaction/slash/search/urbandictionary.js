@@ -4,7 +4,7 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { link, iconPill, timestamp } = require('#utils/markdown');
+const { link, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
 
@@ -15,6 +15,8 @@ const {
 } = require('detritus-client/lib/constants');
 
 function createUrbanPage(context, result) {
+  const cleanText = (text) => text?.replace(/\[([^\]]+)\]/g, '**$1**') || '';
+
   const e = createEmbed('default', context, {
     description: `**${link(result.link, result.title)}**`,
     fields: [],
@@ -26,18 +28,18 @@ function createUrbanPage(context, result) {
   if (result.description)
     e.fields.push({
       name: 'Description',
-      value: result.description.substr(0, 1023),
+      value: cleanText(result.description).substr(0, 1023),
       inline: true,
     });
   e.fields.push({
-    name: 'Stats',
-    value: `${iconPill('upvote', result.score.likes)} ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
+    name: 'Info',
+    value: `**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(new Date(result.date).getTime(), 'd')}`,
     inline: true,
   });
   if (result.example)
     e.fields.push({
       name: 'Example',
-      value: result.example.substr(0, 1023),
+      value: cleanText(result.example).substr(0, 1023),
       inline: false,
     });
   return page(e);
@@ -68,12 +70,16 @@ module.exports = {
 
     try {
       let search = await urbandictionary(context, args.term);
-      search = search.response;
+      search = JSON.parse(search.response.text);
+      const body = search.response.body;
 
-      if (search.body.status === 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (body.status === 1) return editOrReply(context, createEmbed('warning', context, body.message));
+
+      const results = body.results || [];
+      if (!Array.isArray(results) || results.length === 0) return editOrReply(context, createEmbed('warning', context, `No results found.`));
 
       const pages = [];
-      for (const res of search.body.results) {
+      for (const res of results) {
         pages.push(createUrbanPage(context, res));
       }
 

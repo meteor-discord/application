@@ -1,10 +1,11 @@
-const { ICONS } = require('../constants');
+const { ICONS, ICONS_NEXTGEN, ICONS_NEXTGEN_LEGACY_MAPPINGS } = require('../constants');
 
 // Markdown Helpers
 
 // Check if an icon exists.
 function _iconExists(icon) {
-  return !!ICONS[icon];
+  if (ICONS_NEXTGEN_LEGACY_MAPPINGS[icon]) icon = ICONS_NEXTGEN_LEGACY_MAPPINGS[icon];
+  return (customIcons && customIcons[icon]) || ICONS_NEXTGEN[icon] || ICONS[icon];
 }
 
 let customIcons;
@@ -12,24 +13,25 @@ const fs = require('fs');
 const path = require('path');
 if (fs.existsSync(path.join(__dirname, './emoji.json'))) customIcons = require('./emoji.json');
 
+let _icns = {...ICONS, ...ICONS_NEXTGEN};
+
 // Internal icon resolver
 function _icon(icon) {
-  // In order to make self-hosting easier (in case anyone is insane enough to try this),
-  // this allows for easy overwriting of the icon set that is used by the bot.
-  //
-  // Create an emoji.json file in this directory and provide icons like this
-  // {
-  //    "icon_id": "<:test:12345>"
-  // }
+  // apply nextgen icon mappings first
+  if (ICONS_NEXTGEN_LEGACY_MAPPINGS[icon]) icon = ICONS_NEXTGEN_LEGACY_MAPPINGS[icon];
 
-  let _icns = structuredClone(ICONS);
-  if (customIcons) _icns = Object.assign(_icns, customIcons);
+  // Check custom icons first, then fall back to ICONS
+  let i;
+  if (customIcons && customIcons[icon]) {
+    i = customIcons[icon];
+  } else if (_icns[icon]) {
+    i = _icns[icon];
+  } else {
+    i = _icns.question;
+  }
 
-  let i = _icns.question;
-
-  // Resolve icon
-  if (_icns[icon]) i = _icns[icon];
-
+  // If it's a Unicode emoji (doesn't contain <:), return as-is
+  if (!i.includes('<:')) return i;
   return i.replace(/:[a-z0-9_]*:/, ':i:');
 }
 

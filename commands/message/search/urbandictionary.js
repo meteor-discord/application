@@ -4,9 +4,14 @@ const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed, formatPaginationEmbeds, page } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
-const { link, iconPill, timestamp } = require('#utils/markdown');
+const { link, timestamp } = require('#utils/markdown');
 const { editOrReply } = require('#utils/message');
 const { STATICS } = require('#utils/statics');
+
+function formatText(text) {
+  // Replace [word] with **word**
+  return text.replace(/\[([^\]]+)\]/g, '**$1**');
+}
 
 function createUrbanPage(context, result) {
   const e = createEmbed('default', context, {
@@ -20,18 +25,18 @@ function createUrbanPage(context, result) {
   if (result.description)
     e.fields.push({
       name: 'Description',
-      value: result.description.substr(0, 1023),
+      value: formatText(result.description).substr(0, 1023),
       inline: true,
     });
   e.fields.push({
-    name: 'Stats',
-    value: `${iconPill('upvote', result.score.likes)} ${iconPill('downvote', result.score.dislikes)}\n**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(result.date, 'd')}`,
+    name: 'Info',
+    value: `**Author:** ${link(`https://www.urbandictionary.com/author.php?author=${encodeURIComponent(result.author)}`, result.author)}\n**Published:** ${timestamp(new Date(result.date).getTime(), 'd')}`,
     inline: true,
   });
   if (result.example)
     e.fields.push({
       name: 'Example',
-      value: result.example.substr(0, 1023),
+      value: formatText(result.example).substr(0, 1023),
       inline: false,
     });
   return page(e);
@@ -56,12 +61,12 @@ module.exports = {
 
     try {
       let search = await urbandictionary(context, args.query);
-      search = search.response;
+      search = JSON.parse(search.response.text).response.body;
 
-      if (search.body.status === 1) return editOrReply(context, createEmbed('warning', context, search.body.message));
+      if (search.status === 1) return editOrReply(context, createEmbed('warning', context, search.message));
 
       const pages = [];
-      for (const res of search.body.results) {
+      for (const res of search.results) {
         pages.push(createUrbanPage(context, res));
       }
 

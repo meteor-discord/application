@@ -41,7 +41,7 @@ function renderWeatherCard(context, data, units) {
 
   const secondaryPills = [];
   if (data.result.current.humidity > 0)
-    secondaryPills.push(`${pill('Humidity')} ${smallPill(Math.floor(data.result.current.humidity * 100) + '%')}`);
+    secondaryPills.push(`${pill('Humidity')} ${smallPill(Math.floor(data.result.current.humidity) + '%')}`);
   if (data.result.current.uvindex > 0)
     secondaryPills.push(
       `${iconPill(getUvIndex(data.result.current.uvindex), 'UV Index')} ${smallPill(data.result.current.uvindex)}`
@@ -68,11 +68,11 @@ function renderWeatherCard(context, data, units) {
   let space = 3;
   if (units === '°F') space = 4;
   for (const i of data.result.forecast) {
-    description += `\n${pill(i.day)} ${weatherIcon(i.icon)}`;
+    description += `\n${pill(i.day)} ${weatherIcon(i.icon.id)} `;
     if (temperature(i.temperature.max, units).toString().length === space)
       description += `${pill(temperature(i.temperature.max, units) + ' ')}`;
     else description += `${pill(temperature(i.temperature.max, units))}`;
-    description += `**/**`;
+    description += ` / `;
     if (temperature(i.temperature.min, units).toString().length === space)
       description += `${smallPill(temperature(i.temperature.min, units) + ' ')}`;
     else description += `${smallPill(temperature(i.temperature.min, units))}`;
@@ -133,7 +133,7 @@ module.exports = {
 
       let data = await darksky(context, args.query);
 
-      data = data.response.body;
+      data = JSON.parse(data.response.text).response.body;
 
       const pages = [];
       for (const u of units) pages.push(page(renderWeatherCard(context, data, u)));
