@@ -40,14 +40,14 @@ function getUvIndex(i) {
 }
 
 function renderWeatherCard(context, data, units) {
-  let description = `### ${weatherIcon(data.result.current.icon.id)} ${temperature(data.result.current.temperature.current, units)} • ${data.result.current.condition.label}\n-# Feels like ${temperature(data.result.current.temperature.feels_like, units)} • High ${temperature(data.result.current.temperature.max, units)} • Low ${temperature(data.result.current.temperature.min, units)}\n\n${pill('Wind')} `;
+  let description = `### ${weatherIcon(data.result.current.icon.id)} ${temperature(data.result.current.temperature.current, units)}   •   ${data.result.current.condition.label}\n-# Feels like ${temperature(data.result.current.temperature.feels_like, units)}  •   High ${temperature(data.result.current.temperature.max, units)} • Low ${temperature(data.result.current.temperature.min, units)}\n\n${pill('Wind')} `;
 
   if (units === '°F') description += smallPill((data.result.current.wind.speed / 1.609).toFixed(2) + ' mph');
   else description += smallPill(data.result.current.wind.speed.toFixed(2) + ' km/h');
 
   const secondaryPills = [];
   if (data.result.current.humidity > 0)
-    secondaryPills.push(`${pill('Humidity')} ${smallPill(Math.floor(data.result.current.humidity * 100) + '%')}`);
+    secondaryPills.push(`${pill('Humidity')} ${smallPill(Math.floor(data.result.current.humidity) + '%')}`);
   if (data.result.current.uvindex > 0)
     secondaryPills.push(
       `${iconPill(getUvIndex(data.result.current.uvindex), 'UV Index')} ${smallPill(data.result.current.uvindex)}`
@@ -74,11 +74,11 @@ function renderWeatherCard(context, data, units) {
   let space = 3;
   if (units === '°F') space = 4;
   for (const i of data.result.forecast) {
-    description += `\n${pill(i.day)} ${weatherIcon(i.icon)}`;
+    description += `\n${pill(i.day)} ${weatherIcon(i.icon.id)} `;
     if (temperature(i.temperature.max, units).toString().length === space)
       description += `${pill(temperature(i.temperature.max, units) + ' ')}`;
     else description += `${pill(temperature(i.temperature.max, units))}`;
-    description += `/**`;
+    description += ` / `;
     if (temperature(i.temperature.min, units).toString().length === space)
       description += `${smallPill(temperature(i.temperature.min, units) + ' ')}`;
     else description += `${smallPill(temperature(i.temperature.min, units))}`;
@@ -144,7 +144,7 @@ module.exports = {
     try {
       let data = await darksky(context, args.location);
 
-      data = data.response.body;
+      data = JSON.parse(data.response.text).response.body;
 
       let units = ['°C', '°F'];
       if (args.units) {

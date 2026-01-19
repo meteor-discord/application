@@ -61,18 +61,17 @@ function renderLyricsFooter(context, provider) {
   }
 }
 
-function createLyricsPage(context, search, fields) {
+function createLyricsPage(context, body, fields) {
   const em = createEmbed('default', context, {
     author: {
-      // iconUrl: search.body.track.artist_cover,
-      name: `${search.body.track.title}`,
+      name: `${body.track.title}`,
     },
-    description: `-# Song by ${search.body.track.artist}`,
+    description: `-# Song by ${body.track.artist}`,
     fields,
-    footer: renderLyricsFooter(context, search.body.lyrics_provider),
+    footer: renderLyricsFooter(context, body.lyrics_provider),
   });
-  if (search.body.track.cover) em.thumbnail = { url: search.body.track.cover };
-  if (search.body.track.metadata?.length) em.description += `\n\n${renderMetadata(search.body.track)}`;
+  if (body.track.cover) em.thumbnail = { url: body.track.cover };
+  if (body.track.metadata?.length) em.description += `\n\n${renderMetadata(body.track)}`;
   return em;
 }
 
@@ -83,8 +82,14 @@ module.exports = {
   integrationTypes: [ApplicationIntegrationTypes.USER_INSTALL],
   options: [
     {
-      name: 'query',
-      description: 'Song name or partial lyrics.',
+      name: 'artist',
+      description: 'Artist name.',
+      type: ApplicationCommandOptionTypes.STRING,
+      required: true,
+    },
+    {
+      name: 'song',
+      description: 'Song name.',
       type: ApplicationCommandOptionTypes.STRING,
       required: true,
     },
@@ -100,13 +105,19 @@ module.exports = {
     await acknowledge(context, args.incognito, [...PERMISSION_GROUPS.baseline_slash]);
 
     try {
-      let search = await lyrics(context, args.query);
-      search = search.response;
+      // Combine artist and song into a single query
+      const query = `${args.artist} ${args.song}`;
+      let search = await lyrics(context, query);
+      search = JSON.parse(search.response.text);
+      const body = search.response.body;
 
-      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (body.status === 2) return editOrReply(context, createEmbed('error', context, body.message));
+      if (body.status === 1)
+        return editOrReply(context, createEmbed('warning', context, body.message || 'No lyrics found.'));
+      if (!body.track) return editOrReply(context, createEmbed('warning', context, 'No lyrics found.'));
       const fields = [];
 
-      for (const f of search.body.lyrics.split('\n\n')) {
+      for (const f of (body.lyrics || '').split('\n\n')) {
         fields.push({
           name: '​',
           value: f.replace(/\[(.*?)\]/g, '-# [$1]').substr(0, 1024),
@@ -130,7 +141,7 @@ module.exports = {
           pageFields = pageFields.splice(0, pageFields.length - 1);
         }
 
-        pages.push(page(createLyricsPage(context, search, pageFields)));
+        pages.push(page(createLyricsPage(context, body, pageFields)));
       }
 
       await paginator.createPaginator({
@@ -138,9 +149,7 @@ module.exports = {
         pages: formatPaginationEmbeds(pages),
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
-        return editOrReply(context, createEmbed('error', context, e.response.body.message));
-      console.log(JSON.stringify(e.raw) || e);
+      console.log(JSON.stringify(e) || e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));
     }
   },

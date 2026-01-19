@@ -76,9 +76,9 @@ module.exports = {
   metadata: {
     description: 'Searches for song lyrics.',
     description_short: 'Search song lyrics',
-    examples: ['lyrics desert bloom man'],
+    examples: ['lyrics kenshi yonezu kickback'],
     category: 'search',
-    usage: 'lyrics <query>',
+    usage: 'lyrics <artist> <song>',
     slashCommand: 'lyics',
   },
   permissionsClient: [...PERMISSION_GROUPS.baseline],
@@ -86,14 +86,17 @@ module.exports = {
     await acknowledge(context);
 
     if (!args.query) return editOrReply(context, createEmbed('warning', context, `Missing Parameter (query).`));
+
     try {
       let search = await lyrics(context, args.query);
-      search = search.response;
+      search = JSON.parse(search.response.text).response.body;
 
-      if (search.body.status === 2) return editOrReply(context, createEmbed('error', context, search.body.message));
+      if (search.status === 2) return editOrReply(context, createEmbed('error', context, search.message));
+      if (search.status === 1) return editOrReply(context, createEmbed('warning', context, search.message));
+
       const fields = [];
 
-      for (const f of search.body.lyrics.split('\n\n')) {
+      for (const f of search.lyrics.split('\n\n')) {
         fields.push({
           name: '​',
           value: f.replace(/\[(.*?)\]/g, '-# [$1]').substr(0, 1024),
@@ -117,7 +120,7 @@ module.exports = {
           pageFields = pageFields.splice(0, pageFields.length - 1);
         }
 
-        pages.push(page(createLyricsPage(context, search, pageFields)));
+        pages.push(page(createLyricsPage(context, { body: search }, pageFields)));
       }
 
       await paginator.createPaginator({
@@ -125,9 +128,7 @@ module.exports = {
         pages: formatPaginationEmbeds(pages),
       });
     } catch (e) {
-      if (e.response?.body?.status && e.response.body.status === 2 && e.response.body.message)
-        return editOrReply(context, createEmbed('error', context, e.response.body.message));
-      console.log(JSON.stringify(e.raw) || e);
+      console.log(e);
       return editOrReply(context, createEmbed('error', context, `Something went wrong.`));
     }
   },
