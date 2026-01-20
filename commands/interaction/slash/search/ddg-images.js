@@ -36,7 +36,7 @@ function createImageResultPage(context, result) {
 }
 
 module.exports = {
-  name: 'ddg-image',
+  name: 'image',
   label: 'query',
   aliases: ['i', 'img'],
   description: 'Search the web for images on DuckDuckGo.',
