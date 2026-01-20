@@ -96,9 +96,9 @@ module.exports.googleVisionSafetyLabels = async function (context, url) {
   );
 };
 
-module.exports.google = async function (context, query, nsfw) {
+module.exports.duckduckgo = async function (context, query, nsfw) {
   return await request(
-    Api.SEARCH_GOOGLE,
+    Api.SEARCH_DUCKDUCKGO,
     'GET',
     {},
     {
@@ -108,9 +108,9 @@ module.exports.google = async function (context, query, nsfw) {
   );
 };
 
-module.exports.googleImages = async function (context, query, nsfw) {
+module.exports.duckduckgoImages = async function (context, query, nsfw) {
   return await request(
-    Api.SEARCH_GOOGLE_IMAGES,
+    Api.SEARCH_DUCKDUCKGO_IMAGES,
     'GET',
     {},
     {
