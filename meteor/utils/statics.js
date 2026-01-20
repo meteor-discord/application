@@ -64,10 +64,6 @@ const Statics = Object.freeze({
       file: 'brands/bing.png',
       revision: 1,
     },
-    chatgpt: {
-      file: 'brands/chatgpt.png',
-      revision: 1,
-    },
     duckduckgo: {
       file: 'brands/duckduckgo.png',
       revision: 0,
@@ -262,7 +258,6 @@ module.exports.STATICS = Object.freeze({
   applemaps: staticAsset(Statics.brands.applemaps),
   bard: staticAsset(Statics.brands.bard),
   bing: staticAsset(Statics.brands.bing),
-  chatgpt: staticAsset(Statics.brands.chatgpt),
   duckduckgo: staticAsset(Statics.brands.duckduckgo),
   genius: staticAsset(Statics.brands.genius),
   google: staticAsset(Statics.brands.google),

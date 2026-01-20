@@ -37,77 +37,6 @@ async function request(path, type, headers, args, host) {
   throw new Error('unsupported, must either use GET or POST');
 }
 
-module.exports.googleGenaiEditImage = async function (context, prompt, url) {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_EDIT_IMAGE,
-    'GET',
-    {},
-    {
-      prompt,
-      url,
-    }
-  );
-};
-
-module.exports.googleGenaiGeminiApi = async function (context, model, input, prompt) {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_GEMINI_API,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-    }
-  );
-};
-
-module.exports.googleGenaiImagen = async function (context, prompt, imageCount = 2, model = 'imagen-4') {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_IMAGEN,
-    'GET',
-    {},
-    {
-      prompt,
-      image_count: imageCount,
-      model,
-    }
-  );
-};
-
-module.exports.googlePerspective = async function (context, text) {
-  return await request(
-    Api.GOOGLE_PERSPECTIVE,
-    'GET',
-    {},
-    {
-      text,
-    }
-  );
-};
-
-module.exports.googleSpeechRecognition = async function (context, url) {
-  return await request(
-    Api.GOOGLE_SPEECH_RECOGNIZE,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.googleSpeechRecognitionWithLabels = async function (context, url) {
-  return await request(
-    Api.GOOGLE_SPEECH_RECOGNIZE_LABELS,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
 module.exports.googleTranslate = async function (context, text, to, from) {
   return await request(
     Api.GOOGLE_TRANSLATE,
@@ -130,28 +59,6 @@ module.exports.googleTranslateMulti = async function (context, messages, to, fro
       messages,
       to,
       from,
-    }
-  );
-};
-
-module.exports.googleVisionColors = async function (context, url) {
-  return await request(
-    Api.GOOGLE_VISION_COLORS,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.googleVisionFaces = async function (context, url) {
-  return await request(
-    Api.GOOGLE_VISION_FACES,
-    'GET',
-    {},
-    {
-      url,
     }
   );
 };
@@ -189,20 +96,9 @@ module.exports.googleVisionSafetyLabels = async function (context, url) {
   );
 };
 
-module.exports.googleVisionWebDetection = async function (context, url) {
+module.exports.duckduckgo = async function (context, query, nsfw) {
   return await request(
-    Api.GOOGLE_VISION_WEBDETECTION,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.google = async function (context, query, nsfw) {
-  return await request(
-    Api.SEARCH_GOOGLE,
+    Api.SEARCH_DUCKDUCKGO,
     'GET',
     {},
     {
@@ -212,9 +108,9 @@ module.exports.google = async function (context, query, nsfw) {
   );
 };
 
-module.exports.googleImages = async function (context, query, nsfw) {
+module.exports.duckduckgoImages = async function (context, query, nsfw) {
   return await request(
-    Api.SEARCH_GOOGLE_IMAGES,
+    Api.SEARCH_DUCKDUCKGO_IMAGES,
     'GET',
     {},
     {
@@ -301,18 +197,6 @@ module.exports.quoraResult = async function (context, reference) {
   );
 };
 
-module.exports.reddit = async function (context, query, nsfw = false) {
-  return await request(
-    Api.SEARCH_REDDIT,
-    'GET',
-    {},
-    {
-      q: query,
-      nsfw,
-    }
-  );
-};
-
 module.exports.rule34 = async function (context, query, service) {
   return await request(
     Api.SEARCH_RULE34,
@@ -321,30 +205,6 @@ module.exports.rule34 = async function (context, query, service) {
     {
       q: query,
       service,
-    }
-  );
-};
-
-module.exports.bing = async function (context, query, nsfw) {
-  return await request(
-    Api.SEARCH_BING,
-    'GET',
-    {},
-    {
-      q: query,
-      nsfw,
-    }
-  );
-};
-
-module.exports.bingImages = async function (context, query, nsfw) {
-  return await request(
-    Api.SEARCH_BING_IMAGES,
-    'GET',
-    {},
-    {
-      q: query,
-      nsfw,
     }
   );
 };
@@ -450,118 +310,6 @@ module.exports.youtube = async function (context, query, category) {
   );
 };
 
-module.exports.yacht = async function (context, text) {
-  return await request(
-    Api.PHOTOFUNIA_YACHT,
-    'GET',
-    {},
-    {
-      text,
-    }
-  );
-};
-
-module.exports.retroWave = async function (
-  context,
-  background = 5,
-  textStyle = 4,
-  text1 = ' ',
-  text2 = ' ',
-  text3 = ' '
-) {
-  return await request(
-    Api.PHOTOFUNIA_RETRO_WAVE,
-    'GET',
-    {},
-    {
-      text1,
-      text2,
-      text3,
-      background,
-      text_style: textStyle,
-    }
-  );
-};
-
-module.exports.prideborder = async function (context, url) {
-  return await request(
-    Api.IMAGE_INHOUSE_PRIDE,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.deepdream = async function (context, url) {
-  return await request(
-    Api.IMAGE_DEEPDREAM,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.imageedit = async function (context, url, prompt) {
-  return await request(
-    Api.IMAGE_IMAGEEDITOR,
-    'GET',
-    {},
-    {
-      url,
-      prompt,
-    }
-  );
-};
-
-module.exports.waifu2x = async function (context, url) {
-  return await request(
-    Api.IMAGE_WAIFU2X,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.superresolution = async function (context, url) {
-  return await request(
-    Api.IMAGE_SUPERRESOLUTION,
-    'GET',
-    {},
-    {
-      url,
-    }
-  );
-};
-
-module.exports.text2image = async function (context, text) {
-  return await request(
-    Api.IMAGE_TEXT2IMAGE,
-    'GET',
-    {},
-    {
-      text,
-    }
-  );
-};
-
-module.exports.emogen = async function (context, prompt, style) {
-  return await request(
-    Api.IMAGE_EMOGEN,
-    'GET',
-    {},
-    {
-      prompt,
-      style,
-    }
-  );
-};
-
 module.exports.imtranslator = async function (context, text, voice) {
   return await request(
     Api.TTS_IMTRANSLATOR,
@@ -588,18 +336,6 @@ module.exports.moonbase = async function (context, text) {
 module.exports.playht = async function (context, text, voice) {
   return await request(
     Api.TTS_PLAYHT,
-    'GET',
-    {},
-    {
-      text,
-      voice,
-    }
-  );
-};
-
-module.exports.polly = async function (context, text, voice) {
-  return await request(
-    Api.TTS_POLLY,
     'GET',
     {},
     {
@@ -676,45 +412,6 @@ module.exports.inhouseEmojiSearch = async function (context, emoji, codepoint = 
 module.exports.garfield = async function () {
   return await request(Api.UTILS_GARFIELD, 'GET', {}, {});
 };
-
-module.exports.gpt = async function (context, prompt, input, model = 'gpt-4o') {
-  return await request(
-    Api.UTILS_GPT,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-    }
-  );
-};
-
-module.exports.grok = async function (context, prompt, input, model = 'grok-4', image) {
-  return await request(
-    Api.UTILS_GROK,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-      image_url: image || undefined,
-    }
-  );
-};
-
-module.exports.inferkit = async function (context, input) {
-  return await request(
-    Api.UTILS_INFERKIT,
-    'GET',
-    {},
-    {
-      input,
-    }
-  );
-};
-
 module.exports.otter = async function () {
   return await request(Api.UTILS_OTTER, 'GET', {}, {});
 };
@@ -764,18 +461,6 @@ module.exports.webshot = async function (context, url, nsfw) {
     }
   );
 };
-
-module.exports.textGenerator = async function (context, input) {
-  return await request(
-    Api.UTILS_TEXTGENERATOR,
-    'GET',
-    {},
-    {
-      input,
-    }
-  );
-};
-
 module.exports.emojiKitchen = async function (emoji) {
   return await superagent.get('https://api.giphy.com/v1/gifs/search').query({
     api_key: process.env.GIPHY_API_KEY,
@@ -830,6 +515,28 @@ module.exports.movie = async function (context, query, includeAdultContent) {
     {
       q: query,
       include_adult: includeAdultContent,
+    }
+  );
+};
+
+module.exports.LlmPrivateBard = async function (context, prompt) {
+  return await request(
+    Api.LLM_PRIVATE_BARD,
+    'POST',
+    {},
+    {
+      prompt,
+    }
+  );
+};
+
+module.exports.gemini = async function (context, prompt) {
+  return await request(
+    Api.GOOGLE_GEMINI,
+    'POST',
+    {},
+    {
+      prompt,
     }
   );
 };
