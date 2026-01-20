@@ -42,7 +42,7 @@ const Api = Object.freeze({
   TTS_PLAYHT: '/tts/playht',
   TTS_TIKTOK: '/tts/tiktok',
 
-  UTILS_DICTIONARY: '/utils/dictionary-v2',
+  UTILS_DICTIONARY: '/utils/dictionary',
   UTILS_EMOJIPEDIA: '/utils/emojipedia',
   UTILS_EMOJI_SEARCH: '/utils/emoji-search',
   UTILS_GARFIELD: '/utils/garfield',
@@ -51,9 +51,8 @@ const Api = Object.freeze({
   UTILS_UNICODE_METADATA: '/utils/unicode-metadata',
   UTILS_WEBSHOT: '/utils/webshot',
 
-  // Obelisk endpoints
-  LLM_PRIVATE_BARD: '/llm/v1/_private:bard',
-  PARROT_GOOGLE_GEMINI_PRO: '/parrot/v1/google:gemini',
+  LLM_PRIVATE_BARD: '/llm/_private:bard',
+  GOOGLE_GEMINI: '/parrot/google:gemini',
 });
 
 module.exports = {

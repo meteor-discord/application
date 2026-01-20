@@ -543,7 +543,6 @@ module.exports.movie = async function (context, query, includeAdultContent) {
   );
 };
 
-// MONOLITH2
 module.exports.LlmPrivateBard = async function (context, prompt) {
   return await request(
     Api.LLM_PRIVATE_BARD,
@@ -555,10 +554,9 @@ module.exports.LlmPrivateBard = async function (context, prompt) {
   );
 };
 
-// GENERATIVEAI (PARROT)
 module.exports.gemini = async function (context, prompt) {
   return await request(
-    Api.PARROT_GOOGLE_GEMINI_PRO,
+    Api.GOOGLE_GEMINI,
     'POST',
     {},
     {
@@ -566,6 +564,3 @@ module.exports.gemini = async function (context, prompt) {
     }
   );
 };
-
-// FLAMINGO
-// FLAMINGO
