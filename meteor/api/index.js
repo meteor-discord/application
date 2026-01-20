@@ -37,44 +37,6 @@ async function request(path, type, headers, args, host) {
   throw new Error('unsupported, must either use GET or POST');
 }
 
-module.exports.googleGenaiEditImage = async function (context, prompt, url) {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_EDIT_IMAGE,
-    'GET',
-    {},
-    {
-      prompt,
-      url,
-    }
-  );
-};
-
-module.exports.googleGenaiGeminiApi = async function (context, model, input, prompt) {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_GEMINI_API,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-    }
-  );
-};
-
-module.exports.googleGenaiImagen = async function (context, prompt, imageCount = 2, model = 'imagen-4') {
-  return await request(
-    Api.GOOGLE_GENERATIVEAI_IMAGEN,
-    'GET',
-    {},
-    {
-      prompt,
-      image_count: imageCount,
-      model,
-    }
-  );
-};
-
 module.exports.googlePerspective = async function (context, text) {
   return await request(
     Api.GOOGLE_PERSPECTIVE,
@@ -550,18 +512,6 @@ module.exports.text2image = async function (context, text) {
   );
 };
 
-module.exports.emogen = async function (context, prompt, style) {
-  return await request(
-    Api.IMAGE_EMOGEN,
-    'GET',
-    {},
-    {
-      prompt,
-      style,
-    }
-  );
-};
-
 module.exports.imtranslator = async function (context, text, voice) {
   return await request(
     Api.TTS_IMTRANSLATOR,
@@ -846,29 +796,6 @@ module.exports.LlmModelsGenerate = async function (context, model, prompt, harmL
   );
 };
 
-module.exports.GenerativeImagesModelsImagen = async function (context, prompt) {
-  return await request(
-    Api.GENIMG_IMAGEN,
-    'POST',
-    {},
-    {
-      image_prompt: prompt,
-    }
-  );
-};
-
-module.exports.GenerativeImagesModelsWallpaper = async function (context, prompt, format) {
-  return await request(
-    Api.GENIMG_WALLPAPER,
-    'POST',
-    {},
-    {
-      image_prompt: prompt,
-      format,
-    }
-  );
-};
-
 module.exports.WebUtilsWebPageScreenshot = async function (context, url, allow_adult) {
   return await request(
     Api.WEBUTILS_SCREENSHOT,
@@ -881,17 +808,6 @@ module.exports.WebUtilsWebPageScreenshot = async function (context, url, allow_a
   );
 };
 
-module.exports.SparkWebSummarize = async function (context, url) {
-  return await request(
-    Api.SPARK_WEB_SUMMARIZE,
-    'POST',
-    {},
-    {
-      url,
-    }
-  );
-};
-
 module.exports.WolframQueryCompute = async function (context, query) {
   return await request(
     Api.WOLFRAM_QUERY_COMPUTE,
@@ -899,53 +815,6 @@ module.exports.WolframQueryCompute = async function (context, query) {
     {},
     {
       query,
-    }
-  );
-};
-
-// GENERATIVEAI (PARROT)
-module.exports.bard = async function (context, input) {
-  return await request(
-    Api.PARROT_GOOGLE_BARD,
-    'POST',
-    {},
-    {
-      input,
-    }
-  );
-};
-
-module.exports.gemini = async function (context, prompt) {
-  return await request(
-    Api.PARROT_GOOGLE_GEMINI_PRO,
-    'POST',
-    {},
-    {
-      prompt,
-    }
-  );
-};
-
-module.exports.geminiVision = async function (context, input, url) {
-  return await request(
-    Api.PARROT_GOOGLE_GEMINI_PRO_VISION,
-    'POST',
-    {},
-    {
-      input,
-      url,
-    }
-  );
-};
-
-module.exports.palm2 = async function (context, prompt, input) {
-  return await request(
-    Api.PARROT_GOOGLE_PALM2,
-    'POST',
-    {},
-    {
-      prompt,
-      input,
     }
   );
 };
@@ -970,30 +839,6 @@ module.exports.summarizeWebpage = async function (context, url) {
     {},
     {
       url,
-    }
-  );
-};
-
-// ROBIN
-module.exports.imagen = async function (context, prompt) {
-  return await request(
-    Api.ROBIN_GENERATE_IMAGEN,
-    'POST',
-    {},
-    {
-      prompt,
-    }
-  );
-};
-
-module.exports.wallpaper = async function (context, prompt, model) {
-  return await request(
-    Api.ROBIN_GENERATE_WALLPAPER,
-    'POST',
-    {},
-    {
-      prompt,
-      model,
     }
   );
 };

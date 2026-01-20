@@ -7,9 +7,6 @@ const Hosts = Object.freeze({
 const Api = Object.freeze({
   HOST: Hosts.prod,
 
-  GOOGLE_GENERATIVEAI_EDIT_IMAGE: '/google/generativeai/edit-image',
-  GOOGLE_GENERATIVEAI_GEMINI_API: '/google/generativeai/gemini',
-  GOOGLE_GENERATIVEAI_IMAGEN: '/google/generativeai/imagen',
   GOOGLE_PERSPECTIVE: '/google/perspective/analyze',
   GOOGLE_SPEECH_RECOGNIZE: '/google/speech/recognize',
   GOOGLE_SPEECH_RECOGNIZE_LABELS: '/google/speech/multirecognize',
@@ -29,8 +26,6 @@ const Api = Object.freeze({
   IMAGE_SUPERRESOLUTION: '/image/deepai/superresolution',
   IMAGE_TEXT2IMAGE: '/image/deepai/text2image',
   IMAGE_WAIFU2X: '/image/deepai/waifu2x',
-
-  IMAGE_EMOGEN: '/image/emogen/generate',
 
   OMNI_ANIME: '/omni/anime',
   OMNI_ANIME_SUPPLEMENTAL: '/omni/anime-supplemental',
@@ -85,21 +80,10 @@ const Api = Object.freeze({
 
   // Obelisk endpoints
   AUDIO_TRANSCRIBE: '/audio/v1/transcribe',
-  LLM_PRIVATE_BARD: '/llm/v1/_private:bard',
-  LLM_MODELS_GENERATE: '/llm/v1/generate',
-  GENIMG_IMAGEN: '/generativeimages/v1/models/imagen',
-  GENIMG_WALLPAPER: '/generativeimages/v1/models/wallpaper',
   WEBUTILS_SCREENSHOT: '/webutils/v1/webpage:screenshot',
-  SPARK_WEB_SUMMARIZE: '/spark-pa/v1/web:summarize',
   WOLFRAM_QUERY_COMPUTE: '/wolfram/v1/query:compute',
-  PARROT_GOOGLE_BARD: '/parrot/v1/google:bard',
-  PARROT_GOOGLE_GEMINI_PRO: '/parrot/v1/google:gemini',
-  PARROT_GOOGLE_GEMINI_PRO_VISION: '/parrot/v1/google:geminiVision',
-  PARROT_GOOGLE_PALM2: '/parrot/v1/google:palm2',
   FLAMINGO_WEB_ASK: '/flamingo/v1/web:ask',
   FLAMINGO_SUMMARIZE_WEBPAGES: '/flamingo/v1/web:summarize',
-  ROBIN_GENERATE_IMAGEN: '/robin/v1/generate:imagen',
-  ROBIN_GENERATE_WALLPAPER: '/robin/v1/generate:wallpaper',
   PEACOCK_WEBSHOT: '/peacock/v1/screenshot',
   PEACOCK_TRANSCRIBE: '/peacock/v1/transcribe',
 });
