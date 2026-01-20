@@ -1,5 +1,5 @@
 const { PERMISSION_GROUPS } = require('#constants');
-const { geminiVision } = require('#obelisk');
+const { geminiVision } = require('#api');
 
 const { getRecentImage } = require('#utils/attachment');
 const { createEmbed } = require('#utils/embed');

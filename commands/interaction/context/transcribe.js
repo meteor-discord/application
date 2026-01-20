@@ -1,4 +1,4 @@
-const { AudioTranscribe } = require('#obelisk');
+const { AudioTranscribe } = require('#api');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');

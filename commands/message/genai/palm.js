@@ -1,4 +1,4 @@
-const { palm2 } = require('#obelisk');
+const { palm2 } = require('#api');
 const { PERMISSION_GROUPS } = require('#constants');
 
 const { createEmbed } = require('#utils/embed');

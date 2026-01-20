@@ -73,8 +73,6 @@ const Api = Object.freeze({
   UTILS_EMOJIPEDIA: '/utils/emojipedia',
   UTILS_EMOJI_SEARCH: '/utils/emoji-search',
   UTILS_GARFIELD: '/utils/garfield',
-  UTILS_GPT: '/utils/gpt',
-  UTILS_GROK: '/utils/grok',
   UTILS_INFERKIT: '/utils/inferkit',
   UTILS_MAPKIT: '/utils/mapkit',
   UTILS_OTTER: '/utils/otter',
@@ -84,6 +82,26 @@ const Api = Object.freeze({
   UTILS_UNICODE_METADATA: '/utils/unicode-metadata',
   UTILS_WEATHER: '/utils/weather',
   UTILS_WEBSHOT: '/utils/webshot',
+
+  // Obelisk endpoints
+  AUDIO_TRANSCRIBE: '/audio/v1/transcribe',
+  LLM_PRIVATE_BARD: '/llm/v1/_private:bard',
+  LLM_MODELS_GENERATE: '/llm/v1/generate',
+  GENIMG_IMAGEN: '/generativeimages/v1/models/imagen',
+  GENIMG_WALLPAPER: '/generativeimages/v1/models/wallpaper',
+  WEBUTILS_SCREENSHOT: '/webutils/v1/webpage:screenshot',
+  SPARK_WEB_SUMMARIZE: '/spark-pa/v1/web:summarize',
+  WOLFRAM_QUERY_COMPUTE: '/wolfram/v1/query:compute',
+  PARROT_GOOGLE_BARD: '/parrot/v1/google:bard',
+  PARROT_GOOGLE_GEMINI_PRO: '/parrot/v1/google:gemini',
+  PARROT_GOOGLE_GEMINI_PRO_VISION: '/parrot/v1/google:geminiVision',
+  PARROT_GOOGLE_PALM2: '/parrot/v1/google:palm2',
+  FLAMINGO_WEB_ASK: '/flamingo/v1/web:ask',
+  FLAMINGO_SUMMARIZE_WEBPAGES: '/flamingo/v1/web:summarize',
+  ROBIN_GENERATE_IMAGEN: '/robin/v1/generate:imagen',
+  ROBIN_GENERATE_WALLPAPER: '/robin/v1/generate:wallpaper',
+  PEACOCK_WEBSHOT: '/peacock/v1/screenshot',
+  PEACOCK_TRANSCRIBE: '/peacock/v1/transcribe',
 });
 
 module.exports = {

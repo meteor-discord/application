@@ -677,33 +677,6 @@ module.exports.garfield = async function () {
   return await request(Api.UTILS_GARFIELD, 'GET', {}, {});
 };
 
-module.exports.gpt = async function (context, prompt, input, model = 'gpt-4o') {
-  return await request(
-    Api.UTILS_GPT,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-    }
-  );
-};
-
-module.exports.grok = async function (context, prompt, input, model = 'grok-4', image) {
-  return await request(
-    Api.UTILS_GROK,
-    'GET',
-    {},
-    {
-      prompt,
-      input,
-      model,
-      image_url: image || undefined,
-    }
-  );
-};
-
 module.exports.inferkit = async function (context, input) {
   return await request(
     Api.UTILS_INFERKIT,
@@ -830,6 +803,221 @@ module.exports.movie = async function (context, query, includeAdultContent) {
     {
       q: query,
       include_adult: includeAdultContent,
+    }
+  );
+};
+
+// MONOLITH2
+module.exports.AudioTranscribe = async function (context, url) {
+  return await request(
+    Api.AUDIO_TRANSCRIBE,
+    'POST',
+    {},
+    {
+      url,
+      type: 'VOICE_MESSAGE',
+    }
+  );
+};
+
+module.exports.LlmPrivateBard = async function (context, prompt) {
+  return await request(
+    Api.LLM_PRIVATE_BARD,
+    'POST',
+    {},
+    {
+      prompt,
+    }
+  );
+};
+
+module.exports.LlmModelsGenerate = async function (context, model, prompt, harmLevel = 'BLOCK_NONE') {
+  return await request(
+    Api.LLM_MODELS_GENERATE,
+    'POST',
+    {},
+    {
+      user_prompt: prompt,
+      model,
+      safety_config: {
+        default_safety_threshold: harmLevel,
+      },
+    }
+  );
+};
+
+module.exports.GenerativeImagesModelsImagen = async function (context, prompt) {
+  return await request(
+    Api.GENIMG_IMAGEN,
+    'POST',
+    {},
+    {
+      image_prompt: prompt,
+    }
+  );
+};
+
+module.exports.GenerativeImagesModelsWallpaper = async function (context, prompt, format) {
+  return await request(
+    Api.GENIMG_WALLPAPER,
+    'POST',
+    {},
+    {
+      image_prompt: prompt,
+      format,
+    }
+  );
+};
+
+module.exports.WebUtilsWebPageScreenshot = async function (context, url, allow_adult) {
+  return await request(
+    Api.WEBUTILS_SCREENSHOT,
+    'POST',
+    {},
+    {
+      url,
+      allow_adult,
+    }
+  );
+};
+
+module.exports.SparkWebSummarize = async function (context, url) {
+  return await request(
+    Api.SPARK_WEB_SUMMARIZE,
+    'POST',
+    {},
+    {
+      url,
+    }
+  );
+};
+
+module.exports.WolframQueryCompute = async function (context, query) {
+  return await request(
+    Api.WOLFRAM_QUERY_COMPUTE,
+    'POST',
+    {},
+    {
+      query,
+    }
+  );
+};
+
+// GENERATIVEAI (PARROT)
+module.exports.bard = async function (context, input) {
+  return await request(
+    Api.PARROT_GOOGLE_BARD,
+    'POST',
+    {},
+    {
+      input,
+    }
+  );
+};
+
+module.exports.gemini = async function (context, prompt) {
+  return await request(
+    Api.PARROT_GOOGLE_GEMINI_PRO,
+    'POST',
+    {},
+    {
+      prompt,
+    }
+  );
+};
+
+module.exports.geminiVision = async function (context, input, url) {
+  return await request(
+    Api.PARROT_GOOGLE_GEMINI_PRO_VISION,
+    'POST',
+    {},
+    {
+      input,
+      url,
+    }
+  );
+};
+
+module.exports.palm2 = async function (context, prompt, input) {
+  return await request(
+    Api.PARROT_GOOGLE_PALM2,
+    'POST',
+    {},
+    {
+      prompt,
+      input,
+    }
+  );
+};
+
+// FLAMINGO
+module.exports.webAsk = async function (context, url, prompt) {
+  return await request(
+    Api.FLAMINGO_WEB_ASK,
+    'POST',
+    {},
+    {
+      url,
+      prompt,
+    }
+  );
+};
+
+module.exports.summarizeWebpage = async function (context, url) {
+  return await request(
+    Api.FLAMINGO_SUMMARIZE_WEBPAGES,
+    'POST',
+    {},
+    {
+      url,
+    }
+  );
+};
+
+// ROBIN
+module.exports.imagen = async function (context, prompt) {
+  return await request(
+    Api.ROBIN_GENERATE_IMAGEN,
+    'POST',
+    {},
+    {
+      prompt,
+    }
+  );
+};
+
+module.exports.wallpaper = async function (context, prompt, model) {
+  return await request(
+    Api.ROBIN_GENERATE_WALLPAPER,
+    'POST',
+    {},
+    {
+      prompt,
+      model,
+    }
+  );
+};
+
+// PEACOCK
+module.exports.webshot_obelisk = async function (context, url, allowAdultContent = false) {
+  return await request(
+    Api.PEACOCK_WEBSHOT,
+    'POST',
+    {},
+    {
+      url,
+      allow_adult: allowAdultContent,
+    }
+  );
+};
+
+module.exports.transcribeWithSpeakerLabelsObelisk = async function (context, url) {
+  return await request(
+    Api.PEACOCK_TRANSCRIBE,
+    'POST',
+    {},
+    {
+      url,
     }
   );
 };

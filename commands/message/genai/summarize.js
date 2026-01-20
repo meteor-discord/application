@@ -1,5 +1,5 @@
 const { PERMISSION_GROUPS } = require('#constants');
-const { SparkWebSummarize } = require('#obelisk');
+const { SparkWebSummarize } = require('#api');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');

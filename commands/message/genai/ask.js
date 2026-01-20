@@ -1,5 +1,5 @@
 const { PERMISSION_GROUPS } = require('#constants');
-const { webAsk } = require('#obelisk');
+const { webAsk } = require('#api');
 
 const { createEmbed } = require('#utils/embed');
 const { acknowledge } = require('#utils/interactions');
