@@ -819,6 +819,18 @@ module.exports.WolframQueryCompute = async function (context, query) {
   );
 };
 
+// GENERATIVEAI (PARROT)
+module.exports.gemini = async function (context, prompt) {
+  return await request(
+    Api.PARROT_GOOGLE_GEMINI_PRO,
+    'POST',
+    {},
+    {
+      prompt,
+    }
+  );
+};
+
 // FLAMINGO
 module.exports.webAsk = async function (context, url, prompt) {
   return await request(

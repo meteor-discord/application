@@ -82,6 +82,7 @@ const Api = Object.freeze({
   AUDIO_TRANSCRIBE: '/audio/v1/transcribe',
   WEBUTILS_SCREENSHOT: '/webutils/v1/webpage:screenshot',
   WOLFRAM_QUERY_COMPUTE: '/wolfram/v1/query:compute',
+  PARROT_GOOGLE_GEMINI_PRO: '/parrot/v1/google:gemini',
   FLAMINGO_WEB_ASK: '/flamingo/v1/web:ask',
   FLAMINGO_SUMMARIZE_WEBPAGES: '/flamingo/v1/web:summarize',
   PEACOCK_WEBSHOT: '/peacock/v1/screenshot',
