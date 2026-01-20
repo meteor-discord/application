@@ -17,8 +17,6 @@ const Api = Object.freeze({
   OMNI_MANGA: '/omni/manga',
   OMNI_MOVIE: '/omni/movie',
 
-  SEARCH_BING: '/search/bing',
-  SEARCH_BING_IMAGES: '/search/bing-images',
   SEARCH_DUCKDUCKGO: '/search/duckduckgo',
   SEARCH_DUCKDUCKGO_IMAGES: '/search/duckduckgo-images',
   SEARCH_GOOGLE_MAPS: '/search/google-maps',

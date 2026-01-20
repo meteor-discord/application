@@ -209,30 +209,6 @@ module.exports.rule34 = async function (context, query, service) {
   );
 };
 
-module.exports.bing = async function (context, query, nsfw) {
-  return await request(
-    Api.SEARCH_BING,
-    'GET',
-    {},
-    {
-      q: query,
-      nsfw,
-    }
-  );
-};
-
-module.exports.bingImages = async function (context, query, nsfw) {
-  return await request(
-    Api.SEARCH_BING_IMAGES,
-    'GET',
-    {},
-    {
-      q: query,
-      nsfw,
-    }
-  );
-};
-
 module.exports.duckduckgo = async function (context, query, nsfw) {
   return await request(
     Api.SEARCH_DUCKDUCKGO,
