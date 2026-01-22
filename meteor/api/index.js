@@ -256,7 +256,7 @@ module.exports.weather = async function (context, location) {
 
 module.exports.darksky = async function (context, location) {
   return await request(
-    Api.UTILS_WEATHER,
+    Api.SEARCH_WEATHER,
     'GET',
     {},
     {

@@ -29,6 +29,7 @@ const Api = Object.freeze({
   SEARCH_REVERSE_IMAGE: '/search/reverse-image',
   SEARCH_RULE34: '/search/booru',
   SEARCH_URBANDICTIONARY: '/search/urbandictionary',
+  SEARCH_WEATHER: '/search/weather',
   SEARCH_WIKIHOW: '/search/wikihow',
   SEARCH_WOLFRAM_ALPHA: '/search/wolfram-alpha',
   SEARCH_WOLFRAM_SUPPLEMENTAL: '/search/wolfram-supplemental',
