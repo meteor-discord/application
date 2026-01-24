@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      detritus-client:
-        specifier: 0.17.0-beta.89
-        version: 0.17.0-beta.89
       discord.js:
         specifier: ^14.25.1
         version: 14.25.1
@@ -18,6 +15,12 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.12
         version: 2.3.12
+      '@types/node':
+        specifier: ^25.0.10
+        version: 25.0.10
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
 
 packages:
 
@@ -124,54 +127,6 @@ packages:
     resolution: {integrity: sha512-Xfe6rpCTxSxfbswi/W/Pz7zp1WWSNn4A0eW4mLkQUewCrXXtMj31lCg+iQyTkh/CkusZSq9eDflu7tjEDXUY6g==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
-  detritus-client-rest@0.11.0-beta.21:
-    resolution: {integrity: sha512-nk247iNIiXkNzlXY4dF87Yj43AndW1ljl9bM1qt7dOlKA1chbPH7SRtJQ+Lax/VaPIPqv7Ng8GKlmzHnklI7vQ==}
-
-  detritus-client-socket@0.9.0-beta.5:
-    resolution: {integrity: sha512-Ls8UTOgMVb2YyOu9ueFy5WlE1TAvICMuCREcxzdnKpYOHMwzrWz7V3CsUWAX8iJbE2RmdZxoJiJ0rX7WFUU1Aw==}
-    peerDependencies:
-      erlpack: ^0.1.4
-      libsodium-wrappers: '*'
-      sodium: '*'
-      tweetnacl: '*'
-      uws: 10.148.1
-    peerDependenciesMeta:
-      erlpack:
-        optional: true
-      libsodium-wrappers:
-        optional: true
-      sodium:
-        optional: true
-      tweetnacl:
-        optional: true
-      uws:
-        optional: true
-
-  detritus-client@0.17.0-beta.89:
-    resolution: {integrity: sha512-T1FNwZse59FY4gS1oOSqoCJFvSZYavNWyKz8YPvzU0dsMFHy22T+holJIuoAbFJET7PR8pwDccef5lHsNTY4Qg==}
-    peerDependencies:
-      '@discordjs/opus': ^0.9.0
-      node-opus: ^0.3.3
-      opusscript: ^0.1.1
-    peerDependenciesMeta:
-      '@discordjs/opus':
-        optional: true
-      node-opus:
-        optional: true
-      opusscript:
-        optional: true
-
-  detritus-rest@0.9.0-beta.13:
-    resolution: {integrity: sha512-OW2ZBTVc1S58zRjcGXku46NRHELVCwPaA9iLd+PNd32ugIG+Lg4BDFY565tmNbfHPjAX/BpDHQLVBwJUYld0NQ==}
-
-  detritus-utils@0.4.0:
-    resolution: {integrity: sha512-XO9crk1eCOecajzOg4WMsvcgXV/3GAltV0nt+kXXmglwcKyh/5DpQ7jmQ/2HycEN0dGBdgLCLPzYMxrWPN9gpw==}
-    peerDependencies:
-      eventemitter3: ^4.0.7
-    peerDependenciesMeta:
-      eventemitter3:
-        optional: true
-
   discord-api-types@0.38.37:
     resolution: {integrity: sha512-Cv47jzY1jkGkh5sv0bfHYqGgKOWO1peOrGMkDFM4UmaGMOTgOW8QSexhvixa9sVOiz8MnVOBryWYyw/CEVhj7w==}
 
@@ -197,15 +152,16 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
   undici@6.21.3:
     resolution: {integrity: sha512-gBLkYIlEnSp8pFbT64yFgGE6UIB9tAkhukC23PmMDCe5Nd+cRqKxSjw5y54MK2AZMgZfJWMaNE4nYUHgi1XEOw==}
-    engines: {node: '>=18.17'}
-
-  undici@6.23.0:
-    resolution: {integrity: sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==}
     engines: {node: '>=18.17'}
 
   ws@8.19.0:
@@ -325,46 +281,6 @@ snapshots:
 
   '@vladfrangu/async_event_emitter@2.4.7': {}
 
-  detritus-client-rest@0.11.0-beta.21:
-    dependencies:
-      detritus-rest: 0.9.0-beta.13
-      detritus-utils: 0.4.0
-    transitivePeerDependencies:
-      - eventemitter3
-
-  detritus-client-socket@0.9.0-beta.5:
-    dependencies:
-      detritus-utils: 0.4.0
-      ws: 8.19.0
-    transitivePeerDependencies:
-      - bufferutil
-      - eventemitter3
-      - utf-8-validate
-
-  detritus-client@0.17.0-beta.89:
-    dependencies:
-      detritus-client-rest: 0.11.0-beta.21
-      detritus-client-socket: 0.9.0-beta.5
-      detritus-utils: 0.4.0
-    transitivePeerDependencies:
-      - bufferutil
-      - erlpack
-      - eventemitter3
-      - libsodium-wrappers
-      - sodium
-      - tweetnacl
-      - utf-8-validate
-      - uws
-
-  detritus-rest@0.9.0-beta.13:
-    dependencies:
-      detritus-utils: 0.4.0
-      undici: 6.23.0
-    transitivePeerDependencies:
-      - eventemitter3
-
-  detritus-utils@0.4.0: {}
-
   discord-api-types@0.38.37: {}
 
   discord.js@14.25.1:
@@ -398,10 +314,10 @@ snapshots:
 
   tslib@2.8.1: {}
 
+  typescript@5.9.3: {}
+
   undici-types@7.16.0: {}
 
   undici@6.21.3: {}
-
-  undici@6.23.0: {}
 
   ws@8.19.0: {}
