@@ -19,8 +19,8 @@ Join the [Discord](https://discord.gg/6C9pcD4EUq) server for more information or
 ### Built with
 
 - [Node.js](https://nodejs.org) + [pnpm](https://pnpm.io)
-- [Detritus](https://detritusjs.com) (Discord API client)
-- [ESLint](https://eslint.org) + [Prettier](https://prettier.io)
+- [discord.js](https://discord.js.org) (Discord API client)
+- [Biome](https://biomejs.dev) (Linter & Formatter)
 
 ## Contributing
 
