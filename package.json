@@ -1,50 +1,34 @@
 {
-  "name": "application",
-  "version": "1.0.0",
-  "description": "Meteor Discord app frontend.",
-  "main": "index.js",
-  "scripts": {
-    "start": "node --env-file=.env .",
-    "format": "prettier --write .",
-    "lint": "eslint . --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/meteor-discord/application.git"
-  },
-  "author": "Meteor Labs",
-  "license": "CC BY-NC-SA 4.0",
-  "packageManager": "pnpm@10.23.0",
-  "engines": {
-    "node": ">=22",
-    "pnpm": ">=10"
-  },
-  "dependencies": {
-    "detritus-client": "0.17.0-beta.89",
-    "detritus-client-rest": "0.11.0-beta.21",
-    "emoji-aware": "^3.1.0",
-    "eventemitter3": "^5.0.1",
-    "prettier": "^3.8.0",
-    "superagent": "^10.3.0",
-    "utils": "gitlab:bignutty/utils"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "eslint": "^9.39.2",
-    "eslint-plugin-regexp": "^2.10.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unused-imports": "^4.3.0",
-    "globals": "^17.0.0"
-  },
-  "imports": {
-    "#api": "./meteor/api/index.js",
-    "#cardstack/*": "./meteor/cardstack/*.js",
-    "#client": "./meteor/client.js",
-    "#constants": "./meteor/constants.js",
-    "#logging": "./meteor/logging.js",
-    "#obelisk": "./meteor/api/obelisk/index.js",
-    "#parameters": "./meteor/parameters/index.js",
-    "#permissions": "./meteor/permissions.js",
-    "#utils/*": "./meteor/utils/*.js"
-  }
+	"name": "application",
+	"version": "1.0.0",
+	"description": "Meteor Discord application.",
+	"type": "module",
+	"main": "dist/index.js",
+	"scripts": {
+		"start": "node --env-file=.env .",
+		"build": "tsc",
+		"format": "biome format --write .",
+		"lint": "biome lint --write .",
+		"check": "biome check --write .",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/meteor-discord/application.git"
+	},
+	"author": "Meteor Labs",
+	"license": "CC BY-NC-SA 4.0",
+	"packageManager": "pnpm@10.23.0",
+	"engines": {
+		"node": ">=22",
+		"pnpm": ">=10"
+	},
+	"dependencies": {
+		"discord.js": "^14.25.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.12",
+		"@types/node": "^25.0.10",
+		"typescript": "^5.9.3"
+	}
 }
